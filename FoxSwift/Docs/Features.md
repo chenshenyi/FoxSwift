@@ -251,4 +251,5 @@
 - UserDefault: 4hr
 - FileManager: 4hr
 - Task: 4hr
-
+- Firestore Reatime: 4hr
+- Firebase Authentication: 4hr
