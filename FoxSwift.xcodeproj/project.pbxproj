@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
+		2B228F852B04C3F400539E8A /* MeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F842B04C3F400539E8A /* MeetingViewModel.swift */; };
+		2B228F882B04C59100539E8A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F872B04C59100539E8A /* Box.swift */; };
+		2B228F8B2B04C90C00539E8A /* MeetingParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F8A2B04C90C00539E8A /* MeetingParticipant.swift */; };
+		2B228F8D2B04D8F000539E8A /* MeetingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F8C2B04D8F000539E8A /* MeetingMessage.swift */; };
+		2B228F8F2B04D90C00539E8A /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F8E2B04D90C00539E8A /* Meeting.swift */; };
+		2B228F912B04DABF00539E8A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F902B04DABF00539E8A /* User.swift */; };
+		2B228F932B04DD2700539E8A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B228F922B04DD2700539E8A /* GoogleService-Info.plist */; };
+		2B228FB52B04EB4F00539E8A /* WebRTCServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FAA2B04EB4F00539E8A /* WebRTCServerConfig.swift */; };
+		2B228FB62B04EB4F00539E8A /* RTCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FAB2B04EB4F00539E8A /* RTCMessage.swift */; };
+		2B228FB72B04EB4F00539E8A /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FAD2B04EB4F00539E8A /* WebSocketProvider.swift */; };
+		2B228FB82B04EB4F00539E8A /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FAE2B04EB4F00539E8A /* NativeWebSocket.swift */; };
+		2B228FB92B04EB4F00539E8A /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FB02B04EB4F00539E8A /* RTCStates.swift */; };
+		2B228FBA2B04EB4F00539E8A /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FB12B04EB4F00539E8A /* SessionDescription.swift */; };
+		2B228FBB2B04EB4F00539E8A /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FB22B04EB4F00539E8A /* IceCandidate.swift */; };
+		2B228FBC2B04EB4F00539E8A /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FB32B04EB4F00539E8A /* WebRTCClient.swift */; };
+		2B228FBD2B04EB4F00539E8A /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FB42B04EB4F00539E8A /* SignalingClient.swift */; };
+		2B228FBF2B04EE3700539E8A /* WebRTCClient+PeerConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228FBE2B04EE3700539E8A /* WebRTCClient+PeerConnectionDelegate.swift */; };
 		2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */; };
 		2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFAA2B03753F0000C5A3 /* Localizable.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
@@ -53,6 +70,23 @@
 
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B228F842B04C3F400539E8A /* MeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewModel.swift; sourceTree = "<group>"; };
+		2B228F872B04C59100539E8A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		2B228F8A2B04C90C00539E8A /* MeetingParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingParticipant.swift; sourceTree = "<group>"; };
+		2B228F8C2B04D8F000539E8A /* MeetingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMessage.swift; sourceTree = "<group>"; };
+		2B228F8E2B04D90C00539E8A /* Meeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		2B228F902B04DABF00539E8A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2B228F922B04DD2700539E8A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2B228FAA2B04EB4F00539E8A /* WebRTCServerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCServerConfig.swift; sourceTree = "<group>"; };
+		2B228FAB2B04EB4F00539E8A /* RTCMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCMessage.swift; sourceTree = "<group>"; };
+		2B228FAD2B04EB4F00539E8A /* WebSocketProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
+		2B228FAE2B04EB4F00539E8A /* NativeWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
+		2B228FB02B04EB4F00539E8A /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
+		2B228FB12B04EB4F00539E8A /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
+		2B228FB22B04EB4F00539E8A /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
+		2B228FB32B04EB4F00539E8A /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
+		2B228FB42B04EB4F00539E8A /* SignalingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
+		2B228FBE2B04EE3700539E8A /* WebRTCClient+PeerConnectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebRTCClient+PeerConnectionDelegate.swift"; sourceTree = "<group>"; };
 		2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		2B24FFAA2B03753F0000C5A3 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
@@ -117,10 +151,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B228F892B04C5BD00539E8A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2B228F872B04C59100539E8A /* Box.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2B228FA92B04EB4F00539E8A /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				2B228FAF2B04EB4F00539E8A /* Extensions */,
+				2B228FAA2B04EB4F00539E8A /* WebRTCServerConfig.swift */,
+				2B228FAB2B04EB4F00539E8A /* RTCMessage.swift */,
+				2B228FAC2B04EB4F00539E8A /* WebSocketProvider */,
+				2B228FB32B04EB4F00539E8A /* WebRTCClient.swift */,
+				2B228FBE2B04EE3700539E8A /* WebRTCClient+PeerConnectionDelegate.swift */,
+				2B228FB42B04EB4F00539E8A /* SignalingClient.swift */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
+		2B228FAC2B04EB4F00539E8A /* WebSocketProvider */ = {
+			isa = PBXGroup;
+			children = (
+				2B228FAD2B04EB4F00539E8A /* WebSocketProvider.swift */,
+				2B228FAE2B04EB4F00539E8A /* NativeWebSocket.swift */,
+			);
+			path = WebSocketProvider;
+			sourceTree = "<group>";
+		};
+		2B228FAF2B04EB4F00539E8A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2B228FB02B04EB4F00539E8A /* RTCStates.swift */,
+				2B228FB12B04EB4F00539E8A /* SessionDescription.swift */,
+				2B228FB22B04EB4F00539E8A /* IceCandidate.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2B24FFA02B03734B0000C5A3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
+				2B228F8A2B04C90C00539E8A /* MeetingParticipant.swift */,
+				2B228F8C2B04D8F000539E8A /* MeetingMessage.swift */,
+				2B228F8E2B04D90C00539E8A /* Meeting.swift */,
+				2B228F902B04DABF00539E8A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,6 +207,7 @@
 		2B24FFA12B03738E0000C5A3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2B228FA92B04EB4F00539E8A /* WebRTC */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -144,6 +224,7 @@
 		2B24FFA32B0373AF0000C5A3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2B228F842B04C3F400539E8A /* MeetingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -200,6 +281,7 @@
 				2BCB8DF32B012EF000DD4C2F /* Docs */,
 				2BCB8DDC2B012A0900DD4C2F /* Extensions */,
 				2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */,
+				2B228F892B04C5BD00539E8A /* Utilities */,
 				2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */,
 				2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */,
 				2B24FFA12B03738E0000C5A3 /* Network */,
@@ -208,6 +290,7 @@
 				2B24FFA22B03739A0000C5A3 /* View */,
 				2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */,
 				2BCB8DB62B011F1500DD4C2F /* LaunchScreen.storyboard */,
+				2B228F922B04DD2700539E8A /* GoogleService-Info.plist */,
 				2BCB8DB92B011F1500DD4C2F /* Info.plist */,
 				2BCB8DAF2B011F1400DD4C2F /* ViewController.swift */,
 			);
@@ -389,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BCB8DB82B011F1500DD4C2F /* LaunchScreen.storyboard in Resources */,
+				2B228F932B04DD2700539E8A /* GoogleService-Info.plist in Resources */,
 				2BCB8DF52B012F0400DD4C2F /* Features.md in Resources */,
 				2BCB8DB52B011F1500DD4C2F /* Assets.xcassets in Resources */,
 			);
@@ -536,22 +620,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B228F8B2B04C90C00539E8A /* MeetingParticipant.swift in Sources */,
+				2B228F8D2B04D8F000539E8A /* MeetingMessage.swift in Sources */,
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2BCB8DB02B011F1400DD4C2F /* ViewController.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
+				2B228F8F2B04D90C00539E8A /* Meeting.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
+				2B228F912B04DABF00539E8A /* User.swift in Sources */,
+				2B228FBC2B04EB4F00539E8A /* WebRTCClient.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
+				2B228F882B04C59100539E8A /* Box.swift in Sources */,
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
+				2B228FBA2B04EB4F00539E8A /* SessionDescription.swift in Sources */,
+				2B228FB92B04EB4F00539E8A /* RTCStates.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
+				2B228FBD2B04EB4F00539E8A /* SignalingClient.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
+				2B228FB82B04EB4F00539E8A /* NativeWebSocket.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
 				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
+				2B228FB72B04EB4F00539E8A /* WebSocketProvider.swift in Sources */,
+				2B228FB52B04EB4F00539E8A /* WebRTCServerConfig.swift in Sources */,
+				2B228FB62B04EB4F00539E8A /* RTCMessage.swift in Sources */,
+				2B228FBB2B04EB4F00539E8A /* IceCandidate.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
+				2B228F852B04C3F400539E8A /* MeetingViewModel.swift in Sources */,
+				2B228FBF2B04EE3700539E8A /* WebRTCClient+PeerConnectionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
