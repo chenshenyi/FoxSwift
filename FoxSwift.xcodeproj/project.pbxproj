@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
+		2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */; };
+		2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFAA2B03753F0000C5A3 /* Localizable.swift */; };
+		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */; };
 		2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */; };
 		2BCB8DB02B011F1400DD4C2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAF2B011F1400DD4C2F /* ViewController.swift */; };
@@ -51,6 +54,9 @@
 
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
+		2B24FFAA2B03753F0000C5A3 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2BCB8DA82B011F1400DD4C2F /* FoxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +119,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B24FFA02B03734B0000C5A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2B24FFA12B03738E0000C5A3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2B24FFA22B03739A0000C5A3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2B24FFA62B0374140000C5A3 /* Base */,
+				2B24FFA52B0374000000C5A3 /* ViewController */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2B24FFA32B0373AF0000C5A3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2B24FFA52B0374000000C5A3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2B24FFA62B0374140000C5A3 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */,
+				2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ThirdPartyWrapper;
+			sourceTree = "<group>";
+		};
 		2BCB8D9F2B011F1400DD4C2F = {
 			isa = PBXGroup;
 			children = (
@@ -138,10 +198,15 @@
 		2BCB8DAA2B011F1400DD4C2F /* FoxSwift */ = {
 			isa = PBXGroup;
 			children = (
-				2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */,
-				2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */,
 				2BCB8DF32B012EF000DD4C2F /* Docs */,
 				2BCB8DDC2B012A0900DD4C2F /* Extensions */,
+				2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */,
+				2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */,
+				2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */,
+				2B24FFA12B03738E0000C5A3 /* Network */,
+				2B24FFA02B03734B0000C5A3 /* Model */,
+				2B24FFA32B0373AF0000C5A3 /* ViewModel */,
+				2B24FFA22B03739A0000C5A3 /* View */,
 				2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */,
 				2BCB8DB62B011F1500DD4C2F /* LaunchScreen.storyboard */,
 				2BCB8DB92B011F1500DD4C2F /* Info.plist */,
@@ -213,7 +278,6 @@
 				7794B6A933E85AC6011BA770 /* Pods-FoxSwiftTests.debug.xcconfig */,
 				282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -390,7 +454,7 @@
 		};
 		95E614995322D21B818F829E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -407,7 +471,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n\n";
 			showEnvVarsInLog = 0;
 		};
 		B97EA1450202DCC242B03F92 /* [CP] Embed Pods Frameworks */ = {
@@ -456,9 +520,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2BCB8DB02B011F1400DD4C2F /* ViewController.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
+				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
@@ -469,6 +535,7 @@
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
+				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -645,6 +712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CCZFJ54UN4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoxSwift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -674,6 +742,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CCZFJ54UN4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoxSwift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
