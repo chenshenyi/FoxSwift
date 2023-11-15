@@ -11,6 +11,7 @@
 		2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */; };
 		2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFAA2B03753F0000C5A3 /* Localizable.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
+		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
 		2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */; };
 		2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */; };
 		2BCB8DB02B011F1400DD4C2F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAF2B011F1400DD4C2F /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 		2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
 		2B24FFAA2B03753F0000C5A3 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
+		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
 		2BCB8DA82B011F1400DD4C2F /* FoxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */,
 				2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */,
+				2B8F9D202B048C10002D9076 /* FSViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
+				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2BCB8DB02B011F1400DD4C2F /* ViewController.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
