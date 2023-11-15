@@ -13,6 +13,8 @@ target 'FoxSwift' do
   pod 'Alamofire'
   pod "FirebaseFirestore"
   pod "FirebaseFirestoreSwift"
+  
+  pod "SwiftLint"
 
   target 'FoxSwiftTests' do
     inherit! :search_paths

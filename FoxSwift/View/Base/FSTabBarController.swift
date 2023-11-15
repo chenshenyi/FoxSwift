@@ -8,22 +8,21 @@
 import UIKit
 
 class FSTabBarController: UITabBarController {
-    
     let tabs: [Tab] = [.meets, .records, .history, .profile]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewControllers = tabs.map { tab in
-            let vc = tab.viewController
-            vc.tabBarItem.image = tab.image
-            vc.tabBarItem.title = tab.localizedDescription
-            vc.navigationItem.title = tab.localizedDescription
-            
-            let nav = FSNavigationController(rootViewController: vc)
+            let viewController = tab.viewController
+            viewController.tabBarItem.image = tab.image
+            viewController.tabBarItem.title = tab.localizedDescription
+            viewController.navigationItem.title = tab.localizedDescription
+
+            let nav = FSNavigationController(rootViewController: viewController)
             return nav
         }
-        
+
         tabBar.backgroundColor = .fsPrimary
         tabBar.unselectedItemTintColor = .G_3
     }
@@ -31,9 +30,7 @@ class FSTabBarController: UITabBarController {
 
 
 extension FSTabBarController {
-
     enum Tab: Localizable {
-        
         case meets
         case records
         case history
@@ -48,15 +45,15 @@ extension FSTabBarController {
             }
         }
 
-        var image: UIImage {
+        var image: UIImage? {
             switch self {
-            case .meets: return .init(systemName: "person.2.wave.2")!
-            case .records: return .init(systemName: "filemenu.and.selection")!
-            case .history: return .init(systemName: "clock.arrow.circlepath")!
-            case .profile: return .init(systemName: "person.circle")!
+            case .meets: return .init(systemName: "person.2.wave.2")
+            case .records: return .init(systemName: "filemenu.and.selection")
+            case .history: return .init(systemName: "clock.arrow.circlepath")
+            case .profile: return .init(systemName: "person.circle")
             }
         }
-        
+
         var viewController: FSViewController {
             switch self {
             default: return FSViewController()

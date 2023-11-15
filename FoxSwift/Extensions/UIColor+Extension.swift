@@ -13,7 +13,6 @@ extension UIColor {
 }
 
 extension UIColor {
-
     static func hexStringToUIColor(hex: String) -> UIColor {
         var cString: String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
@@ -22,7 +21,6 @@ extension UIColor {
         }
 
         if (cString.count) == 3 {
-
             var rgbValue: UInt64 = 0
             Scanner(string: cString).scanHexInt64(&rgbValue)
 
@@ -51,13 +49,13 @@ extension UIColor {
             Scanner(string: cString).scanHexInt64(&rgbValue)
 
             return UIColor(
-                red: CGFloat((rgbValue & 0xFF000000) >> 24) / 255.0,
-                green: CGFloat((rgbValue & 0x00FF0000) >> 16) / 255.0,
-                blue: CGFloat((rgbValue & 0x0000FF00) >> 8) / 255.0,
-                alpha: CGFloat(rgbValue & 0x000000FF) / 255.0
+                red: CGFloat((rgbValue & 0xFF00_0000) >> 24) / 255.0,
+                green: CGFloat((rgbValue & 0x00FF_0000) >> 16) / 255.0,
+                blue: CGFloat((rgbValue & 0x0000_FF00) >> 8) / 255.0,
+                alpha: CGFloat(rgbValue & 0x0000_00FF) / 255.0
             )
         }
-        
+
         return .black
     }
 }

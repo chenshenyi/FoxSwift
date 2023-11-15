@@ -16,12 +16,12 @@ extension UITableView {
     func registReuseCell<T: UITableViewCell>(for cellType: T.Type) {
         register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
     }
-    
-    func getReuseCell<T: UITableViewCell>(for cellType: T.Type, indexPath: IndexPath) -> T {
-        self.dequeueReusableCell(
+
+    func getReuseCell<T: UITableViewCell>(for cellType: T.Type, indexPath: IndexPath) -> T? {
+        dequeueReusableCell(
             withIdentifier: T.reuseIdentifier,
             for: indexPath
-        ) as! T
+        ) as? T
     }
 }
 
@@ -29,8 +29,8 @@ extension UITableView {
     func registReuseHeaderFooterView<T: UITableViewHeaderFooterView>(for viewType: T.Type) {
         register(T.self, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
     }
-    
-    func getReuseHeaderFooterView<T: UITableViewHeaderFooterView>(for viewType: T.Type) -> T {
-        self.dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as! T
+
+    func getReuseHeaderFooterView<T: UITableViewHeaderFooterView>(for viewType: T.Type) -> T? {
+        dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as? T
     }
 }

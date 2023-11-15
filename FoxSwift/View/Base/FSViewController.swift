@@ -7,10 +7,4 @@
 
 import UIKit
 
-class FSViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-}
+class FSViewController: UIViewController {}

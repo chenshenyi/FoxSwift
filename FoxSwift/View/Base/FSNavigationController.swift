@@ -8,12 +8,11 @@
 import UIKit
 
 class FSNavigationController: UINavigationController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationBar.backgroundColor = .fsPrimary
-        
+
         navigationBar.titleTextAttributes = [.foregroundColor: UIColor.fsText]
     }
 }
