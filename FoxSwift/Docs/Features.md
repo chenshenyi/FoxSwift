@@ -99,6 +99,8 @@
     - Delete the record
 
 - History
+    - Create account
+    - Delete account
     - List the history
     - Cell View
     - Clear history
@@ -235,6 +237,8 @@
     - Save record
     
 - Profile: 2hr
+    - Create account UI: 2hr
+    - Delete account: 1hr
     - Save
     - Edit Name
     - Edit Picture
@@ -253,3 +257,5 @@
 - Task: 4hr
 - Firestore Reatime: 4hr
 - Firebase Authentication: 4hr
+
+
