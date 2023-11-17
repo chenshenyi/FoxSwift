@@ -86,6 +86,7 @@ identifier_name:
     - z
     - vc
     - nav
+    - db
 
 indentation_width:
   indentation_width: 4

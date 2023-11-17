@@ -13,6 +13,7 @@ target 'FoxSwift' do
   pod 'Alamofire'
   pod "FirebaseFirestore"
   pod "FirebaseFirestoreSwift"
+  pod "SnapKit"
   
   pod "SwiftLint"
 
