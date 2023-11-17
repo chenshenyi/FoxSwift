@@ -24,6 +24,7 @@ enum FSCollection: String {
 
 protocol FSField: RawRepresentable where RawValue == String {}
 
+
 class FSCollectionManager {
     static let meetingRoom = FSCollectionManager(collection: .meetingRoom)
     static let participantDetail = FSCollectionManager(collection: .participantDetail)
@@ -133,6 +134,28 @@ class FSCollectionManager {
         }
     }
 
+    func createDocument(
+        data: Codable,
+        documentID: String,
+        completion: CompletionHandler<String>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+        do {
+            try reference.document(documentID).setData(from: data) { error in
+                if let error {
+                    completion?(.failure(error))
+                    return
+                }
+                completion?(.success(documentID))
+            }
+        } catch {
+            completion?(.failure(error))
+        }
+    }
+
     func deleteDocument(documentID: String, completion: CompletionHandler<String>? = nil) {
         reference.document(documentID).delete { error in
             if let error {
@@ -186,59 +209,6 @@ class FSCollectionManager {
         }
     }
 
-    func removeDatas<T: Codable>(
-        datas: [T],
-        documentID: String,
-        field: any FSField,
-        completion: CompletionHandler<[T]>? = nil
-    ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
-        let serialDatas: [[String: Any]] = datas.compactMap { data in
-            guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
-            return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-        }
-
-        reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayRemove(serialDatas)]
-        ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(datas))
-        }
-    }
-
-    func unionDatas<T: Codable>(
-        datas: [T],
-        documentID: String,
-        field: any FSField,
-        completion: CompletionHandler<[T]>? = nil
-    ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
-        let serialDatas: [[String: Any]] = datas.compactMap { data in
-            guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
-            return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-        }
-
-        reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayUnion(serialDatas)]
-        ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(datas))
-        }
-    }
 
     #if DEBUG
         func clearCollection() {
@@ -255,4 +225,126 @@ class FSCollectionManager {
             }
         }
     #endif
+}
+
+extension FSCollectionManager {
+    func updateData<T: Codable>(
+        data: T,
+        documentID: String,
+        field: any FSField,
+        completion: CompletionHandler<T>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+
+        reference.document(documentID).updateData(
+            [field.rawValue: data]
+        ) { error in
+            if let error {
+                completion?(.failure(error))
+                return
+            }
+            completion?(.success(data))
+        }
+    }
+
+    func removeObjects<T: Codable>(
+        objects: [T],
+        documentID: String,
+        field: any FSField,
+        completion: CompletionHandler<[T]>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+
+        let serialDatas: [[String: Any]] = objects.compactMap { data in
+            guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
+            return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
+        }
+
+        reference.document(documentID).updateData(
+            [field.rawValue: FieldValue.arrayRemove(serialDatas)]
+        ) { error in
+            if let error {
+                completion?(.failure(error))
+                return
+            }
+            completion?(.success(objects))
+        }
+    }
+
+    func unionObjects<T: Codable>(
+        objects: [T],
+        documentID: String,
+        field: any FSField,
+        completion: CompletionHandler<[T]>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+
+        let serialDatas: [[String: Any]] = objects.compactMap { data in
+            guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
+            return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
+        }
+
+        reference.document(documentID).updateData(
+            [field.rawValue: FieldValue.arrayUnion(serialDatas)]
+        ) { error in
+            if let error {
+                completion?(.failure(error))
+                return
+            }
+            completion?(.success(objects))
+        }
+    }
+
+    func removeSerialObjects<T: Codable>(
+        serialObjects: [T],
+        documentID: String,
+        field: any FSField,
+        completion: CompletionHandler<[T]>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+
+        reference.document(documentID).updateData(
+            [field.rawValue: FieldValue.arrayRemove(serialObjects)]
+        ) { error in
+            if let error {
+                completion?(.failure(error))
+                return
+            }
+            completion?(.success(serialObjects))
+        }
+    }
+
+    func unionSerialObjects<T: Codable>(
+        serialObjects: [T],
+        documentID: String,
+        field: any FSField,
+        completion: CompletionHandler<[T]>? = nil
+    ) {
+        #if DEBUG
+            guard WRITELIMIT > 0 else { return }
+            WRITELIMIT -= 1
+        #endif
+
+        reference.document(documentID).updateData(
+            [field.rawValue: FieldValue.arrayUnion(serialObjects)]
+        ) { error in
+            if let error {
+                completion?(.failure(error))
+                return
+            }
+            completion?(.success(serialObjects))
+        }
+    }
 }

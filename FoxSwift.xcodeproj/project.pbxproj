@@ -20,6 +20,11 @@
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
 		2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */; };
+		2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1632B073CAE00637596 /* SessionDescription.swift */; };
+		2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1642B073CAE00637596 /* IceCandidate.swift */; };
+		2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1672B074D6700637596 /* WebRTCClient.swift */; };
+		2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1692B074EF300637596 /* RTCConfig.swift */; };
+		2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16B2B07519200637596 /* MeetingViewController.swift */; };
 		2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */; };
 		2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */; };
 		2BCB8DB52B011F1500DD4C2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */; };
@@ -72,6 +77,11 @@
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
 		2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantDetailProvider.swift; sourceTree = "<group>"; };
+		2BA4D1632B073CAE00637596 /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
+		2BA4D1642B073CAE00637596 /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
+		2BA4D1672B074D6700637596 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
+		2BA4D1692B074EF300637596 /* RTCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCConfig.swift; sourceTree = "<group>"; };
+		2BA4D16B2B07519200637596 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
 		2BCB8DA82B011F1400DD4C2F /* FoxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +152,7 @@
 		2B24FFA02B03734B0000C5A3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2BA4D1622B073C9300637596 /* WebRTC */,
 				2B228F8A2B04C90C00539E8A /* Participant.swift */,
 				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
 			);
@@ -153,6 +164,8 @@
 			children = (
 				2B25DEAC2B04F19000D3E87A /* MeetingRoomProvider.swift */,
 				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
+				2BA4D1672B074D6700637596 /* WebRTCClient.swift */,
+				2BA4D1692B074EF300637596 /* RTCConfig.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -177,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				2B5AC1682B0613AF007B717C /* MeetsViewController.swift */,
+				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -197,6 +211,15 @@
 				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
 			);
 			path = ThirdPartyWrapper;
+			sourceTree = "<group>";
+		};
+		2BA4D1622B073C9300637596 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				2BA4D1642B073CAE00637596 /* IceCandidate.swift */,
+				2BA4D1632B073CAE00637596 /* SessionDescription.swift */,
+			);
+			path = WebRTC;
 			sourceTree = "<group>";
 		};
 		2BCB8D9F2B011F1400DD4C2F = {
@@ -566,7 +589,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
+				2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */,
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */,
@@ -577,11 +602,14 @@
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
+				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */,
+				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
 				2B228F882B04C59100539E8A /* Box.swift in Sources */,
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
+				2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,

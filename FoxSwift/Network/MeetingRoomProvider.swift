@@ -61,8 +61,8 @@ class MeetingRoomProvider {
     func connect() {
         guard let meetingCode else { return }
 
-        collectionManager.unionDatas(
-            datas: [currentUser],
+        collectionManager.unionObjects(
+            objects: [currentUser],
             documentID: meetingCode,
             field: MeetingRoom.Field.participants
         )
@@ -77,8 +77,8 @@ class MeetingRoomProvider {
     func disconnect() {
         guard let meetingCode else { return }
 
-        collectionManager.removeDatas(
-            datas: [currentUser],
+        collectionManager.removeObjects(
+            objects: [currentUser],
             documentID: meetingCode,
             field: MeetingRoom.Field.participants
         )
