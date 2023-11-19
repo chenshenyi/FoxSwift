@@ -5,150 +5,183 @@
 //  Created by chen shen yi on 2023/11/16.
 //
 
-import MapKit
 import SnapKit
 import UIKit
-import WebRTC
 
-class MeetsViewController: FSViewController {
-    var meetingProvider: MeetingRoomProvider = .init()
-    var participantDetailProvider: ParticipantDetailProvider = .init()
-
-    var webRTCClient: WebRTCClient?
-
-    let label = UITextView()
+final class MeetsViewController: FSViewController {
+    // MARK: - Subviews
     let textField = UITextField()
+    let tableView = UITableView()
+    let joinMeetingButton = UIButton()
+    let newMeetingButton = UIButton()
 
-    var buttons: [UIButton] = []
-    func setupButtons() {
-        buttons = ["create", "join", "left", "clear", "read"].enumerated().map { index, title in
-            let button = UIButton()
-            button.setTitle(title, for: .normal)
-            button.backgroundColor = .fsPrimary
-            view.addSubview(button)
-            button.snp.makeConstraints { make in
-                make.top.equalTo((index / 4) * 100 + 200)
-                make.leading.equalTo(index % 4 * 100)
-                make.width.height.equalTo(90)
-            }
-            return button
-        }
 
-        buttons[0].addAction { [unowned self] _ in
-            meetingProvider.disconnect()
-            meetingProvider.delegate = self
-            meetingProvider.create()
-        }
+    // MARK: - ViewModel
+    let viewModel = MeetsViewModel()
 
-        buttons[1].addAction { [weak self] _ in
-            guard let self else { return }
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTextField()
+        setupTableView()
+        setupNewMeetingButton()
+        setupJoinMeetingButton()
+        bindingViewModel()
+        #if DEBUG
+            setupDeubgTool()
+        #endif
+    }
 
-            let iceServers = RTCConfig.default.webRTCIceServers
-            webRTCClient = WebRTCClient(iceServers: iceServers)
-            webRTCClient?.delegate = self
-            webRTCClient?.offer { [weak self] sdp in
+    // MARK: - Debug Tool
+    #if DEBUG
+        override func setupDeubgTool() {
+            super.setupDeubgTool()
+
+            setDebugCommand { [weak self] command in
                 guard let self else { return }
-
-                participantDetailProvider.send(sdp: SessionDescription(from: sdp))
+                switch command {
+                case "M": viewModel.clearCollection(collection: .meetingRoom)
+                case "P": viewModel.clearCollection(collection: .participantDetail)
+                case "R": viewModel.readParticipantDetail()
+                case "Q": viewModel.leaveMeet()
+                default:
+                    break
+                }
             }
-
-            if let text = textField.text, !text.isEmpty {
-                meetingProvider.disconnect()
-                meetingProvider.meetingCode = textField.text
-                meetingProvider.delegate = self
-                meetingProvider.connect()
-                return
-            }
-
-            meetingProvider.delegate = self
-            meetingProvider.connect()
         }
+    #endif
 
-        buttons[2].addAction { [unowned self] _ in
-            meetingProvider.disconnect()
-        }
-
-        buttons[3].addAction { _ in
-            FSCollectionManager.meetingRoom.clearCollection()
-        }
-
-        buttons[4].addAction { [weak self] _ in
+    // MARK: - Setup Subviews
+    func bindingViewModel() {
+        viewModel.meetingCode.bind { [weak self] meetingCode in
             guard let self else { return }
 
-            participantDetailProvider.read(participantId: Participant.currentUser.id)
+            textField.text = meetingCode
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        setupButtons()
-        setupLabelandTextFields()
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .fsSecondary.withAlphaComponent(0.5)
 
-        participantDetailProvider.delegate = self
+        tableView.registReuseCell(for: MeetingCell.self)
+
+        view.addSubview(tableView)
+
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(138)
+        }
     }
 
-    func setupLabelandTextFields() {
-        label.isEditable = false
-        label.textColor = .fsText
-        label.backgroundColor = .fsPrimary
-
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.bottom.equalTo(view.snp_bottomMargin).offset(-40)
-            make.height.equalTo(30)
-            make.width.equalTo(200)
-            make.centerX.equalToSuperview()
-        }
-
+    func setupTextField() {
         textField.backgroundColor = .fsPrimary
         textField.textColor = .fsText
+        textField.placeholder = "MeetingCode"
+        textField.setToolBar()
+
         view.addSubview(textField)
         textField.snp.makeConstraints { make in
-            make.top.equalTo(view.snp_topMargin).offset(40)
+            make.top.equalTo(view.snp_topMargin).offset(20)
             make.height.equalTo(30)
-            make.width.equalTo(200)
-            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
+        }
+    }
+
+    func setupNewMeetingButton() {
+        newMeetingButton.setTitle("New Meeting", for: .normal)
+        newMeetingButton.setTitleColor(.accent, for: .normal)
+        newMeetingButton.titleLabel?.font = .config(weight: .regular, size: 14)
+
+        newMeetingButton.backgroundColor = .clear
+
+        newMeetingButton.layer.borderColor = UIColor.accent.cgColor
+        newMeetingButton.layer.borderWidth = 1
+        newMeetingButton.layer.cornerRadius = 4
+
+        newMeetingButton.addAction { [weak self] in
+            guard let self else { return }
+
+            viewModel.createNewCode()
+        }
+
+        view.addSubview(newMeetingButton)
+        newMeetingButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(76)
+        }
+    }
+
+    func setupJoinMeetingButton() {
+        joinMeetingButton.setTitle("Join Meeting", for: .normal)
+        joinMeetingButton.setTitleColor(.fsSecondary, for: .normal)
+        joinMeetingButton.titleLabel?.font = .config(weight: .regular, size: 14)
+
+        joinMeetingButton.backgroundColor = .clear
+
+        joinMeetingButton.layer.borderColor = UIColor.fsSecondary.cgColor
+        joinMeetingButton.layer.borderWidth = 1
+        joinMeetingButton.layer.cornerRadius = 4
+
+        joinMeetingButton.addAction { [weak self] in
+            guard let self else { return }
+
+            if let text = textField.text, !text.isEmpty {
+                viewModel.meetingCode.value = text
+            }
+
+            viewModel.joinMeet { [weak self] viewModel in
+                guard let self else { return }
+
+                let vc = MeetingViewController()
+                vc.viewModel = viewModel
+
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+        view.addSubview(joinMeetingButton)
+        joinMeetingButton.snp.makeConstraints { make in
+            make.leading.equalTo(newMeetingButton.snp.trailing).offset(16)
+            make.width.equalTo(newMeetingButton.snp.width)
+            make.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(76)
         }
     }
 }
 
-extension MeetsViewController: MeetingRoomProviderDelegate {
-    func meetingRoom(_ provider: MeetingRoomProvider, newMeetingCode: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.label.text = newMeetingCode
+
+// MARK: - TableViewDataSource
+extension MeetsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.getReuseCell(for: MeetingCell.self, indexPath: indexPath) else {
+            fatalError("The cell not regist")
         }
+
+        switch indexPath.row {
+        case 0:
+            viewModel.activeMeeting.bind { viewModel in
+                guard let viewModel else { return }
+                cell.setupViewModel(viewModel: viewModel)
+            }
+        default:
+            break
+        }
+
+        return cell
     }
 
-    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveUpdate meetingRoom: MeetingRoom) {
-        print(meetingRoom)
-    }
-
-    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveError error: Error) {
-        print(error)
-    }
-}
-
-extension MeetsViewController: WebRTCClientDelegate {
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didDiscoverLocalCandidate candidate: RTCIceCandidate
-    ) {
-        participantDetailProvider.send(iceCandidate: IceCandidate(from: candidate))
-    }
-
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didChangeConnectionState state: RTCIceConnectionState
-    ) {}
-
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didReceiveData data: Data
-    ) {}
-}
-
-extension MeetsViewController: ParticipantDetailProviderDelegate {
-    func didReceive(_ provider: ParticipantDetailProvider, participantDetail: ParticipantDetail) {
-        print(participantDetail)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Activate"
     }
 }
+
+
+// MARK: - TableViewDelegate
+extension MeetsViewController: UITableViewDelegate {}

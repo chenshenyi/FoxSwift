@@ -92,10 +92,10 @@ class FSCollectionManager {
 
     func listenToDocument<T: Decodable>(
         asType: T.Type,
-        documentId: String,
+        documentID: String,
         completion: @escaping CompletionHandler<T>
     ) {
-        documentListener[documentId] = reference.document(documentId)
+        documentListener[documentID] = reference.document(documentID)
             .addSnapshotListener { snapshot, error in
                 if let error {
                     completion(.failure(error))
@@ -116,9 +116,9 @@ class FSCollectionManager {
             }
     }
 
-    func stopListenDocument(documentId: String) {
-        documentListener[documentId]?.remove()
-        documentListener[documentId] = nil
+    func stopListenDocument(documentID: String) {
+        documentListener[documentID]?.remove()
+        documentListener[documentID] = nil
     }
 
     func createDocument(data: Codable, completion: CompletionHandler<String>? = nil) {

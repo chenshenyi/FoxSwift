@@ -7,20 +7,6 @@
 
 import Foundation
 
-struct MeetingRoom: Codable {
-    let createdTime: Int
-    var participants: [Participant] = []
-
-    init() {
-        createdTime = Int(Date().timeIntervalSinceReferenceDate)
-    }
-
-    enum Field: String, FSField {
-        case createdTime
-        case participants
-    }
-}
-
 protocol MeetingRoomProviderDelegate: AnyObject {
     func meetingRoom(_ provider: MeetingRoomProvider, newMeetingCode: String)
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveUpdate: MeetingRoom)
@@ -49,9 +35,9 @@ class MeetingRoomProvider {
             guard let self else { return }
 
             switch result {
-            case let .success(documentId):
-                meetingCode = documentId
-                delegate?.meetingRoom(self, newMeetingCode: documentId)
+            case let .success(documentID):
+                meetingCode = documentID
+                delegate?.meetingRoom(self, newMeetingCode: documentID)
             case let .failure(error):
                 delegate?.meetingRoom(self, didRecieveError: error)
             }
@@ -69,7 +55,7 @@ class MeetingRoomProvider {
 
         collectionManager.listenToDocument(
             asType: MeetingRoom.self,
-            documentId: meetingCode,
+            documentID: meetingCode,
             completion: recieveResult
         )
     }
@@ -83,7 +69,7 @@ class MeetingRoomProvider {
             field: MeetingRoom.Field.participants
         )
 
-        collectionManager.stopListenDocument(documentId: meetingCode)
+        collectionManager.stopListenDocument(documentID: meetingCode)
     }
 
     private func updateMeetingRoom(meetingRoom: MeetingRoom) {

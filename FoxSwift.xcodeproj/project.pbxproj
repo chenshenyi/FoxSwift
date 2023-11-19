@@ -19,12 +19,21 @@
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
+		2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */; };
+		2BA0EB5D2B084B0A003B8EFE /* MeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */; };
+		2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */; };
+		2BA0EB612B084D8C003B8EFE /* ParticipantDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB602B084D8C003B8EFE /* ParticipantDetail.swift */; };
+		2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB662B0857E3003B8EFE /* MeetingCellViewModel.swift */; };
+		2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB682B085F01003B8EFE /* MeetingCell.swift */; };
+		2BA0EB6F2B086F7F003B8EFE /* UILabel+Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */; };
+		2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */; };
 		2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */; };
 		2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1632B073CAE00637596 /* SessionDescription.swift */; };
 		2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1642B073CAE00637596 /* IceCandidate.swift */; };
 		2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1672B074D6700637596 /* WebRTCClient.swift */; };
 		2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1692B074EF300637596 /* RTCConfig.swift */; };
 		2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16B2B07519200637596 /* MeetingViewController.swift */; };
+		2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */; };
 		2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */; };
 		2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */; };
 		2BCB8DB52B011F1500DD4C2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */; };
@@ -76,12 +85,21 @@
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
+		2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewModel.swift; sourceTree = "<group>"; };
+		2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoom.swift; sourceTree = "<group>"; };
+		2BA0EB602B084D8C003B8EFE /* ParticipantDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantDetail.swift; sourceTree = "<group>"; };
+		2BA0EB662B0857E3003B8EFE /* MeetingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCellViewModel.swift; sourceTree = "<group>"; };
+		2BA0EB682B085F01003B8EFE /* MeetingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCell.swift; sourceTree = "<group>"; };
+		2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Box.swift"; sourceTree = "<group>"; };
+		2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapKit+UIView.swift"; sourceTree = "<group>"; };
 		2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantDetailProvider.swift; sourceTree = "<group>"; };
 		2BA4D1632B073CAE00637596 /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
 		2BA4D1642B073CAE00637596 /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
 		2BA4D1672B074D6700637596 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		2BA4D1692B074EF300637596 /* RTCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCConfig.swift; sourceTree = "<group>"; };
 		2BA4D16B2B07519200637596 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
+		2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewModel.swift; sourceTree = "<group>"; };
 		2BCB8DA82B011F1400DD4C2F /* FoxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				2B228F872B04C59100539E8A /* Box.swift */,
+				2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -155,6 +174,8 @@
 				2BA4D1622B073C9300637596 /* WebRTC */,
 				2B228F8A2B04C90C00539E8A /* Participant.swift */,
 				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
+				2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */,
+				2BA0EB602B084D8C003B8EFE /* ParticipantDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,10 +183,10 @@
 		2B24FFA12B03738E0000C5A3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2BA4D16D2B077C0E00637596 /* Config */,
 				2B25DEAC2B04F19000D3E87A /* MeetingRoomProvider.swift */,
 				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
 				2BA4D1672B074D6700637596 /* WebRTCClient.swift */,
-				2BA4D1692B074EF300637596 /* RTCConfig.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -173,8 +194,10 @@
 		2B24FFA22B03739A0000C5A3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BA0EB752B08AEF7003B8EFE /* Component */,
 				2B24FFA62B0374140000C5A3 /* Base */,
 				2B24FFA52B0374000000C5A3 /* ViewController */,
+				2BA0EB682B085F01003B8EFE /* MeetingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -182,6 +205,9 @@
 		2B24FFA32B0373AF0000C5A3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */,
+				2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */,
+				2BA0EB662B0857E3003B8EFE /* MeetingCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -209,8 +235,16 @@
 			isa = PBXGroup;
 			children = (
 				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
+				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
 			);
 			path = ThirdPartyWrapper;
+			sourceTree = "<group>";
+		};
+		2BA0EB752B08AEF7003B8EFE /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		2BA4D1622B073C9300637596 /* WebRTC */ = {
@@ -220,6 +254,14 @@
 				2BA4D1632B073CAE00637596 /* SessionDescription.swift */,
 			);
 			path = WebRTC;
+			sourceTree = "<group>";
+		};
+		2BA4D16D2B077C0E00637596 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				2BA4D1692B074EF300637596 /* RTCConfig.swift */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		2BCB8D9F2B011F1400DD4C2F = {
@@ -295,6 +337,7 @@
 				2BCB8DE62B012A0900DD4C2F /* UITableView+Extension.swift */,
 				2BCB8DE72B012A0900DD4C2F /* Array+Extension.swift */,
 				2B5AC1642B05BB52007B717C /* Result+Extension.swift */,
+				2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -592,7 +635,9 @@
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
 				2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */,
+				2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */,
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
+				2BA0EB612B084D8C003B8EFE /* ParticipantDetail.swift in Sources */,
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
@@ -600,10 +645,14 @@
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
+				2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
+				2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
+				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */,
+				2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
 				2B228F882B04C59100539E8A /* Box.swift in Sources */,
@@ -614,6 +663,9 @@
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
+				2BA0EB6F2B086F7F003B8EFE /* UILabel+Box.swift in Sources */,
+				2BA0EB5D2B084B0A003B8EFE /* MeetingViewModel.swift in Sources */,
+				2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */,
 				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
 			);
@@ -788,6 +840,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CCZFJ54UN4;
@@ -806,6 +859,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -818,6 +872,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CCZFJ54UN4;
@@ -836,6 +891,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

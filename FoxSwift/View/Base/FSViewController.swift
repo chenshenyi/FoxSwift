@@ -69,4 +69,10 @@ class FSViewController: UIViewController {
             }
         }
     #endif
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .fsBg
+    }
 }

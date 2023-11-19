@@ -7,29 +7,6 @@
 
 import Foundation
 
-struct ParticipantDetail: Codable {
-    var sdp: SessionDescription?
-    var iceCandidates: [IceCandidate] = []
-
-    enum Field: String, FSField {
-        case sdp
-        case iceCandidates
-    }
-
-    init() {}
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let sdpData = try container.decodeIfPresent(Data.self, forKey: .sdp) {
-            sdp = try JSONDecoder().decode(SessionDescription.self, from: sdpData)
-        }
-
-        let iceCandidatesData = try container.decode([Data].self, forKey: .iceCandidates)
-        iceCandidates = try iceCandidatesData.map { data in
-            try JSONDecoder().decode(IceCandidate.self, from: data)
-        }
-    }
-}
 
 protocol ParticipantDetailProviderDelegate: AnyObject {
     func didReceive(_ provider: ParticipantDetailProvider, participantDetail: ParticipantDetail)
@@ -70,8 +47,8 @@ class ParticipantDetailProvider {
         )
     }
 
-    func read(participantId: String) {
-        collectionManager.readDocument(
+    func startlisten(participantId: String) {
+        collectionManager.listenToDocument(
             asType: ParticipantDetail.self,
             documentID: participantId
         ) { [weak self] result in
@@ -84,5 +61,9 @@ class ParticipantDetailProvider {
                 break
             }
         }
+    }
+    
+    func stoplisten(participantId: String) {
+        
     }
 }
