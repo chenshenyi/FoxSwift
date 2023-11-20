@@ -7,63 +7,126 @@
 
 import Foundation
 
-
 protocol ParticipantDetailProviderDelegate: AnyObject {
-    func didReceive(_ provider: ParticipantDetailProvider, participantDetail: ParticipantDetail)
+    func didGetOffer(_ provider: ParticipantDetailProvider, sdp: SessionDescription)
+    func didGetAnswer(_ provider: ParticipantDetailProvider, sdp: SessionDescription)
+    func didGetCandidate(_ provider: ParticipantDetailProvider, iceCandidate: IceCandidate)
+    func didGetError(_ provider: ParticipantDetailProvider, error: Error)
 }
 
 class ParticipantDetailProvider {
-    private let collectionManager = FSCollectionManager(collection: .participantDetail)
-    var delegate: ParticipantDetailProviderDelegate?
+    private let offerManager = FSCollectionManager<
+        SessionDescription,
+        SessionDescription.CodingKeys
+    >(collection: .offerSdp)
 
-    private var currentUser: Participant {
-        Participant.currentUser
+    private let answerManager = FSCollectionManager<
+        SessionDescription,
+        SessionDescription.CodingKeys
+    >(collection: .answerSdp)
+
+    private let iceCandidatesManager = FSCollectionManager<
+        IceCandidateList,
+        IceCandidateList.CodingKeys
+    >(collection: .iceCandidates)
+
+    weak var delegate: ParticipantDetailProviderDelegate?
+
+    var oldCandidates: [IceCandidate] = []
+
+    private var currentUserId: String {
+        Participant.currentUser.id
     }
 
     init() {
-        collectionManager.createDocument(data: ParticipantDetail(), documentID: currentUser.id)
+        offerManager.createDocument(data: SessionDescription(), documentID: currentUserId)
+        answerManager.createDocument(data: SessionDescription(), documentID: currentUserId)
+        iceCandidatesManager.createDocument(data: IceCandidateList(), documentID: currentUserId)
     }
 
-    func send(sdp: SessionDescription) {
-        let data = try? JSONEncoder().encode(sdp)
-        guard let data else { return }
+    func send(_ sdp: SessionDescription) {
+        let manager: FSCollectionManager<
+            SessionDescription,
+            SessionDescription.CodingKeys
+        >
 
-        collectionManager.updateData(
-            data: data,
-            documentID: currentUser.id,
-            field: ParticipantDetail.Field.sdp
+        switch sdp.type {
+        case .offer:
+            manager = offerManager
+        case .answer, .prAnswer:
+            manager = answerManager
+        case .rollback:
+            fatalError("Can't send such sdp")
+        }
+
+        manager.createDocument(
+            data: sdp,
+            documentID: currentUserId
         )
     }
 
-    func send(iceCandidate: IceCandidate) {
-        let data = try? JSONEncoder().encode(iceCandidate)
-
-        guard let data else { return }
-
-        collectionManager.unionSerialObjects(
-            serialObjects: [data],
-            documentID: currentUser.id,
-            field: ParticipantDetail.Field.iceCandidates
+    func send(_ iceCandidate: IceCandidate) {
+        iceCandidatesManager.unionObjects(
+            objects: [iceCandidate],
+            documentID: currentUserId,
+            field: .iceCandidates
         )
     }
 
-    func startlisten(participantId: String) {
-        collectionManager.listenToDocument(
-            asType: ParticipantDetail.self,
-            documentID: participantId
-        ) { [weak self] result in
-            guard let self else { return }
+    func startListenOffer(participantId: String) {
+        offerManager.listenToDocument(documentID: participantId, completion: handleSdp)
+        offerManager.readDocument(documentID: participantId, completion: handleSdp)
+    }
 
-            switch result {
-            case let .success(participantDetail):
-                delegate?.didReceive(self, participantDetail: participantDetail)
-            case .failure:
-                break
+    func startListenAnswer(participantId: String) {
+        answerManager.listenToDocument(documentID: participantId, completion: handleSdp)
+        answerManager.readDocument(documentID: participantId, completion: handleSdp)
+    }
+
+    func startListenIceCandidates(participantId: String) {
+        iceCandidatesManager.listenToDocument(
+            documentID: participantId,
+            completion: handleIceCandidates
+        )
+        iceCandidatesManager.readDocument(
+            documentID: participantId,
+            completion: handleIceCandidates
+        )
+    }
+
+    private func handleSdp(result: Result<SessionDescription, Error>) {
+        switch result {
+        case let .success(sdp):
+            switch sdp.type {
+            case .answer, .prAnswer:
+                delegate?.didGetAnswer(self, sdp: sdp)
+            case .offer:
+                delegate?.didGetOffer(self, sdp: sdp)
+            case .rollback:
+                return
             }
+        case let .failure(error):
+            delegate?.didGetError(self, error: error)
         }
     }
-    
+
+    private func handleIceCandidates(result: Result<IceCandidateList, Error>) {
+        switch result {
+        case let .success(candidateList):
+            let newCandidates = candidateList.iceCandidates
+            let candidates = Set(newCandidates).subtracting(oldCandidates)
+            candidates.forEach {
+                self.delegate?.didGetCandidate(self, iceCandidate: $0)
+            }
+            oldCandidates = newCandidates
+        case let .failure(error):
+            delegate?.didGetError(self, error: error)
+        }
+    }
+
     func stoplisten(participantId: String) {
-        
+        offerManager.stopListenDocument(documentID: participantId)
+        answerManager.stopListenDocument(documentID: participantId)
+        iceCandidatesManager.stopListenDocument(documentID: participantId)
     }
 }

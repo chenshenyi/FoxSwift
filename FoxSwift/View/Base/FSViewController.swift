@@ -24,6 +24,7 @@ class FSViewController: UIViewController {
 
         func setDebugCommand(_ handler: @escaping (_ command: String) -> Void) {
             debugToolAction = handler
+            isDebugToolHidden = true
         }
 
         func setupDeubgTool() {

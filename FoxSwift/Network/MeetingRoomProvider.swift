@@ -8,8 +8,10 @@
 import Foundation
 
 protocol MeetingRoomProviderDelegate: AnyObject {
-    func meetingRoom(_ provider: MeetingRoomProvider, newMeetingCode: String)
-    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveUpdate: MeetingRoom)
+    func meetingRoom(_ provider: MeetingRoomProvider, newMeetingCode: String, createdTime: Int)
+    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveInitial: [Participant])
+    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew: [Participant])
+    func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft: [Participant])
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveError: Error)
 }
 
@@ -19,7 +21,10 @@ class MeetingRoomProvider {
     var meetingCode: String?
     var meetingRoom: MeetingRoom?
 
-    private let collectionManager = FSCollectionManager(collection: .meetingRoom)
+    private let collectionManager = FSCollectionManager<
+        MeetingRoom,
+        MeetingRoom.CodingKeys
+    >(collection: .meetingRoom)
 
     var currentUser: Participant {
         Participant.currentUser
@@ -30,14 +35,16 @@ class MeetingRoomProvider {
     }
 
     func create() {
-        meetingRoom = MeetingRoom()
+        let meetingRoom = MeetingRoom()
+        self.meetingRoom = meetingRoom
         collectionManager.createDocument(data: meetingRoom) { [weak self] result in
             guard let self else { return }
 
             switch result {
             case let .success(documentID):
                 meetingCode = documentID
-                delegate?.meetingRoom(self, newMeetingCode: documentID)
+                let createdTime = meetingRoom.createdTime
+                delegate?.meetingRoom(self, newMeetingCode: documentID, createdTime: createdTime)
             case let .failure(error):
                 delegate?.meetingRoom(self, didRecieveError: error)
             }
@@ -50,13 +57,17 @@ class MeetingRoomProvider {
         collectionManager.unionObjects(
             objects: [currentUser],
             documentID: meetingCode,
-            field: MeetingRoom.Field.participants
+            field: .participants
+        )
+
+        collectionManager.readDocument(
+            documentID: meetingCode,
+            completion: recieveRead
         )
 
         collectionManager.listenToDocument(
-            asType: MeetingRoom.self,
             documentID: meetingCode,
-            completion: recieveResult
+            completion: recieveListened
         )
     }
 
@@ -66,26 +77,43 @@ class MeetingRoomProvider {
         collectionManager.removeObjects(
             objects: [currentUser],
             documentID: meetingCode,
-            field: MeetingRoom.Field.participants
+            field: .participants
         )
 
         collectionManager.stopListenDocument(documentID: meetingCode)
     }
 
-    private func updateMeetingRoom(meetingRoom: MeetingRoom) {
-        guard let meetingCode else { return }
+    private func recieveRead(result: Result<MeetingRoom, Error>) {
+        switch result {
+        case let .success(newMeetingRoom):
+            meetingRoom = newMeetingRoom
 
-        collectionManager.updateDocument(
-            data: meetingRoom,
-            documentID: meetingCode,
-            completion: recieveResult
-        )
+            let participants = Set(newMeetingRoom.participants)
+                .subtracting([currentUser])
+
+            delegate?.meetingRoom(self, didRecieveInitial: Array(participants))
+        case let .failure(error):
+            delegate?.meetingRoom(self, didRecieveError: error)
+        }
     }
 
-    private func recieveResult(result: Result<MeetingRoom, Error>) {
+    private func recieveListened(result: Result<MeetingRoom, Error>) {
         switch result {
-        case let .success(meetingRoom):
-            delegate?.meetingRoom(self, didRecieveUpdate: meetingRoom)
+        case let .success(newMeetingRoom):
+            guard let meetingRoom else { return }
+
+            let leftParticipants = Set(meetingRoom.participants)
+                .subtracting(newMeetingRoom.participants)
+                .subtracting([currentUser])
+
+            let newParticipants = Set(newMeetingRoom.participants)
+                .subtracting(meetingRoom.participants)
+                .subtracting([currentUser])
+
+            delegate?.meetingRoom(self, didRecieveNew: Array(newParticipants))
+            delegate?.meetingRoom(self, didRecieveLeft: Array(leftParticipants))
+
+            self.meetingRoom = meetingRoom
         case let .failure(error):
             delegate?.meetingRoom(self, didRecieveError: error)
         }

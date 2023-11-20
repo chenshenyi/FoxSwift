@@ -12,12 +12,12 @@ struct MeetingRoom: Codable {
     let createdTime: Int
     var participants: [Participant] = []
 
-    init() {
-        createdTime = Int(Date().timeIntervalSinceReferenceDate)
-    }
-
-    enum Field: String, FSField {
+    enum CodingKeys: CodingKey {
         case createdTime
         case participants
+    }
+
+    init() {
+        createdTime = Int(Date().timeIntervalSinceReferenceDate)
     }
 }

@@ -19,16 +19,13 @@ enum FSCollectionError: Error {
 
 enum FSCollection: String {
     case meetingRoom = "MeetingRoom"
-    case participantDetail = "ParticipantDetail"
+    case offerSdp = "OfferSdp"
+    case answerSdp = "AnswerSdp"
+    case iceCandidates = "IceCandidates"
 }
 
-protocol FSField: RawRepresentable where RawValue == String {}
 
-
-class FSCollectionManager {
-    static let meetingRoom = FSCollectionManager(collection: .meetingRoom)
-    static let participantDetail = FSCollectionManager(collection: .participantDetail)
-
+class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     typealias CompletionHandler<T> = (_ result: Result<T, Error>) -> Void
 
     var collection: String
@@ -39,18 +36,13 @@ class FSCollectionManager {
         self.collection = collection.rawValue
     }
 
-    private var db: Firestore {
-        Firestore.firestore()
-    }
+    private let db = Firestore.firestore()
 
     private var reference: CollectionReference {
         db.collection(collection)
     }
 
-    func listenCollection<T: Decodable>(
-        asType: T.Type,
-        completion: @escaping CompletionHandler<[T]>
-    ) {
+    func listenCollection(completion: @escaping CompletionHandler<[DataType]>) {
         collectionListener = reference.addSnapshotListener { querySnapshot, error in
             if let error {
                 completion(.failure(error))
@@ -63,10 +55,10 @@ class FSCollectionManager {
             }
 
 
-            let documentDecodeResult: [Result<T, Error>] = querySnapshot.documents
+            let documentDecodeResult: [Result<DataType, Error>] = querySnapshot.documents
                 .map { document in
                     do {
-                        let documentData = try document.data(as: T.self)
+                        let documentData = try document.data(as: DataType.self)
                         return .success(documentData)
                     } catch {
                         return .failure(error)
@@ -90,10 +82,9 @@ class FSCollectionManager {
         collectionListener = nil
     }
 
-    func listenToDocument<T: Decodable>(
-        asType: T.Type,
+    func listenToDocument(
         documentID: String,
-        completion: @escaping CompletionHandler<T>
+        completion: @escaping CompletionHandler<DataType>
     ) {
         documentListener[documentID] = reference.document(documentID)
             .addSnapshotListener { snapshot, error in
@@ -108,7 +99,7 @@ class FSCollectionManager {
                 }
 
                 do {
-                    let documentData = try snapshot.data(as: T.self)
+                    let documentData = try snapshot.data(as: DataType.self)
                     completion(.success(documentData))
                 } catch {
                     completion(.failure(error))
@@ -121,7 +112,7 @@ class FSCollectionManager {
         documentListener[documentID] = nil
     }
 
-    func createDocument(data: Codable, completion: CompletionHandler<String>? = nil) {
+    func createDocument(data: DataType, completion: CompletionHandler<String>? = nil) {
         #if DEBUG
             guard WRITELIMIT > 0 else { return }
             WRITELIMIT -= 1
@@ -135,7 +126,7 @@ class FSCollectionManager {
     }
 
     func createDocument(
-        data: Codable,
+        data: DataType,
         documentID: String,
         completion: CompletionHandler<String>? = nil
     ) {
@@ -166,10 +157,9 @@ class FSCollectionManager {
         }
     }
 
-    func readDocument<T: Codable>(
-        asType: T.Type,
+    func readDocument(
         documentID: String,
-        completion: @escaping CompletionHandler<T>
+        completion: @escaping CompletionHandler<DataType>
     ) {
         reference.document(documentID).getDocument { snapshot, error in
             if let error {
@@ -183,7 +173,7 @@ class FSCollectionManager {
             }
 
             do {
-                let documentData = try snapshot.data(as: T.self)
+                let documentData = try snapshot.data(as: DataType.self)
                 completion(.success(documentData))
             } catch {
                 completion(.failure(error))
@@ -191,10 +181,10 @@ class FSCollectionManager {
         }
     }
 
-    func updateDocument<T: Codable>(
-        data: T,
+    func updateDocument(
+        data: DataType,
         documentID: String,
-        completion: CompletionHandler<T>? = nil
+        completion: CompletionHandler<DataType>? = nil
     ) {
         #if DEBUG
             guard WRITELIMIT > 0 else { return }
@@ -228,11 +218,11 @@ class FSCollectionManager {
 }
 
 extension FSCollectionManager {
-    func updateData<T: Codable>(
-        data: T,
+    func updateDatao(
+        data: DataType,
         documentID: String,
-        field: any FSField,
-        completion: CompletionHandler<T>? = nil
+        field: KeyedDecodingContainer<CodingKeys>.Key,
+        completion: CompletionHandler<DataType>? = nil
     ) {
         #if DEBUG
             guard WRITELIMIT > 0 else { return }
@@ -240,7 +230,7 @@ extension FSCollectionManager {
         #endif
 
         reference.document(documentID).updateData(
-            [field.rawValue: data]
+            [field.stringValue: data]
         ) { error in
             if let error {
                 completion?(.failure(error))
@@ -253,7 +243,7 @@ extension FSCollectionManager {
     func removeObjects<T: Codable>(
         objects: [T],
         documentID: String,
-        field: any FSField,
+        field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
         #if DEBUG
@@ -267,7 +257,7 @@ extension FSCollectionManager {
         }
 
         reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayRemove(serialDatas)]
+            [field.stringValue: FieldValue.arrayRemove(serialDatas)]
         ) { error in
             if let error {
                 completion?(.failure(error))
@@ -280,7 +270,7 @@ extension FSCollectionManager {
     func unionObjects<T: Codable>(
         objects: [T],
         documentID: String,
-        field: any FSField,
+        field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
         #if DEBUG
@@ -294,7 +284,7 @@ extension FSCollectionManager {
         }
 
         reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayUnion(serialDatas)]
+            [field.stringValue: FieldValue.arrayUnion(serialDatas)]
         ) { error in
             if let error {
                 completion?(.failure(error))
@@ -307,7 +297,7 @@ extension FSCollectionManager {
     func removeSerialObjects<T: Codable>(
         serialObjects: [T],
         documentID: String,
-        field: any FSField,
+        field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
         #if DEBUG
@@ -316,7 +306,7 @@ extension FSCollectionManager {
         #endif
 
         reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayRemove(serialObjects)]
+            [field.stringValue: FieldValue.arrayRemove(serialObjects)]
         ) { error in
             if let error {
                 completion?(.failure(error))
@@ -329,7 +319,7 @@ extension FSCollectionManager {
     func unionSerialObjects<T: Codable>(
         serialObjects: [T],
         documentID: String,
-        field: any FSField,
+        field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
         #if DEBUG
@@ -338,7 +328,7 @@ extension FSCollectionManager {
         #endif
 
         reference.document(documentID).updateData(
-            [field.rawValue: FieldValue.arrayUnion(serialObjects)]
+            [field.stringValue: FieldValue.arrayUnion(serialObjects)]
         ) { error in
             if let error {
                 completion?(.failure(error))

@@ -89,10 +89,7 @@ final class WebRTCClient: NSObject {
             guard let sdp else {
                 return
             }
-
-            self.peerConnection.setLocalDescription(sdp) { _ in
-                completion(sdp)
-            }
+            completion(sdp)
         }
     }
 
@@ -105,11 +102,12 @@ final class WebRTCClient: NSObject {
             guard let sdp else {
                 return
             }
-
-            self.peerConnection.setLocalDescription(sdp) { _ in
-                completion(sdp)
-            }
+            completion(sdp)
         }
+    }
+
+    func set(localSdp: RTCSessionDescription, completion: @escaping (Error?) -> Void) {
+        peerConnection.setLocalDescription(localSdp, completionHandler: completion)
     }
 
     func set(remoteSdp: RTCSessionDescription, completion: @escaping (Error?) -> Void) {
@@ -249,26 +247,26 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         _ peerConnection: RTCPeerConnection,
         didChange stateChanged: RTCSignalingState
     ) {
-        debugPrint("peerConnection new signaling state: \(stateChanged)")
+        debugPrint("peerConnection new signaling state: \(stateChanged.description)".green)
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
-        debugPrint("peerConnection did add stream")
+        debugPrint("peerConnection did add stream".green)
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
-        debugPrint("peerConnection did remove stream")
+        debugPrint("peerConnection did remove stream".green)
     }
 
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
-        debugPrint("peerConnection should negotiate")
+        debugPrint("peerConnection should negotiate".green)
     }
 
     func peerConnection(
         _ peerConnection: RTCPeerConnection,
         didChange newState: RTCIceConnectionState
     ) {
-        debugPrint("peerConnection new connection state: \(newState)")
+        debugPrint("peerConnection new connection state: \(newState.description)".green)
         delegate?.webRTCClient(self, didChangeConnectionState: newState)
     }
 
@@ -276,7 +274,7 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         _ peerConnection: RTCPeerConnection,
         didChange newState: RTCIceGatheringState
     ) {
-        debugPrint("peerConnection new gathering state: \(newState)")
+        debugPrint("peerConnection new gathering state: \(newState.description)".green)
     }
 
     func peerConnection(
@@ -290,11 +288,11 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         _ peerConnection: RTCPeerConnection,
         didRemove candidates: [RTCIceCandidate]
     ) {
-        debugPrint("peerConnection did remove candidate(s)")
+        debugPrint("peerConnection did remove candidate(s)".green)
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
-        debugPrint("peerConnection did open data channel")
+        debugPrint("peerConnection did open data channel".green)
         remoteDataChannel = dataChannel
     }
 }

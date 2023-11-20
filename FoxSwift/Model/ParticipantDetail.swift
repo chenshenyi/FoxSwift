@@ -8,11 +8,13 @@
 import Foundation
 
 struct ParticipantDetail: Codable {
-    var sdp: SessionDescription?
+    var offerSdp: SessionDescription?
+    var answerSdp: SessionDescription?
     var iceCandidates: [IceCandidate] = []
 
-    enum Field: String, FSField {
-        case sdp
+    enum CodingKeys: CodingKey {
+        case offerSdp
+        case answerSdp
         case iceCandidates
     }
 
@@ -20,8 +22,13 @@ struct ParticipantDetail: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let sdpData = try container.decodeIfPresent(Data.self, forKey: .sdp) {
-            sdp = try JSONDecoder().decode(SessionDescription.self, from: sdpData)
+
+        if let offerData = try container.decodeIfPresent(Data.self, forKey: .offerSdp) {
+            offerSdp = try JSONDecoder().decode(SessionDescription.self, from: offerData)
+        }
+
+        if let answerData = try container.decodeIfPresent(Data.self, forKey: .answerSdp) {
+            answerSdp = try JSONDecoder().decode(SessionDescription.self, from: answerData)
         }
 
         let iceCandidatesData = try container.decode([Data].self, forKey: .iceCandidates)

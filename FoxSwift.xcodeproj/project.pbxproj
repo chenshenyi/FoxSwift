@@ -27,6 +27,9 @@
 		2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB682B085F01003B8EFE /* MeetingCell.swift */; };
 		2BA0EB6F2B086F7F003B8EFE /* UILabel+Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */; };
 		2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */; };
+		2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB7A2B09DD87003B8EFE /* RTCStates.swift */; };
+		2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB822B0A8A4D003B8EFE /* RTCMessage.swift */; };
+		2BA0EB852B0B51A8003B8EFE /* WebRTCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */; };
 		2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */; };
 		2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1632B073CAE00637596 /* SessionDescription.swift */; };
 		2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1642B073CAE00637596 /* IceCandidate.swift */; };
@@ -93,6 +96,9 @@
 		2BA0EB682B085F01003B8EFE /* MeetingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCell.swift; sourceTree = "<group>"; };
 		2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Box.swift"; sourceTree = "<group>"; };
 		2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapKit+UIView.swift"; sourceTree = "<group>"; };
+		2BA0EB7A2B09DD87003B8EFE /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
+		2BA0EB822B0A8A4D003B8EFE /* RTCMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCMessage.swift; sourceTree = "<group>"; };
+		2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCProvider.swift; sourceTree = "<group>"; };
 		2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantDetailProvider.swift; sourceTree = "<group>"; };
 		2BA4D1632B073CAE00637596 /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
 		2BA4D1642B073CAE00637596 /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				2BA4D16D2B077C0E00637596 /* Config */,
+				2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */,
 				2B25DEAC2B04F19000D3E87A /* MeetingRoomProvider.swift */,
 				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
 				2BA4D1672B074D6700637596 /* WebRTCClient.swift */,
@@ -250,8 +257,10 @@
 		2BA4D1622B073C9300637596 /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
+				2BA0EB7A2B09DD87003B8EFE /* RTCStates.swift */,
 				2BA4D1642B073CAE00637596 /* IceCandidate.swift */,
 				2BA4D1632B073CAE00637596 /* SessionDescription.swift */,
+				2BA0EB822B0A8A4D003B8EFE /* RTCMessage.swift */,
 			);
 			path = WebRTC;
 			sourceTree = "<group>";
@@ -632,6 +641,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BA0EB852B0B51A8003B8EFE /* WebRTCProvider.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
 				2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */,
@@ -651,6 +661,7 @@
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
+				2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */,
 				2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */,
 				2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
@@ -659,6 +670,7 @@
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
 				2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */,
+				2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
@@ -847,6 +859,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoxSwift/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Meeting Record";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -857,7 +871,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -879,6 +893,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FoxSwift/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Meeting Record";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -889,7 +905,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

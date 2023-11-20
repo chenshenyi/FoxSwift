@@ -32,6 +32,16 @@ struct SessionDescription: Codable {
     let sdp: String
     let type: SdpType
 
+
+    enum CodingKeys: CodingKey {
+        case sdp, type
+    }
+
+    init() {
+        sdp = ""
+        type = .prAnswer
+    }
+
     init(from rtcSessionDescription: RTCSessionDescription) {
         sdp = rtcSessionDescription.sdp
 

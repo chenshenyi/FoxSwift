@@ -13,7 +13,7 @@ import WebRTC
 /// IceCandidate help the server to find where the client is
 
 /// This struct is a swift wrapper over `RTCIceCandidate` for easy encode and decode
-struct IceCandidate: Codable {
+struct IceCandidate: Codable, Hashable {
     let sdp: String
     let sdpMLineIndex: Int32
     let sdpMid: String?
@@ -26,5 +26,13 @@ struct IceCandidate: Codable {
 
     var rtcIceCandidate: RTCIceCandidate {
         return RTCIceCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+    }
+}
+
+struct IceCandidateList: Codable {
+    var iceCandidates: [IceCandidate] = []
+
+    enum CodingKeys: CodingKey {
+        case iceCandidates
     }
 }

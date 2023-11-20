@@ -40,9 +40,6 @@ final class MeetsViewController: FSViewController {
             setDebugCommand { [weak self] command in
                 guard let self else { return }
                 switch command {
-                case "M": viewModel.clearCollection(collection: .meetingRoom)
-                case "P": viewModel.clearCollection(collection: .participantDetail)
-                case "R": viewModel.readParticipantDetail()
                 case "Q": viewModel.leaveMeet()
                 default:
                     break
