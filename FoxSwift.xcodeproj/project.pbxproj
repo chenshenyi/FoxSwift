@@ -19,6 +19,10 @@
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
+		2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */; };
+		2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B222B0C45CC00F57C90 /* FSWebRTC.swift */; };
+		2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */; };
+		2B9C8B272B0C4A8F00F57C90 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B262B0C4A8F00F57C90 /* WebRTCClient.swift */; };
 		2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */; };
 		2BA0EB5D2B084B0A003B8EFE /* MeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */; };
 		2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */; };
@@ -29,12 +33,11 @@
 		2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */; };
 		2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB7A2B09DD87003B8EFE /* RTCStates.swift */; };
 		2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB822B0A8A4D003B8EFE /* RTCMessage.swift */; };
-		2BA0EB852B0B51A8003B8EFE /* WebRTCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */; };
+		2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB842B0B51A8003B8EFE /* RTCProvider.swift */; };
 		2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */; };
 		2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1632B073CAE00637596 /* SessionDescription.swift */; };
 		2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1642B073CAE00637596 /* IceCandidate.swift */; };
-		2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1672B074D6700637596 /* WebRTCClient.swift */; };
-		2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1692B074EF300637596 /* RTCConfig.swift */; };
+		2BA4D16A2B074EF300637596 /* FSWebRTCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */; };
 		2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16B2B07519200637596 /* MeetingViewController.swift */; };
 		2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */; };
 		2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */; };
@@ -88,6 +91,10 @@
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
+		2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionProvider.swift; sourceTree = "<group>"; };
+		2B9C8B222B0C45CC00F57C90 /* FSWebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSWebRTC.swift; sourceTree = "<group>"; };
+		2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionDelegate.swift; sourceTree = "<group>"; };
+		2B9C8B262B0C4A8F00F57C90 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewModel.swift; sourceTree = "<group>"; };
 		2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoom.swift; sourceTree = "<group>"; };
@@ -98,12 +105,11 @@
 		2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapKit+UIView.swift"; sourceTree = "<group>"; };
 		2BA0EB7A2B09DD87003B8EFE /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
 		2BA0EB822B0A8A4D003B8EFE /* RTCMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCMessage.swift; sourceTree = "<group>"; };
-		2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCProvider.swift; sourceTree = "<group>"; };
+		2BA0EB842B0B51A8003B8EFE /* RTCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCProvider.swift; sourceTree = "<group>"; };
 		2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantDetailProvider.swift; sourceTree = "<group>"; };
 		2BA4D1632B073CAE00637596 /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
 		2BA4D1642B073CAE00637596 /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
-		2BA4D1672B074D6700637596 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
-		2BA4D1692B074EF300637596 /* RTCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCConfig.swift; sourceTree = "<group>"; };
+		2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSWebRTCConfig.swift; sourceTree = "<group>"; };
 		2BA4D16B2B07519200637596 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
 		2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewModel.swift; sourceTree = "<group>"; };
 		2BCB8DA82B011F1400DD4C2F /* FoxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoxSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,10 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				2BA4D16D2B077C0E00637596 /* Config */,
-				2BA0EB842B0B51A8003B8EFE /* WebRTCProvider.swift */,
-				2B25DEAC2B04F19000D3E87A /* MeetingRoomProvider.swift */,
-				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
-				2BA4D1672B074D6700637596 /* WebRTCClient.swift */,
+				2B9C8B1E2B0C44ED00F57C90 /* WebRTC */,
+				2B9C8B212B0C454B00F57C90 /* FirebaseFirestore */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -247,6 +251,27 @@
 			path = ThirdPartyWrapper;
 			sourceTree = "<group>";
 		};
+		2B9C8B1E2B0C44ED00F57C90 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				2B9C8B222B0C45CC00F57C90 /* FSWebRTC.swift */,
+				2BA0EB842B0B51A8003B8EFE /* RTCProvider.swift */,
+				2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */,
+				2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */,
+				2B9C8B262B0C4A8F00F57C90 /* WebRTCClient.swift */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
+		2B9C8B212B0C454B00F57C90 /* FirebaseFirestore */ = {
+			isa = PBXGroup;
+			children = (
+				2B25DEAC2B04F19000D3E87A /* MeetingRoomProvider.swift */,
+				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
+			);
+			path = FirebaseFirestore;
+			sourceTree = "<group>";
+		};
 		2BA0EB752B08AEF7003B8EFE /* Component */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,7 +293,7 @@
 		2BA4D16D2B077C0E00637596 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				2BA4D1692B074EF300637596 /* RTCConfig.swift */,
+				2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -641,15 +666,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BA0EB852B0B51A8003B8EFE /* WebRTCProvider.swift in Sources */,
+				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
-				2BA4D1682B074D6700637596 /* WebRTCClient.swift in Sources */,
 				2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */,
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
 				2BA0EB612B084D8C003B8EFE /* ParticipantDetail.swift in Sources */,
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */,
+				2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
@@ -666,10 +691,11 @@
 				2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
+				2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */,
 				2B228F882B04C59100539E8A /* Box.swift in Sources */,
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
-				2BA4D16A2B074EF300637596 /* RTCConfig.swift in Sources */,
+				2BA4D16A2B074EF300637596 /* FSWebRTCConfig.swift in Sources */,
 				2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
@@ -679,7 +705,9 @@
 				2BA0EB5D2B084B0A003B8EFE /* MeetingViewModel.swift in Sources */,
 				2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */,
 				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
+				2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
+				2B9C8B272B0C4A8F00F57C90 /* WebRTCClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

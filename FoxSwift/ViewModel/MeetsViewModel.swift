@@ -55,7 +55,7 @@ class MeetsViewModel {
     }
 
     private func newRTCClient() {
-        let iceServers = RTCConfig.default.webRTCIceServers
+        let iceServers = FSWebRTCConfig.default.webRTCIceServers
         webRTCClient = WebRTCClient(iceServers: iceServers)
         webRTCClient?.delegate = self
     }

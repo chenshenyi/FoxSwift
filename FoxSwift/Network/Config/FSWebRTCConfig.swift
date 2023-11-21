@@ -1,5 +1,5 @@
 //
-//  RTCConfig.swift
+//  FSWebRTCConfig.swift
 //  WebRTC-Demo
 //
 //  Created by Stasel on 30/01/2019.
@@ -21,11 +21,11 @@ private let defaultIceServers = [
 //    "stun:stun4.l.google.com:19302"
 ]
 
-struct RTCConfig {
+struct FSWebRTCConfig {
     let signalingServerUrl: URL?
     let webRTCIceServers: [String]
 
-    static let `default` = RTCConfig(
+    static let `default` = FSWebRTCConfig(
         signalingServerUrl: defaultSignalingServerUrl,
         webRTCIceServers: defaultIceServers
     )

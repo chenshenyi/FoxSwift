@@ -11,6 +11,12 @@ import UIKit
 extension UIView {
     func addTo(_ view: UIView, _ makeConstraintsClosure: (_ make: ConstraintMaker) -> Void) {
         view.addSubview(self)
-        self.snp.makeConstraints(makeConstraintsClosure)
+        snp.makeConstraints(makeConstraintsClosure)
+    }
+
+    func pinTo(_ view: UIView) {
+        addTo(view) { make in
+            make.margins.equalTo(view)
+        }
     }
 }
