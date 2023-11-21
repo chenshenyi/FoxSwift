@@ -9,14 +9,14 @@
 import UIKit
 import WebRTC
 
-// MARK: - WebRTCProviderDelegate
-protocol WebRTCProviderDelegate: AnyObject {}
 
 // MARK: - WebRTCProvider
 class RTCProvider: NSObject, FSWebRTCObject {
     // Device media manager
     lazy var videoCapturer = RTCCameraVideoCapturer(delegate: self)
     let rtcAudioSession = RTCAudioSession.sharedInstance()
+
+    weak var delegate: RTCProviderDelegate?
 
     private var peerConnectionProviders: [String: PeerConnectionProvider] = [:]
 
@@ -36,7 +36,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
             peerConnectionProviders[participantId]?.renderRemoteVideo(to: renderer)
         }
     }
-
+    
     func setRemoteAudio(isEnable: Bool, for participantId: String) {
         peerConnectionProviders[participantId]?.remoteAudioTrack?.isEnabled = isEnable
     }
@@ -48,7 +48,8 @@ class RTCProvider: NSObject, FSWebRTCObject {
     func sendData(data: Data) {
         peerConnectionProviders.forEach { $0.value.sendData(data) }
     }
-    
+
+    // MARK: - Signaling
     func offer(
         for participantId: String,
         completion: @escaping PeerConnectionProvider.SdpHandler
@@ -181,22 +182,4 @@ extension RTCProvider: RTCVideoCapturerDelegate {
     func capturer(_ capturer: RTCVideoCapturer, didCapture frame: RTCVideoFrame) {
         videoSource.capturer(capturer, didCapture: frame)
     }
-}
-
-// MARK: - PeerConnectionProviderDelegate
-extension RTCProvider: PeerConnectionProviderDelegate {
-    func peerConnectionProvider(
-        _ provider: PeerConnectionProvider,
-        didDiscoverLocalCandidate candidate: RTCIceCandidate
-    ) {}
-
-    func peerConnectionProvider(
-        _ provider: PeerConnectionProvider,
-        didRemoveCandidates candidates: [RTCIceCandidate]
-    ) {}
-
-    func peerConnectionProvider(
-        _ provider: PeerConnectionProvider,
-        didReceiveMessageWith buffer: RTCDataBuffer
-    ) {}
 }

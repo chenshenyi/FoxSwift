@@ -7,6 +7,33 @@
 
 import WebRTC
 
+// MARK: Delegate
+protocol PeerConnectionProviderDelegate: AnyObject {
+    func peerConnectionProvider(
+        _ provider: PeerConnectionProvider,
+        didDiscoverLocalCandidate candidate: RTCIceCandidate
+    )
+    func peerConnectionProvider(
+        _ provider: PeerConnectionProvider,
+        didRemoveCandidates candidates: [RTCIceCandidate]
+    )
+    func peerConnectionProvider(
+        _ provider: PeerConnectionProvider,
+        didReceiveMessageWith buffer: RTCDataBuffer
+    )
+}
+
+// MARK: - RTCDataChannelDelegate
+extension PeerConnectionProvider: RTCDataChannelDelegate {
+    func dataChannelDidChangeState(_ dataChannel: RTCDataChannel) {
+        debugPrint("Data channel did change state: \(dataChannel.readyState)".blue)
+    }
+
+    func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
+        delegate?.peerConnectionProvider(self, didReceiveMessageWith: buffer)
+    }
+}
+
 extension PeerConnectionProvider: RTCPeerConnectionDelegate {
     func peerConnection(
         _ peerConnection: RTCPeerConnection,
