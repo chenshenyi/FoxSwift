@@ -48,9 +48,9 @@ extension RTCProvider: PeerConnectionProviderDelegate {
     ) {
         delegate?.rtcProvider(
             self,
-            didRemoveCandidates: candidates.map({ rtcIceCandidate in
+            didRemoveCandidates: candidates.map { rtcIceCandidate in
                 IceCandidate(from: rtcIceCandidate)
-            }),
+            },
             for: provider.participantId
         )
     }

@@ -27,6 +27,18 @@ final class MeetingViewController: FSViewController {
         setupRecordButton()
     }
 
+    private func bindingViewModel() {
+        viewModel?.participants.bind { [weak self] participants in
+            guard let self, let remoteParticipant = participants.first(where: { participant in
+                participant.id != Participant.currentUser.id
+            })
+            else {
+                return
+            }
+            viewModel?.fetchRemoteVideo(into: remoteVideoView, for: remoteParticipant)
+        }
+    }
+
     // MARK: - Setup Subviews
     private func setupRemoteVideoView() {
         remoteVideoView.backgroundColor = .G_7
@@ -35,8 +47,6 @@ final class MeetingViewController: FSViewController {
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(remoteVideoView.snp.width).multipliedBy(9.0 / 16.0)
         }
-
-        viewModel?.fetchRemoteVideo(into: remoteVideoView)
     }
 
     private func setupLocalVideoView() {

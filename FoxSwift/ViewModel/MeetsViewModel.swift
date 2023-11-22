@@ -62,25 +62,28 @@ class MeetsViewModel {
 }
 
 
-// MARK: - WebRTCClientDelegate
-extension MeetsViewModel: WebRTCClientDelegate {
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didDiscoverLocalCandidate candidate: RTCIceCandidate
+// MARK: - RTCProvider
+extension MeetsViewModel: RTCProviderDelegate {
+    func rtcProvider(
+        _ provider: RTCProvider,
+        didDiscoverLocalCandidate candidate: IceCandidate,
+        for candidateId: String
     ) {
-        participantDetailProvider.send(IceCandidate(from: candidate))
+        participantDetailProvider?.send(candidate, to: candidateId)
     }
 
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didChangeConnectionState state: RTCIceConnectionState
+    func rtcProvider(
+        _ provider: RTCProvider,
+        didRemoveCandidates candidates: [IceCandidate],
+        for candidateId: String
     ) {
-        print(state.description.yellow)
+        print("Did Remove \(candidates.count) candidates".red)
     }
 
-    func webRTCClient(
-        _ client: WebRTCClient,
-        didReceiveData data: Data
+    func rtcProvider(
+        _ provider: RTCProvider,
+        didReceiveMessageWith data: Data,
+        for candidateId: String
     ) {}
 }
 
@@ -94,70 +97,81 @@ extension MeetsViewModel: MeetingRoomProviderDelegate {
         _ provider: MeetingRoomProvider,
         didRecieveInitial participants: [Participant]
     ) {
-        webRTCClient?.offer { [weak self] sdp in
-            self?.participantDetailProvider.send(SessionDescription(from: sdp))
-            if participants.isEmpty {
-                self?.webRTCClient?.set(localSdp: sdp) { _ in }
-            }
-        }
+        participants.map(\.id).forEach { id in
+            rtcProvider?.newParticipant(participantId: id)
 
-        participants.forEach { participant in
-            participantDetailProvider.startListenIceCandidates(participantId: participant.id)
-            participantDetailProvider.startListenOffer(participantId: participant.id)
+            participantDetailProvider?.startListenIceCandidates(participantId: id)
+            participantDetailProvider?.startListenOffer(participantId: id)
         }
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew participants: [Participant]) {
-        participants.forEach { participant in
-            participantDetailProvider.startListenIceCandidates(participantId: participant.id)
-            participantDetailProvider.startListenAnswer(participantId: participant.id)
+        participants.map(\.id).forEach { id in
+            rtcProvider?.newParticipant(participantId: id)
+
+            rtcProvider?.offer(for: id) { [weak self] sdpResult in
+                guard let self else { return }
+
+                switch sdpResult {
+                case let .success(sdp):
+                    rtcProvider?.set(localSdp: sdp, for: id)
+                    participantDetailProvider?.send(sdp, to: id)
+                case let .failure(error):
+                    print(error.localizedDescription.red)
+                }
+            }
+
+            participantDetailProvider?.startListenIceCandidates(participantId: id)
+            participantDetailProvider?.startListenAnswer(participantId: id)
         }
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft participants: [Participant]) {
         participants.forEach { participant in
-            participantDetailProvider.stoplisten(participantId: participant.id)
+            participantDetailProvider?.stoplisten(participantId: participant.id)
         }
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveError error: Error) {
-        print(error)
+        print(error.localizedDescription.red)
     }
 }
 
 
-// MARK: - ParticipantDetailProviderDelegate
 extension MeetsViewModel: ParticipantDetailProviderDelegate {
-    func didGetOffer(_ provider: ParticipantDetailProvider, sdp: SessionDescription) {
-        let rtcSdp = sdp.rtcSessionDescription
+    func didGetOffer(
+        _ provider: ParticipantDetailProvider,
+        sdp: SessionDescription,
+        for id: String
+    ) {
+        rtcProvider?.set(remoteSdp: sdp, for: id)
+        rtcProvider?.answer(for: id) { [weak self] sdpResult in
+            guard let self else { return }
 
-        webRTCClient?.set(remoteSdp: rtcSdp) { [weak self] error in
-            self?.webRTCClient?.answer { [weak self] sdp in
-                guard let self else { return }
-
-                webRTCClient?.set(localSdp: sdp) { _ in }
-                participantDetailProvider.send(SessionDescription(from: sdp))
+            switch sdpResult {
+            case let .success(sdp):
+                rtcProvider?.set(localSdp: sdp, for: id)
+                participantDetailProvider?.send(sdp, to: id)
+            case let .failure(error):
+                print(error.localizedDescription.red)
             }
-            guard let error else { return }
-            print(error.localizedDescription.red)
         }
     }
 
-    func didGetAnswer(_ provider: ParticipantDetailProvider, sdp: SessionDescription) {
-        let rtcSdp = sdp.rtcSessionDescription
-
-        webRTCClient?.set(remoteSdp: rtcSdp) { error in
-            guard let error else { return }
-            print(error.localizedDescription.red)
-        }
+    func didGetAnswer(
+        _ provider: ParticipantDetailProvider,
+        sdp: SessionDescription,
+        for id: String
+    ) {
+        rtcProvider?.set(remoteSdp: sdp, for: id)
     }
 
-    func didGetCandidate(_ provider: ParticipantDetailProvider, iceCandidate: IceCandidate) {
-        let rtcIceCandidate = iceCandidate.rtcIceCandidate
-        webRTCClient?.set(remoteCandidate: rtcIceCandidate) { error in
-            guard let error else { return }
-            print(error.localizedDescription.red)
-        }
+    func didGetCandidate(
+        _ provider: ParticipantDetailProvider,
+        iceCandidate: IceCandidate,
+        for id: String
+    ) {
+        rtcProvider?.set(remoteCandidate: iceCandidate, for: id)
     }
 
     func didGetError(_ provider: ParticipantDetailProvider, error: Error) {

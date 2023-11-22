@@ -17,31 +17,14 @@ class MeetingViewModel {
         self.meetingCode = .init(meetingCode)
     }
 
-    func fetchRemoteVideo(into view: UIView) {
-        let renderer = RTCMTLVideoView(
-            frame: view.frame
-        )
-        renderer.videoContentMode = .scaleAspectFit
-
-        rtcProvider?.renderRemoteVideo(to: renderer)
-
-        renderer.addTo(view) { make in
-            make.margins.equalToSuperview()
-        }
+    func fetchRemoteVideo(into view: UIView, for participant: Participant) {
+        rtcProvider?.renderVideo(to: view, for: participant.id)
         view.layoutIfNeeded()
     }
 
     func fetchLocalVideo(into view: UIView) {
-        let renderer = RTCMTLVideoView(
-            frame: view.frame
-        )
-        renderer.videoContentMode = .scaleAspectFit
-
-        rtcProvider?.startCaptureLocalVideo(renderer: renderer)
-
-        renderer.addTo(view) { make in
-            make.margins.equalToSuperview()
-        }
+        rtcProvider?.startCaptureVideo()
+        rtcProvider?.renderVideo(to: view, for: Participant.currentUser.id)
         view.layoutIfNeeded()
     }
 }

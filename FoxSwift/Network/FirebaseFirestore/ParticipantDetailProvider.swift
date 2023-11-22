@@ -8,9 +8,21 @@
 import Foundation
 
 protocol ParticipantDetailProviderDelegate: AnyObject {
-    func didGetOffer(_ provider: ParticipantDetailProvider, sdp: SessionDescription)
-    func didGetAnswer(_ provider: ParticipantDetailProvider, sdp: SessionDescription)
-    func didGetCandidate(_ provider: ParticipantDetailProvider, iceCandidate: IceCandidate)
+    func didGetOffer(
+        _ provider: ParticipantDetailProvider,
+        sdp: SessionDescription,
+        for: String
+    )
+    func didGetAnswer(
+        _ provider: ParticipantDetailProvider,
+        sdp: SessionDescription,
+        for: String
+    )
+    func didGetCandidate(
+        _ provider: ParticipantDetailProvider,
+        iceCandidate: IceCandidate,
+        for: String
+    )
     func didGetError(_ provider: ParticipantDetailProvider, error: Error)
 }
 
@@ -34,11 +46,11 @@ class ParticipantDetailProvider {
 
     private let currentUserSubCollections: [FSCollection: VoidManager]
 
-    private let offerManager: SdpManager
+    private let offerManager: SdpManager?
 
-    private let answerManager: SdpManager
+    private let answerManager: SdpManager?
 
-    private let iceCandidatesManager: CandidateManager
+    private let iceCandidatesManager: CandidateManager?
 
     private var offerSubCollectionManagers: [String: SdpManager] = [:]
 
@@ -64,24 +76,24 @@ class ParticipantDetailProvider {
                 )
             }
 
-        offerManager = currentUserSubCollections[.offerSdp]!.subCollectionManager(
+        offerManager = currentUserSubCollections[.offerSdp]?.subCollectionManager(
             documentID: meetingCode,
             subCollection: .withParticipant
         )
 
-        answerManager = currentUserSubCollections[.answerSdp]!.subCollectionManager(
+        answerManager = currentUserSubCollections[.answerSdp]?.subCollectionManager(
             documentID: meetingCode,
             subCollection: .withParticipant
         )
 
-        iceCandidatesManager = currentUserSubCollections[.iceCandidates]!.subCollectionManager(
+        iceCandidatesManager = currentUserSubCollections[.iceCandidates]?.subCollectionManager(
             documentID: meetingCode,
             subCollection: .withParticipant
         )
     }
 
     func send(_ sdp: SessionDescription, to participantId: String) {
-        let manager: SdpManager
+        let manager: SdpManager?
 
         switch sdp.type {
         case .offer:
@@ -92,14 +104,14 @@ class ParticipantDetailProvider {
             fatalError("Can't send such sdp")
         }
 
-        manager.createDocument(
+        manager?.createDocument(
             data: sdp,
             documentID: participantId
         )
     }
 
     func send(_ iceCandidate: IceCandidate, to participantId: String) {
-        iceCandidatesManager.unionObjects(
+        iceCandidatesManager?.unionObjects(
             objects: [iceCandidate],
             documentID: participantId,
             field: .iceCandidates
@@ -115,8 +127,14 @@ class ParticipantDetailProvider {
 
         offerSubCollectionManagers[participantId] = offerSubManager
 
-        offerSubManager.listenToDocument(documentID: currentUserId, completion: handleSdp)
-        offerSubManager.readDocument(documentID: currentUserId, completion: handleSdp)
+        offerSubManager.listenToDocument(
+            documentID: currentUserId,
+            completion: sdpHandler(for: participantId)
+        )
+        offerSubManager.readDocument(
+            documentID: currentUserId,
+            completion: sdpHandler(for: participantId)
+        )
     }
 
     func startListenAnswer(participantId: String) {
@@ -128,8 +146,15 @@ class ParticipantDetailProvider {
 
         answerSubCollectionManagers[participantId] = answerManager
 
-        answerManager.listenToDocument(documentID: participantId, completion: handleSdp)
-        answerManager.readDocument(documentID: participantId, completion: handleSdp)
+        answerManager.listenToDocument(
+            documentID: participantId,
+            completion: sdpHandler(for: participantId)
+        )
+
+        answerManager.readDocument(
+            documentID: participantId,
+            completion: sdpHandler(for: participantId)
+        )
     }
 
     func startListenIceCandidates(participantId: String) {
@@ -152,36 +177,40 @@ class ParticipantDetailProvider {
         )
     }
 
-    private func handleSdp(result: Result<SessionDescription, Error>) {
-        switch result {
-        case let .success(sdp):
-            switch sdp.type {
-            case .answer, .prAnswer:
-                delegate?.didGetAnswer(self, sdp: sdp)
-            case .offer:
-                delegate?.didGetOffer(self, sdp: sdp)
-            case .rollback:
-                return
+    private func sdpHandler(for participantId: String) ->
+    (Result<SessionDescription, Error>) -> Void {
+        return { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case let .success(sdp):
+                switch sdp.type {
+                case .answer, .prAnswer:
+                    delegate?.didGetAnswer(self, sdp: sdp, for: participantId)
+                case .offer:
+                    delegate?.didGetOffer(self, sdp: sdp, for: participantId)
+                case .rollback:
+                    return
+                }
+            case let .failure(error):
+                delegate?.didGetError(self, error: error)
             }
-        case let .failure(error):
-            delegate?.didGetError(self, error: error)
         }
     }
 
     private func iceCandidatesHandler(for participantId: String) ->
     (Result<IceCandidateList, Error>) -> Void {
-        
         let currentCandidates = oldCandidates[participantId] ?? []
-        
+
         return { [weak self] result in
             guard let self else { return }
-            
+
             switch result {
             case let .success(candidateList):
                 let newCandidates = candidateList.iceCandidates
                 let candidates = Set(newCandidates).subtracting(currentCandidates)
                 candidates.forEach {
-                    self.delegate?.didGetCandidate(self, iceCandidate: $0)
+                    self.delegate?.didGetCandidate(self, iceCandidate: $0, for: participantId)
                 }
                 oldCandidates[participantId] = newCandidates
             case let .failure(error):
@@ -191,8 +220,8 @@ class ParticipantDetailProvider {
     }
 
     func stoplisten(participantId: String) {
-        offerManager.stopListenDocument(documentID: participantId)
-        answerManager.stopListenDocument(documentID: participantId)
-        iceCandidatesManager.stopListenDocument(documentID: participantId)
+        offerManager?.stopListenDocument(documentID: participantId)
+        answerManager?.stopListenDocument(documentID: participantId)
+        iceCandidatesManager?.stopListenDocument(documentID: participantId)
     }
 }
