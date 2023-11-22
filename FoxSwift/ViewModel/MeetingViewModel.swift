@@ -11,7 +11,7 @@ class MeetingViewModel {
     var meetingCode: Box<String>
     var participants: Box<[Participant]> = .init([])
 
-    var webRTCClient: WebRTCClient?
+    var rtcProvider: RTCProvider?
 
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
@@ -23,7 +23,7 @@ class MeetingViewModel {
         )
         renderer.videoContentMode = .scaleAspectFit
 
-        webRTCClient?.renderRemoteVideo(to: renderer)
+        rtcProvider?.renderRemoteVideo(to: renderer)
 
         renderer.addTo(view) { make in
             make.margins.equalToSuperview()
@@ -37,7 +37,7 @@ class MeetingViewModel {
         )
         renderer.videoContentMode = .scaleAspectFit
 
-        webRTCClient?.startCaptureLocalVideo(renderer: renderer)
+        rtcProvider?.startCaptureLocalVideo(renderer: renderer)
 
         renderer.addTo(view) { make in
             make.margins.equalToSuperview()

@@ -36,7 +36,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
             peerConnectionProviders[participantId]?.renderRemoteVideo(to: renderer)
         }
     }
-    
+
     func setRemoteAudio(isEnable: Bool, for participantId: String) {
         peerConnectionProviders[participantId]?.remoteAudioTrack?.isEnabled = isEnable
     }

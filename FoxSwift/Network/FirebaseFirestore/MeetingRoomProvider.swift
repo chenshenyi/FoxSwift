@@ -21,7 +21,7 @@ class MeetingRoomProvider {
     var meetingCode: String?
     var meetingRoom: MeetingRoom?
 
-    private let collectionManager = FSCollectionManager<
+    let collectionManager = FSCollectionManager<
         MeetingRoom,
         MeetingRoom.CodingKeys
     >(collection: .meetingRoom)

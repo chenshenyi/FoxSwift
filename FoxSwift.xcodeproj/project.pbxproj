@@ -24,6 +24,7 @@
 		2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */; };
 		2B9C8B272B0C4A8F00F57C90 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B262B0C4A8F00F57C90 /* WebRTCClient.swift */; };
 		2B9C8B292B0C9EAC00F57C90 /* RTCProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B282B0C9EAC00F57C90 /* RTCProviderDelegate.swift */; };
+		2B9C8B2B2B0CD06B00F57C90 /* VoidCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B2A2B0CD06B00F57C90 /* VoidCodable.swift */; };
 		2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */; };
 		2BA0EB5D2B084B0A003B8EFE /* MeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */; };
 		2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */; };
@@ -97,6 +98,7 @@
 		2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionDelegate.swift; sourceTree = "<group>"; };
 		2B9C8B262B0C4A8F00F57C90 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		2B9C8B282B0C9EAC00F57C90 /* RTCProviderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCProviderDelegate.swift; sourceTree = "<group>"; };
+		2B9C8B2A2B0CD06B00F57C90 /* VoidCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidCodable.swift; sourceTree = "<group>"; };
 		2BA0EB5A2B079ADB003B8EFE /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewModel.swift; sourceTree = "<group>"; };
 		2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoom.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
 				2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */,
 				2BA0EB602B084D8C003B8EFE /* ParticipantDetail.swift */,
+				2B9C8B2A2B0CD06B00F57C90 /* VoidCodable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B9C8B2B2B0CD06B00F57C90 /* VoidCodable.swift in Sources */,
 				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,

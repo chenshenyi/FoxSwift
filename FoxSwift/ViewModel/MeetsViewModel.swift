@@ -12,9 +12,10 @@ import WebRTC
 class MeetsViewModel {
     // MARK: - Network Provider
     private var meetingProvider: MeetingRoomProvider = .init()
-    private var participantDetailProvider: ParticipantDetailProvider = .init()
+    private lazy var participantDetailProvider: ParticipantDetailProvider? =
+        .init(meetingRoomProvider: meetingProvider)
 
-    private var webRTCClient: WebRTCClient?
+    private var rtcProvider: RTCProvider?
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
@@ -24,7 +25,7 @@ class MeetsViewModel {
     // MARK: - Init
     init() {
         meetingProvider.delegate = self
-        participantDetailProvider.delegate = self
+        participantDetailProvider?.delegate = self
     }
 
     // MARK: - Meeting
@@ -46,7 +47,7 @@ class MeetsViewModel {
         meetingProvider.connect()
 
         let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
-        viewModel.webRTCClient = webRTCClient
+        viewModel.rtcProvider = rtcProvider
         handler(viewModel)
     }
 
@@ -55,11 +56,11 @@ class MeetsViewModel {
     }
 
     private func newRTCClient() {
-        let iceServers = FSWebRTCConfig.default.webRTCIceServers
-        webRTCClient = WebRTCClient(iceServers: iceServers)
-        webRTCClient?.delegate = self
+        rtcProvider = .init()
+        rtcProvider?.delegate = self
     }
 }
+
 
 // MARK: - WebRTCClientDelegate
 extension MeetsViewModel: WebRTCClientDelegate {

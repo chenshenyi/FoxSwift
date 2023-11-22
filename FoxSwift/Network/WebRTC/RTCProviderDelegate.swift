@@ -11,19 +11,19 @@ import WebRTC
 protocol RTCProviderDelegate: AnyObject {
     func rtcProvider(
         _ provider: RTCProvider,
-        didDiscoverLocalCandidate candidate: RTCIceCandidate,
+        didDiscoverLocalCandidate candidate: IceCandidate,
         for candidateId: String
     )
-    
+
     func rtcProvider(
         _ provider: RTCProvider,
-        didRemoveCandidates candidates: [RTCIceCandidate],
+        didRemoveCandidates candidates: [IceCandidate],
         for candidateId: String
     )
-    
+
     func rtcProvider(
         _ provider: RTCProvider,
-        didReceiveMessageWith buffer: RTCDataBuffer,
+        didReceiveMessageWith data: Data,
         for candidateId: String
     )
 }
@@ -37,29 +37,31 @@ extension RTCProvider: PeerConnectionProviderDelegate {
     ) {
         delegate?.rtcProvider(
             self,
-            didDiscoverLocalCandidate: candidate,
+            didDiscoverLocalCandidate: IceCandidate(from: candidate),
             for: provider.participantId
         )
     }
-    
+
     func peerConnectionProvider(
         _ provider: PeerConnectionProvider,
         didRemoveCandidates candidates: [RTCIceCandidate]
     ) {
         delegate?.rtcProvider(
             self,
-            didRemoveCandidates: candidates,
+            didRemoveCandidates: candidates.map({ rtcIceCandidate in
+                IceCandidate(from: rtcIceCandidate)
+            }),
             for: provider.participantId
         )
     }
-    
+
     func peerConnectionProvider(
         _ provider: PeerConnectionProvider,
         didReceiveMessageWith buffer: RTCDataBuffer
     ) {
         delegate?.rtcProvider(
             self,
-            didReceiveMessageWith: buffer,
+            didReceiveMessageWith: buffer.data,
             for: provider.participantId
         )
     }

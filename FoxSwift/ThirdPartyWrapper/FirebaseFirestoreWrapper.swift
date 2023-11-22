@@ -21,26 +21,28 @@ enum FSCollection: String {
     case meetingRoom = "MeetingRoom"
     case offerSdp = "OfferSdp"
     case answerSdp = "AnswerSdp"
+    case sdp = "Sdp"
     case iceCandidates = "IceCandidates"
+    case withParticipant = "Participants"
 }
 
 
 class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     typealias CompletionHandler<T> = (_ result: Result<T, Error>) -> Void
 
-    var collection: String
+    var reference: CollectionReference
     var collectionListener: ListenerRegistration?
     var documentListener: [String: ListenerRegistration] = [:]
 
     init(collection: FSCollection) {
-        self.collection = collection.rawValue
+        reference = db.collection(collection.rawValue)
+    }
+
+    private init(reference: CollectionReference) {
+        self.reference = reference
     }
 
     private let db = Firestore.firestore()
-
-    private var reference: CollectionReference {
-        db.collection(collection)
-    }
 
     func listenCollection(completion: @escaping CompletionHandler<[DataType]>) {
         collectionListener = reference.addSnapshotListener { querySnapshot, error in
@@ -110,6 +112,14 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     func stopListenDocument(documentID: String) {
         documentListener[documentID]?.remove()
         documentListener[documentID] = nil
+    }
+
+    func subCollectionManager<SubDataDataType: Codable, SubDataCodingKeys: CodingKey>(
+        documentID: String,
+        subCollection: FSCollection
+    ) -> FSCollectionManager<SubDataDataType, SubDataCodingKeys> {
+        let reference = reference.document(documentID).collection(subCollection.rawValue)
+        return .init(reference: reference)
     }
 
     func createDocument(data: DataType, completion: CompletionHandler<String>? = nil) {
@@ -218,7 +228,7 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
 }
 
 extension FSCollectionManager {
-    func updateDatao(
+    func updateData(
         data: DataType,
         documentID: String,
         field: KeyedDecodingContainer<CodingKeys>.Key,
