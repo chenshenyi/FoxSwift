@@ -12,6 +12,7 @@ class MeetingViewModel {
     var participants: Box<[Participant]> = .init([])
 
     var rtcProvider: RTCProvider?
+    var meetingProvider: MeetingRoomProvider?
 
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
@@ -26,5 +27,9 @@ class MeetingViewModel {
         rtcProvider?.startCaptureVideo()
         rtcProvider?.renderVideo(to: view, for: Participant.currentUser.id)
         view.layoutIfNeeded()
+    }
+
+    func leaveMeet() {
+        meetingProvider?.disconnect()
     }
 }

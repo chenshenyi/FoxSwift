@@ -12,8 +12,8 @@ import WebRTC
 class MeetsViewModel {
     // MARK: - Network Provider
     private var meetingProvider: MeetingRoomProvider = .init()
-    private lazy var participantDetailProvider: ParticipantDetailProvider? =
-        .init(meetingRoomProvider: meetingProvider)
+    private var participantDetailProvider: ParticipantDetailProvider?
+
 
     private var rtcProvider: RTCProvider?
 
@@ -25,12 +25,10 @@ class MeetsViewModel {
     // MARK: - Init
     init() {
         meetingProvider.delegate = self
-        participantDetailProvider?.delegate = self
     }
 
     // MARK: - Meeting
     func createNewCode() {
-        meetingProvider.disconnect()
         meetingProvider.create()
     }
 
@@ -41,13 +39,16 @@ class MeetsViewModel {
             return
         }
 
-        meetingProvider.disconnect()
+        participantDetailProvider = .init(meetingCode: meetingCode.value)
+        participantDetailProvider?.delegate = self
+
         meetingProvider.meetingCode = meetingCode.value
         meetingProvider.delegate = self
         meetingProvider.connect()
 
         let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
         viewModel.rtcProvider = rtcProvider
+        viewModel.meetingProvider = meetingProvider
         handler(viewModel)
     }
 
@@ -99,6 +100,7 @@ extension MeetsViewModel: MeetingRoomProviderDelegate {
     ) {
         participants.map(\.id).forEach { id in
             rtcProvider?.newParticipant(participantId: id)
+            participantDetailProvider?.newCandidates(to: id)
 
             participantDetailProvider?.startListenIceCandidates(participantId: id)
             participantDetailProvider?.startListenOffer(participantId: id)
@@ -108,6 +110,7 @@ extension MeetsViewModel: MeetingRoomProviderDelegate {
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew participants: [Participant]) {
         participants.map(\.id).forEach { id in
             rtcProvider?.newParticipant(participantId: id)
+            participantDetailProvider?.newCandidates(to: id)
 
             rtcProvider?.offer(for: id) { [weak self] sdpResult in
                 guard let self else { return }

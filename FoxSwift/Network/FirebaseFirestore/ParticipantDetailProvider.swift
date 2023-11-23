@@ -29,34 +29,21 @@ protocol ParticipantDetailProviderDelegate: AnyObject {
 class ParticipantDetailProvider {
     weak var delegate: ParticipantDetailProviderDelegate?
 
-    typealias VoidManager = FSCollectionManager<
-        VoidCodable,
-        VoidCodable.CodingKeys
-    >
+    typealias SdpManager = FSCollectionManager<SessionDescription,SessionDescription.CodingKeys>
 
-    typealias SdpManager = FSCollectionManager<
-        SessionDescription,
-        SessionDescription.CodingKeys
-    >
+    typealias CandidateManager = FSCollectionManager<IceCandidateList,IceCandidateList.CodingKeys>
 
-    typealias CandidateManager = FSCollectionManager<
-        IceCandidateList,
-        IceCandidateList.CodingKeys
-    >
+    private let localOfferManager: SdpManager
 
-    private let currentUserSubCollections: [FSCollection: VoidManager]
+    private let localAnswerManager: SdpManager
 
-    private let offerManager: SdpManager?
+    private let localCandidatesManager: CandidateManager
 
-    private let answerManager: SdpManager?
+    private var remoteOfferManagers: [String: SdpManager] = [:]
 
-    private let iceCandidatesManager: CandidateManager?
+    private var remoteAnswerManagers: [String: SdpManager] = [:]
 
-    private var offerSubCollectionManagers: [String: SdpManager] = [:]
-
-    private var answerSubCollectionManagers: [String: SdpManager] = [:]
-
-    private var iceCandidatesSubCollectionManagers: [String: CandidateManager] = [:]
+    private var remoteCandidatesManagers: [String: CandidateManager] = [:]
 
     private var oldCandidates: [String: [IceCandidate]] = [:]
 
@@ -64,31 +51,35 @@ class ParticipantDetailProvider {
         Participant.currentUser.id
     }
 
-    init?(meetingRoomProvider: MeetingRoomProvider) {
-        guard let meetingCode = meetingRoomProvider.meetingCode else { return nil }
+    let root: (FSCollection, String)
 
-        let collectionManager = meetingRoomProvider.collectionManager
-        currentUserSubCollections = [FSCollection.offerSdp, .answerSdp, .iceCandidates]
-            .reduce(into: [:]) { partialResult, collection in
-                partialResult[collection] = collectionManager.subCollectionManager(
-                    documentID: meetingCode,
-                    subCollection: collection
-                )
-            }
+    init(meetingCode: String) {
+        let currentUserId = Participant.currentUser.id
 
-        offerManager = currentUserSubCollections[.offerSdp]?.subCollectionManager(
-            documentID: meetingCode,
-            subCollection: .withParticipant
+        root = (FSCollection.meetingRoom, meetingCode)
+
+        localOfferManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.offerSdp, currentUserId)
+            ],
+            collection: .withParticipant
         )
 
-        answerManager = currentUserSubCollections[.answerSdp]?.subCollectionManager(
-            documentID: meetingCode,
-            subCollection: .withParticipant
+        localAnswerManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.answerSdp, currentUserId)
+            ],
+            collection: .withParticipant
         )
 
-        iceCandidatesManager = currentUserSubCollections[.iceCandidates]?.subCollectionManager(
-            documentID: meetingCode,
-            subCollection: .withParticipant
+        localCandidatesManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.iceCandidates, currentUserId)
+            ],
+            collection: .withParticipant
         )
     }
 
@@ -97,9 +88,9 @@ class ParticipantDetailProvider {
 
         switch sdp.type {
         case .offer:
-            manager = offerManager
+            manager = localOfferManager
         case .answer, .prAnswer:
-            manager = answerManager
+            manager = localAnswerManager
         case .rollback:
             fatalError("Can't send such sdp")
         }
@@ -110,8 +101,15 @@ class ParticipantDetailProvider {
         )
     }
 
+    func newCandidates(to participantId: String) {
+        localCandidatesManager.createDocument(
+            data: .init(iceCandidates: []),
+            documentID: participantId
+        )
+    }
+
     func send(_ iceCandidate: IceCandidate, to participantId: String) {
-        iceCandidatesManager?.unionObjects(
+        localCandidatesManager.unionObjects(
             objects: [iceCandidate],
             documentID: participantId,
             field: .iceCandidates
@@ -119,59 +117,63 @@ class ParticipantDetailProvider {
     }
 
     func startListenOffer(participantId: String) {
-        guard let manager = currentUserSubCollections[.offerSdp] else { return }
-        let offerSubManager: SdpManager = manager.subCollectionManager(
-            documentID: participantId,
-            subCollection: .withParticipant
+        let manager: SdpManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.offerSdp, participantId)
+            ],
+            collection: .withParticipant
         )
 
-        offerSubCollectionManagers[participantId] = offerSubManager
+        remoteOfferManagers[participantId] = manager
 
-        offerSubManager.listenToDocument(
+        manager.listenToDocument(
             documentID: currentUserId,
             completion: sdpHandler(for: participantId)
         )
-        offerSubManager.readDocument(
+        manager.readDocument(
             documentID: currentUserId,
             completion: sdpHandler(for: participantId)
         )
     }
 
     func startListenAnswer(participantId: String) {
-        guard let manager = currentUserSubCollections[.answerSdp] else { return }
-        let answerManager: SdpManager = manager.subCollectionManager(
-            documentID: participantId,
-            subCollection: .withParticipant
+        let manager: SdpManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.answerSdp, participantId)
+            ],
+            collection: .withParticipant
         )
 
-        answerSubCollectionManagers[participantId] = answerManager
+        remoteAnswerManagers[participantId] = manager
 
-        answerManager.listenToDocument(
-            documentID: participantId,
+        manager.listenToDocument(
+            documentID: currentUserId,
             completion: sdpHandler(for: participantId)
         )
-
-        answerManager.readDocument(
-            documentID: participantId,
+        manager.readDocument(
+            documentID: currentUserId,
             completion: sdpHandler(for: participantId)
         )
     }
 
     func startListenIceCandidates(participantId: String) {
-        guard let manager = currentUserSubCollections[.iceCandidates] else { return }
-        let candidateManager: CandidateManager = manager.subCollectionManager(
-            documentID: participantId,
-            subCollection: .withParticipant
+        let manager: CandidateManager = FSCollectionManager(
+            fatherDocument: [
+                root,
+                (FSCollection.iceCandidates, participantId)
+            ],
+            collection: .withParticipant
         )
 
-        iceCandidatesSubCollectionManagers[participantId] = candidateManager
+        remoteCandidatesManagers[participantId] = manager
 
-        candidateManager.listenToDocument(
+        manager.listenToDocument(
             documentID: currentUserId,
             completion: iceCandidatesHandler(for: participantId)
         )
-
-        candidateManager.readDocument(
+        manager.readDocument(
             documentID: currentUserId,
             completion: iceCandidatesHandler(for: participantId)
         )
@@ -220,8 +222,8 @@ class ParticipantDetailProvider {
     }
 
     func stoplisten(participantId: String) {
-        offerManager?.stopListenDocument(documentID: participantId)
-        answerManager?.stopListenDocument(documentID: participantId)
-        iceCandidatesManager?.stopListenDocument(documentID: participantId)
+        remoteOfferManagers[participantId]?.stopListenDocument(documentID: participantId)
+        remoteAnswerManagers[participantId]?.stopListenDocument(documentID: participantId)
+        remoteCandidatesManagers[participantId]?.stopListenDocument(documentID: participantId)
     }
 }

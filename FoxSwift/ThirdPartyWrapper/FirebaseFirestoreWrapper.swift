@@ -34,6 +34,8 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     var collectionListener: ListenerRegistration?
     var documentListener: [String: ListenerRegistration] = [:]
 
+    private let db = Firestore.firestore()
+
     init(collection: FSCollection) {
         reference = db.collection(collection.rawValue)
     }
@@ -42,7 +44,23 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         self.reference = reference
     }
 
-    private let db = Firestore.firestore()
+    convenience init(
+        fatherDocument: [(collection: FSCollection, documentId: String)],
+        collection: FSCollection
+    ) {
+        guard let rootDocument = fatherDocument.first else {
+            self.init(collection: collection)
+            return
+        }
+        let root = Firestore.firestore()
+            .collection(rootDocument.collection.rawValue)
+            .document(rootDocument.documentId)
+        let reference = fatherDocument[1...].reduce(root) { partialResult, document in
+            partialResult.collection(document.collection.rawValue)
+                .document(document.documentId)
+        }
+        self.init(reference: reference.collection(collection.rawValue))
+    }
 
     func listenCollection(completion: @escaping CompletionHandler<[DataType]>) {
         collectionListener = reference.addSnapshotListener { querySnapshot, error in
@@ -112,14 +130,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     func stopListenDocument(documentID: String) {
         documentListener[documentID]?.remove()
         documentListener[documentID] = nil
-    }
-
-    func subCollectionManager<SubDataDataType: Codable, SubDataCodingKeys: CodingKey>(
-        documentID: String,
-        subCollection: FSCollection
-    ) -> FSCollectionManager<SubDataDataType, SubDataCodingKeys> {
-        let reference = reference.document(documentID).collection(subCollection.rawValue)
-        return .init(reference: reference)
     }
 
     func createDocument(data: DataType, completion: CompletionHandler<String>? = nil) {

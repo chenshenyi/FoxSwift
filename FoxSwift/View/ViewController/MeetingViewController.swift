@@ -19,6 +19,11 @@ final class MeetingViewController: FSViewController {
     private var localVideoView = UIView()
 
     // MARK: - LifeCycle
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel?.leaveMeet()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
