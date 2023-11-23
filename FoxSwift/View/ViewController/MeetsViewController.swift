@@ -32,22 +32,6 @@ final class MeetsViewController: FSViewController {
         #endif
     }
 
-    // MARK: - Debug Tool
-    #if DEBUG
-        override func setupDeubgTool() {
-            super.setupDeubgTool()
-
-            setDebugCommand { [weak self] command in
-                guard let self else { return }
-                switch command {
-                case "Q": viewModel.leaveMeet()
-                default:
-                    break
-                }
-            }
-        }
-    #endif
-
     // MARK: - Setup Subviews
     func bindingViewModel() {
         viewModel.meetingCode.bind { [weak self] meetingCode in

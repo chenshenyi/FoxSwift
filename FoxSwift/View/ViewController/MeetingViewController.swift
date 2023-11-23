@@ -27,8 +27,6 @@ final class MeetingViewController: FSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupRemoteVideoView()
-        setupLocalVideoView()
         setupRecordButton()
     }
 
@@ -80,4 +78,6 @@ final class MeetingViewController: FSViewController {
             viewModel?.fetchLocalVideo(into: localVideoView)
         }
     }
+
+    private func setupMultiuserView() {}
 }

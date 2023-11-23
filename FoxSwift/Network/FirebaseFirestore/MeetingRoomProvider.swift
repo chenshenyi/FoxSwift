@@ -8,7 +8,6 @@
 import Foundation
 
 protocol MeetingRoomProviderDelegate: AnyObject {
-    func meetingRoom(_ provider: MeetingRoomProvider, newMeetingCode: String, createdTime: Int)
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveInitial: [Participant])
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew: [Participant])
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft: [Participant])
@@ -18,7 +17,7 @@ protocol MeetingRoomProviderDelegate: AnyObject {
 /// Warning: This content is to substitute webSocket with Firestore
 class MeetingRoomProvider {
     weak var delegate: MeetingRoomProviderDelegate?
-    var meetingCode: String?
+    var meetingCode: String
     var meetingRoom: MeetingRoom?
 
     let collectionManager = FSCollectionManager<
@@ -30,30 +29,21 @@ class MeetingRoomProvider {
         Participant.currentUser
     }
 
-    init(meetingCode: String? = nil) {
+    init(meetingCode: String) {
         self.meetingCode = meetingCode
     }
 
-    func create() {
+    class func create(completion: @escaping (Result<String, Error>) -> Void) {
         let meetingRoom = MeetingRoom()
-        self.meetingRoom = meetingRoom
-        collectionManager.createDocument(data: meetingRoom) { [weak self] result in
-            guard let self else { return }
 
-            switch result {
-            case let .success(documentID):
-                meetingCode = documentID
-                let createdTime = meetingRoom.createdTime
-                delegate?.meetingRoom(self, newMeetingCode: documentID, createdTime: createdTime)
-            case let .failure(error):
-                delegate?.meetingRoom(self, didRecieveError: error)
-            }
-        }
+        FSCollectionManager<
+            MeetingRoom,
+            MeetingRoom.CodingKeys
+        >(collection: .meetingRoom)
+            .createDocument(data: meetingRoom, completion: completion)
     }
 
     func connect() {
-        guard let meetingCode else { return }
-
         collectionManager.unionObjects(
             objects: [currentUser],
             documentID: meetingCode,
@@ -72,8 +62,6 @@ class MeetingRoomProvider {
     }
 
     func disconnect() {
-        guard let meetingCode else { return }
-
         collectionManager.removeObjects(
             objects: [currentUser],
             documentID: meetingCode,

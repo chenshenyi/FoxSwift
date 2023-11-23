@@ -29,9 +29,9 @@ protocol ParticipantDetailProviderDelegate: AnyObject {
 class ParticipantDetailProvider {
     weak var delegate: ParticipantDetailProviderDelegate?
 
-    typealias SdpManager = FSCollectionManager<SessionDescription,SessionDescription.CodingKeys>
+    typealias SdpManager = FSCollectionManager<SessionDescription, SessionDescription.CodingKeys>
 
-    typealias CandidateManager = FSCollectionManager<IceCandidateList,IceCandidateList.CodingKeys>
+    typealias CandidateManager = FSCollectionManager<IceCandidateList, IceCandidateList.CodingKeys>
 
     private let localOfferManager: SdpManager
 
