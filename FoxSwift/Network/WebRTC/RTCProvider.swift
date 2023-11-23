@@ -26,9 +26,9 @@ class RTCProvider: NSObject, FSWebRTCObject {
         peerConnectionProviders[participantId] = peerConnectionProvider
     }
 
-    func renderVideo(to view: UIView, for participantId: String) {
+    func renderVideo(to view: UIView, for participantId: String, mode: UIView.ContentMode) {
         let renderer = RTCMTLVideoView(frame: .zero)
-        renderer.videoContentMode = .scaleAspectFit
+        renderer.videoContentMode = mode
         renderer.pinTo(view)
         if participantId == Participant.currentUser.id {
             renderLocalVideo(to: renderer)

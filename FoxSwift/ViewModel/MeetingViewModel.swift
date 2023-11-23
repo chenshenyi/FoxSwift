@@ -19,13 +19,13 @@ class MeetingViewModel {
     }
 
     func fetchRemoteVideo(into view: UIView, for participant: Participant) {
-        rtcProvider?.renderVideo(to: view, for: participant.id)
+        rtcProvider?.renderVideo(to: view, for: participant.id, mode: .scaleAspectFill)
         view.layoutIfNeeded()
     }
 
     func fetchLocalVideo(into view: UIView) {
         rtcProvider?.startCaptureVideo()
-        rtcProvider?.renderVideo(to: view, for: Participant.currentUser.id)
+        rtcProvider?.renderVideo(to: view, for: Participant.currentUser.id, mode: .scaleAspectFill)
         view.layoutIfNeeded()
     }
 
