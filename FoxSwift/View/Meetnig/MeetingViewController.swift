@@ -16,7 +16,6 @@ final class MeetingViewController: FSViewController {
         frame: .zero,
         collectionViewLayout: UICollectionViewLayout()
     )
-    var videoViews: [VideoView] = []
 
     // MARK: - SubViews
     private var recordButton = UIButton()
@@ -35,34 +34,14 @@ final class MeetingViewController: FSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        setupRecordButton()
-//        setupLocalVideoView()
-//        setupRemoteVideoView()
-
         bindingViewModel()
         setupMultiuserView()
         setupVideoControlBar()
     }
 
     private func bindingViewModel() {
-        viewModel?.participants.bind { [weak self] participants in
+        viewModel?.participants.bind { [weak self] _ in
             guard let self else { return }
-
-            participants[.added]?.forEach { [weak self] participant in
-                guard let self else { return }
-
-                let videoView = VideoView(participant: participant)
-                viewModel?.fetchRemoteVideo(into: videoView, for: participant)
-                videoViews.append(videoView)
-            }
-
-            participants[.deleted]?.forEach { [weak self] participant in
-                guard let self else { return }
-
-                videoViews.removeAll { videoView in
-                    videoView.participant == participant
-                }
-            }
             collectionView.reloadData()
         }
     }
@@ -111,5 +90,11 @@ final class MeetingViewController: FSViewController {
             make.height.equalTo(50)
             make.width.equalTo(300)
         }
+        videoControlBar.micButton.onHandler = viewModel?.turnOnMic
+        videoControlBar.micButton.offHandler = viewModel?.turnOffMic
+        videoControlBar.muteButton.onHandler = viewModel?.turnOnAudio
+        videoControlBar.muteButton.offHandler = viewModel?.turnOffAudio
+        videoControlBar.cameraButton.onHandler = viewModel?.turnOnCamera
+        videoControlBar.cameraButton.offHandler = viewModel?.turnOffCamera
     }
 }

@@ -49,6 +49,38 @@ class MeetingViewModel {
     func leaveMeet() {
         meetingProvider.disconnect()
     }
+
+    func turnOffMic() {
+        rtcProvider.speakerOff()
+    }
+
+    func turnOnMic() {
+        rtcProvider.speakerOn()
+    }
+
+    func turnOnAudio() {
+        participants.value
+            .map(\.id)
+            .forEach { id in
+                rtcProvider.setRemoteAudio(isEnable: true, for: id)
+            }
+    }
+
+    func turnOffAudio() {
+        participants.value
+            .map(\.id)
+            .forEach { id in
+                rtcProvider.setRemoteAudio(isEnable: false, for: id)
+            }
+    }
+
+    func turnOnCamera() {
+        rtcProvider.startCaptureVideo()
+    }
+
+    func turnOffCamera() {
+        rtcProvider.stopCaptureVideo()
+    }
 }
 
 

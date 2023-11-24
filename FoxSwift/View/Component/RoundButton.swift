@@ -37,9 +37,18 @@ class RoundButton: UIButton {
         }
     }
 
+    var onHandler: (() -> Void)?
+    var offHandler: (() -> Void)?
+
     func setupToggle() {
         addAction { [weak self] in
-            self?.isOn.toggle()
+            guard let self else { return }
+            isOn.toggle()
+            if isOn {
+                onHandler?()
+            } else {
+                offHandler?()
+            }
         }
     }
 

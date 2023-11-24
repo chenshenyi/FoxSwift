@@ -55,7 +55,7 @@ extension MeetingViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        videoViews.count
+        viewModel?.participants.value.count ?? 0
     }
 
     func collectionView(
@@ -67,17 +67,20 @@ extension MeetingViewController: UICollectionViewDataSource {
             indexPath: indexPath
         ) else { fatalError("No such cell") }
 
-        let videoView = videoViews[indexPath.row]
-        if videoView.superview !== cell.contentView {
-            videoView.removeFromSuperview()
-            videoView.removeConstraints(videoView.constraints)
-            videoView.addTo(cell.contentView) { make in
-                make.center.equalTo(cell.contentView)
-                make.height.width.equalTo(150)
-            }
-            videoView.layer.cornerRadius = 30
-            videoView.backgroundColor = .fsPrimary
+        guard let participant = viewModel?.participants.value[indexPath.row] else {
+            fatalError("no participant")
         }
+
+        let videoView = VideoView(participant: participant)
+
+        videoView.addTo(cell.contentView) { make in
+            make.centerWithinMargins.equalTo(cell.contentView)
+            make.height.width.equalTo(150)
+        }
+        videoView.layer.cornerRadius = 30
+        videoView.backgroundColor = .fsPrimary
+
+        viewModel?.fetchRemoteVideo(into: videoView, for: participant)
 
         return cell
     }
