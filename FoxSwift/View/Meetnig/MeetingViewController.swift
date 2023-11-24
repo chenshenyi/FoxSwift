@@ -23,6 +23,8 @@ final class MeetingViewController: FSViewController {
     private var remoteVideoView = UIView()
     private var localVideoView = UIView()
 
+    let videoControlBar = VideoControlBar()
+
 
     // MARK: - LifeCycle
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +41,7 @@ final class MeetingViewController: FSViewController {
 
         bindingViewModel()
         setupMultiuserView()
+        setupVideoControlBar()
     }
 
     private func bindingViewModel() {
@@ -98,6 +101,15 @@ final class MeetingViewController: FSViewController {
             guard let self else { return }
 
             viewModel?.fetchLocalVideo(into: localVideoView)
+        }
+    }
+
+    private func setupVideoControlBar() {
+        videoControlBar.addTo(view) { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.centerX.equalTo(view)
+            make.height.equalTo(50)
+            make.width.equalTo(300)
         }
     }
 }

@@ -19,26 +19,46 @@ class RoundButton: UIButton {
         }
     }
 
-    var isOn: Bool = true {
+    var onImage: UIImage? {
         didSet {
             isOn ? setupOnState() : setupOffState()
+        }
+    }
+
+    var offImage: UIImage? {
+        didSet {
+            isOn ? setupOnState() : setupOffState()
+        }
+    }
+
+    var isOn = true {
+        didSet {
+            isOn ? setupOnState() : setupOffState()
+        }
+    }
+
+    func setupToggle() {
+        addAction { [weak self] in
+            self?.isOn.toggle()
         }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        layer.cornerRadius = min(bounds.height, bounds.width)
+        layer.cornerRadius = min(bounds.height, bounds.width) / 2
     }
-    
+
     private func setupOnState() {
         backgroundColor = roundButtonConfiguration.onBackgroundColor
         tintColor = roundButtonConfiguration.onTintColor
+        setImage(onImage, for: .normal)
     }
-    
+
     private func setupOffState() {
         backgroundColor = roundButtonConfiguration.offBackgroundColor
         tintColor = roundButtonConfiguration.offTintColor
+        setImage(offImage, for: .normal)
     }
 }
 
