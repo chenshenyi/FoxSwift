@@ -7,8 +7,6 @@
 
 import Foundation
 
-import WebRTC
-
 class MeetsViewModel {
     // MARK: - Network Provider
     private var meetingProvider: MeetingRoomProvider?

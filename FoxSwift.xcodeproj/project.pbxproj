@@ -16,6 +16,9 @@
 		2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1642B05BB52007B717C /* Result+Extension.swift */; };
 		2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1682B0613AF007B717C /* MeetsViewController.swift */; };
 		2B5AC16D2B063506007B717C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC16C2B063506007B717C /* GoogleService-Info.plist */; };
+		2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EB2B0F351400C5C06A /* VideoView.swift */; };
+		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
+		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
@@ -59,6 +62,8 @@
 		2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DE62B012A0900DD4C2F /* UITableView+Extension.swift */; };
 		2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8DE72B012A0900DD4C2F /* Array+Extension.swift */; };
 		2BCB8DF52B012F0400DD4C2F /* Features.md in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB8DF42B012F0400DD4C2F /* Features.md */; };
+		2BD8B0F02B107673001646C5 /* VideoControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */; };
+		2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8B0F12B10770E001646C5 /* RoundButton.swift */; };
 		32D0C81EF65366C63FFBC15F /* Pods_FoxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A02122AD8BC3743044861B /* Pods_FoxSwift.framework */; };
 		9D6E0BB2533B01F64E52F69C /* Pods_FoxSwift_FoxSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A57E96D0D7C870200E2A9F3 /* Pods_FoxSwift_FoxSwiftUITests.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +95,9 @@
 		2B5AC1642B05BB52007B717C /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 		2B5AC1682B0613AF007B717C /* MeetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewController.swift; sourceTree = "<group>"; };
 		2B5AC16C2B063506007B717C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2B66F5EB2B0F351400C5C06A /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
+		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +145,8 @@
 		2BCB8DE62B012A0900DD4C2F /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		2BCB8DE72B012A0900DD4C2F /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		2BCB8DF42B012F0400DD4C2F /* Features.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Features.md; sourceTree = "<group>"; };
+		2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlBar.swift; sourceTree = "<group>"; };
+		2BD8B0F12B10770E001646C5 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		52A02122AD8BC3743044861B /* Pods_FoxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		698C76CEA958F27B657066EC /* Pods-FoxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwift.debug.xcconfig"; path = "Target Support Files/Pods-FoxSwift/Pods-FoxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7794B6A933E85AC6011BA770 /* Pods-FoxSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				2B228F872B04C59100539E8A /* Box.swift */,
+				2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */,
 				2BA0EB6E2B086F7F003B8EFE /* UILabel+Box.swift */,
 			);
 			path = Utilities;
@@ -212,8 +223,8 @@
 			children = (
 				2BA0EB752B08AEF7003B8EFE /* Component */,
 				2B24FFA62B0374140000C5A3 /* Base */,
-				2B24FFA52B0374000000C5A3 /* ViewController */,
-				2BA0EB682B085F01003B8EFE /* MeetingCell.swift */,
+				2B24FFA52B0374000000C5A3 /* Meets */,
+				2B66F5F12B0F53C900C5C06A /* Meetnig */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -228,13 +239,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		2B24FFA52B0374000000C5A3 /* ViewController */ = {
+		2B24FFA52B0374000000C5A3 /* Meets */ = {
 			isa = PBXGroup;
 			children = (
 				2B5AC1682B0613AF007B717C /* MeetsViewController.swift */,
-				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
+				2BA0EB682B085F01003B8EFE /* MeetingCell.swift */,
 			);
-			path = ViewController;
+			path = Meets;
 			sourceTree = "<group>";
 		};
 		2B24FFA62B0374140000C5A3 /* Base */ = {
@@ -254,6 +265,17 @@
 				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
 			);
 			path = ThirdPartyWrapper;
+			sourceTree = "<group>";
+		};
+		2B66F5F12B0F53C900C5C06A /* Meetnig */ = {
+			isa = PBXGroup;
+			children = (
+				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
+				2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */,
+				2B66F5EB2B0F351400C5C06A /* VideoView.swift */,
+				2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */,
+			);
+			path = Meetnig;
 			sourceTree = "<group>";
 		};
 		2B9C8B1E2B0C44ED00F57C90 /* WebRTC */ = {
@@ -281,6 +303,7 @@
 		2BA0EB752B08AEF7003B8EFE /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				2BD8B0F12B10770E001646C5 /* RoundButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -673,6 +696,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B9C8B2B2B0CD06B00F57C90 /* VoidCodable.swift in Sources */,
+				2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */,
 				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
@@ -687,10 +711,13 @@
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
+				2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */,
 				2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
+				2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */,
 				2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
+				2BD8B0F02B107673001646C5 /* VideoControlBar.swift in Sources */,
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */,
@@ -699,6 +726,7 @@
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
 				2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */,
+				2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */,
 				2B228F882B04C59100539E8A /* Box.swift in Sources */,
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
@@ -899,15 +927,15 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -933,15 +961,15 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

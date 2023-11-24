@@ -12,11 +12,17 @@ final class MeetingViewController: FSViewController {
     // MARK: - ViewModel
     var viewModel: MeetingViewModel?
 
-    // MARK: - SubViews
-    private var remoteVideoView = UIView()
-    private var recordButton = UIButton()
+    var collectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: UICollectionViewLayout()
+    )
+    var videoViews: [VideoView] = []
 
+    // MARK: - SubViews
+    private var recordButton = UIButton()
+    private var remoteVideoView = UIView()
     private var localVideoView = UIView()
+
 
     // MARK: - LifeCycle
     override func viewWillDisappear(_ animated: Bool) {
@@ -27,18 +33,34 @@ final class MeetingViewController: FSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupRecordButton()
+//        setupRecordButton()
+//        setupLocalVideoView()
+//        setupRemoteVideoView()
+
+        bindingViewModel()
+        setupMultiuserView()
     }
 
     private func bindingViewModel() {
         viewModel?.participants.bind { [weak self] participants in
-            guard let self, let remoteParticipant = participants.first(where: { participant in
-                participant.id != Participant.currentUser.id
-            })
-            else {
-                return
+            guard let self else { return }
+
+            participants[.added]?.forEach { [weak self] participant in
+                guard let self else { return }
+
+                let videoView = VideoView(participant: participant)
+                viewModel?.fetchRemoteVideo(into: videoView, for: participant)
+                videoViews.append(videoView)
             }
-            viewModel?.fetchRemoteVideo(into: remoteVideoView, for: remoteParticipant)
+
+            participants[.deleted]?.forEach { [weak self] participant in
+                guard let self else { return }
+
+                videoViews.removeAll { videoView in
+                    videoView.participant == participant
+                }
+            }
+            collectionView.reloadData()
         }
     }
 
@@ -78,6 +100,4 @@ final class MeetingViewController: FSViewController {
             viewModel?.fetchLocalVideo(into: localVideoView)
         }
     }
-
-    private func setupMultiuserView() {}
 }

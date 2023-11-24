@@ -5,7 +5,7 @@
 //  Created by chen shen yi on 2023/11/18.
 //
 
-import WebRTC
+import UIKit
 
 class MeetingViewModel {
     // MARK: - Network Provider
@@ -16,7 +16,7 @@ class MeetingViewModel {
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
     var meetingCode: Box<String> = .init("")
-    var participants: Box<[Participant]> = .init([])
+    var participants: DiffBox<Participant> = .init([.currentUser])
 
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
@@ -33,6 +33,9 @@ class MeetingViewModel {
     }
 
     func fetchRemoteVideo(into view: UIView, for participant: Participant) {
+        if participant.id == Participant.currentUser.id {
+            rtcProvider.startCaptureVideo()
+        }
         rtcProvider.renderVideo(to: view, for: participant.id, mode: .scaleAspectFill)
         view.layoutIfNeeded()
     }
@@ -82,11 +85,13 @@ extension MeetingViewModel: MeetingRoomProviderDelegate {
     ) {
         participants.map(\.id).forEach { id in
             rtcProvider.newParticipant(participantId: id)
-            participantDetailProvider.newCandidates(to: id)
 
+            participantDetailProvider.newCandidates(to: id)
             participantDetailProvider.startListenIceCandidates(participantId: id)
             participantDetailProvider.startListenOffer(participantId: id)
         }
+
+        self.participants.value += participants
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew participants: [Participant]) {
@@ -109,6 +114,8 @@ extension MeetingViewModel: MeetingRoomProviderDelegate {
             participantDetailProvider.startListenIceCandidates(participantId: id)
             participantDetailProvider.startListenAnswer(participantId: id)
         }
+
+        self.participants.value += participants
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft participants: [Participant]) {

@@ -24,7 +24,6 @@ class FSViewController: UIViewController {
 
         func setDebugCommand(_ handler: @escaping (_ command: String) -> Void) {
             debugToolAction = handler
-            isDebugToolHidden = true
         }
 
         func setupDeubgTool() {
@@ -68,6 +67,8 @@ class FSViewController: UIViewController {
             showDebugToolButton.addAction { [weak self] in
                 self?.isDebugToolHidden.toggle()
             }
+
+            isDebugToolHidden = true
         }
     #endif
 
