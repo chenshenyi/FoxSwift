@@ -24,6 +24,7 @@ enum FSCollection: String {
     case sdp = "Sdp"
     case iceCandidates = "IceCandidates"
     case withParticipant = "Participants"
+    case messages = "Messages"
 }
 
 
@@ -62,28 +63,24 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         self.init(reference: reference.collection(collection.rawValue))
     }
 
-    func listenCollection(completion: @escaping CompletionHandler<[DataType]>) {
-        collectionListener = reference.addSnapshotListener { querySnapshot, error in
+    func listenCollection(
+        listenToAddedOnly: Bool = false,
+        completion: @escaping CompletionHandler<[DataType]>
+    ) {
+        collectionListener = reference.addSnapshotListener { [weak self] querySnapshot, error in
             if let error {
                 completion(.failure(error))
                 return
             }
 
-            guard let querySnapshot else {
+            guard let querySnapshot, let self else {
                 completion(.failure(FSCollectionError.unknownError))
                 return
             }
 
-
-            let documentDecodeResult: [Result<DataType, Error>] = querySnapshot.documents
-                .map { document in
-                    do {
-                        let documentData = try document.data(as: DataType.self)
-                        return .success(documentData)
-                    } catch {
-                        return .failure(error)
-                    }
-                }
+            let documentDecodeResult = listenToAddedOnly
+                ? listenToAdded(querySnapshot: querySnapshot)
+                : listenToAll(querySnapshot: querySnapshot)
 
             let documetFailures = documentDecodeResult.failedResults()
             let documentData = documentDecodeResult.successfulResults()
@@ -94,6 +91,31 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             } else {
                 documetFailures.forEach { completion(.failure($0)) }
             }
+        }
+    }
+
+    private func listenToAll(querySnapshot: QuerySnapshot) -> [Result<DataType, Error>] {
+        querySnapshot.documents.map { document in
+            decodeDocument(document: document)
+        }
+    }
+
+    private func listenToAdded(querySnapshot: QuerySnapshot) -> [Result<DataType, Error>] {
+        querySnapshot.documentChanges.compactMap { documentChange in
+            if documentChange.oldIndex != -1 {
+                return nil
+            }
+            let document = documentChange.document
+            return decodeDocument(document: document)
+        }
+    }
+    
+    private func decodeDocument(document: QueryDocumentSnapshot) -> Result<DataType, Error> {
+        do {
+            let documentData = try document.data(as: DataType.self)
+            return .success(documentData)
+        } catch {
+            return .failure(error)
         }
     }
 
