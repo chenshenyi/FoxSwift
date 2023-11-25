@@ -109,7 +109,7 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             return decodeDocument(document: document)
         }
     }
-    
+
     private func decodeDocument(document: QueryDocumentSnapshot) -> Result<DataType, Error> {
         do {
             let documentData = try document.data(as: DataType.self)

@@ -13,23 +13,23 @@ struct FSMessage: Codable {
         case image
         case file
     }
-    
+
     enum CodingKeys: CodingKey {
         case data
         case author
         case type
         case createdTime
     }
-    
+
     var data: Data
     var author: Participant
     var type: FSMessageType
     var createdTime: Int
-    
+
     init(data: Data, author: Participant, type: FSMessageType) {
         self.data = data
         self.author = author
         self.type = type
-        self.createdTime = Int(Date.now.timeIntervalSince1970)
+        createdTime = Int(Date.now.timeIntervalSince1970)
     }
 }

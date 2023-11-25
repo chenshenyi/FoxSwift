@@ -11,18 +11,21 @@ class MeetingViewModel {
     // MARK: - Network Provider
     private let meetingProvider: MeetingRoomProvider
     private let participantDetailProvider: ParticipantDetailProvider
+    private let messageProvider: MessageProvider
     private let rtcProvider: RTCProvider
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
     var meetingCode: Box<String> = .init("")
     var participants: DiffBox<Participant> = .init([.currentUser])
+    var messages: Box<[FSMessage]> = .init([])
 
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
 
         meetingProvider = .init(meetingCode: meetingCode)
         participantDetailProvider = .init(meetingCode: meetingCode)
+        messageProvider = .init(meetingCode: meetingCode)
         rtcProvider = .init()
 
         meetingProvider.delegate = self
@@ -30,6 +33,9 @@ class MeetingViewModel {
         rtcProvider.delegate = self
 
         meetingProvider.connect()
+        messageProvider.startListen { [weak self] message in
+            self?.messages.value.append(message)
+        }
     }
 
     func fetchRemoteVideo(into view: UIView, for participant: Participant) {
@@ -50,6 +56,8 @@ class MeetingViewModel {
         meetingProvider.disconnect()
     }
 
+    
+    // MARK: - Functional Buttons
     func turnOffMic() {
         rtcProvider.speakerOff()
     }

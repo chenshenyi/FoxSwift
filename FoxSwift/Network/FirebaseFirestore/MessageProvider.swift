@@ -15,7 +15,7 @@ class MessageProvider {
     >
 
     typealias MessageHandler = (FSMessage) -> Void
-    
+
     init(meetingCode: String) {
         self.meetingCode = meetingCode
         collectionManager = .init(

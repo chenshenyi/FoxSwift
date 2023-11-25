@@ -12,10 +12,6 @@ final class MeetingViewController: FSViewController {
     // MARK: - ViewModel
     var viewModel: MeetingViewModel?
 
-    var collectionView = UICollectionView(
-        frame: .zero,
-        collectionViewLayout: UICollectionViewLayout()
-    )
 
     // MARK: - SubViews
     private var recordButton = UIButton()
@@ -24,6 +20,12 @@ final class MeetingViewController: FSViewController {
 
     let videoControlBar = VideoControlBar()
 
+    var collectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: UICollectionViewLayout()
+    )
+    
+    var messageTableView = UITableView()
 
     // MARK: - LifeCycle
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,14 +88,13 @@ final class MeetingViewController: FSViewController {
     private func setupVideoControlBar() {
         videoControlBar.addTo(view) { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(30)
-            make.centerX.equalTo(view)
-            make.height.equalTo(50)
-            make.width.equalTo(300)
+            make.height.equalTo(60)
+            make.horizontalEdges.equalTo(view)
         }
         videoControlBar.micButton.onHandler = viewModel?.turnOnMic
         videoControlBar.micButton.offHandler = viewModel?.turnOffMic
-        videoControlBar.muteButton.onHandler = viewModel?.turnOnAudio
-        videoControlBar.muteButton.offHandler = viewModel?.turnOffAudio
+        videoControlBar.speakerButton.onHandler = viewModel?.turnOnAudio
+        videoControlBar.speakerButton.offHandler = viewModel?.turnOffAudio
         videoControlBar.cameraButton.onHandler = viewModel?.turnOnCamera
         videoControlBar.cameraButton.offHandler = viewModel?.turnOffCamera
     }
