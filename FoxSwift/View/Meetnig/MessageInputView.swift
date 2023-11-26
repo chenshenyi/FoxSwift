@@ -14,7 +14,7 @@ protocol MessageInputViewDelegate: AnyObject {
 class MessageInputView: UIView {
     let textView = UITextView()
     let doneButton = UIButton()
-    
+
     weak var delegate: MessageInputViewDelegate?
 
     // MARK: - Init
@@ -40,6 +40,8 @@ class MessageInputView: UIView {
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.fsSecondary.cgColor
 
+        textView.setToolBar()
+
         textView.addTo(self) { make in
             make.verticalEdges.leading.equalToSuperview().inset(6)
             make.trailing.equalTo(doneButton.snp.leading).inset(6)
@@ -60,6 +62,7 @@ class MessageInputView: UIView {
 
             textView.endEditing(true)
             delegate?.sendButtonDidTapped(self, sendText: textView.text)
+            textView.text = ""
         }
     }
 }
