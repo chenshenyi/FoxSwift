@@ -18,8 +18,13 @@ extension MeetingViewController {
 
         messageTableView.registReuseCell(for: MessageCell.self)
 
-        viewModel?.messages.bind { [weak self] _ in
-            self?.messageTableView.reloadData()
+        viewModel?.messages.bind { [weak self] messages in
+            guard let self else { return }
+
+            messageTableView.reloadData()
+            guard !messages.isEmpty else { return }
+            let indexPath = IndexPath(row: messages.count - 1, section: 0)
+            messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
 
         messageTableView.addTo(view) { make in
