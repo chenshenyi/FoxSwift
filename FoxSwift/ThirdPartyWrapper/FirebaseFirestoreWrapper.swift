@@ -9,10 +9,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-#if DEBUG
-    var WRITELIMIT = 100
-#endif
-
 enum FSCollectionError: Error {
     case unknownError
 }
@@ -63,6 +59,31 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         self.init(reference: reference.collection(collection.rawValue))
     }
 
+    func readCollection(completion: @escaping CompletionHandler<[DataType]>) {
+        reference.getDocuments { [weak self] querySnapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let querySnapshot, let self else {
+                completion(.failure(FSCollectionError.unknownError))
+                return
+            }
+
+            let documentDecodeResult = listenToAll(querySnapshot: querySnapshot)
+
+            let documetFailures = documentDecodeResult.failedResults()
+            let documentData = documentDecodeResult.successfulResults()
+
+            if documetFailures.isEmpty {
+                completion(.success(documentData))
+            } else {
+                documetFailures.forEach { completion(.failure($0)) }
+            }
+        }
+    }
+
     func listenCollection(
         listenToAddedOnly: Bool = false,
         completion: @escaping CompletionHandler<[DataType]>
@@ -95,14 +116,12 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     }
 
     private func listenToAll(querySnapshot: QuerySnapshot) -> [Result<DataType, Error>] {
-        querySnapshot.documents.map { document in
-            decodeDocument(document: document)
-        }
+        querySnapshot.documents.map { decodeDocument(document: $0) }
     }
 
     private func listenToAdded(querySnapshot: QuerySnapshot) -> [Result<DataType, Error>] {
         querySnapshot.documentChanges.compactMap { documentChange in
-            if documentChange.oldIndex != -1 {
+            if documentChange.type != .added {
                 return nil
             }
             let document = documentChange.document
@@ -155,10 +174,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     }
 
     func createDocument(data: DataType, completion: CompletionHandler<String>? = nil) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
         do {
             let documentReference = try reference.addDocument(from: data)
             completion?(.success(documentReference.documentID))
@@ -172,10 +187,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         documentID: String,
         completion: CompletionHandler<String>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
         do {
             try reference.document(documentID).setData(from: data) { error in
                 if let error {
@@ -228,11 +239,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         documentID: String,
         completion: CompletionHandler<DataType>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         do {
             try reference.document(documentID).setData(from: data, merge: true)
             completion?(.success(data))
@@ -240,23 +246,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             completion?(.failure(error))
         }
     }
-
-
-    #if DEBUG
-        func clearCollection() {
-            reference.getDocuments { snapshot, error in
-                if let error {
-                    print(error.localizedDescription)
-                    return
-                }
-                guard let snapshot else {
-                    print("unknown error")
-                    return
-                }
-                snapshot.documents.forEach { $0.reference.delete() }
-            }
-        }
-    #endif
 }
 
 extension FSCollectionManager {
@@ -266,11 +255,6 @@ extension FSCollectionManager {
         field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<DataType>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         reference.document(documentID).updateData(
             [field.stringValue: data]
         ) { error in
@@ -288,11 +272,6 @@ extension FSCollectionManager {
         field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         let serialDatas: [[String: Any]] = objects.compactMap { data in
             guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
             return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
@@ -315,11 +294,6 @@ extension FSCollectionManager {
         field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         let serialDatas: [[String: Any]] = objects.compactMap { data in
             guard let jsonData = try? JSONEncoder().encode(data) else { return nil }
             return try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
@@ -342,11 +316,6 @@ extension FSCollectionManager {
         field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayRemove(serialObjects)]
         ) { error in
@@ -364,11 +333,6 @@ extension FSCollectionManager {
         field: KeyedDecodingContainer<CodingKeys>.Key,
         completion: CompletionHandler<[T]>? = nil
     ) {
-        #if DEBUG
-            guard WRITELIMIT > 0 else { return }
-            WRITELIMIT -= 1
-        #endif
-
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayUnion(serialObjects)]
         ) { error in

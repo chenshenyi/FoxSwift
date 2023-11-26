@@ -54,9 +54,17 @@ class MeetingViewModel {
 
     func leaveMeet() {
         meetingProvider.disconnect()
+        messageProvider.stopListenMessage()
     }
 
-    
+    func sendMessage(text: String) {
+        guard let data = text.data(using: .utf8) else { return }
+        let message = FSMessage(data: data, author: .currentUser, type: .text)
+
+        messageProvider.send(message: message)
+    }
+
+
     // MARK: - Functional Buttons
     func turnOffMic() {
         rtcProvider.speakerOff()

@@ -29,15 +29,22 @@ class MessageProvider {
     }
 
     func startListen(handler: @escaping MessageHandler) {
-        collectionManager.listenCollection(listenToAddedOnly: true) { result in
-            switch result {
-            case let .success(messages):
-                messages.forEach { message in
-                    handler(message)
-                }
-            case let .failure(error):
-                debugPrint(error.localizedDescription.red)
+        collectionManager.listenCollection(listenToAddedOnly: true) { [weak self] result in
+            self?.readResult(result: result, handler: handler)
+        }
+    }
+
+    private func readResult(
+        result: Result<[FSMessage], Error>,
+        handler: @escaping MessageHandler
+    ) {
+        switch result {
+        case let .success(messages):
+            messages.forEach { message in
+                handler(message)
             }
+        case let .failure(error):
+            debugPrint(error.localizedDescription.red)
         }
     }
 

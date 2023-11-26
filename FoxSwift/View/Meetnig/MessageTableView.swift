@@ -8,14 +8,30 @@
 import UIKit
 
 extension MeetingViewController {
-    func setupmessageTableView() {
+    func setupMessageTableView() {
         messageTableView.delegate = self
         messageTableView.dataSource = self
-        
+
+        messageTableView.backgroundColor = .fsBg
+        messageTableView.layer.borderColor = UIColor.fsSecondary.cgColor
+        messageTableView.layer.borderWidth = 1
+
         messageTableView.registReuseCell(for: MessageCell.self)
 
         viewModel?.messages.bind { [weak self] _ in
             self?.messageTableView.reloadData()
+        }
+
+        messageTableView.addTo(view) { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalToSuperview().inset(200)
+        }
+
+        messageInputView.delegate = self
+        messageInputView.addTo(view) { make in
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(60)
         }
     }
 }
@@ -30,13 +46,28 @@ extension MeetingViewController: UITableViewDataSource {
             fatalError("Message cell not regist.")
         }
         guard let message = viewModel?.messages.value[indexPath.row] else {
-            fatalError("")
+            fatalError("no such message")
         }
-        
+
         cell.viewModel.setup(message: message)
-        
-         return cell
+
+        return cell
     }
 }
 
-extension MeetingViewController: UITableViewDelegate {}
+extension MeetingViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        UITableView.automaticDimension
+    }
+}
+
+
+extension MeetingViewController: MessageInputViewDelegate {
+    func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
+        guard !text.isEmpty else { return }
+        viewModel?.sendMessage(text: text)
+    }
+}

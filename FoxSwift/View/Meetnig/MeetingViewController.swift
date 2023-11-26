@@ -24,8 +24,9 @@ final class MeetingViewController: FSViewController {
         frame: .zero,
         collectionViewLayout: UICollectionViewLayout()
     )
-    
+
     var messageTableView = UITableView()
+    var messageInputView = MessageInputView()
 
     // MARK: - LifeCycle
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +40,7 @@ final class MeetingViewController: FSViewController {
         bindingViewModel()
         setupMultiuserView()
         setupVideoControlBar()
+        setupMessageTableView()
     }
 
     private func bindingViewModel() {

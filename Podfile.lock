@@ -729,6 +729,7 @@ PODS:
     - BoringSSL-GRPC (= 0.0.24)
     - gRPC-Core/Interface (= 1.49.1)
   - gRPC-Core/Interface (1.49.1)
+  - IQKeyboardManager (6.5.15)
   - Kingfisher (7.9.1)
   - leveldb-library (1.22.2)
   - nanopb (2.30909.0):
@@ -746,6 +747,7 @@ DEPENDENCIES:
   - ESPullToRefresh
   - FirebaseFirestore
   - FirebaseFirestoreSwift
+  - IQKeyboardManager
   - Kingfisher
   - SnapKit
   - SwiftLint
@@ -766,6 +768,7 @@ SPEC REPOS:
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
+    - IQKeyboardManager
     - Kingfisher
     - leveldb-library
     - nanopb
@@ -788,6 +791,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   "gRPC-C++": 2df8cba576898bdacd29f0266d5236fa0e26ba6a
   gRPC-Core: a21a60aefc08c68c247b439a9ef97174b0c54f96
+  IQKeyboardManager: 22ffab9bd300ad493485a390a095f5db0c841776
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
@@ -796,6 +800,6 @@ SPEC CHECKSUMS:
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
   WebRTC-lib: 4e9a17058f880cd658e88383c1ac8f1119af3700
 
-PODFILE CHECKSUM: f83742dc6c2799338df03ece65516d8e43e86e06
+PODFILE CHECKSUM: 6eb9f7a9a4b17844ac7919df45372d33c4636d0a
 
 COCOAPODS: 1.13.0

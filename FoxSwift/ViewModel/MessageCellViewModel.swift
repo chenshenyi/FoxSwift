@@ -8,11 +8,11 @@
 import Foundation
 
 class MessageCellViewModel {
-    var author: Box<String> = .init("")
+    var author: Box<Participant> = .init(.init())
     var content: Box<String> = .init("")
-    
+
     func setup(message: FSMessage) {
-        author.value = message.author.name
+        author.value = message.author
         let data = message.data
         let text = String(data: data, encoding: .utf8) ?? ""
         content.value = text

@@ -27,9 +27,6 @@ final class MeetsViewController: FSViewController {
         setupNewMeetingButton()
         setupJoinMeetingButton()
         bindingViewModel()
-        #if DEBUG
-            setupDeubgTool()
-        #endif
     }
 
     // MARK: - Setup Subviews
