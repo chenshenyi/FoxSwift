@@ -20,6 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         window?.rootViewController = FSTabBarController()
         window?.makeKeyAndVisible()
+
+        let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
+        let user = FSUser(id: UUID().uuidString, name: name)
+        FSUser.currentUser = user
+        FSUserProvider.createNewUser(user: user)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

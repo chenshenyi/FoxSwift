@@ -21,6 +21,7 @@ enum FSCollection: String {
     case iceCandidates = "IceCandidates"
     case withParticipant = "Participants"
     case messages = "Messages"
+    case user = "User"
 }
 
 

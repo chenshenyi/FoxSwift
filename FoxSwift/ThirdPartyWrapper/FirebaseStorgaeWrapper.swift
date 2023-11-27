@@ -14,12 +14,10 @@ enum StorageFolder: String {
 
 class StorageManager {
     static let db = Storage.storage().reference()
-    
+
     let reference: StorageReference
-    
+
     init(folder: StorageFolder) {
         reference = Self.db.child(folder.rawValue)
     }
-    
-    
 }

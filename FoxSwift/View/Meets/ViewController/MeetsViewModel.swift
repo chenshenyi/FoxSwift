@@ -9,8 +9,7 @@ import Foundation
 
 class MeetsViewModel {
     // MARK: - Network Provider
-    private var meetingProvider: MeetingRoomProvider?
-    private var participantDetailProvider: ParticipantDetailProvider?
+    private var userProvider: FSUserProvider?
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
