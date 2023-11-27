@@ -11,34 +11,35 @@ class MeetingViewModel {
     // MARK: - Network Provider
     private let meetingProvider: MeetingRoomProvider
     private let participantDetailProvider: ParticipantDetailProvider
-    private let messageProvider: MessageProvider
     private let rtcProvider: RTCProvider
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
     var meetingCode: Box<String> = .init("")
     var participants: DiffBox<Participant> = .init([.currentUser])
-    var messages: Box<[FSMessage]> = .init([])
 
+
+    // MARK: - Init
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
 
         meetingProvider = .init(meetingCode: meetingCode)
         participantDetailProvider = .init(meetingCode: meetingCode)
-        messageProvider = .init(meetingCode: meetingCode)
         rtcProvider = .init()
 
+        setupProvider()
+    }
+
+    func setupProvider() {
         meetingProvider.delegate = self
         participantDetailProvider.delegate = self
         rtcProvider.delegate = self
 
         meetingProvider.connect()
-        messageProvider.startListen { [weak self] message in
-            self?.messages.value.append(message)
-        }
     }
 
-    func fetchRemoteVideo(into view: UIView, for participant: Participant) {
+    // MARK: - fetch video
+    func fetchVideo(into view: UIView, for participant: Participant) {
         if participant.id == Participant.currentUser.id {
             rtcProvider.startCaptureVideo()
         }
@@ -46,22 +47,9 @@ class MeetingViewModel {
         view.layoutIfNeeded()
     }
 
-    func fetchLocalVideo(into view: UIView) {
-        rtcProvider.startCaptureVideo()
-        rtcProvider.renderVideo(to: view, for: Participant.currentUser.id, mode: .scaleAspectFill)
-        view.layoutIfNeeded()
-    }
-
+    // MARK: - Leave Meet
     func leaveMeet() {
         meetingProvider.disconnect()
-        messageProvider.stopListenMessage()
-    }
-
-    func sendMessage(text: String) {
-        guard let data = text.data(using: .utf8) else { return }
-        let message = FSMessage(data: data, author: .currentUser, type: .text)
-
-        messageProvider.send(message: message)
     }
 
 

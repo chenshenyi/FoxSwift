@@ -10,7 +10,6 @@
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
-		2B1F84852B11ED8300136190 /* MessageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84842B11ED8300136190 /* MessageTableView.swift */; };
 		2B1F84892B1229BA00136190 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* MessageCell.swift */; };
 		2B1F848C2B122F1F00136190 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */; };
 		2B228F882B04C59100539E8A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F872B04C59100539E8A /* Box.swift */; };
@@ -72,6 +71,9 @@
 		2BEAE6B82B142DEE0007180B /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B72B142DEE0007180B /* UserProvider.swift */; };
 		2BEAE6BA2B142E010007180B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B92B142E010007180B /* User.swift */; };
 		2BEAE6BC2B143B830007180B /* Error+Extenision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6BB2B143B830007180B /* Error+Extenision.swift */; };
+		2BEAE6BF2B148E3C0007180B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6BE2B148E3C0007180B /* MessageView.swift */; };
+		2BEAE6C12B1490330007180B /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6C02B1490330007180B /* MessageViewModel.swift */; };
+		2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6C22B1498EA0007180B /* MessageHeaderView.swift */; };
 		32D0C81EF65366C63FFBC15F /* Pods_FoxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A02122AD8BC3743044861B /* Pods_FoxSwift.framework */; };
 		9D6E0BB2533B01F64E52F69C /* Pods_FoxSwift_FoxSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A57E96D0D7C870200E2A9F3 /* Pods_FoxSwift_FoxSwiftUITests.framework */; };
 /* End PBXBuildFile section */
@@ -97,7 +99,6 @@
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
-		2B1F84842B11ED8300136190 /* MessageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableView.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
 		2B228F872B04C59100539E8A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
@@ -163,6 +164,9 @@
 		2BEAE6B72B142DEE0007180B /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		2BEAE6B92B142E010007180B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BEAE6BB2B143B830007180B /* Error+Extenision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extenision.swift"; sourceTree = "<group>"; };
+		2BEAE6BE2B148E3C0007180B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		2BEAE6C02B1490330007180B /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		2BEAE6C22B1498EA0007180B /* MessageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeaderView.swift; sourceTree = "<group>"; };
 		52A02122AD8BC3743044861B /* Pods_FoxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		698C76CEA958F27B657066EC /* Pods-FoxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwift.debug.xcconfig"; path = "Target Support Files/Pods-FoxSwift/Pods-FoxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		7794B6A933E85AC6011BA770 /* Pods-FoxSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -278,10 +282,9 @@
 			isa = PBXGroup;
 			children = (
 				2BEAE6B52B142CAB0007180B /* ViewController */,
+				2BEAE6BD2B148E290007180B /* MessageView */,
 				2B66F5EB2B0F351400C5C06A /* VideoView.swift */,
 				2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */,
-				2BEAE6B62B142CC90007180B /* MessageCell */,
-				2B493C7F2B130FDA00C64382 /* MessageInputView.swift */,
 			);
 			path = Meetnig;
 			sourceTree = "<group>";
@@ -447,7 +450,6 @@
 				2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */,
 				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
 				2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */,
-				2B1F84842B11ED8300136190 /* MessageTableView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -459,6 +461,18 @@
 				2B1F84882B1229BA00136190 /* MessageCell.swift */,
 			);
 			path = MessageCell;
+			sourceTree = "<group>";
+		};
+		2BEAE6BD2B148E290007180B /* MessageView */ = {
+			isa = PBXGroup;
+			children = (
+				2BEAE6C02B1490330007180B /* MessageViewModel.swift */,
+				2BEAE6BE2B148E3C0007180B /* MessageView.swift */,
+				2BEAE6B62B142CC90007180B /* MessageCell */,
+				2BEAE6C22B1498EA0007180B /* MessageHeaderView.swift */,
+				2B493C7F2B130FDA00C64382 /* MessageInputView.swift */,
+			);
+			path = MessageView;
 			sourceTree = "<group>";
 		};
 		9227D149F915E58D7BB970E4 /* Frameworks */ = {
@@ -745,6 +759,7 @@
 			files = (
 				2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */,
 				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
+				2BEAE6BF2B148E3C0007180B /* MessageView.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
 				2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */,
@@ -755,9 +770,9 @@
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2BEAE6B12B1335DD0007180B /* FirebaseStorgaeWrapper.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
+				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
 				2B1F84892B1229BA00136190 /* MessageCell.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
-				2B1F84852B11ED8300136190 /* MessageTableView.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */,
@@ -798,6 +813,7 @@
 				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
 				2BEAE6AF2B1324440007180B /* UITextView+Extension.swift in Sources */,
 				2B1F84812B11C66700136190 /* Message.swift in Sources */,
+				2BEAE6C12B1490330007180B /* MessageViewModel.swift in Sources */,
 				2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
 			);

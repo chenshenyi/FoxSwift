@@ -28,7 +28,7 @@ extension VideoControlBar {
             case .mic: return .init(systemName: "mic.slash.fill")
             case .speaker: return .init(systemName: "volume.slash.fill")
             case .camera: return .init(systemName: "video.slash.fill")
-            case .message: return .init(systemName: "message")
+            case .message: return .init(systemName: "message.fill")
             }
         }
     }
@@ -74,7 +74,17 @@ class VideoControlBar: UIView {
             case .message: messageButton
             }
 
-            button.roundButtonConfiguration = config
+            switch $0 {
+            case .message:
+                messageButton.roundButtonConfiguration = .init(
+                    onBackgroundColor: .fsPrimary,
+                    onTintColor: .fsText,
+                    offBackgroundColor: .fsPrimary,
+                    offTintColor: .fsText
+                )
+            default:
+                button.roundButtonConfiguration = config
+            }
             button.onImage = $0.onImage
             button.offImage = $0.offImage
             button.setupToggle()

@@ -8,21 +8,15 @@
 import UIKit
 
 extension MeetingViewController {
-    func setupMultiuserView() {
-        setupCollectionView()
-    }
+    func setupCollectionView() {
+        videoCollectionView.dataSource = self
+        videoCollectionView.delegate = self
+        videoCollectionView.backgroundColor = .fsBg
+        videoCollectionView.collectionViewLayout = setupCollectionViewLayout()
 
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .fsBg
+        videoCollectionView.pinTo(view, safeArea: true)
 
-        collectionView.collectionViewLayout = setupCollectionViewLayout()
-
-        collectionView.pinTo(view, safeArea: true)
-
-        collectionView.registReuseCell(for: UICollectionViewCell.self)
-
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        videoCollectionView.registReuseCell(for: UICollectionViewCell.self)
     }
 
     private func setupCollectionViewLayout() -> UICollectionViewLayout {
@@ -40,8 +34,6 @@ extension MeetingViewController {
             layoutSize: groupSize,
             subitems: [item]
         )
-
-        group.contentInsets = .init(top: 20, leading: 40, bottom: 0, trailing: 40)
 
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -72,15 +64,14 @@ extension MeetingViewController: UICollectionViewDataSource {
         }
 
         let videoView = VideoView(participant: participant)
-
+        let size = view.frame.width / 2
         videoView.addTo(cell.contentView) { make in
-            make.centerWithinMargins.equalTo(cell.contentView)
-            make.height.width.equalTo(150)
+            make.center.equalTo(cell.contentView)
+            make.size.equalTo(size)
         }
-        videoView.layer.cornerRadius = 30
         videoView.backgroundColor = .fsPrimary
 
-        viewModel?.fetchRemoteVideo(into: videoView, for: participant)
+        viewModel?.fetchVideo(into: videoView, for: participant)
 
         return cell
     }
