@@ -9,6 +9,8 @@ import Foundation
 
 
 struct MeetingRoom: Codable {
+    typealias MeetingCode = String
+    
     let createdTime: Int
     var participants: [Participant] = []
 
