@@ -238,22 +238,11 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		2B24FFA32B0373AF0000C5A3 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */,
-				2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */,
-				2BA0EB662B0857E3003B8EFE /* MeetingCellViewModel.swift */,
-				2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		2B24FFA52B0374000000C5A3 /* Meets */ = {
 			isa = PBXGroup;
 			children = (
-				2B5AC1682B0613AF007B717C /* MeetsViewController.swift */,
-				2BA0EB682B085F01003B8EFE /* MeetingCell.swift */,
+				2BEAE6B32B142C720007180B /* ViewController */,
+				2BEAE6B42B142C7F0007180B /* MeetingCell */,
 			);
 			path = Meets;
 			sourceTree = "<group>";
@@ -281,12 +270,10 @@
 		2B66F5F12B0F53C900C5C06A /* Meetnig */ = {
 			isa = PBXGroup;
 			children = (
-				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
-				2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */,
-				2B1F84842B11ED8300136190 /* MessageTableView.swift */,
+				2BEAE6B52B142CAB0007180B /* ViewController */,
 				2B66F5EB2B0F351400C5C06A /* VideoView.swift */,
 				2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */,
-				2B1F84882B1229BA00136190 /* MessageCell.swift */,
+				2BEAE6B62B142CC90007180B /* MessageCell */,
 				2B493C7F2B130FDA00C64382 /* MessageInputView.swift */,
 			);
 			path = Meetnig;
@@ -374,7 +361,6 @@
 				2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */,
 				2B24FFA12B03738E0000C5A3 /* Network */,
 				2B24FFA02B03734B0000C5A3 /* Model */,
-				2B24FFA32B0373AF0000C5A3 /* ViewModel */,
 				2B24FFA22B03739A0000C5A3 /* View */,
 				2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */,
 				2BCB8DB62B011F1500DD4C2F /* LaunchScreen.storyboard */,
@@ -426,6 +412,44 @@
 				2BCB8DF42B012F0400DD4C2F /* Features.md */,
 			);
 			path = Docs;
+			sourceTree = "<group>";
+		};
+		2BEAE6B32B142C720007180B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */,
+				2B5AC1682B0613AF007B717C /* MeetsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2BEAE6B42B142C7F0007180B /* MeetingCell */ = {
+			isa = PBXGroup;
+			children = (
+				2BA0EB662B0857E3003B8EFE /* MeetingCellViewModel.swift */,
+				2BA0EB682B085F01003B8EFE /* MeetingCell.swift */,
+			);
+			path = MeetingCell;
+			sourceTree = "<group>";
+		};
+		2BEAE6B52B142CAB0007180B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2BA0EB5C2B084B0A003B8EFE /* MeetingViewModel.swift */,
+				2BA4D16B2B07519200637596 /* MeetingViewController.swift */,
+				2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */,
+				2B1F84842B11ED8300136190 /* MessageTableView.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2BEAE6B62B142CC90007180B /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */,
+				2B1F84882B1229BA00136190 /* MessageCell.swift */,
+			);
+			path = MessageCell;
 			sourceTree = "<group>";
 		};
 		9227D149F915E58D7BB970E4 /* Frameworks */ = {
