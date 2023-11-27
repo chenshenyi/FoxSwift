@@ -13,7 +13,9 @@ target 'FoxSwift' do
   pod 'Alamofire'
   pod "FirebaseFirestore"
   pod "FirebaseFirestoreSwift"
+  pod "FirebaseStorage"
   pod "SnapKit"
+  pod "IQKeyboardManager"
   
   pod "SwiftLint"
 

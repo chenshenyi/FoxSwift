@@ -636,6 +636,8 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
   - ESPullToRefresh (2.9.3)
+  - FirebaseAppCheckInterop (10.16.0)
+  - FirebaseAuthInterop (10.18.0)
   - FirebaseCore (10.16.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -663,6 +665,12 @@ PODS:
     - FirebaseFirestore (~> 10.0)
     - FirebaseSharedSwift (~> 10.0)
   - FirebaseSharedSwift (10.16.0)
+  - FirebaseStorage (10.18.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - GoogleUtilities/Environment (7.11.5):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.11.5):
@@ -729,6 +737,7 @@ PODS:
     - BoringSSL-GRPC (= 0.0.24)
     - gRPC-Core/Interface (= 1.49.1)
   - gRPC-Core/Interface (1.49.1)
+  - GTMSessionFetcher/Core (3.1.1)
   - IQKeyboardManager (6.5.15)
   - Kingfisher (7.9.1)
   - leveldb-library (1.22.2)
@@ -747,6 +756,7 @@ DEPENDENCIES:
   - ESPullToRefresh
   - FirebaseFirestore
   - FirebaseFirestoreSwift
+  - FirebaseStorage
   - IQKeyboardManager
   - Kingfisher
   - SnapKit
@@ -759,15 +769,19 @@ SPEC REPOS:
     - Alamofire
     - BoringSSL-GRPC
     - ESPullToRefresh
+    - FirebaseAppCheckInterop
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
+    - GTMSessionFetcher
     - IQKeyboardManager
     - Kingfisher
     - leveldb-library
@@ -782,15 +796,19 @@ SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
+  FirebaseAppCheckInterop: 82358cff9f33452dd44259e88eea5e562500b1cb
+  FirebaseAuthInterop: 5818713dcd7239beb96c1125e4b14d6a5a910e5f
   FirebaseCore: 65a801af84cca84361ef9eac3fd868656968a53b
   FirebaseCoreExtension: 2dbc745b337eb99d2026a7a309ae037bd873f45e
   FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
   FirebaseFirestore: 17bd5c8a0ea4be0fcae5a6f95f817983623adb4a
   FirebaseFirestoreSwift: a7a0c64b8e16b14dfca3405e447c647182318709
   FirebaseSharedSwift: 82b618801ddd76ea2ab54c5746bcd48854272232
+  FirebaseStorage: 8333c4b183764cdd170d9539a61322b71c23adff
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   "gRPC-C++": 2df8cba576898bdacd29f0266d5236fa0e26ba6a
   gRPC-Core: a21a60aefc08c68c247b439a9ef97174b0c54f96
+  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   IQKeyboardManager: 22ffab9bd300ad493485a390a095f5db0c841776
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
@@ -800,6 +818,6 @@ SPEC CHECKSUMS:
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
   WebRTC-lib: 4e9a17058f880cd658e88383c1ac8f1119af3700
 
-PODFILE CHECKSUM: 6eb9f7a9a4b17844ac7919df45372d33c4636d0a
+PODFILE CHECKSUM: 0e0db68df117974e7079d8d777d388aaca681305
 
 COCOAPODS: 1.13.0
