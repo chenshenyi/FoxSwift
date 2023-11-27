@@ -21,4 +21,13 @@ class FSUserProvider {
         guard let currentUser = FSUser.currentUser else { return }
         collectionManager.updateDocument(data: currentUser, documentID: currentUser.id)
     }
+
+    func listenToCurrentUser(handler: @escaping Handler<FSUser>) {
+        guard let currentUser = FSUser.currentUser else { return }
+
+        collectionManager.listenToDocument(
+            documentID: currentUser.id,
+            completion: handler
+        )
+    }
 }

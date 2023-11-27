@@ -8,13 +8,26 @@
 import Foundation
 
 class MeetingCellViewModel {
-    var meetingCode: Box<String>
-    var createdTime: Box<Int>
-    var meetingName: Box<String>
+    let collectionManager: FSCollectionManager<
+        MeetingRoom,
+        MeetingRoom.CodingKeys
+    > = .init(collection: .meetingRoom)
 
-    init(meetingCode: String, meetingRoom: MeetingRoom, meetingName: String? = nil) {
-        self.meetingCode = .init(meetingCode)
-        createdTime = .init(meetingRoom.createdTime)
-        self.meetingName = .init(meetingName ?? meetingCode)
+    var meetingCode: Box<String> = .init("")
+    var createdTime: Box<Int?> = .init(nil)
+    var meetingName: Box<String?> = .init(nil)
+
+    func setMeetingCode(meetingCode: MeetingRoom.MeetingCode) {
+        self.meetingCode.value = meetingCode
+        collectionManager.readDocument(documentID: meetingCode) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case let .success(meetingRoom):
+                createdTime.value = meetingRoom.createdTime
+            case let .failure(error):
+                error.print()
+            }
+        }
     }
 }

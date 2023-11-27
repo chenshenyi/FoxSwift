@@ -11,7 +11,7 @@ import UIKit
 final class MeetsViewController: FSViewController {
     // MARK: - Subviews
     let textField = UITextField()
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     let joinMeetingButton = UIButton()
     let newMeetingButton = UIButton()
 
@@ -36,12 +36,20 @@ final class MeetsViewController: FSViewController {
 
             textField.text = meetingCode
         }
+
+        viewModel.meets.bind { [weak self] _ in
+            guard let self else { return }
+
+            tableView.reloadData()
+        }
+
+        viewModel.listenToUser()
     }
 
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .fsSecondary.withAlphaComponent(0.5)
+        tableView.backgroundColor = .fsBg
 
         tableView.registReuseCell(for: MeetingCell.self)
 
@@ -134,7 +142,9 @@ final class MeetsViewController: FSViewController {
 // MARK: - TableViewDataSource
 extension MeetsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        section == 0
+            ? viewModel.activeMeeting.value == nil ? 0 : 1
+            : viewModel.meets.value.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -142,24 +152,49 @@ extension MeetsViewController: UITableViewDataSource {
             fatalError("The cell not regist")
         }
 
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            viewModel.activeMeeting.bind { viewModel in
-                guard let viewModel else { return }
-                cell.setupViewModel(viewModel: viewModel)
+            viewModel.activeMeeting.bind { meetingCode in
+                guard let meetingCode else { return }
+                cell.viewModel.setMeetingCode(meetingCode: meetingCode)
             }
         default:
-            break
+            let meetingCode = viewModel.meets.value[indexPath.row]
+            cell.viewModel.setMeetingCode(meetingCode: meetingCode)
         }
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Activate"
+        section == 0 ? "Active" : "History"
     }
 }
 
 
 // MARK: - TableViewDelegate
-extension MeetsViewController: UITableViewDelegate {}
+extension MeetsViewController: UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        100
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        willDisplayHeaderView view: UIView,
+        forSection section: Int
+    ) {
+        (view as? UITableViewHeaderFooterView)?.textLabel?.textColor = .fsSecondary
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0: return
+        default:
+            viewModel.meetingCode.value = viewModel.meets.value[indexPath.row]
+        }
+    }
+}

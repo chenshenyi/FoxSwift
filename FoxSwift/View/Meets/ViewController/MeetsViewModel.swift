@@ -9,11 +9,30 @@ import Foundation
 
 class MeetsViewModel {
     // MARK: - Network Provider
-    private var userProvider: FSUserProvider?
+    private let userProvider: FSUserProvider
 
     // MARK: - Binded Properties
-    var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
+    var activeMeeting: Box<MeetingRoom.MeetingCode?> = .init(nil)
     var meetingCode: Box<String> = .init("")
+    var meets: Box<[MeetingRoom.MeetingCode]> = .init([])
+
+    // MARK: - Init
+    init() {
+        userProvider = .init()
+    }
+
+    func listenToUser() {
+        userProvider.listenToCurrentUser { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case let .success(user):
+                meets.value = user.meetingHistory
+            case let .failure(error):
+                error.print()
+            }
+        }
+    }
 
     // MARK: - Meeting
     func createNewCode() {
@@ -31,6 +50,11 @@ class MeetsViewModel {
         if meetingCode.value.isEmpty {
             return
         }
+        FSUser.currentUser?.addHistory(meetingCode: meetingCode.value)
+        userProvider.updateCurrentUser()
+
+        activeMeeting.value = meetingCode.value
+
         let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
         handler(viewModel)
     }

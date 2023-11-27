@@ -10,7 +10,7 @@ import UIKit
 
 class MeetingCell: UITableViewCell {
     // MARK: - viewModel
-    var viewModel: MeetingCellViewModel?
+    var viewModel: MeetingCellViewModel = .init()
 
     // MARK: - Subviews
     var iconView = UIImageView()
@@ -20,6 +20,13 @@ class MeetingCell: UITableViewCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        backgroundColor = .fsBg
+        selectionStyle = .none
+        bindViewModel()
+        setupIcon()
+        setupTitleLabel()
+        setupTimeLabel()
     }
 
     @available(*, unavailable)
@@ -28,12 +35,12 @@ class MeetingCell: UITableViewCell {
     }
 
     // MARK: - Setup ViewModel
-    func setupViewModel(viewModel: MeetingCellViewModel) {
-        self.viewModel = viewModel
-
-        titleLabel.bind(viewModel.meetingName)
+    func bindViewModel() {
+        titleLabel.bind(viewModel.meetingCode)
         timeLabel.bind(viewModel.createdTime) { value in
-            Date(timeIntervalSinceNow: TimeInterval(value))
+            guard let value else { return "" }
+
+            return Date(timeIntervalSinceReferenceDate: TimeInterval(value))
                 .formatted(.relative(presentation: .named))
         }
     }
@@ -45,8 +52,7 @@ class MeetingCell: UITableViewCell {
         contentView.addSubview(iconView)
 
         iconView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().inset(16)
+            make.centerY.leading.equalToSuperview().inset(16)
             make.height.width.equalTo(70)
         }
     }
@@ -59,7 +65,7 @@ class MeetingCell: UITableViewCell {
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(iconView.snp.trailing).offset(8)
-            make.top.equalTo(iconView).offset(12)
+            make.top.equalTo(iconView).inset(12)
         }
     }
 
@@ -71,7 +77,7 @@ class MeetingCell: UITableViewCell {
 
         timeLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel)
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.bottom.equalTo(iconView).inset(12)
         }
     }
 }

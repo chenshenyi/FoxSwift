@@ -8,12 +8,12 @@
 import UIKit
 
 struct FSUser: Codable {
-    typealias Id = String
+    typealias UserId = String
 
     static var currentUser: FSUser?
 
     // - MARK: Properties
-    let id: Id
+    let id: UserId
     var name: String
     private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
 
@@ -31,7 +31,7 @@ struct FSUser: Codable {
 
     mutating func addHistory(meetingCode: MeetingRoom.MeetingCode) {
         deleteHistory(meetingCode: meetingCode)
-        meetingHistory.append(meetingCode)
+        meetingHistory.insert(meetingCode, at: 0)
     }
 
     mutating func deleteHistory(meetingCode: MeetingRoom.MeetingCode) {
