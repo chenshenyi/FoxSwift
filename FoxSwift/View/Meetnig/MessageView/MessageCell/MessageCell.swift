@@ -17,6 +17,7 @@ class MessageCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        selectionStyle = .none
         contentView.backgroundColor = .fsBg
         setupNameLabel()
         setupContentTextView()
@@ -31,7 +32,8 @@ class MessageCell: UITableViewCell {
     private func setupNameLabel() {
         nameLabel.textColor = .fsSecondary
         nameLabel.addTo(contentView) { make in
-            make.horizontalEdges.top.equalTo(contentView).inset(12)
+            make.horizontalEdges.equalTo(contentView).inset(16)
+            make.top.equalTo(contentView).inset(12)
         }
 
         nameLabel.bind(viewModel.author) { [weak self] author in
@@ -48,14 +50,16 @@ class MessageCell: UITableViewCell {
     }
 
     private func setupContentTextView() {
+        contentTextView.font = .config(weight: .regular, size: 14)
         contentTextView.textColor = .fsText
         contentTextView.backgroundColor = .fsBg
         contentTextView.isEditable = false
         contentTextView.isScrollEnabled = false
 
         contentTextView.addTo(contentView) { make in
-            make.horizontalEdges.bottom.equalTo(contentView).inset(12)
-            make.top.equalTo(nameLabel.snp.bottom).offset(12)
+            make.horizontalEdges.equalTo(contentView).inset(12)
+            make.top.equalTo(nameLabel.snp.bottom)
+            make.bottom.equalTo(contentView)
         }
 
         viewModel.content.bind { [weak self] content in

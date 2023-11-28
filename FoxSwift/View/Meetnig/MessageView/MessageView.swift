@@ -34,6 +34,8 @@ class MessageView: UIView {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.backgroundColor = .fsBg
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .fsText
 
         // Regist cell
         tableView.registReuseCell(for: MessageCell.self)
@@ -50,7 +52,7 @@ class MessageView: UIView {
         messageInputView.delegate = self
         messageInputView.addTo(self) { make in
             make.horizontalEdges.bottom.equalToSuperview()
-            make.height.equalTo(60)
+            make.height.equalTo(56)
         }
     }
 
@@ -81,6 +83,7 @@ class MessageView: UIView {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension MessageView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.messages.value.count ?? 0
@@ -100,6 +103,7 @@ extension MessageView: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MessageView: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
@@ -109,7 +113,7 @@ extension MessageView: UITableViewDelegate {
     }
 }
 
-
+// MARK: - Message Input View Delegate
 extension MessageView: MessageInputViewDelegate {
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
         guard !text.isEmpty else { return }

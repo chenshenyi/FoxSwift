@@ -44,7 +44,7 @@ class MessageInputView: UIView {
 
         textView.addTo(self) { make in
             make.verticalEdges.leading.equalToSuperview().inset(6)
-            make.trailing.equalTo(doneButton.snp.leading).inset(6)
+            make.trailing.equalTo(doneButton.snp.leading).offset(-6)
         }
     }
 
@@ -53,8 +53,8 @@ class MessageInputView: UIView {
         doneButton.tintColor = .fsSecondary
 
         doneButton.addTo(self) { make in
-            make.verticalEdges.trailing.equalToSuperview().inset(6)
-            make.width.equalTo(doneButton.snp.height)
+            make.centerY.trailing.equalToSuperview().inset(6)
+            make.size.equalTo(30)
         }
 
         doneButton.addAction { [weak self] in

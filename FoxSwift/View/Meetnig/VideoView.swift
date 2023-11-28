@@ -10,13 +10,27 @@ import UIKit
 class VideoView: UIView {
     var participant: Participant?
 
+    var nameLabel = UILabel()
+
+    // MARK: - Init
     convenience init(participant: Participant) {
         self.init(frame: .zero)
 
         self.participant = participant
+
+        setupView()
+        setupNameLabel()
+    }
+
+    private func setupView() {
         backgroundColor = .fsPrimary
         clipsToBounds = true
         layer.borderColor = UIColor.fsBg.cgColor
         layer.borderWidth = 1
+    }
+
+    private func setupNameLabel() {
+        nameLabel.text = participant?.name
+        nameLabel.textColor = .fsText
     }
 }
