@@ -18,7 +18,6 @@ class MeetingViewModel {
     var meetingCode: Box<String> = .init("")
     var participants: DiffBox<Participant> = .init([.currentUser])
 
-
     // MARK: - Init
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
@@ -86,7 +85,6 @@ class MeetingViewModel {
         rtcProvider.stopCaptureVideo()
     }
 }
-
 
 // MARK: - RTCProvider
 extension MeetingViewModel: RTCProviderDelegate {
@@ -157,6 +155,7 @@ extension MeetingViewModel: MeetingRoomProviderDelegate {
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft participants: [Participant]) {
         participants.forEach { participant in
             participantDetailProvider.stoplisten(participantId: participant.id)
+            self.participants.value.removeAll { participant == $0 }
         }
     }
 
@@ -165,7 +164,7 @@ extension MeetingViewModel: MeetingRoomProviderDelegate {
     }
 }
 
-
+// MARK: Participant Detail Provider Delegate
 extension MeetingViewModel: ParticipantDetailProviderDelegate {
     func didGetOffer(
         _ provider: ParticipantDetailProvider,

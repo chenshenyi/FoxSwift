@@ -85,6 +85,40 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         }
     }
 
+    enum Diff {
+        case added(DataType)
+        case deleted(DataType)
+        case modified(DataType)
+    }
+
+    func listenCollectionDiff(completion: @escaping CompletionHandler<[Diff]>) {
+        collectionListener = reference.addSnapshotListener { querySnapshot, error in
+            if let error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let querySnapshot else {
+                completion(.failure(FSCollectionError.unknownError))
+                return
+            }
+
+            let diffs: [Diff] = querySnapshot.documentChanges
+                .compactMap { documentChange in
+                    let document = documentChange.document
+                    guard let result = try? document.data(as: DataType.self) else { return nil }
+
+                    switch documentChange.type {
+                    case .added: return .added(result)
+                    case .modified: return .modified(result)
+                    case .removed: return .deleted(result)
+                    }
+                }
+
+            completion(.success(diffs))
+        }
+    }
+
     func listenCollection(
         listenToAddedOnly: Bool = false,
         completion: @escaping CompletionHandler<[DataType]>

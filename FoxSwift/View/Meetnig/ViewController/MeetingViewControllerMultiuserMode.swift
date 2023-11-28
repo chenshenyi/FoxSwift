@@ -14,7 +14,9 @@ extension MeetingViewController {
         videoCollectionView.backgroundColor = .fsBg
         videoCollectionView.collectionViewLayout = setupCollectionViewLayout()
 
-        videoCollectionView.pinTo(view, safeArea: true)
+        videoCollectionView.addTo(view) { make in
+            make.size.centerX.centerY.equalTo(view.safeAreaLayoutGuide).inset(5)
+        }
 
         videoCollectionView.registReuseCell(for: UICollectionViewCell.self)
     }
@@ -22,13 +24,14 @@ extension MeetingViewController {
     private func setupCollectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1 / 2),
-            heightDimension: .fractionalHeight(1)
+            heightDimension: .fractionalWidth(1 / 2)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
+
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(200)
+            heightDimension: .fractionalWidth(1 / 2)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -64,12 +67,9 @@ extension MeetingViewController: UICollectionViewDataSource {
         }
 
         let videoView = VideoView(participant: participant)
-        let size = view.frame.width / 2
         videoView.addTo(cell.contentView) { make in
-            make.center.equalTo(cell.contentView)
-            make.size.equalTo(size)
+            make.center.size.equalTo(cell.contentView)
         }
-        videoView.backgroundColor = .fsPrimary
 
         viewModel?.fetchVideo(into: videoView, for: participant)
 

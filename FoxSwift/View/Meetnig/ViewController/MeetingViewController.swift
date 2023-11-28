@@ -12,7 +12,6 @@ final class MeetingViewController: FSViewController {
     // MARK: - ViewModel
     var viewModel: MeetingViewModel?
 
-
     // MARK: - SubViews
     private var recordButton = UIButton()
 
@@ -27,8 +26,14 @@ final class MeetingViewController: FSViewController {
     var messageView = MessageView()
 
     // MARK: - LifeCycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
         viewModel?.leaveMeet()
     }
 

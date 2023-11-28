@@ -14,5 +14,9 @@ class VideoView: UIView {
         self.init(frame: .zero)
 
         self.participant = participant
+        backgroundColor = .fsPrimary
+        clipsToBounds = true
+        layer.borderColor = UIColor.fsBg.cgColor
+        layer.borderWidth = 1
     }
 }

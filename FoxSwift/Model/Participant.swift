@@ -9,8 +9,13 @@ import Foundation
 
 struct Participant: Codable, Equatable, Hashable {
     var id: String = UUID().uuidString
-    var name: String = "小熊貓\(Int.random(in: (0...9999)))"
+    var name: String = "小熊貓\(Int.random(in: 0 ... 9999))"
     static var currentUser: Participant {
         FSUser.currentUser?.participant ?? .init()
+    }
+
+    enum CodingKeys: CodingKey {
+        case id
+        case name
     }
 }

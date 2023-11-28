@@ -23,8 +23,13 @@ class FSTabBarController: UITabBarController {
             return nav
         }
 
-        tabBar.backgroundColor = .fsPrimary
         tabBar.unselectedItemTintColor = .G_3
+
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithDefaultBackground()
+        tabBarAppearance.backgroundColor = UIColor.fsPrimary
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     }
 }
 

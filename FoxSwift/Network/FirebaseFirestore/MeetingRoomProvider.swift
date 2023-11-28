@@ -92,7 +92,6 @@ class MeetingRoomProvider {
 
             let leftParticipants = Set(meetingRoom.participants)
                 .subtracting(newMeetingRoom.participants)
-                .subtracting([currentUser])
 
             let newParticipants = Set(newMeetingRoom.participants)
                 .subtracting(meetingRoom.participants)
@@ -101,7 +100,7 @@ class MeetingRoomProvider {
             delegate?.meetingRoom(self, didRecieveNew: Array(newParticipants))
             delegate?.meetingRoom(self, didRecieveLeft: Array(leftParticipants))
 
-            self.meetingRoom = meetingRoom
+            self.meetingRoom = newMeetingRoom
         case let .failure(error):
             delegate?.meetingRoom(self, didRecieveError: error)
         }
