@@ -5,13 +5,16 @@
 //  Created by chen shen yi on 2023/11/18.
 //
 
+import Speech
 import UIKit
 
 class MeetingViewModel {
     // MARK: - Network Provider
     private let meetingProvider: MeetingRoomProvider
     private let participantDetailProvider: ParticipantDetailProvider
-    private let rtcProvider: RTCProvider
+    private let messageProvider: MessageProvider
+    private let rtcProvider = RTCProvider()
+    private let speechRecognitionManager = SpeechRecognitionManager()
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingCellViewModel?> = .init(nil)
@@ -24,7 +27,7 @@ class MeetingViewModel {
 
         meetingProvider = .init(meetingCode: meetingCode)
         participantDetailProvider = .init(meetingCode: meetingCode)
-        rtcProvider = .init()
+        messageProvider = .init(meetingCode: meetingCode)
 
         setupProvider()
     }
@@ -33,11 +36,17 @@ class MeetingViewModel {
         meetingProvider.delegate = self
         participantDetailProvider.delegate = self
         rtcProvider.delegate = self
+        speechRecognitionManager.delegate = self
 
         meetingProvider.connect()
     }
 
-    // MARK: - fetch video
+    // MARK: - Request speechRecognition
+    func requestSpeechRecognition() {
+        speechRecognitionManager.startNewRecording()
+    }
+
+    // MARK: - Fetch video
     func fetchVideo(into view: UIView, for participant: Participant) {
         if participant.id == Participant.currentUser.id {
             rtcProvider.startCaptureVideo()
@@ -55,10 +64,12 @@ class MeetingViewModel {
     // MARK: - Functional Buttons
     func turnOffMic() {
         rtcProvider.speakerOff()
+        speechRecognitionManager.interruptRecognition()
     }
 
     func turnOnMic() {
         rtcProvider.speakerOn()
+        speechRecognitionManager.startNewRecording()
     }
 
     func turnOnAudio() {
@@ -203,5 +214,22 @@ extension MeetingViewModel: ParticipantDetailProviderDelegate {
 
     func didGetError(_ provider: ParticipantDetailProvider, error: Error) {
         print(error.localizedDescription.red)
+    }
+}
+
+extension MeetingViewModel: SpeechRecognitionManagerDelegate {
+    func startSpeechRecognition(_ manager: SpeechRecognitionManager) {
+        print("Start Recognition")
+    }
+
+    func speechTimeOutResult(_ manager: SpeechRecognitionManager, _ ret: String) {
+        guard !ret.isEmpty else { return }
+        guard let data = ret.data(using: .utf8) else { return }
+        let message: FSMessage = .init(data: data, author: .currentUser, type: .text)
+        messageProvider.send(message: message)
+    }
+
+    func speechFinalResult(_ manager: SpeechRecognitionManager, _ ret: String) {
+        print("speechFinalResult", ret)
     }
 }

@@ -44,6 +44,7 @@ final class MeetingViewController: FSViewController {
         setupCollectionView()
         setupVideoControlBar()
         setupMessageView()
+        viewModel?.requestSpeechRecognition()
     }
 
     private func bindingViewModel() {
