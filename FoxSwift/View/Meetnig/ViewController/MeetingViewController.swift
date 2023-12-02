@@ -73,10 +73,11 @@ final class MeetingViewController: FSViewController {
         videoControlBar.messageButton.onHandler = { [weak self] in
             guard let self else { return }
             messageView.isHidden = false
+            layoutWhenMessaging(4)
         }
         videoControlBar.messageButton.offHandler = { [weak self] in
             guard let self else { return }
-            messageView.isHidden = false
+            messageView.isHidden = true
         }
         videoControlBar.messageButton.isOn = false
     }

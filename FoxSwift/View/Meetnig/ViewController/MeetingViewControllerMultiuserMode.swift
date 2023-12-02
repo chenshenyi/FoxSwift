@@ -12,7 +12,8 @@ extension MeetingViewController {
         videoCollectionView.dataSource = self
         videoCollectionView.delegate = self
         videoCollectionView.backgroundColor = .fsBg
-        videoCollectionView.collectionViewLayout = setupCollectionViewLayout()
+
+        defaultLayout()
 
         videoCollectionView.addTo(view) { make in
             make.size.centerX.centerY.equalTo(view.safeAreaLayoutGuide).inset(5)
@@ -21,7 +22,7 @@ extension MeetingViewController {
         videoCollectionView.registReuseCell(for: UICollectionViewCell.self)
     }
 
-    private func setupCollectionViewLayout() -> UICollectionViewLayout {
+    func defaultLayout() {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1 / 2),
             heightDimension: .fractionalWidth(1 / 2)
@@ -29,6 +30,7 @@ extension MeetingViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
 
+        
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(1 / 2)
@@ -41,7 +43,30 @@ extension MeetingViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
 
-        return layout
+        videoCollectionView.collectionViewLayout = layout
+    }
+
+    func layoutWhenMessaging(_ amount: Int) {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1 / CGFloat(amount)),
+            heightDimension: .fractionalWidth(1 / CGFloat(amount))
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(CGFloat(amount) / 2),
+            heightDimension: .fractionalWidth(1 / 2)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+
+        videoCollectionView.collectionViewLayout = layout
+        videoCollectionView.scrollToItem(at: .init(row: 0, section: 0), at: .right, animated: false)
     }
 }
 
