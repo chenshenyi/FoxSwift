@@ -67,7 +67,7 @@
 		2BD8B0F02B107673001646C5 /* VideoControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */; };
 		2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8B0F12B10770E001646C5 /* RoundButton.swift */; };
 		2BEAE6AF2B1324440007180B /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6AE2B1324440007180B /* UITextView+Extension.swift */; };
-		2BEAE6B12B1335DD0007180B /* FirebaseStorgaeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B02B1335DD0007180B /* FirebaseStorgaeWrapper.swift */; };
+		2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B02B1335DD0007180B /* StorageMannager.swift */; };
 		2BEAE6B82B142DEE0007180B /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B72B142DEE0007180B /* UserProvider.swift */; };
 		2BEAE6BA2B142E010007180B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6B92B142E010007180B /* User.swift */; };
 		2BEAE6BC2B143B830007180B /* Error+Extenision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEAE6BB2B143B830007180B /* Error+Extenision.swift */; };
@@ -161,7 +161,7 @@
 		2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoControlBar.swift; sourceTree = "<group>"; };
 		2BD8B0F12B10770E001646C5 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		2BEAE6AE2B1324440007180B /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
-		2BEAE6B02B1335DD0007180B /* FirebaseStorgaeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorgaeWrapper.swift; sourceTree = "<group>"; };
+		2BEAE6B02B1335DD0007180B /* StorageMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageMannager.swift; sourceTree = "<group>"; };
 		2BEAE6B72B142DEE0007180B /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		2BEAE6B92B142E010007180B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BEAE6BB2B143B830007180B /* Error+Extenision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extenision.swift"; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
-				2BEAE6B02B1335DD0007180B /* FirebaseStorgaeWrapper.swift */,
+				2BEAE6B02B1335DD0007180B /* StorageMannager.swift */,
 				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
 			);
 			path = ThirdPartyWrapper;
@@ -771,7 +771,7 @@
 				2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */,
 				2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
-				2BEAE6B12B1335DD0007180B /* FirebaseStorgaeWrapper.swift in Sources */,
+				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
 				2B1F84892B1229BA00136190 /* MessageCell.swift in Sources */,

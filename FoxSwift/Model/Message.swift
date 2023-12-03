@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 struct FSMessage: Codable {
     enum FSMessageType: Codable {
         case text
         case image
+        case imageUrl
         case file
+        case fileUrl
+        case speechText
     }
 
     enum CodingKeys: CodingKey {
@@ -31,5 +35,10 @@ struct FSMessage: Codable {
         self.author = author
         self.type = type
         createdTime = Int(Date.now.timeIntervalSince1970)
+    }
+
+    init?(string: String, type: FSMessageType) {
+        guard let data = string.data(using: .utf8) else { return nil }
+        self.init(data: data, author: Participant.currentUser, type: type)
     }
 }
