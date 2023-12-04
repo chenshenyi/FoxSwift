@@ -16,8 +16,6 @@ class FSMessageCellViewModel {
     let imageManager = StorageManager.imageManager
     let fileManager = StorageManager.fileManager
 
-    var downloadedUrl = ""
-
     func setup(message: FSMessage) {
         isMyMessage.value = message.author.id == Participant.currentUser.id
 
@@ -31,9 +29,7 @@ class FSMessageCellViewModel {
             image.value = UIImage(data: data)
         case .imageUrl:
             guard let urlString = String(data: data, encoding: .utf8),
-                urlString != downloadedUrl,
                 let url = URL(string: urlString) else { return }
-            downloadedUrl = urlString
             fetchImage(url: url)
         default:
             fatalError("Such type message not available.")

@@ -81,10 +81,20 @@ class MessageView: UIView {
         viewModel.messages.bind { [weak self] messages in
             guard let self else { return }
 
-            tableView.reloadData()
             guard !messages.isEmpty else { return }
+
             let indexPath = IndexPath(row: messages.count - 1, section: 0)
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            tableView.performBatchUpdates {[weak self] in
+                guard let self else { return }
+
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            } completion: { [weak self] finished in
+                guard let self else { return }
+
+                if finished {
+                    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                }
+            }
         }
     }
 

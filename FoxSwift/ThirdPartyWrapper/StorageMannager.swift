@@ -19,6 +19,11 @@ class StorageManager {
 
     let reference: StorageReference
 
+    private var cache: [String: Data] = [:]
+    private var cacheQueue: [String] = []
+    private var cacheCounter: Double = 0
+    private var cacheLimit = 2e20
+
     init(folder: StorageFolder) {
         reference = Self.db.child(folder.rawValue)
     }
@@ -41,13 +46,38 @@ class StorageManager {
     }
 
     func download(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
+        if let data = cache[url.absoluteString] {
+            completion(.success(data))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self else { return }
+
             if let error {
                 completion(.failure(error))
             } else if let data {
+                cache[url.absoluteString] = data
+                cacheQueue.append(url.absoluteString)
+                cacheCounter += Double(data.count)
+                reduceCache()
                 completion(.success(data))
             }
         }
         .resume()
+    }
+
+    private func reduceCache() {
+        if cacheCounter > cacheLimit {
+            let removedKey = cacheQueue.removeFirst()
+            if let removedData = cache.removeValue(forKey: removedKey) {
+                cacheCounter -= Double(removedData.count)
+            }
+            reduceCache()
+        }
+    }
+
+    func clearCache() {
+        cache.removeAll()
+        cacheCounter = 0
     }
 }
