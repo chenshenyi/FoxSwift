@@ -28,24 +28,9 @@ class MessageViewModel {
         messageProvider.startListen { [weak self] message in
             guard let self else { return }
             switch message.type {
-            case .file, .image, .speechText, .text:
-                messages.value.append(message)
-            case .fileUrl:
-                guard let urlString = String(data: message.data, encoding: .utf8),
-                      let url = URL(string: urlString) else { return }
-                fileProvider.download(url: url) { result in
-                    switch result {
-                    case let .success(data):
-                        var message = message
-                        message.data = data
-                        message.type = .file
-                    case let .failure(error):
-                        print(error.localizedDescription.red)
-                    }
-                }
             case .imageUrl:
                 guard let urlString = String(data: message.data, encoding: .utf8),
-                      let url = URL(string: urlString) else { return }
+                    let url = URL(string: urlString) else { return }
                 imageProvider.download(url: url) { result in
                     switch result {
                     case let .success(data):
@@ -57,6 +42,8 @@ class MessageViewModel {
                         print(error.localizedDescription.red)
                     }
                 }
+            default:
+                messages.value.append(message)
             }
         }
     }

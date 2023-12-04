@@ -38,7 +38,7 @@ class MessageView: UIView {
         tableView.separatorColor = .fsText
 
         // Regist cell
-        tableView.registReuseCell(for: MessageCell.self)
+        tableView.registReuseCell(for: FSMessageCell.self)
 
         // Make constraint
         tableView.addTo(self) { make in
@@ -90,7 +90,7 @@ extension MessageView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.getReuseCell(for: MessageCell.self, indexPath: indexPath) else {
+        guard let cell = tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath) else {
             fatalError("Message cell not regist.")
         }
         guard let message = viewModel?.messages.value[indexPath.row] else {

@@ -20,29 +20,29 @@ class StorageManager {
     init(folder: StorageFolder) {
         reference = Self.db.child(folder.rawValue)
     }
-    
+
     func upload(data: Data, name: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        let reference = self.reference.child(name)
+        let reference = reference.child(name)
         reference.putData(data, metadata: nil) { url, error in
-            if let error = error {
+            if let error {
                 completion(.failure(error))
             } else {
                 reference.downloadURL { url, error in
-                    if let error = error {
+                    if let error {
                         completion(.failure(error))
-                    } else if let url = url {
+                    } else if let url {
                         completion(.success(url))
                     }
                 }
             }
         }
     }
-    
+
     func download(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error {
                 completion(.failure(error))
-            } else if let data = data {
+            } else if let data {
                 completion(.success(data))
             }
         }

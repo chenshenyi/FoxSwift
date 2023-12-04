@@ -29,8 +29,6 @@ extension MeetingViewController {
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-
-
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(1 / 2)

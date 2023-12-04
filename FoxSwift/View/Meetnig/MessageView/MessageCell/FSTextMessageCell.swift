@@ -1,25 +1,21 @@
 //
-//  MessageCell.swift
+//  FSTextMessageCell.swift
 //  FoxSwift
 //
-//  Created by chen shen yi on 2023/11/25.
+//  Created by chen shen yi on 2023/12/4.
 //
 
 import UIKit
 
-class MessageCell: UITableViewCell {
-    var viewModel = MessageCellViewModel()
+final class FSTextMessageCell: FSMessageCell {
+    var viewModel = FSTextMessageViewModel()
 
-    var nameLabel = UILabel()
     var contentTextView = UITextView()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .none
-        contentView.backgroundColor = .fsBg
-        setupNameLabel()
         setupContentTextView()
     }
 
@@ -29,26 +25,6 @@ class MessageCell: UITableViewCell {
     }
 
     // MARK: - Setup Subview
-    private func setupNameLabel() {
-        nameLabel.textColor = .fsSecondary
-        nameLabel.addTo(contentView) { make in
-            make.horizontalEdges.equalTo(contentView).inset(16)
-            make.top.equalTo(contentView).inset(12)
-        }
-
-        nameLabel.bind(viewModel.author) { [weak self] author in
-            guard let self else { return "" }
-
-            if author.id == Participant.currentUser.id {
-                nameLabel.textColor = .accent
-                return "You"
-            } else {
-                nameLabel.textColor = .fsSecondary
-                return author.name
-            }
-        }
-    }
-
     private func setupContentTextView() {
         contentTextView.font = .config(weight: .regular, size: 14)
         contentTextView.textColor = .fsText
@@ -60,6 +36,14 @@ class MessageCell: UITableViewCell {
             make.horizontalEdges.equalTo(contentView).inset(12)
             make.top.equalTo(nameLabel.snp.bottom)
             make.bottom.equalTo(contentView)
+        }
+    }
+
+    func bindViewModel() {
+        nameLabel.bind(viewModel.authorName)
+
+        viewModel.isMyMessage.bind { [weak self] isMyMessage in
+            self?.nameLabel.textColor = isMyMessage ? .accent : .fsSecondary
         }
 
         viewModel.content.bind { [weak self] content in

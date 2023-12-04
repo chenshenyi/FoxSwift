@@ -10,8 +10,8 @@
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
-		2B1F84892B1229BA00136190 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* MessageCell.swift */; };
-		2B1F848C2B122F1F00136190 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */; };
+		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
+		2B1F848C2B122F1F00136190 /* FSMessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F848B2B122F1F00136190 /* FSMessageCellViewModel.swift */; };
 		2B228F882B04C59100539E8A /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F872B04C59100539E8A /* Box.swift */; };
 		2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B228F8A2B04C90C00539E8A /* Participant.swift */; };
 		2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */; };
@@ -25,6 +25,10 @@
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
+		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
+		2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */; };
+		2B86D4352B1D6B4A00FCBA97 /* FSTextMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4342B1D6B4A00FCBA97 /* FSTextMessageViewModel.swift */; };
+		2B86D4372B1D6B6300FCBA97 /* FSImageMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4362B1D6B6300FCBA97 /* FSImageMessageViewModel.swift */; };
 		2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */; };
 		2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F9D202B048C10002D9076 /* FSViewController.swift */; };
 		2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */; };
@@ -100,8 +104,8 @@
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
-		2B1F84882B1229BA00136190 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
-		2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
+		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
+		2B1F848B2B122F1F00136190 /* FSMessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCellViewModel.swift; sourceTree = "<group>"; };
 		2B228F872B04C59100539E8A /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		2B228F8A2B04C90C00539E8A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTabBarController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,10 @@
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
+		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
+		2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextMessageCell.swift; sourceTree = "<group>"; };
+		2B86D4342B1D6B4A00FCBA97 /* FSTextMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextMessageViewModel.swift; sourceTree = "<group>"; };
+		2B86D4362B1D6B6300FCBA97 /* FSImageMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageViewModel.swift; sourceTree = "<group>"; };
 		2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNavigationController.swift; sourceTree = "<group>"; };
 		2B8F9D202B048C10002D9076 /* FSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSViewController.swift; sourceTree = "<group>"; };
 		2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionProvider.swift; sourceTree = "<group>"; };
@@ -460,8 +468,12 @@
 		2BEAE6B62B142CC90007180B /* MessageCell */ = {
 			isa = PBXGroup;
 			children = (
-				2B1F848B2B122F1F00136190 /* MessageCellViewModel.swift */,
-				2B1F84882B1229BA00136190 /* MessageCell.swift */,
+				2B1F848B2B122F1F00136190 /* FSMessageCellViewModel.swift */,
+				2B1F84882B1229BA00136190 /* FSMessageCell.swift */,
+				2B86D4342B1D6B4A00FCBA97 /* FSTextMessageViewModel.swift */,
+				2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */,
+				2B86D4362B1D6B6300FCBA97 /* FSImageMessageViewModel.swift */,
+				2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */,
 			);
 			path = MessageCell;
 			sourceTree = "<group>";
@@ -760,10 +772,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B86D4352B1D6B4A00FCBA97 /* FSTextMessageViewModel.swift in Sources */,
 				2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */,
 				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
 				2BEAE6BF2B148E3C0007180B /* MessageView.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
+				2B86D4372B1D6B6300FCBA97 /* FSImageMessageViewModel.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
 				2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */,
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
@@ -774,12 +788,13 @@
 				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
-				2B1F84892B1229BA00136190 /* MessageCell.swift in Sources */,
+				2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */,
+				2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */,
-				2B1F848C2B122F1F00136190 /* MessageCellViewModel.swift in Sources */,
+				2B1F848C2B122F1F00136190 /* FSMessageCellViewModel.swift in Sources */,
 				2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */,
 				2BEAE6BA2B142E010007180B /* User.swift in Sources */,
 				2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */,
@@ -808,6 +823,7 @@
 				2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
+				2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
 				2BA0EB6F2B086F7F003B8EFE /* UILabel+Box.swift in Sources */,
