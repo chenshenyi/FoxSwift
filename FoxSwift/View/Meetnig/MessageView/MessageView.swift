@@ -38,7 +38,7 @@ class MessageView: UIView {
         tableView.separatorColor = .fsText
 
         // Regist cell
-        tableView.registReuseCell(for: FSMessageCell.self)
+        tableView.registReuseCell(for: FSTextMessageCell.self)
 
         // Make constraint
         tableView.addTo(self) { make in

@@ -22,6 +22,7 @@ class MessageViewModel {
     init(meetingCode: MeetingRoom.MeetingCode) {
         self.meetingCode = meetingCode
         messageProvider = MessageProvider(meetingCode: meetingCode)
+        setupMessageProvider()
     }
 
     func setupMessageProvider() {
@@ -34,7 +35,6 @@ class MessageViewModel {
                 imageProvider.download(url: url) { result in
                     switch result {
                     case let .success(data):
-                        guard let image = UIImage(data: data) else { return }
                         var message = message
                         message.data = data
                         message.type = .image

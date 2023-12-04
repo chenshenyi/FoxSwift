@@ -17,6 +17,7 @@ final class FSTextMessageCell: FSMessageCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setupContentTextView()
+        bindViewModel()
     }
 
     @available(*, unavailable)
@@ -33,7 +34,7 @@ final class FSTextMessageCell: FSMessageCell {
         contentTextView.isScrollEnabled = false
 
         contentTextView.addTo(contentView) { make in
-            make.horizontalEdges.equalTo(contentView).inset(12)
+            make.horizontalEdges.equalTo(nameLabel)
             make.top.equalTo(nameLabel.snp.bottom)
             make.bottom.equalTo(contentView)
         }

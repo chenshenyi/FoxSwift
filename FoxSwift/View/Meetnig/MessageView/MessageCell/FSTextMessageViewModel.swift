@@ -13,10 +13,10 @@ class FSTextMessageViewModel {
     var content: Box<String> = .init("")
 
     func setup(message: FSMessage) {
-        authorName.value = message.author.name
-
         isMyMessage.value = message.author.id == Participant.currentUser.id
 
+        authorName.value = message.author.name
+        
         let data = message.data
         let text = String(data: data, encoding: .utf8) ?? ""
         content.value = text
