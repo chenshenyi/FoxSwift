@@ -7,15 +7,11 @@
 
 import Foundation
 
-class FSTextMessageViewModel {
-    var authorName: Box<String> = .init("")
-    var isMyMessage: Box<Bool> = .init(false)
+class FSTextMessageViewModel: FSMessageViewModel {
     var content: Box<String> = .init("")
 
-    func setup(message: FSMessage) {
-        isMyMessage.value = message.author.id == Participant.currentUser.id
-
-        authorName.value = message.author.name
+    override func setup(message: FSMessage) {
+        super.setup(message: message)
         
         let data = message.data
         let text = String(data: data, encoding: .utf8) ?? ""

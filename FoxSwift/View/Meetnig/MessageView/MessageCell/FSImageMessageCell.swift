@@ -15,5 +15,13 @@ final class FSImageMessageCell: FSMessageCell {
         setupImage()
     }
 
-    func setupImage() {}
+    func setupImage() {
+        imageView?.contentMode = .scaleAspectFill
+        imageView?.addTo(contentView) { make in
+            make.horizontalEdges.equalTo(nameLabel)
+            make.top.equalTo(nameLabel.snp.bottom)
+            make.bottom.equalTo(contentView)
+            make.height.equalTo(100)
+        }
+    }
 }

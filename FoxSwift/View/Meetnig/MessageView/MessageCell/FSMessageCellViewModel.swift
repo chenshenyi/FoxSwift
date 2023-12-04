@@ -7,14 +7,14 @@
 
 import Foundation
 
-// class FSMessageCellViewModel {
-//    var author: Box<Participant> = .init(.init())
-//    var content: Box<String> = .init("")
-//
-//    func setup(message: FSMessage) {
-//        author.value = message.author
-//        let data = message.data
-//        let text = String(data: data, encoding: .utf8) ?? ""
-//        content.value = text
-//    }
-// }
+class FSMessageViewModel {
+    var authorName: Box<String> = .init("")
+    var isMyMessage: Box<Bool> = .init(false)
+    
+    func setup(message: FSMessage) {
+        isMyMessage.value = message.author.id == Participant.currentUser.id
+        
+        authorName.value = message.author.name
+    }
+}
+
