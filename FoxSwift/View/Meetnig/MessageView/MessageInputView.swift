@@ -8,10 +8,12 @@
 import UIKit
 
 protocol MessageInputViewDelegate: AnyObject {
+    func attachmentButtonDidTapped(_ input: MessageInputView)
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String)
 }
 
 class MessageInputView: UIView {
+    let attachmentButton = UIButton()
     let textView = UITextView()
     let doneButton = UIButton()
 
@@ -21,6 +23,7 @@ class MessageInputView: UIView {
     init() {
         super.init(frame: .zero)
 
+        setupAttachmentButton()
         setupDoneButton()
         setupTextView()
     }
@@ -31,6 +34,23 @@ class MessageInputView: UIView {
     }
 
     // MARK: - setupSubview
+    func setupAttachmentButton() {
+        attachmentButton.setImage(.init(systemName: "paperclip.circle"), for: .normal)
+        attachmentButton.tintColor = .fsSecondary
+
+        attachmentButton.addTo(self) { make in
+            make.centerY.leading.equalToSuperview().inset(6)
+            make.size.equalTo(30)
+        }
+
+        attachmentButton.addAction { [weak self] in
+            guard let self else { return }
+
+            textView.endEditing(true)
+            delegate?.attachmentButtonDidTapped(self)
+        }
+    }
+
     func setupTextView() {
         textView.backgroundColor = .fsBg
         textView.textColor = .fsText
@@ -43,7 +63,8 @@ class MessageInputView: UIView {
         textView.setToolBar()
 
         textView.addTo(self) { make in
-            make.verticalEdges.leading.equalToSuperview().inset(6)
+            make.verticalEdges.equalToSuperview().inset(6)
+            make.leading.equalTo(attachmentButton.snp.trailing).offset(6)
             make.trailing.equalTo(doneButton.snp.leading).offset(-6)
         }
     }

@@ -14,6 +14,8 @@ enum StorageFolder: String {
 
 class StorageManager {
     static let db = Storage.storage().reference()
+    static let fileManager = StorageManager(folder: .file)
+    static let imageManager = StorageManager(folder: .image)
 
     let reference: StorageReference
 
@@ -23,7 +25,7 @@ class StorageManager {
 
     func upload(data: Data, name: String, completion: @escaping (Result<URL, Error>) -> Void) {
         let reference = reference.child(name)
-        reference.putData(data, metadata: nil) { url, error in
+        reference.putData(data, metadata: nil) { _, error in
             if let error {
                 completion(.failure(error))
             } else {
@@ -46,5 +48,6 @@ class StorageManager {
                 completion(.success(data))
             }
         }
+        .resume()
     }
 }

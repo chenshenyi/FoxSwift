@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol MessageViewDelegate: AnyObject {
+    func selectImage(_ messageView: MessageView)
+}
+
 class MessageView: UIView {
     var viewModel: MessageViewModel?
+    weak var delegate: MessageViewDelegate?
 
     // MARK: - Subview
     var header = MessageHeaderView()
@@ -39,6 +44,7 @@ class MessageView: UIView {
 
         // Regist cell
         tableView.registReuseCell(for: FSTextMessageCell.self)
+        tableView.registReuseCell(for: FSImageMessageCell.self)
 
         // Make constraint
         tableView.addTo(self) { make in
@@ -81,6 +87,10 @@ class MessageView: UIView {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
+
+    func sendImage(image: UIImage) {
+        viewModel?.sendImage(image: image)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -90,12 +100,19 @@ extension MessageView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath) else {
-            fatalError("Message cell not regist.")
-        }
         guard let message = viewModel?.messages.value[indexPath.row] else {
             fatalError("no such message")
         }
+
+        let cell = switch message.type {
+        case .image, .imageUrl:
+            tableView.getReuseCell(for: FSImageMessageCell.self, indexPath: indexPath)
+        case .text, .speechText:
+            tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath)
+        default:
+            fatalError("\(message.type) message haven't implemented")
+        }
+        guard let cell else { fatalError("No Such Cell") }
 
         cell.viewModel.setup(message: message)
 
@@ -115,6 +132,10 @@ extension MessageView: UITableViewDelegate {
 
 // MARK: - Message Input View Delegate
 extension MessageView: MessageInputViewDelegate {
+    func attachmentButtonDidTapped(_ input: MessageInputView) {
+        delegate?.selectImage(self)
+    }
+
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
         guard !text.isEmpty else { return }
         viewModel?.sendMessage(text: text)

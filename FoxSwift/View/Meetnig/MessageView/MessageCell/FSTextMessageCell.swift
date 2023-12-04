@@ -8,8 +8,6 @@
 import UIKit
 
 final class FSTextMessageCell: FSMessageCell {
-    var viewModel = FSTextMessageViewModel()
-
     var contentTextView = UITextView()
 
     // MARK: - Init
@@ -40,14 +38,8 @@ final class FSTextMessageCell: FSMessageCell {
         }
     }
 
-    func bindViewModel() {
-        nameLabel.bind(viewModel.authorName)
-
-        viewModel.isMyMessage.bind { [weak self] isMyMessage in
-            self?.nameLabel.textColor = isMyMessage ? .accent : .fsSecondary
-        }
-
-        viewModel.content.bind { [weak self] content in
+    private func bindViewModel() {
+        viewModel.content.bind(inQueue: .main) { [weak self] content in
             self?.contentTextView.text = content
         }
     }

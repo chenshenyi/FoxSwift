@@ -8,20 +8,27 @@
 import UIKit
 
 final class FSImageMessageCell: FSMessageCell {
-    let image = UIImageView()
+    let pictureView = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupImage()
+        bindViewModel()
     }
 
-    func setupImage() {
-        imageView?.contentMode = .scaleAspectFill
-        imageView?.addTo(contentView) { make in
+    private func setupImage() {
+        pictureView.contentMode = .scaleAspectFit
+        pictureView.addTo(contentView) { make in
             make.horizontalEdges.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.bottom.equalTo(contentView)
-            make.height.equalTo(100)
+            make.top.equalTo(nameLabel.snp.bottom).offset(12)
+            make.height.equalTo(120)
+            make.bottom.equalTo(contentView).inset(12)
+        }
+    }
+
+    private func bindViewModel() {
+        viewModel.image.bind(inQueue: .main) { [weak self] image in
+            self?.pictureView.image = image
         }
     }
 }

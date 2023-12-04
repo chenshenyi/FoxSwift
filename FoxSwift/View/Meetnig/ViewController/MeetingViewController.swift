@@ -5,6 +5,7 @@
 //  Created by chen shen yi on 2023/11/17.
 //
 
+import PhotosUI
 import UIKit
 
 @MainActor
@@ -44,7 +45,7 @@ final class MeetingViewController: FSViewController {
         setupCollectionView()
         setupVideoControlBar()
         setupMessageView()
-        viewModel?.requestSpeechRecognition()
+//        viewModel?.requestSpeechRecognition()
     }
 
     private func bindingViewModel() {
@@ -86,6 +87,7 @@ final class MeetingViewController: FSViewController {
         guard let viewModel else { return }
         let messageViewModel = MessageViewModel(meetingCode: viewModel.meetingCode.value)
         messageView.setupViewModel(viewModel: messageViewModel)
+        messageView.delegate = self
 
         messageView.addTo(view) { make in
             make.horizontalEdges.equalToSuperview()
@@ -93,5 +95,33 @@ final class MeetingViewController: FSViewController {
             make.top.equalToSuperview().inset(200)
         }
         messageView.isHidden = true
+    }
+}
+
+extension MeetingViewController: MessageViewDelegate {
+    func selectImage(_ messageView: MessageView) {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = .images
+        config.selectionLimit = 1
+        let phViewController = PHPickerViewController(configuration: config)
+        phViewController.delegate = self
+        present(phViewController, animated: true)
+    }
+}
+
+extension MeetingViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        guard let first = results.first else { return }
+        first.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            if let error {
+                print(error)
+                return
+            }
+
+            guard let image = image as? UIImage else { return }
+
+            self?.messageView.sendImage(image: image)
+        }
     }
 }

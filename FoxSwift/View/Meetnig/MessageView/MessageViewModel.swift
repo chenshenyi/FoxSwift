@@ -11,8 +11,8 @@ import UIKit
 class MessageViewModel {
     // MARK: Providers
     private let messageProvider: MessageProvider
-    private let fileProvider = StorageManager(folder: .file)
-    private let imageProvider = StorageManager(folder: .image)
+    private let fileManager = StorageManager.fileManager
+    private let imageManager = StorageManager.imageManager
 
     var meetingCode: MeetingRoom.MeetingCode
 
@@ -28,23 +28,7 @@ class MessageViewModel {
     func setupMessageProvider() {
         messageProvider.startListen { [weak self] message in
             guard let self else { return }
-            switch message.type {
-            case .imageUrl:
-                guard let urlString = String(data: message.data, encoding: .utf8),
-                    let url = URL(string: urlString) else { return }
-                imageProvider.download(url: url) { result in
-                    switch result {
-                    case let .success(data):
-                        var message = message
-                        message.data = data
-                        message.type = .image
-                    case let .failure(error):
-                        print(error.localizedDescription.red)
-                    }
-                }
-            default:
-                messages.value.append(message)
-            }
+            messages.value.append(message)
         }
     }
 
@@ -70,7 +54,7 @@ class MessageViewModel {
 
     func sendImage(image: UIImage) {
         guard let data = image.jpegData(compressionQuality: 0.5) else { return }
-        imageProvider.upload(
+        imageManager.upload(
             data: data,
             name: UUID().uuidString
         ) { [weak self] result in
@@ -87,7 +71,7 @@ class MessageViewModel {
     }
 
     func sendFile(data: Data) {
-        fileProvider.upload(
+        fileManager.upload(
             data: data,
             name: UUID().uuidString
         ) { [weak self] result in
