@@ -31,11 +31,11 @@ class SpeechRecognitionManager: NSObject {
 
     var recognitionTimer: Timer?
     /** Speech recognition time limit (maximum time 60 seconds is Apple's limit time) */
-    var recognitionLimitSec: Int = 15
+    var recognitionLimitSec: Int = 30
 
     var noAudioDurationTimer: Timer?
     /** Threshold for judging period of silence */
-    var noAudioDurationLimitSec: Double = 1.1
+    var noAudioDurationLimitSec: Double = 2
 
     var status: Status = .none
 
@@ -53,7 +53,7 @@ class SpeechRecognitionManager: NSObject {
 
     func setRecognitionLimitSec(_ sec: Int) {
         /** Speech recognition time limit (maximum time 60 seconds is Apple's limit time) */
-        recognitionLimitSec = sec % 60
+        recognitionLimitSec = sec > 60 ? 60 : sec
     }
 
 

@@ -37,7 +37,6 @@ class MeetingViewModel {
         participantDetailProvider.delegate = self
         rtcProvider.delegate = self
         speechRecognitionManager.delegate = self
-
         meetingProvider.connect()
     }
 

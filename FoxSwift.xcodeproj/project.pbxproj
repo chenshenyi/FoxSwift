@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
+		2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
 		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
@@ -100,6 +101,7 @@
 
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSharedMannager.swift; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				2B9C8B222B0C45CC00F57C90 /* FSWebRTC.swift */,
 				2BA0EB842B0B51A8003B8EFE /* RTCProvider.swift */,
 				2B9C8B282B0C9EAC00F57C90 /* RTCProviderDelegate.swift */,
+				2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */,
 				2B9C8B1C2B0C439400F57C90 /* PeerConnectionProvider.swift */,
 				2B9C8B242B0C49D000F57C90 /* PeerConnectionDelegate.swift */,
 			);
@@ -797,6 +800,7 @@
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BEAE6BC2B143B830007180B /* Error+Extenision.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
+				2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */,
 				2B86D4392B1DA76900FCBA97 /* FSMessageCellViewModel.swift in Sources */,
 				2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */,
 				2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */,
@@ -1011,18 +1015,18 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1048,18 +1052,18 @@
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Meeting Record";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
