@@ -11,8 +11,9 @@ import WebRTC
 class ScreenSharedMannager {
     typealias BufferHandler = (RTCVideoFrame) -> Void
 
+    let screenRecorder = RPScreenRecorder.shared()
+
     func startSharing(bufferHandler: @escaping BufferHandler) {
-        let screenRecorder = RPScreenRecorder.shared()
         screenRecorder.isMicrophoneEnabled = false
         screenRecorder.startCapture { sampleBuffer, sampleBufferType, error in
             if let error {
@@ -32,6 +33,12 @@ class ScreenSharedMannager {
         } completionHandler: { error in
             guard let error else { return }
             print(error.localizedDescription.red)
+        }
+    }
+
+    func stopSharing() {
+        if screenRecorder.isRecording {
+            screenRecorder.stopCapture()
         }
     }
 }

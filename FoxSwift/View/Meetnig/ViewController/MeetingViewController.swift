@@ -67,6 +67,7 @@ final class MeetingViewController: FSViewController {
 
         videoControlBar.speakerButton.onHandler = viewModel?.turnOnAudio
         videoControlBar.speakerButton.offHandler = viewModel?.turnOffAudio
+        videoControlBar.speakerButton.isOn = false
 
         videoControlBar.cameraButton.onHandler = viewModel?.turnOnCamera
         videoControlBar.cameraButton.offHandler = viewModel?.turnOffCamera
@@ -81,6 +82,10 @@ final class MeetingViewController: FSViewController {
             messageView.isHidden = true
         }
         videoControlBar.messageButton.isOn = false
+
+        videoControlBar.shareScreenButton.onHandler = viewModel?.startScreenSharing
+        videoControlBar.shareScreenButton.offHandler = viewModel?.stopScreenSharing
+        videoControlBar.shareScreenButton.isOn = false
     }
 
     func setupMessageView() {

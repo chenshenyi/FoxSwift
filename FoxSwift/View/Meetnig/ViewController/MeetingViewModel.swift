@@ -54,6 +54,14 @@ class MeetingViewModel {
         view.layoutIfNeeded()
     }
 
+    func startScreenSharing() {
+        rtcProvider.startSharingScreen()
+    }
+
+    func stopScreenSharing() {
+        rtcProvider.startCaptureVideo()
+    }
+
     // MARK: - Leave Meet
     func leaveMeet() {
         meetingProvider.disconnect()

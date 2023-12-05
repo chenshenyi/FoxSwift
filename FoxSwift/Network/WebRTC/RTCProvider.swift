@@ -18,6 +18,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
 
     weak var delegate: RTCProviderDelegate?
 
+    let screenSharedManager = ScreenSharedMannager()
     private var peerConnectionProviders: [String: PeerConnectionProvider] = [:]
 
     func newParticipant(participantId: String) {
@@ -104,6 +105,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
 // MARK: - Camera
 extension RTCProvider {
     func startCaptureVideo() {
+        stopSharingScreen()
         // Get frontCamera from all captureDevice
         guard let frontCamera = RTCCameraVideoCapturer.captureDevices()
             .first(where: { $0.position == .front }) else { return }
@@ -131,6 +133,19 @@ extension RTCProvider {
     func stopCaptureVideo() {
         videoCapturer.stopCapture()
         localVideoTrack.isEnabled = false
+    }
+
+    func startSharingScreen() {
+        stopCaptureVideo()
+        screenSharedManager.startSharing { [weak self] frame in
+            guard let self else { return }
+            videoSource.capturer(videoCapturer, didCapture: frame)
+        }
+        localVideoTrack.isEnabled = true
+    }
+
+    func stopSharingScreen() {
+        screenSharedManager.stopSharing()
     }
 
     private func renderLocalVideo(to renderer: RTCVideoRenderer) {
