@@ -13,6 +13,7 @@ extension VideoControlBar {
         case speaker
         case camera
         case message
+        case shareScreen
 
         var onImage: UIImage? {
             switch self {
@@ -20,6 +21,7 @@ extension VideoControlBar {
             case .speaker: return .init(systemName: "volume.fill")
             case .camera: return .init(systemName: "video.fill")
             case .message: return .init(systemName: "message.fill")
+            case .shareScreen: return .init(systemName: "rectangle.inset.filled.and.person.filled")
             }
         }
 
@@ -29,6 +31,7 @@ extension VideoControlBar {
             case .speaker: return .init(systemName: "volume.slash.fill")
             case .camera: return .init(systemName: "video.slash.fill")
             case .message: return .init(systemName: "message.fill")
+            case .shareScreen: return .init(systemName: "rectangle.inset.filled.and.person.filled")
             }
         }
     }
@@ -39,6 +42,7 @@ class VideoControlBar: UIView {
     let speakerButton = RoundButton()
     let cameraButton = RoundButton()
     let messageButton = RoundButton()
+    let shareScreenButton = RoundButton()
 
     var buttons: [RoundButton] = []
 
@@ -66,12 +70,13 @@ class VideoControlBar: UIView {
             offTintColor: .fsText
         )
 
-        buttons = [Button.mic, .camera, .speaker, .message].map {
+        buttons = [Button.mic, .camera, .speaker, .message, .shareScreen].map {
             let button = switch $0 {
             case .mic: micButton
             case .speaker: speakerButton
             case .camera: cameraButton
             case .message: messageButton
+            case .shareScreen: shareScreenButton
             }
 
             switch $0 {

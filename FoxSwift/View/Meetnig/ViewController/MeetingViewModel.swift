@@ -217,6 +217,7 @@ extension MeetingViewModel: ParticipantDetailProviderDelegate {
     }
 }
 
+// MARK: - Speech Provider Delegate
 extension MeetingViewModel: SpeechRecognitionManagerDelegate {
     func startSpeechRecognition(_ manager: SpeechRecognitionManager) {
         print("Start Recognition")
