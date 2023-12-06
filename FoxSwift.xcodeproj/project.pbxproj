@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
 		2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */; };
+		2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */; };
+		2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
 		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
@@ -102,6 +104,8 @@
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSharedMannager.swift; sourceTree = "<group>"; };
+		2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
@@ -213,6 +217,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B0A27CC2B204302009F4E78 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */,
+				2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		2B228F892B04C5BD00539E8A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +266,7 @@
 				2B24FFA62B0374140000C5A3 /* Base */,
 				2B24FFA52B0374000000C5A3 /* Meets */,
 				2B66F5F12B0F53C900C5C06A /* Meetnig */,
+				2B0A27CC2B204302009F4E78 /* Profile */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -783,6 +797,7 @@
 				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
+				2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */,
 				2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */,
 				2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
@@ -830,6 +845,7 @@
 				2BEAE6AF2B1324440007180B /* UITextView+Extension.swift in Sources */,
 				2B1F84812B11C66700136190 /* Message.swift in Sources */,
 				2BEAE6C12B1490330007180B /* MessageViewModel.swift in Sources */,
+				2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */,
 				2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
 			);
@@ -1016,7 +1032,7 @@
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1029,6 +1045,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1053,7 +1072,7 @@
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1066,6 +1085,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
