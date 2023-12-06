@@ -15,18 +15,23 @@ struct FSUser: Codable {
     // - MARK: Properties
     let id: UserId
     var name: String
+    var email: String = "123dtw@gmail.com"
+    var password: String = "0306"
+    var picture: String = "Default"
+    var bannerPicture: String = "Default"
+    var description: String = "我好喜歡小熊貓\n啦啦啦啦啦～"
+
     private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
 
     // - MARK: CodingKey
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case email
+        case password
+        case picture
+        case bannerPicture
         case meetingHistory
-    }
-
-    // - MARK: Computed Properties
-    var participant: Participant {
-        Participant(id: id, name: name)
     }
 
     mutating func addHistory(meetingCode: MeetingRoom.MeetingCode) {
@@ -38,5 +43,11 @@ struct FSUser: Codable {
         meetingHistory.removeAll { storedMeetingCode in
             storedMeetingCode == meetingCode
         }
+    }
+}
+
+extension FSUser {
+    var participant: Participant {
+        Participant(id: id, name: name)
     }
 }
