@@ -26,3 +26,16 @@ extension Array {
         }
     }
 }
+
+func successHandler<T>(
+    _ handler: @escaping (T) -> Void
+) -> (Result<T, Error>) -> Void {
+    return { result in
+        switch result {
+        case let .success(successResult):
+            handler(successResult)
+        case let .failure(error):
+            print(error.localizedDescription.red)
+        }
+    }
+}

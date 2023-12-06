@@ -11,7 +11,7 @@ class FSMessageCellViewModel {
     var authorName: Box<String> = .init("")
     var isMyMessage: Box<Bool> = .init(false)
     var content: Box<String> = .init("")
-    var image: Box<UIImage?> = .init(.init(systemName: "photo"))
+    var image: Box<UIImage?> = .init(.placeholder)
 
     let imageManager = StorageManager.imageManager
     let fileManager = StorageManager.fileManager
@@ -37,7 +37,7 @@ class FSMessageCellViewModel {
     }
 
     private func fetchImage(url: URL) {
-        image.value = .init(systemName: "photo.artframe")?.withTintColor(.fsSecondary)
+        image.value = .placeholder
         imageManager.download(url: url) { [weak self] result in
             guard let self else { return }
 
