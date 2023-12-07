@@ -5,8 +5,8 @@
 //  Created by chen shen yi on 2023/11/12.
 //
 
-import UIKit
 import FirebaseCore
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,8 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        UrlRouteManager.shared.canOpen(url: url)
+    }
 
+    // MARK: UISceneSession Lifecycle
     func application(
         _ application: UIApplication,
         configurationForConnecting connectingSceneSession: UISceneSession,

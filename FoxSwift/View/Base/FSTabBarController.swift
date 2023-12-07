@@ -8,13 +8,19 @@
 import UIKit
 
 class FSTabBarController: UITabBarController {
-    let tabs: [Tab] = [.meets, .records, .history, .profile]
+    var tabs: [Tab] = [.meets, .records, .history, .profile]
+    var tabsDict: [Tab: UIViewController] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tabs.forEach { tab in
+            tabsDict[tab] = tab.viewController
+        }
+
         viewControllers = tabs.map { tab in
-            let viewController = tab.viewController
+            guard let viewController = tabsDict[tab] else { fatalError("unknown error") }
+
             viewController.tabBarItem.image = tab.image
             viewController.tabBarItem.title = tab.localizedDescription
             viewController.navigationItem.title = tab.localizedDescription

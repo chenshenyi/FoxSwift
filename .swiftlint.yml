@@ -30,7 +30,7 @@ opt_in_rules:
   - first_where
   - force_unwrapping
   - implicitly_unwrapped_optional
-  - indentation_width
+#  - indentation_width
   - last_where
   - legacy_random
   - literal_expression_end_indentation
@@ -88,8 +88,8 @@ identifier_name:
     - nav
     - db
 
-indentation_width:
-  indentation_width: 4
+#indentation_width:
+#  indentation_width: 4
 
 line_length:
   ignores_urls: true

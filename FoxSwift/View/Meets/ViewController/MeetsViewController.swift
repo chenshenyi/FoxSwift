@@ -111,22 +111,7 @@ final class MeetsViewController: FSViewController {
         joinMeetingButton.layer.borderWidth = 1
         joinMeetingButton.layer.cornerRadius = 4
 
-        joinMeetingButton.addAction { [weak self] in
-            guard let self else { return }
-
-            if let text = textField.text, !text.isEmpty {
-                viewModel.meetingCode.value = text
-            }
-
-            viewModel.joinMeet { [weak self] viewModel in
-                guard let self else { return }
-
-                let vc = MeetingViewController()
-                vc.viewModel = viewModel
-
-                navigationController?.pushViewController(vc, animated: true)
-            }
-        }
+        joinMeetingButton.addAction(handler: joinMeet)
 
         view.addSubview(joinMeetingButton)
         joinMeetingButton.snp.makeConstraints { make in
@@ -134,6 +119,24 @@ final class MeetsViewController: FSViewController {
             make.width.equalTo(newMeetingButton.snp.width)
             make.trailing.equalToSuperview().inset(16)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(76)
+        }
+    }
+
+    private func joinMeet() {
+        if let meetingCode = textField.text, !meetingCode.isEmpty {
+            joinMeet(meetingCode: meetingCode)
+        }
+    }
+
+    func joinMeet(meetingCode: String) {
+        viewModel.meetingCode.value = meetingCode
+        viewModel.joinMeet { [weak self] viewModel in
+            guard let self else { return }
+
+            let vc = MeetingViewController()
+            vc.viewModel = viewModel
+
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

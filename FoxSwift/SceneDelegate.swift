@@ -10,21 +10,34 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
-
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        guard let scene = (scene as? UIWindowScene) else { return }
+        intialize(scene)
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        UrlRouteManager.shared.rootViewController = intialize(scene)
+        UrlRouteManager.shared.open(url: url)
+    }
+
+    @discardableResult
+    func intialize(_ scene: UIScene) -> UIViewController {
+        guard let scene = (scene as? UIWindowScene) else { fatalError("Unknown scene") }
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = FSTabBarController()
+        let tabBarController = FSTabBarController()
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
         let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
         let user = FSUser(id: UUID().uuidString, name: name)
         FSUser.currentUser = user
         FSUserProvider.createNewUser(user: user)
+
+        return tabBarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -10,9 +10,11 @@
 			<key>CFBundleURLIconFile</key>
 			<string></string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>com.chenshenyi.FoxSwift</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>foxswift</string>
+			</array>
 		</dict>
 		<dict/>
 	</array>

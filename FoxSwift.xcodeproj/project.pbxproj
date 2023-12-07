@@ -11,6 +11,7 @@
 		2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */; };
 		2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */; };
 		2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */; };
+		2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
 		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
@@ -106,6 +107,7 @@
 		2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSharedMannager.swift; sourceTree = "<group>"; };
 		2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteManager.swift; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
@@ -226,6 +228,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		2B0A27D72B219E56009F4E78 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		2B228F892B04C5BD00539E8A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +265,7 @@
 				2BA4D16D2B077C0E00637596 /* Config */,
 				2B9C8B1E2B0C44ED00F57C90 /* WebRTC */,
 				2B9C8B212B0C454B00F57C90 /* FirebaseFirestore */,
+				2BEAE6C42B15D54C0007180B /* SpeechRecognitionManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -394,7 +405,7 @@
 				2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */,
 				2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */,
 				2B24FFA12B03738E0000C5A3 /* Network */,
-				2BEAE6C42B15D54C0007180B /* SpeechRecognitionManager.swift */,
+				2B0A27D72B219E56009F4E78 /* Router */,
 				2B24FFA02B03734B0000C5A3 /* Model */,
 				2B24FFA22B03739A0000C5A3 /* View */,
 				2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */,
@@ -821,6 +832,7 @@
 				2BA4D15F2B072DCB00637596 /* ParticipantDetailProvider.swift in Sources */,
 				2BEAE6C52B15D54C0007180B /* SpeechRecognitionManager.swift in Sources */,
 				2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */,
+				2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
 				2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */,
