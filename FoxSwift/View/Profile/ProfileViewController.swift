@@ -5,6 +5,7 @@
 //  Created by chen shen yi on 2023/12/6.
 //
 
+import PhotosUI
 import UIKit
 
 class ProfileViewController: FSViewController {
@@ -12,7 +13,9 @@ class ProfileViewController: FSViewController {
 
     // MARK: - Subviews
     let banner = UIImageView()
+    let editBannerButton = UIButton()
     let userPicture = UIImageView()
+    let editPictureButton = UIButton()
     let nameTextField = UITextField()
     let emailTextField = UITextField()
     let descriptionTextView = UITextView()
@@ -22,7 +25,9 @@ class ProfileViewController: FSViewController {
         super.viewDidLoad()
 
         setupBanner()
+        setupEditBannerButton()
         setupUserPicture()
+        setupEditPictureButton()
         setupNameTextField()
         setupEmailTextField()
         setupDescriptionTextView()
@@ -106,6 +111,8 @@ class ProfileViewController: FSViewController {
             switch state {
             case .view:
                 setupEditButton()
+                editBannerButton.isHidden = true
+                editPictureButton.isHidden = true
                 nameTextField.isEnabled = false
                 descriptionTextView.isEditable = false
                 nameTextField.backgroundColor = .clear
@@ -114,6 +121,8 @@ class ProfileViewController: FSViewController {
                 descriptionTextView.layer.borderWidth = 0
             case .editing:
                 setupDoneButton()
+                editBannerButton.isHidden = false
+                editPictureButton.isHidden = false
                 nameTextField.isEnabled = true
                 descriptionTextView.isEditable = true
                 nameTextField.backgroundColor = .fsPrimary
@@ -124,6 +133,9 @@ class ProfileViewController: FSViewController {
 
     // MARK: - Setup subviews
     func setupBanner() {
+        banner.backgroundColor = .fsBg
+        banner.contentMode = .scaleAspectFill
+        banner.clipsToBounds = true
         banner.addTo(view) { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(200)
@@ -136,6 +148,8 @@ class ProfileViewController: FSViewController {
         userPicture.layer.masksToBounds = true
         userPicture.layer.borderWidth = 4
         userPicture.layer.borderColor = UIColor.fsSecondary.cgColor
+        userPicture.contentMode = .scaleAspectFill
+        userPicture.clipsToBounds = true
         userPicture.addTo(view) { make in
             make.top.equalTo(banner.snp.bottom).offset(-20)
             make.leading.equalToSuperview().offset(20)
@@ -148,6 +162,7 @@ class ProfileViewController: FSViewController {
         nameTextField.font = .config(weight: .bold, size: 24)
         nameTextField.layer.masksToBounds = true
         nameTextField.layer.cornerRadius = 5
+        nameTextField.setToolBar()
         nameTextField.addTo(view) { make in
             make.centerY.equalTo(userPicture)
             make.leading.equalTo(userPicture.snp.trailing).offset(15)
@@ -161,6 +176,7 @@ class ProfileViewController: FSViewController {
         emailTextField.textColor = .fsText
         emailTextField.layer.masksToBounds = true
         emailTextField.layer.cornerRadius = 5
+        emailTextField.setToolBar()
         emailTextField.addTo(view) { make in
             make.top.equalTo(nameTextField.snp.bottom).offset(5)
             make.leading.equalTo(nameTextField)
@@ -175,11 +191,83 @@ class ProfileViewController: FSViewController {
         descriptionTextView.backgroundColor = .clear
         descriptionTextView.layer.masksToBounds = true
         descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.setToolBar()
         descriptionTextView.addTo(view) { make in
             make.top.equalTo(userPicture.snp.bottom).offset(15)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(100)
+        }
+    }
+
+    // MARK: Setup Edit Button
+    var didGetImage: ((_ image: UIImage) -> Void)?
+
+    func setupEditBannerButton() {
+        editBannerButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editBannerButton.tintColor = .fsSecondary
+        editBannerButton.backgroundColor = .fsPrimary
+        editBannerButton.layer.cornerRadius = 15
+        editBannerButton.addTo(view) { make in
+            make.bottom.trailing.equalTo(banner)
+            make.size.equalTo(30)
+        }
+
+        editBannerButton.addAction { [weak self] in
+            guard let self else { return }
+
+            didGetImage = { [weak self] image in
+                guard let self else { return }
+                viewModel.updateBanner(image: image)
+            }
+            selectImage()
+        }
+    }
+
+    func setupEditPictureButton() {
+        editPictureButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editPictureButton.tintColor = .fsSecondary
+        editPictureButton.backgroundColor = .fsPrimary
+        editPictureButton.layer.cornerRadius = 15
+        editPictureButton.addTo(view) { make in
+            make.bottom.trailing.equalTo(userPicture)
+            make.size.equalTo(30)
+        }
+
+        editPictureButton.addAction { [weak self] in
+            guard let self else { return }
+
+            didGetImage = { [weak self] image in
+                guard let self else { return }
+                viewModel.updatePicture(image: image)
+            }
+            selectImage()
+        }
+    }
+
+    func selectImage() {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = .images
+        config.selectionLimit = 1
+        let phViewController = PHPickerViewController(configuration: config)
+        phViewController.delegate = self
+        present(phViewController, animated: true)
+    }
+}
+
+extension ProfileViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        guard let first = results.first else { return }
+        first.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            if let error {
+                print(error)
+                return
+            }
+
+            guard let image = image as? UIImage else { return }
+
+            self?.didGetImage?(image)
         }
     }
 }
