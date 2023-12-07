@@ -11,11 +11,14 @@ class UrlRouteManager {
     weak var rootViewController: UIViewController?
 
     static var shared = UrlRouteManager()
+    
+    let appName = "FoxSwift"
 
     enum EndPoint: String {
         case meeting
     }
 
+    // MARK: Read and create url
     func canOpen(url: URL) -> Bool {
         let components = url.pathComponents
         guard let first = components.first,
@@ -36,6 +39,11 @@ class UrlRouteManager {
         }
     }
 
+    func createUrlString(for endPoint: EndPoint, components: [String]) -> String {
+        appName + "://" + endPoint.rawValue + "/" + components.joined(separator: "/")
+    }
+
+    // MARK: - Meeting
     func meeting(_ urlPathComponents: [String]) {
         guard let tabBarController = rootViewController as? FSTabBarController,
               let meetsVC = tabBarController.tabsDict[.meets] as? MeetsViewController,

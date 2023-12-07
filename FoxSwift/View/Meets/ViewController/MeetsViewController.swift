@@ -11,6 +11,7 @@ import UIKit
 final class MeetsViewController: FSViewController {
     // MARK: - Subviews
     let textField = UITextField()
+    let shareButton = UIButton()
     let tableView = UITableView(frame: .zero, style: .grouped)
     let joinMeetingButton = UIButton()
     let newMeetingButton = UIButton()
@@ -26,6 +27,7 @@ final class MeetsViewController: FSViewController {
         setupTableView()
         setupNewMeetingButton()
         setupJoinMeetingButton()
+        setupShareButton()
         bindingViewModel()
     }
 
@@ -138,6 +140,44 @@ final class MeetsViewController: FSViewController {
 
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+
+    private func setupShareButton() {
+        shareButton.setImage(UIImage(systemName: "square.and.arrow.up.fill"), for: .normal)
+        shareButton.tintColor = .accent
+
+        shareButton.addTo(view) { make in
+            make.centerY.trailing.equalTo(textField).inset(5)
+            make.size.equalTo(30)
+        }
+
+        shareButton.addAction(handler: shareMeeting)
+    }
+
+    func shareMeeting() {
+        let meetingCode = viewModel.meetingCode.value
+
+        guard !meetingCode.isEmpty else { return }
+
+        let urlString = UrlRouteManager.shared.createUrlString(
+            for: .meeting,
+            components: [meetingCode]
+        )
+        
+        let sharedString = """
+        -- FoxSwift Meeting --
+        Use following url to attend the meeting:
+        \(urlString)
+
+        Or directly paste the following meeting code in app:
+        \(meetingCode)
+        """
+
+        let activityVC = UIActivityViewController(
+            activityItems: [sharedString],
+            applicationActivities: nil
+        )
+        present(activityVC, animated: true, completion: nil)
     }
 }
 
