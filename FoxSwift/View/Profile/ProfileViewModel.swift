@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum ProfileInvalidField: Error {
+    case invalidName
+    case invalidDescription
+}
+
 class ProfileViewModel {
     // MARK: - Binded Properties
     var name: Box<String> = .init("")
@@ -14,6 +19,14 @@ class ProfileViewModel {
     var email: Box<String> = .init("")
     var picture: Box<UIImage> = .init(.foxWithBubble)
     var banner: Box<UIImage> = .init(.defaultBanner)
+
+    // MARK: - State
+    enum State {
+        case editing
+        case view
+    }
+
+    private(set) var state: Box<State> = .init(.view)
 
     // MARK: - Manager
     let imageProvider = StorageManager.imageManager
@@ -25,30 +38,35 @@ class ProfileViewModel {
         description.value = user.description
         email.value = user.email
 
-        if let url = URL(string: user.picture),
-           user.picture != "Default"
-        {
+        if let url = URL(string: user.picture), user.picture != "Default" {
             fetchImage(url: url, for: .picture)
         } else {
             picture.value = .foxWithBubble
         }
 
-        if let url = URL(string: user.bannerPicture),
-           user.bannerPicture != "Default"
-        {
+        if let url = URL(string: user.bannerPicture), user.bannerPicture != "Default" {
             fetchImage(url: url, for: .banner)
         } else {
             banner.value = .defaultBanner
         }
     }
-    
+
+    // MARK: - State
+    func startEditing() {
+        state.value = .editing
+    }
+
+    func endEditing() {
+        state.value = .view
+    }
+
     // MARK: - StringField
     private enum StringField {
         case name
         case description
         case email
     }
-    
+
     private func setField(text: String, for stringField: StringField) {
         switch stringField {
         case .name: name.value = text
@@ -56,19 +74,21 @@ class ProfileViewModel {
         case .email: email.value = text
         }
     }
-    
-    func updateName(text: String) {
+
+    func updateName(text: String?) throws {
+        guard let text, text.count >= 2 && text.count <= 15 else {
+            throw ProfileInvalidField.invalidName
+        }
         updateCurrentUser(text: text, for: .name)
     }
-    
-    func updateDescription(text: String) {
+
+    func updateDescription(text: String?) throws {
+        guard let text, text.count <= 300 else {
+            throw ProfileInvalidField.invalidDescription
+        }
         updateCurrentUser(text: text, for: .description)
     }
-    
-    func updateEmail(text: String) {
-        updateCurrentUser(text: text, for: .email)
-    }
-    
+
     private func updateCurrentUser(text: String, for stringField: StringField) {
         switch stringField {
         case .name: FSUser.currentUser?.name = text

@@ -17,7 +17,8 @@ target 'FoxSwift' do
   pod "SnapKit"
   pod "IQKeyboardManager"
   
-  pod "SwiftLint"
+  # Debug Only
+  pod "SwiftLint", :configurations => ['Debug']
 
   target 'FoxSwiftTests' do
     inherit! :search_paths
