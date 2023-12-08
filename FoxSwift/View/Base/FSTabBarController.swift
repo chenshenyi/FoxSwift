@@ -69,7 +69,7 @@ extension FSTabBarController {
             switch self {
             case .meets: return MeetsViewController()
             case .profile: return ProfileViewController()
-
+            case .records: return RecordsViewController()
             default: return FSViewController()
             }
         }

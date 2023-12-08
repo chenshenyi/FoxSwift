@@ -9,20 +9,10 @@ import UIKit
 
 // MARK: RecordsViewModelProtocol
 protocol RecordsViewModelProtocol {
-    associatedtype Message: Identifiable
-
-    var recordName: Box<String> { get }
-
-    var messages: Box<[Message]> { get }
-
-    func renameRecord(name: String)
-
-    func editMessage(newText: String, messageId: Message.ID)
+    
 }
 
 // MARK: RecordsViewController
-class RecordsViewController: FSViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+class RecordsViewController: FSMessageViewController {
+    
 }
