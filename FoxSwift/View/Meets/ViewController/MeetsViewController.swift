@@ -163,7 +163,7 @@ final class MeetsViewController: FSViewController {
             for: .meeting,
             components: [meetingCode]
         )
-        
+
         let sharedString = """
         -- FoxSwift Meeting --
         Use following url to attend the meeting:

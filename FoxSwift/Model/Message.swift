@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct FSMessage: Codable {
+struct FSMessage: Codable, Identifiable {
     enum FSMessageType: Codable {
         case text
         case image
@@ -19,18 +19,26 @@ struct FSMessage: Codable {
     }
 
     enum CodingKeys: CodingKey {
+        case id
         case data
         case author
         case type
         case createdTime
     }
 
+    var id: String
     var data: Data
     var author: Participant
     var type: FSMessageType
     var createdTime: Int
 
-    init(data: Data, author: Participant, type: FSMessageType) {
+    init(
+        id: ID = UUID().uuidString,
+        data: Data,
+        author: Participant,
+        type: FSMessageType
+    ) {
+        self.id = id
         self.data = data
         self.author = author
         self.type = type

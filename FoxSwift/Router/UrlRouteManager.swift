@@ -11,7 +11,7 @@ class UrlRouteManager {
     weak var rootViewController: UIViewController?
 
     static var shared = UrlRouteManager()
-    
+
     let appName = "FoxSwift"
 
     enum EndPoint: String {

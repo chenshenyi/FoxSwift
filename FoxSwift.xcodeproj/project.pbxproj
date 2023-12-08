@@ -27,6 +27,7 @@
 		2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EB2B0F351400C5C06A /* VideoView.swift */; };
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
+		2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
 		2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */; };
@@ -123,6 +124,7 @@
 		2B66F5EB2B0F351400C5C06A /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
+		2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
 		2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextMessageCell.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				2B24FFA62B0374140000C5A3 /* Base */,
 				2B24FFA52B0374000000C5A3 /* Meets */,
 				2B66F5F12B0F53C900C5C06A /* Meetnig */,
+				2B6E2F9E2B22E0DA009C08D1 /* Records */,
 				2B0A27CC2B204302009F4E78 /* Profile */,
 			);
 			path = View;
@@ -320,6 +323,14 @@
 				2BD8B0EF2B107673001646C5 /* VideoControlBar.swift */,
 			);
 			path = Meetnig;
+			sourceTree = "<group>";
+		};
+		2B6E2F9E2B22E0DA009C08D1 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */,
+			);
+			path = Records;
 			sourceTree = "<group>";
 		};
 		2B9C8B1E2B0C44ED00F57C90 /* WebRTC */ = {
@@ -821,6 +832,7 @@
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
 				2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */,
 				2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */,
+				2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */,
 				2BCB8DED2B012A0900DD4C2F /* String+Extension.swift in Sources */,
 				2BD8B0F02B107673001646C5 /* VideoControlBar.swift in Sources */,
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
