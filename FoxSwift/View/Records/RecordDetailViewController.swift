@@ -10,34 +10,30 @@ import UIKit
 // MARK: RecordsViewModelProtocol
 protocol RecordDetailViewModelProtocol {
     var recordName: Box<String> { get }
-    
+
     var messages: Box<[FSMessage]> { get }
-    
+
     func renameRecord(name: String)
-    
+
     func editMessage(newText: String, messageId: FSMessage.ID)
 }
 
 // MARK: RecordsViewController
 class RecordDetailViewController: FSMessageViewController {
     override var messages: [FSMessage] {
-        viewModel?.messages.value ?? [
-            FSMessage(data: "Hi".data(using: .utf8)!, author: Participant.currentUser, type: .text),
-            FSMessage(data: "Now".data(using: .utf8)!, author: Participant.currentUser, type: .text)
-        ]
+        viewModel?.messages.value ?? []
     }
-    
+
     var viewModel: (any RecordDetailViewModelProtocol)?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupMessageTableView()
     }
-    
+
     override func setupMessageTableView() {
         super.setupMessageTableView()
-        
         messageTableView.pinTo(view, safeArea: true)
     }
 }
