@@ -14,11 +14,15 @@ class FSMeetingTableViewController: FSViewController {
 
     var meetingTableView = UITableView()
 
-    func setupMeetingTableView() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupMeetingTableView()
+    }
+
+    private func setupMeetingTableView() {
         meetingTableView.dataSource = self
         meetingTableView.delegate = self
-        meetingTableView.dragDelegate = self
-        meetingTableView.dropDelegate = self
 
         meetingTableView.backgroundColor = .fsBg
 
@@ -26,15 +30,10 @@ class FSMeetingTableViewController: FSViewController {
         meetingTableView.registReuseCell(for: MeetingCell.self)
     }
 
-    func moveCell(from oldIndex: IndexPath, to newIndex: IndexPath) {
-        DispatchQueue.main.async { [weak meetingTableView] in
-            guard let meetingTableView else { return }
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
 
-            meetingTableView.performBatchUpdates {
-                meetingTableView.deleteRows(at: [oldIndex], with: .left)
-                meetingTableView.insertRows(at: [newIndex], with: .left)
-            }
-        }
+        meetingTableView.isEditing = editing
     }
 }
 
@@ -73,49 +72,5 @@ extension FSMeetingTableViewController: UITableViewDelegate {
         forSection section: Int
     ) {
         (view as? UITableViewHeaderFooterView)?.textLabel?.textColor = .fsSecondary
-    }
-}
-
-
-// MARK: - TableViewDragDelegate
-extension FSMeetingTableViewController: UITableViewDragDelegate {
-    func tableView(
-        _ tableView: UITableView,
-        itemsForBeginning session: UIDragSession,
-        at indexPath: IndexPath
-    ) -> [UIDragItem] {
-        let indexPathItem = UIDragItem(itemProvider: .init())
-        indexPathItem.localObject = indexPath
-
-        return [indexPathItem]
-    }
-}
-
-// MARK: - TableViewDropDelegate
-extension FSMeetingTableViewController: UITableViewDropDelegate {
-    func tableView(
-        _ tableView: UITableView,
-        canHandle session: UIDropSession
-    ) -> Bool {
-        true
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        dropSessionDidUpdate session: UIDropSession,
-        withDestinationIndexPath destinationIndexPath: IndexPath?
-    ) -> UITableViewDropProposal {
-        UITableViewDropProposal(operation: .move, intent: .automatic)
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        performDropWith coordinator: UITableViewDropCoordinator
-    ) {
-        guard let destinationIndexPath = coordinator.destinationIndexPath,
-              let oldIndex = coordinator.session.localDragSession?.items.first?
-                  .localObject as? IndexPath else { return }
-
-        moveCell(from: oldIndex, to: destinationIndexPath)
     }
 }

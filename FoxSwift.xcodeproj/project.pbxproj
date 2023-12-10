@@ -31,7 +31,6 @@
 		2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */; };
 		2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */; };
 		2B6E2FA82B22F873009C08D1 /* FSMeetingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */; };
-		2B6E2FAA2B23EE14009C08D1 /* FSEditableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA92B23EE14009C08D1 /* FSEditableViewController.swift */; };
 		2B6E2FAC2B23F45A009C08D1 /* RecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
@@ -133,7 +132,6 @@
 		2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMeetingTableViewController.swift; sourceTree = "<group>"; };
-		2B6E2FA92B23EE14009C08D1 /* FSEditableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditableViewController.swift; sourceTree = "<group>"; };
 		2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewModel.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 				2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */,
 				2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */,
 				2B8F9D202B048C10002D9076 /* FSViewController.swift */,
-				2B6E2FA92B23EE14009C08D1 /* FSEditableViewController.swift */,
 				2B6E2FA62B22F859009C08D1 /* Meets */,
 				2B6E2FA12B22E800009C08D1 /* Messages */,
 			);
@@ -902,7 +899,6 @@
 				2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */,
 				2B24FFAB2B03753F0000C5A3 /* Localizable.swift in Sources */,
 				2BEAE6AF2B1324440007180B /* UITextView+Extension.swift in Sources */,
-				2B6E2FAA2B23EE14009C08D1 /* FSEditableViewController.swift in Sources */,
 				2B1F84812B11C66700136190 /* Message.swift in Sources */,
 				2BEAE6C12B1490330007180B /* MessageViewModel.swift in Sources */,
 				2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */,

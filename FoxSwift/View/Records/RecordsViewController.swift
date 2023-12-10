@@ -7,48 +7,53 @@
 
 import UIKit
 
-final class RecordsViewController: FSMeetingTableViewController, FSEditableViewController {
+final class RecordsViewController: FSMeetingTableViewController {
     let viewModel: RecordsViewModel = .init()
 
-    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] {
-        [viewModel.meetingCodes]
-    }
-
-    // MARK: - Subviews
-    let editButton = UIBarButtonItem(systemItem: .edit)
-    let doneButton = UIBarButtonItem(systemItem: .done)
+    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes] }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = editButtonItem
         setupMeetingTableView()
-        setupEditable()
     }
 
     // MARK: Data Binding
     func bindViewModel() {}
 
     // MARK: - Setup Subviews
-    override func setupMeetingTableView() {
-        super.setupMeetingTableView()
+    func setupMeetingTableView() {
+        meetingTableView.addTo(view) { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+}
 
-        meetingTableView.pinTo(view, safeArea: true)
+// MARK: TableViewDelegate
+extension RecordsViewController {
+    // MARK: - Edit
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        true
     }
 
-    override func moveCell(
-        from oldIndex: IndexPath,
-        to newIndex: IndexPath
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
     ) {
-        viewModel.moveRecord(from: oldIndex.row, to: newIndex.row)
-        super.moveCell(from: oldIndex, to: newIndex)
+        if editingStyle == .delete {
+            viewModel.deleteRecord(for: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 
-    func startEdit() {
-        meetingTableView.dragInteractionEnabled = true
-    }
-
-    func stopEdit() {
-        meetingTableView.dragInteractionEnabled = false
+    func tableView(
+        _ tableView: UITableView,
+        moveRowAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath
+    ) {
+        viewModel.moveRecord(from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
 }

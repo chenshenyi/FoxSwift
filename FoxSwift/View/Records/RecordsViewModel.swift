@@ -8,18 +8,16 @@
 import Foundation
 
 final class RecordsViewModel {
-    var isEditing: Box<Bool> = .init(false)
-
     var meetingCodes: [Box<MeetingRoom.MeetingCode>] = [Box("424123"), Box("oaeu"), Box("aoe")]
 
-    func deleteRecord(for: MeetingRoom.MeetingCode) {}
+    func deleteRecord(for index: Int) {
+        meetingCodes.remove(at: index)
+    }
 
-    func renameRecord(for: MeetingRoom.MeetingCode) {}
+    func renameRecord(for index: Int, to newName: String) {}
 
     func moveRecord(from oldIndex: Int, to newIndex: Int) {
         let meetingCode = meetingCodes.remove(at: oldIndex)
         meetingCodes.insert(meetingCode, at: newIndex)
     }
 }
-
-extension RecordsViewModel: FSEditableViewModel {}
