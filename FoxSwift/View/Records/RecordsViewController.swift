@@ -56,4 +56,13 @@ extension RecordsViewController {
     ) {
         viewModel.moveRecord(from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
+        let viewModel = RecordDetailViewModel(meetingCode: meetingCode)
+
+        let viewController = RecordDetailViewController()
+        viewController.setupViewModel(viewModel: viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }

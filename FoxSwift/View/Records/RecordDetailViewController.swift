@@ -19,12 +19,14 @@ protocol RecordDetailViewModelProtocol {
 }
 
 // MARK: RecordsViewController
-class RecordDetailViewController: FSMessageViewController {
+final class RecordDetailViewController: FSMessageViewController {
+    typealias ViewModel = RecordDetailViewModelProtocol
+
     override var messages: [FSMessage] {
         viewModel?.messages.value ?? []
     }
 
-    var viewModel: (any RecordDetailViewModelProtocol)?
+    var viewModel: (any ViewModel)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,5 +37,17 @@ class RecordDetailViewController: FSMessageViewController {
     override func setupMessageTableView() {
         super.setupMessageTableView()
         messageTableView.pinTo(view, safeArea: true)
+    }
+
+    func setupViewModel(viewModel: ViewModel) {
+        self.viewModel = viewModel
+        bindViewModel()
+    }
+
+    func bindViewModel() {
+        viewModel?.messages.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+            messageTableView.reloadData()
+        }
     }
 }
