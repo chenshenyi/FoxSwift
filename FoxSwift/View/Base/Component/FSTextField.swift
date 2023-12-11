@@ -7,14 +7,9 @@
 
 import UIKit
 
-class FSTextField: UITextField {
-    enum CornerStyle {
-        case squared
-        case rounded
-        case roundSquared(Int)
-    }
+class FSTextField: UITextField, CornerStyled {
+    var cornerStyle: CornerStyle = .rounded
 
-    var style: CornerStyle = .rounded
     var onError = false {
         didSet {
             if onError {
@@ -28,7 +23,7 @@ class FSTextField: UITextField {
     }
 
     var inset: CGFloat {
-        switch style {
+        switch cornerStyle {
         case .squared: 8
         case .rounded: bounds.height / 2
         case .roundSquared(let radius): CGFloat(radius)
@@ -68,10 +63,6 @@ class FSTextField: UITextField {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        switch style {
-        case .rounded: layer.cornerRadius = bounds.height / 2
-        case .squared: layer.cornerRadius = 0
-        case .roundSquared(let radius): layer.cornerRadius = CGFloat(radius)
-        }
+        setupCornerRaius()
     }
 }

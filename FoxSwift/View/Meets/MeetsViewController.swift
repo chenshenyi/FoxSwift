@@ -234,10 +234,12 @@ extension MeetsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0: return
-        default:
-            viewModel.meetingCode.value = viewModel.meets.value[indexPath.row]
+        let vc = MeetingPrepareViewController()
+
+        if let presentVC = vc.presentationController as? UISheetPresentationController {
+            presentVC.detents = [.custom { _ in 540 }]
+            presentVC.preferredCornerRadius = 30
         }
+        present(vc, animated: false)
     }
 }

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class FSButton: UIButton {
+class FSButton: UIButton, CornerStyled {
+    var cornerStyle: UIView.CornerStyle = .rounded
+
     enum ButtonStyle {
         case outline(color: UIColor)
         case filled(color: UIColor, textColor: UIColor)
@@ -18,7 +20,7 @@ class FSButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        layer.cornerRadius = frame.height / 2
+        setupCornerRaius()
     }
 
     func setupStyle(style: ButtonStyle) {
@@ -27,7 +29,7 @@ class FSButton: UIButton {
             backgroundColor = color
             layer.borderWidth = 0
             setTitleColor(textColor, for: .normal)
-        case .outline(let color):
+        case let .outline(color):
             backgroundColor = .clear
             layer.borderColor = color.cgColor
             layer.borderWidth = 1
