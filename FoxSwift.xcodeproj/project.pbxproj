@@ -34,6 +34,7 @@
 		2B6E2FAC2B23F45A009C08D1 /* RecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
 		2B7F8E062B26326C005C3085 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F8E052B26326C005C3085 /* Rule.swift */; };
+		2B7F8E082B268FE8005C3085 /* FSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F8E072B268FE8005C3085 /* FSButton.swift */; };
 		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
 		2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */; };
 		2B86D4392B1DA76900FCBA97 /* FSMessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4382B1DA76900FCBA97 /* FSMessageCellViewModel.swift */; };
@@ -59,6 +60,9 @@
 		2BA4D16A2B074EF300637596 /* FSWebRTCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */; };
 		2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16B2B07519200637596 /* MeetingViewController.swift */; };
 		2BA4D16F2B077EA400637596 /* MeetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */; };
+		2BBF79C22B26C21C0003602E /* SelectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79BE2B26C21C0003602E /* SelectionViewDataSource.swift */; };
+		2BBF79C32B26C21C0003602E /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79BF2B26C21C0003602E /* SelectionView.swift */; };
+		2BBF79C42B26C21C0003602E /* SelectionVIewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79C02B26C21C0003602E /* SelectionVIewDelegate.swift */; };
 		2BC45BF72B25B74D0005EF7D /* RecordDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */; };
 		2BC45BFA2B2612780005EF7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF92B2612780005EF7D /* LoginViewController.swift */; };
 		2BC45BFC2B26130C0005EF7D /* FSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BFB2B26130C0005EF7D /* FSTextField.swift */; };
@@ -140,6 +144,7 @@
 		2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewModel.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
 		2B7F8E052B26326C005C3085 /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		2B7F8E072B268FE8005C3085 /* FSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSButton.swift; sourceTree = "<group>"; };
 		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
 		2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextMessageCell.swift; sourceTree = "<group>"; };
 		2B86D4382B1DA76900FCBA97 /* FSMessageCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSMessageCellViewModel.swift; sourceTree = "<group>"; };
@@ -165,6 +170,9 @@
 		2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSWebRTCConfig.swift; sourceTree = "<group>"; };
 		2BA4D16B2B07519200637596 /* MeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewController.swift; sourceTree = "<group>"; };
 		2BA4D16E2B077EA400637596 /* MeetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewModel.swift; sourceTree = "<group>"; };
+		2BBF79BE2B26C21C0003602E /* SelectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewDataSource.swift; sourceTree = "<group>"; };
+		2BBF79BF2B26C21C0003602E /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		2BBF79C02B26C21C0003602E /* SelectionVIewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionVIewDelegate.swift; sourceTree = "<group>"; };
 		2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewModel.swift; sourceTree = "<group>"; };
 		2BC45BF92B2612780005EF7D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2BC45BFB2B26130C0005EF7D /* FSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextField.swift; sourceTree = "<group>"; };
@@ -401,8 +409,10 @@
 		2BA0EB752B08AEF7003B8EFE /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				2BBF79BD2B26C21C0003602E /* SelectionView */,
 				2BD8B0F12B10770E001646C5 /* RoundButton.swift */,
 				2BC45BFB2B26130C0005EF7D /* FSTextField.swift */,
+				2B7F8E072B268FE8005C3085 /* FSButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -424,6 +434,16 @@
 				2BA4D1692B074EF300637596 /* FSWebRTCConfig.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		2BBF79BD2B26C21C0003602E /* SelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2BBF79BF2B26C21C0003602E /* SelectionView.swift */,
+				2BBF79BE2B26C21C0003602E /* SelectionViewDataSource.swift */,
+				2BBF79C02B26C21C0003602E /* SelectionVIewDelegate.swift */,
+			);
+			path = SelectionView;
 			sourceTree = "<group>";
 		};
 		2BC45BF82B2612630005EF7D /* Login */ = {
@@ -869,6 +889,7 @@
 				2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
+				2BBF79C32B26C21C0003602E /* SelectionView.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
 				2B7F8E062B26326C005C3085 /* Rule.swift in Sources */,
@@ -876,6 +897,7 @@
 				2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */,
 				2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */,
 				2BCB8DEF2B012A0900DD4C2F /* UICollectionView+Extension.swift in Sources */,
+				2BBF79C22B26C21C0003602E /* SelectionViewDataSource.swift in Sources */,
 				2BCB8DF02B012A0900DD4C2F /* CGFloat+Extension.swift in Sources */,
 				2B24FFA92B0374A30000C5A3 /* FSTabBarController.swift in Sources */,
 				2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */,
@@ -903,6 +925,7 @@
 				2BEAE6C52B15D54C0007180B /* SpeechRecognitionManager.swift in Sources */,
 				2B6E2FA82B22F873009C08D1 /* FSMeetingTableViewController.swift in Sources */,
 				2BA0EB792B08DA75003B8EFE /* SnapKit+UIView.swift in Sources */,
+				2B7F8E082B268FE8005C3085 /* FSButton.swift in Sources */,
 				2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
@@ -919,6 +942,7 @@
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
+				2BBF79C42B26C21C0003602E /* SelectionVIewDelegate.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
 				2BC45BF72B25B74D0005EF7D /* RecordDetailViewModel.swift in Sources */,
 				2BA0EB6F2B086F7F003B8EFE /* UILabel+Box.swift in Sources */,

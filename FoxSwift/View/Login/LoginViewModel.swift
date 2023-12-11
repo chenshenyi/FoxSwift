@@ -24,7 +24,7 @@ final class LoginViewModel {
         case unknownError
     }
 
-    typealias Id = FSUser.UserId
+    typealias UserId = FSUser.UserId
 
     var currentUser: Box<FSUser?> = .init()
 
@@ -34,7 +34,7 @@ final class LoginViewModel {
         email: String,
         password: String,
         userName: String,
-        handler: @escaping ResultHandler<Id, SignUpError>
+        handler: @escaping ResultHandler<UserId, SignUpError>
     ) {
         if let failedRule = EmailRule.allCases.first(where: { rule in
             !rule.check(email)
@@ -49,7 +49,7 @@ final class LoginViewModel {
             handler(.failure(.invalidPassword(rule: failedRule)))
             return
         }
-        
+
         if let failedRule = UserNameRule.allCases.first(where: { rule in
             !rule.check(userName)
         }) {
@@ -61,7 +61,7 @@ final class LoginViewModel {
     func login(
         email: String,
         password: String,
-        handler: @escaping ResultHandler<Id, LoginError>
+        handler: @escaping ResultHandler<UserId, LoginError>
     ) {
         let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
         let user = FSUser(id: UUID().uuidString, name: name)

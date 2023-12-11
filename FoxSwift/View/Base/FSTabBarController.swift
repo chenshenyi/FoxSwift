@@ -14,6 +14,11 @@ class FSTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupTabBar()
+        checkLogin()
+    }
+
+    func setupTabBar() {
         tabs.forEach { tab in
             tabsDict[tab] = tab.viewController
         }
@@ -36,6 +41,9 @@ class FSTabBarController: UITabBarController {
         tabBarAppearance.backgroundColor = UIColor.fsPrimary
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+    }
+
+    func checkLogin() {
     }
 }
 

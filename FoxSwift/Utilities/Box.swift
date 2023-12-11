@@ -28,9 +28,9 @@ final class Box<T> {
     init(_ value: T) {
         self.value = value
     }
-    
-    init<K>() where T == Optional<K> {
-        self.value = nil
+
+    init<K>() where T == K? {
+        value = nil
     }
 
     func bind(inQueue queue: DispatchQueue? = nil, listener: Listener?) {

@@ -29,7 +29,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { fatalError("Unknown scene") }
         window = UIWindow(windowScene: scene)
         let tabBarController = FSTabBarController()
-        window?.rootViewController = tabBarController
+
+        if FSUser.currentUser == nil {
+            window?.rootViewController = LoginViewController()
+        } else {
+            window?.rootViewController = tabBarController
+        }
         window?.makeKeyAndVisible()
 
         return tabBarController
