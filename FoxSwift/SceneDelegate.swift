@@ -32,11 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
-        let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
-        let user = FSUser(id: UUID().uuidString, name: name)
-        FSUser.currentUser = user
-        FSUserProvider.createNewUser(user: user)
-
         return tabBarController
     }
 
