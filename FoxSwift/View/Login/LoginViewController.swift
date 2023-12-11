@@ -36,6 +36,8 @@ final class LoginViewController: FSViewController {
         }
     }
 
+    var viewModel = LoginViewModel()
+
     // MARK: Subviews
     let titleLabel = UILabel()
     let modeSelectionView = SelectionView()
@@ -46,6 +48,7 @@ final class LoginViewController: FSViewController {
     let passwordTextField = FSTextField(placeholder: "Password")
     let confirmButton = FSButton()
 
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,9 +57,81 @@ final class LoginViewController: FSViewController {
         setupStackView()
         setupConfirmButton()
         setupConstraint()
+
         loginMode = .login
     }
-    
+
+    // MARK: Update UI by result
+    func loginResultHandler(result: LoginViewModel.LoginResult) {
+        emailTextField.onError = false
+        passwordTextField.onError = false
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            switch result {
+            case let .success(user):
+                FSUser.currentUser = user
+                dismiss(animated: true)
+
+            case let .failure(.invalidEmail(rule: rule)):
+                emailTextField.onError = true
+                alertError(text: rule.localizedDescription)
+
+            case let .failure(.invalidPassword(rule: rule)):
+                passwordTextField.onError = true
+                alertError(text: rule.localizedDescription)
+
+            case .failure(.passwordIncorrect):
+                passwordTextField.onError = true
+                alertError(text: "Password incorrect")
+
+            case .failure(.emailNotFound):
+                emailTextField.onError = true
+                alertError(text: "Email not found")
+
+            case .failure(.unknownError):
+                fatalError("Unknow error when login")
+            }
+        }
+    }
+
+    func signUpResultHandler(result: LoginViewModel.SignUpResult) {
+        nameTextField.onError = false
+        emailTextField.onError = false
+        passwordTextField.onError = false
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            switch result {
+            case let .success(user):
+                FSUser.currentUser = user
+                dismiss(animated: true)
+
+            case let .failure(.invalidUserName(rule: rule)):
+                nameTextField.onError = true
+                alertError(text: rule.localizedDescription)
+
+            case let .failure(.invalidEmail(rule: rule)):
+                emailTextField.onError = true
+                alertError(text: rule.localizedDescription)
+
+            case let .failure(.invalidPassword(rule: rule)):
+                passwordTextField.onError = true
+                alertError(text: rule.localizedDescription)
+
+            case .failure(.emailExist):
+                emailTextField.onError = true
+                alertError(text: "Email already exist")
+
+            case .failure(.unknownError):
+                fatalError("Unknow error when login")
+            }
+        }
+    }
+
+    // MARK: Setup Subviews
     func setuptitleLabel() {
         titleLabel.text = "Welcome to FoxSwift"
         titleLabel.textColor = .accent
@@ -70,6 +145,30 @@ final class LoginViewController: FSViewController {
 
     func setupConfirmButton() {
         confirmButton.setupStyle(style: .filled(color: .accent, textColor: .fsBg))
+
+        confirmButton.addAction { [weak self] in
+            guard let self else { return }
+
+            let name = nameTextField.text ?? ""
+            let email = emailTextField.text ?? ""
+            let password = passwordTextField.text ?? ""
+
+            switch loginMode {
+            case .login:
+                viewModel.login(
+                    email: email,
+                    password: password,
+                    handler: loginResultHandler
+                )
+            case .signUp:
+                viewModel.signUp(
+                    email: email,
+                    password: password,
+                    userName: name,
+                    handler: signUpResultHandler
+                )
+            }
+        }
     }
 
     func setupStackView() {
@@ -122,6 +221,7 @@ final class LoginViewController: FSViewController {
     }
 }
 
+// MARK: - SelectionViewDataSource
 extension LoginViewController: SelectionViewDataSource {
     func numberOfSelections(_ selectionView: SelectionView) -> Int {
         LoginMode.allCases.count
@@ -140,6 +240,7 @@ extension LoginViewController: SelectionViewDataSource {
     }
 }
 
+// MARK: - SelectionViewDelegate
 extension LoginViewController: SelectionViewDelegate {
     func selectionDidSelect(_ selectionView: SelectionView, forIndex index: Int) {
         loginMode = LoginMode.allCases[index]

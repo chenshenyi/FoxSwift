@@ -30,12 +30,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let tabBarController = FSTabBarController()
 
-        if FSUser.currentUser == nil {
-            window?.rootViewController = LoginViewController()
-        } else {
-            window?.rootViewController = tabBarController
-        }
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
+
+        if FSUser.currentUser == nil {
+            let loginViewController = LoginViewController()
+            loginViewController.modalPresentationStyle = .fullScreen
+            tabBarController.present(loginViewController, animated: false)
+        }
 
         return tabBarController
     }

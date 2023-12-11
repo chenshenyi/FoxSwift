@@ -18,13 +18,14 @@ final class LoginViewModel {
 
     enum LoginError: Error {
         case invalidEmail(rule: EmailRule)
-        case inavlidPassword(rule: PasswordRule)
+        case invalidPassword(rule: PasswordRule)
         case emailNotFound
         case passwordIncorrect
         case unknownError
     }
 
-    typealias UserId = FSUser.UserId
+    typealias LoginResult = Result<FSUser, LoginError>
+    typealias SignUpResult = Result<FSUser, SignUpError>
 
     var currentUser: Box<FSUser?> = .init()
 
@@ -34,7 +35,34 @@ final class LoginViewModel {
         email: String,
         password: String,
         userName: String,
-        handler: @escaping ResultHandler<UserId, SignUpError>
+        handler: @escaping (SignUpResult) -> Void
+    ) {
+        if let failedRule = UserNameRule.allCases.first(where: { rule in
+            !rule.check(userName)
+        }) {
+            handler(.failure(.invalidUserName(rule: failedRule)))
+            return
+        }
+
+        if let failedRule = EmailRule.allCases.first(where: { rule in
+            !rule.check(email)
+        }) {
+            handler(.failure(.invalidEmail(rule: failedRule)))
+            return
+        }
+
+        if let failedRule = PasswordRule.allCases.first(where: { rule in
+            !rule.check((email: email, password: password))
+        }) {
+            handler(.failure(.invalidPassword(rule: failedRule)))
+            return
+        }
+    }
+
+    func login(
+        email: String,
+        password: String,
+        handler: @escaping (LoginResult) -> Void
     ) {
         if let failedRule = EmailRule.allCases.first(where: { rule in
             !rule.check(email)
@@ -49,23 +77,5 @@ final class LoginViewModel {
             handler(.failure(.invalidPassword(rule: failedRule)))
             return
         }
-
-        if let failedRule = UserNameRule.allCases.first(where: { rule in
-            !rule.check(userName)
-        }) {
-            handler(.failure(.invalidUserName(rule: failedRule)))
-            return
-        }
-    }
-
-    func login(
-        email: String,
-        password: String,
-        handler: @escaping ResultHandler<UserId, LoginError>
-    ) {
-        let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
-        let user = FSUser(id: UUID().uuidString, name: name)
-        FSUser.currentUser = user
-        FSUserProvider.createNewUser(user: user)
     }
 }
