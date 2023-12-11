@@ -29,7 +29,9 @@ final class LoginViewModel {
 
     var currentUser: Box<FSUser?> = .init()
 
+    // MARK: Manager
     var userProvider = FSUserProvider()
+    var keyChainManager = KeyChainManager()
 
     func signUp(
         email: String,
@@ -59,9 +61,12 @@ final class LoginViewModel {
         }
 
         let user = FSUser(id: email, name: userName, email: email, password: password)
-        userProvider.signUp(user: user) { result in
+        userProvider.signUp(user: user) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case let .success(user):
+                saveUser(user: user)
                 handler(.success(user))
             case .failure(.emailAlreadyExist):
                 handler(.failure(.emailExist))
@@ -88,9 +93,12 @@ final class LoginViewModel {
             return
         }
 
-        userProvider.login(email: email, password: password) { result in
+        userProvider.login(email: email, password: password) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case let .success(user):
+                saveUser(user: user)
                 handler(.success(user))
             case .failure(.emailNotFound):
                 handler(.failure(.emailNotFound))
@@ -98,5 +106,10 @@ final class LoginViewModel {
                 handler(.failure(.passwordIncorrect))
             }
         }
+    }
+
+    func saveUser(user: FSUser) {
+        FSUser.currentUser = user
+        keyChainManager.storeUser()
     }
 }

@@ -54,6 +54,7 @@ final class LoginViewController: FSViewController {
 
         setuptitleLabel()
         setupSelectionView()
+        setupTextFields()
         setupStackView()
         setupConfirmButton()
         setupConstraint()
@@ -70,8 +71,7 @@ final class LoginViewController: FSViewController {
             guard let self else { return }
 
             switch result {
-            case let .success(user):
-                FSUser.currentUser = user
+            case .success:
                 dismiss(animated: true)
 
             case let .failure(.invalidEmail(rule: rule)):
@@ -105,8 +105,7 @@ final class LoginViewController: FSViewController {
             guard let self else { return }
 
             switch result {
-            case let .success(user):
-                FSUser.currentUser = user
+            case .success:
                 dismiss(animated: true)
 
             case let .failure(.invalidUserName(rule: rule)):
@@ -141,6 +140,13 @@ final class LoginViewController: FSViewController {
     func setupSelectionView() {
         modeSelectionView.dataSource = self
         modeSelectionView.delegate = self
+    }
+
+    func setupTextFields() {
+        nameTextField.textContentType = .name
+        emailTextField.textContentType = .emailAddress
+        passwordTextField.textContentType = .password
+        passwordTextField.isSecureTextEntry = true
     }
 
     func setupConfirmButton() {

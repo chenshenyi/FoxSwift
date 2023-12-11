@@ -63,6 +63,7 @@
 		2BBF79C22B26C21C0003602E /* SelectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79BE2B26C21C0003602E /* SelectionViewDataSource.swift */; };
 		2BBF79C32B26C21C0003602E /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79BF2B26C21C0003602E /* SelectionView.swift */; };
 		2BBF79C42B26C21C0003602E /* SelectionVIewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79C02B26C21C0003602E /* SelectionVIewDelegate.swift */; };
+		2BBF79C72B26EEAA0003602E /* KeyChainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79C62B26EEAA0003602E /* KeyChainWrapper.swift */; };
 		2BC45BF72B25B74D0005EF7D /* RecordDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */; };
 		2BC45BFA2B2612780005EF7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF92B2612780005EF7D /* LoginViewController.swift */; };
 		2BC45BFC2B26130C0005EF7D /* FSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BFB2B26130C0005EF7D /* FSTextField.swift */; };
@@ -173,6 +174,7 @@
 		2BBF79BE2B26C21C0003602E /* SelectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewDataSource.swift; sourceTree = "<group>"; };
 		2BBF79BF2B26C21C0003602E /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		2BBF79C02B26C21C0003602E /* SelectionVIewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionVIewDelegate.swift; sourceTree = "<group>"; };
+		2BBF79C62B26EEAA0003602E /* KeyChainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainWrapper.swift; sourceTree = "<group>"; };
 		2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewModel.swift; sourceTree = "<group>"; };
 		2BC45BF92B2612780005EF7D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2BC45BFB2B26130C0005EF7D /* FSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextField.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
 				2BEAE6B02B1335DD0007180B /* StorageMannager.swift */,
 				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
+				2BBF79C62B26EEAA0003602E /* KeyChainWrapper.swift */,
 			);
 			path = ThirdPartyWrapper;
 			sourceTree = "<group>";
@@ -903,6 +906,7 @@
 				2BD8B0F22B10770E001646C5 /* RoundButton.swift in Sources */,
 				2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */,
 				2BEAE6BA2B142E010007180B /* User.swift in Sources */,
+				2BBF79C72B26EEAA0003602E /* KeyChainWrapper.swift in Sources */,
 				2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
 				2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */,

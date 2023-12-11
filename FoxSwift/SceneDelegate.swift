@@ -33,7 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
-        if FSUser.currentUser == nil {
+        let keyChainManager = KeyChainManager()
+
+        if let user = keyChainManager.loadUser() {
+            FSUser.currentUser = user
+        } else {
             let loginViewController = LoginViewController()
             loginViewController.modalPresentationStyle = .fullScreen
             tabBarController.present(loginViewController, animated: false)

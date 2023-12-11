@@ -12,7 +12,7 @@ class FSUserProvider {
         case passwordIncorrect
         case emailNotFound
     }
-    
+
     enum SignUpError: Error {
         case emailAlreadyExist
     }
