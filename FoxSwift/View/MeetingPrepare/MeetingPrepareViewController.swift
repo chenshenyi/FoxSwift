@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MeetingPrepareViewController: FSViewController {
+final class MeetingPrepareViewController: FSViewController {
     var viewModel: MeetingPrepareViewModel = .init()
 
     // MARK: - Subviews
@@ -69,7 +69,7 @@ class MeetingPrepareViewController: FSViewController {
     }
 
     func setupVoiceButton() {
-        voiceButton.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
+        voiceButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
         voiceButton.tintColor = .accent
         voiceButton.addTo(view) { make in
             make.top.equalTo(previewVideo.snp.bottom).offset(10)

@@ -125,9 +125,9 @@ final class MeetsViewController: FSViewController {
     }
 
     private func joinMeet() {
-        if let meetingCode = textField.text, !meetingCode.isEmpty {
-            joinMeet(meetingCode: meetingCode)
-        }
+        let vc = JoinMeetViewController()
+        vc.setupModelPresentStyle()
+        present(vc, animated: true)
     }
 
     func joinMeet(meetingCode: String) {

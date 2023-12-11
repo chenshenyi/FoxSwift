@@ -36,9 +36,9 @@ class FSTextField: UITextField, CornerStyled {
         self.placeholder = placeholder
         attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.fsSecondary]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.G_3]
         )
-        backgroundColor = .fsBg
+        backgroundColor = .fsPrimary
         borderStyle = .line
         textColor = .fsText
         clipsToBounds = true
