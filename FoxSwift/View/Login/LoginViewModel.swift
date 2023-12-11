@@ -7,69 +7,13 @@
 
 import Foundation
 
-private protocol Rule: Localizable {
-    associatedtype Parameters
-
-    var check: (Parameters) -> Bool { get }
-}
-
-enum EmailRule: Rule {
-    case notEmpty
-
-    var localizedDescription: String {
-        "Email should not be empty."
-    }
-
-    typealias Email = String
-
-    var check: (Email) -> Bool {
-        { email in !email.isEmpty }
-    }
-}
-
-enum PasswordRule: Rule {
-    case notEmpty
-    case notSameToEmail
-
-    typealias Email = String
-    typealias Password = String
-    typealias Parameters = (email: Email, password: Password)
-
-    var localizedDescription: String {
-        switch self {
-        case .notEmpty: "Password should not be empty."
-        case .notSameToEmail: "Password should not be same as email."
-        }
-    }
-
-    var check: (Parameters) -> Bool {
-        switch self {
-        case .notEmpty: { arg in !arg.password.isEmpty }
-        case .notSameToEmail: { arg in arg.email != arg.password }
-        }
-    }
-}
-
-enum UserNameRule: Rule {
-    case notEmpty
-
-    typealias UserName = String
-
-    var localizedDescription: String {
-        "User name should not be empty."
-    }
-
-    var check: (UserName) -> Bool {
-        { userName in !userName.isEmpty }
-    }
-}
-
 final class LoginViewModel {
     enum SignUpError: Error {
         case invalidEmail(rule: EmailRule)
         case invalidPassword(rule: PasswordRule)
         case invalidUserName(rule: UserNameRule)
         case emailExist
+        case unknownError
     }
 
     enum LoginError: Error {
@@ -77,10 +21,10 @@ final class LoginViewModel {
         case inavlidPassword(rule: PasswordRule)
         case emailNotFound
         case passwordIncorrect
+        case unknownError
     }
-    
+
     typealias Id = FSUser.UserId
-    typealias ResultHandler<T, Error: Swift.Error> = (Result<T, Error>) -> Void
 
     var currentUser: Box<FSUser?> = .init()
 
@@ -89,15 +33,35 @@ final class LoginViewModel {
     func signUp(
         email: String,
         password: String,
-        errorHandler: @escaping ResultHandler<Id, SignUpError>
+        userName: String,
+        handler: @escaping ResultHandler<Id, SignUpError>
     ) {
+        if let failedRule = EmailRule.allCases.first(where: { rule in
+            !rule.check(email)
+        }) {
+            handler(.failure(.invalidEmail(rule: failedRule)))
+            return
+        }
+
+        if let failedRule = PasswordRule.allCases.first(where: { rule in
+            !rule.check((email: email, password: password))
+        }) {
+            handler(.failure(.invalidPassword(rule: failedRule)))
+            return
+        }
         
+        if let failedRule = UserNameRule.allCases.first(where: { rule in
+            !rule.check(userName)
+        }) {
+            handler(.failure(.invalidUserName(rule: failedRule)))
+            return
+        }
     }
 
     func login(
         email: String,
         password: String,
-        errorHandler: @escaping (LoginError) -> Void
+        handler: @escaping ResultHandler<Id, LoginError>
     ) {
         let name = "小熊貓 \(Int(Date().timeIntervalSince1970))"
         let user = FSUser(id: UUID().uuidString, name: name)

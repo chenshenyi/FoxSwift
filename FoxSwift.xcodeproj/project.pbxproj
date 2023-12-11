@@ -33,6 +33,7 @@
 		2B6E2FA82B22F873009C08D1 /* FSMeetingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */; };
 		2B6E2FAC2B23F45A009C08D1 /* RecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
+		2B7F8E062B26326C005C3085 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F8E052B26326C005C3085 /* Rule.swift */; };
 		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
 		2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */; };
 		2B86D4392B1DA76900FCBA97 /* FSMessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4382B1DA76900FCBA97 /* FSMessageCellViewModel.swift */; };
@@ -138,6 +139,7 @@
 		2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMeetingTableViewController.swift; sourceTree = "<group>"; };
 		2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewModel.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
+		2B7F8E052B26326C005C3085 /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
 		2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextMessageCell.swift; sourceTree = "<group>"; };
 		2B86D4382B1DA76900FCBA97 /* FSMessageCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSMessageCellViewModel.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 		2BC45BF82B2612630005EF7D /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				2B7F8E052B26326C005C3085 /* Rule.swift */,
 				2BC45BFD2B26145F0005EF7D /* LoginViewModel.swift */,
 				2BC45BF92B2612780005EF7D /* LoginViewController.swift */,
 			);
@@ -868,6 +871,7 @@
 				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
+				2B7F8E062B26326C005C3085 /* Rule.swift in Sources */,
 				2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */,
 				2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */,
 				2B86D4332B1D695E00FCBA97 /* FSTextMessageCell.swift in Sources */,

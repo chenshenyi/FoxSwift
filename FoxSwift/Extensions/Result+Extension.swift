@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ResultHandler<T, Error: Swift.Error> = (T, _ error: Error) -> Void
+typealias ResultHandler<T, Error: Swift.Error> = (Result<T, Error>) -> Void
 
 extension Array {
     func successfulResults<T, E: Error>() -> [T] where Element == Result<T, E> {
