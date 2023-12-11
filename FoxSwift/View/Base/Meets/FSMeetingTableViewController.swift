@@ -12,7 +12,7 @@ import UIKit
 class FSMeetingTableViewController: FSViewController {
     var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [] }
 
-    var meetingTableView = UITableView()
+    var meetingTableView = UITableView(frame: .zero, style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()

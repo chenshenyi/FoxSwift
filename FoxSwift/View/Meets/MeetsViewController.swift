@@ -8,120 +8,86 @@
 import SnapKit
 import UIKit
 
-final class MeetsViewController: FSViewController {
+final class MeetsViewController: FSMeetingTableViewController {
     // MARK: - Subviews
-    let textField = UITextField()
-    let shareButton = UIButton()
-    let tableView = UITableView(frame: .zero, style: .grouped)
-    let joinMeetingButton = UIButton()
-    let newMeetingButton = UIButton()
-
+    let joinMeetingButton = FSButton()
+    let newMeetingButton = FSButton()
 
     // MARK: - ViewModel
     let viewModel = MeetsViewModel()
 
+    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] {
+        [viewModel.meets.value.map { Box($0) }]
+    }
+
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTextField()
-        setupTableView()
+
+        bindingViewModel()
+
         setupNewMeetingButton()
         setupJoinMeetingButton()
-        setupShareButton()
-        bindingViewModel()
+        setupTableView()
     }
 
     // MARK: - Setup Subviews
     func bindingViewModel() {
-        viewModel.meetingCode.bind { [weak self] meetingCode in
-            guard let self else { return }
-
-            textField.text = meetingCode
-        }
-
-        viewModel.meets.bind { [weak self] _ in
-            guard let self else { return }
-
-            tableView.reloadData()
-        }
-
         viewModel.listenToUser()
     }
 
     func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = .fsBg
-
-        tableView.registReuseCell(for: MeetingCell.self)
-
-        view.addSubview(tableView)
-
-        tableView.snp.makeConstraints { make in
+        meetingTableView.addTo(view) { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(138)
-        }
-    }
-
-    func setupTextField() {
-        textField.backgroundColor = .fsPrimary
-        textField.textColor = .fsText
-        textField.placeholder = "MeetingCode"
-        textField.setToolBar()
-
-        view.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(view.snp_topMargin).offset(20)
-            make.height.equalTo(30)
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(newMeetingButton.snp.bottom).offset(24)
         }
     }
 
     func setupNewMeetingButton() {
         newMeetingButton.setTitle("New Meeting", for: .normal)
-        newMeetingButton.setTitleColor(.accent, for: .normal)
-        newMeetingButton.titleLabel?.font = .config(weight: .regular, size: 14)
+        newMeetingButton.titleLabel?.font = .config(weight: .medium, size: 14)
+        newMeetingButton.cornerStyle = .rounded
+        newMeetingButton.setupStyle(style: .filled(color: .fsPrimary, textColor: .fsText))
 
-        newMeetingButton.backgroundColor = .clear
+        newMeetingButton.addAction(handler: newMeeting)
 
-        newMeetingButton.layer.borderColor = UIColor.accent.cgColor
-        newMeetingButton.layer.borderWidth = 1
-        newMeetingButton.layer.cornerRadius = 4
-
-        newMeetingButton.addAction { [weak self] in
-            guard let self else { return }
-
-            viewModel.createNewCode()
-        }
-
-        view.addSubview(newMeetingButton)
-        newMeetingButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(76)
+        newMeetingButton.addTo(view) { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.leading.equalToSuperview().inset(15)
+            make.trailing.equalTo(view.snp.centerX).offset(-8)
+            make.height.equalTo(40)
         }
     }
 
     func setupJoinMeetingButton() {
         joinMeetingButton.setTitle("Join Meeting", for: .normal)
-        joinMeetingButton.setTitleColor(.fsSecondary, for: .normal)
-        joinMeetingButton.titleLabel?.font = .config(weight: .regular, size: 14)
-
-        joinMeetingButton.backgroundColor = .clear
-
-        joinMeetingButton.layer.borderColor = UIColor.fsSecondary.cgColor
-        joinMeetingButton.layer.borderWidth = 1
-        joinMeetingButton.layer.cornerRadius = 4
+        joinMeetingButton.titleLabel?.font = .config(weight: .medium, size: 14)
+        joinMeetingButton.cornerStyle = .rounded
+        joinMeetingButton.setupStyle(style: .filled(color: .fsSecondary, textColor: .fsBg))
 
         joinMeetingButton.addAction(handler: joinMeet)
 
-        view.addSubview(joinMeetingButton)
-        joinMeetingButton.snp.makeConstraints { make in
-            make.leading.equalTo(newMeetingButton.snp.trailing).offset(16)
-            make.width.equalTo(newMeetingButton.snp.width)
-            make.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(76)
+        joinMeetingButton.addTo(view) { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.trailing.equalToSuperview().inset(15)
+            make.leading.equalTo(view.snp.centerX).offset(8)
+            make.height.equalTo(40)
         }
+    }
+
+    private func newMeeting() {
+        viewModel.createNewCode(showPrepare)
+    }
+
+    func showPrepare(meetingCode: MeetingRoom.MeetingCode) {
+        let vc = MeetingPrepareViewController()
+
+        if let presentVC = vc.presentationController as? UISheetPresentationController {
+            presentVC.detents = [.custom { _ in 540 }]
+            presentVC.preferredCornerRadius = 30
+        }
+        present(vc, animated: true)
     }
 
     private func joinMeet() {
@@ -140,18 +106,6 @@ final class MeetsViewController: FSViewController {
 
             navigationController?.pushViewController(vc, animated: true)
         }
-    }
-
-    private func setupShareButton() {
-        shareButton.setImage(UIImage(systemName: "square.and.arrow.up.fill"), for: .normal)
-        shareButton.tintColor = .accent
-
-        shareButton.addTo(view) { make in
-            make.centerY.trailing.equalTo(textField).inset(5)
-            make.size.equalTo(30)
-        }
-
-        shareButton.addAction(handler: shareMeeting)
     }
 
     func shareMeeting() {
@@ -183,63 +137,20 @@ final class MeetsViewController: FSViewController {
 
 
 // MARK: - TableViewDataSource
-extension MeetsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0
-            ? viewModel.activeMeeting.value == nil ? 0 : 1
-            : viewModel.meets.value.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.getReuseCell(for: MeetingCell.self, indexPath: indexPath) else {
-            fatalError("The cell not regist")
-        }
-
-        switch indexPath.section {
-        case 0:
-            viewModel.activeMeeting.bind { meetingCode in
-                guard let meetingCode else { return }
-                cell.viewModel.setMeetingCode(meetingCode: meetingCode)
-            }
-        default:
-            let meetingCode = viewModel.meets.value[indexPath.row]
-            cell.viewModel.setMeetingCode(meetingCode: meetingCode)
-        }
-
-        return cell
-    }
-
+extension MeetsViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Active" : "History"
+        "Meeting"
     }
 }
 
-
 // MARK: - TableViewDelegate
-extension MeetsViewController: UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        willDisplayHeaderView view: UIView,
-        forSection section: Int
-    ) {
-        (view as? UITableViewHeaderFooterView)?.textLabel?.textColor = .fsSecondary
+extension MeetsViewController {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        40
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = MeetingPrepareViewController()
-
-        if let presentVC = vc.presentationController as? UISheetPresentationController {
-            presentVC.detents = [.custom { _ in 540 }]
-            presentVC.preferredCornerRadius = 30
-        }
-        present(vc, animated: false)
+        let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
+        showPrepare(meetingCode: meetingCode)
     }
 }

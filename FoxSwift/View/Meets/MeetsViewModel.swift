@@ -35,11 +35,12 @@ class MeetsViewModel {
     }
 
     // MARK: - Meeting
-    func createNewCode() {
+    func createNewCode(_ handler: @escaping (_ meetingCode: MeetingRoom.MeetingCode) -> Void) {
         MeetingRoomProvider.create { result in
             switch result {
             case let .success(meetingCode):
                 self.meetingCode.value = meetingCode
+                handler(meetingCode)
             case let .failure(error):
                 print(error)
             }
