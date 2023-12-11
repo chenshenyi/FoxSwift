@@ -57,6 +57,16 @@ final class LoginViewModel {
             handler(.failure(.invalidPassword(rule: failedRule)))
             return
         }
+
+        let user = FSUser(id: email, name: userName, email: email, password: password)
+        userProvider.signUp(user: user) { result in
+            switch result {
+            case let .success(user):
+                handler(.success(user))
+            case .failure(.emailAlreadyExist):
+                handler(.failure(.emailExist))
+            }
+        }
     }
 
     func login(
@@ -76,6 +86,17 @@ final class LoginViewModel {
         }) {
             handler(.failure(.invalidPassword(rule: failedRule)))
             return
+        }
+
+        userProvider.login(email: email, password: password) { result in
+            switch result {
+            case let .success(user):
+                handler(.success(user))
+            case .failure(.emailNotFound):
+                handler(.failure(.emailNotFound))
+            case .failure(.passwordIncorrect):
+                handler(.failure(.passwordIncorrect))
+            }
         }
     }
 }

@@ -15,11 +15,11 @@ struct FSUser: Codable {
     // - MARK: Properties
     let id: UserId
     var name: String
-    var email: String = "123dtw@gmail.com"
-    var password: String = "0306"
+    var email: String = ""
+    var password: String = ""
     var picture: String = "Default"
     var bannerPicture: String = "Default"
-    var description: String = "我好喜歡小熊貓\n啦啦啦啦啦～"
+    var description: String = "Describe yourself."
 
     private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
 
