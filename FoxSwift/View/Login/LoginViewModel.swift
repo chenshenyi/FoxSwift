@@ -30,7 +30,9 @@ final class LoginViewModel {
     var currentUser: Box<FSUser?> = .init()
 
     // MARK: Manager
-    var userProvider = FSUserProvider()
+    var userProvider: FSUserProvider {
+        .shared
+    }
     var keyChainManager = KeyChainManager()
 
     func signUp(

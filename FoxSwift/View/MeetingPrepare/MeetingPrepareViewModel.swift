@@ -29,8 +29,11 @@ class MeetingPrepareViewModel {
 
     // MARK: - Provider
     var meetingRoomProvider: MeetingRoomProvider
-    var userProvider = FSUserProvider()
     var rtcProvider = RTCProvider()
+    
+    var userProvider: FSUserProvider {
+        .shared
+    }
 
     init(meetingCode: MeetingRoom.MeetingCode) {
         meetingRoomProvider = .init(meetingCode: meetingCode)

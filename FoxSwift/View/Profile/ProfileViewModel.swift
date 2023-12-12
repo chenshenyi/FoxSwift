@@ -30,7 +30,9 @@ class ProfileViewModel {
 
     // MARK: - Manager
     let imageProvider = StorageManager.imageManager
-    let userProvider = FSUserProvider()
+    var userProvider: FSUserProvider {
+        .shared
+    }
 
     // MARK: - Setup
     func setupUser(user: FSUser) {

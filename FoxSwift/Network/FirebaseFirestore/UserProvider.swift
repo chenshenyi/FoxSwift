@@ -19,6 +19,8 @@ class FSUserProvider {
 
     typealias Handler<T> = (Result<T, Error>) -> Void
 
+    static var shared = FSUserProvider()
+
     static func createNewUser(user: FSUser) {
         FSCollectionManager<FSUser, FSUser.CodingKeys>(collection: .user)
             .createDocument(data: user, documentID: user.id)

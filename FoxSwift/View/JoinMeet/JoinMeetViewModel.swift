@@ -12,7 +12,9 @@ class JoinMeetViewModel {
         case meetingNotExist
     }
 
-    var userProvider = FSUserProvider()
+    var userProvider: FSUserProvider {
+        .shared
+    }
 
     func joinMeet(
         meetingCode: MeetingRoom.MeetingCode,
