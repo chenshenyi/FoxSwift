@@ -29,6 +29,7 @@ class MeetingPrepareViewModel {
 
     // MARK: - Provider
     var meetingRoomProvider: MeetingRoomProvider
+    var userProvider = FSUserProvider()
     var rtcProvider = RTCProvider()
 
     init(meetingCode: MeetingRoom.MeetingCode) {
@@ -40,13 +41,16 @@ class MeetingPrepareViewModel {
             for: .meeting,
             components: [meetingCode]
         )
+
+        FSUser.currentUser?.addRecent(meetingCode: meetingCode)
+        userProvider.updateCurrentUser()
     }
 
     func joinMeet(handler: @escaping (_ viewModel: MeetingViewModel) -> Void) {
         let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
         handler(viewModel)
     }
-    
+
     func startCaptureVideo(view: UIView) {
         rtcProvider.startCaptureVideo()
         rtcProvider.renderVideo(to: view, for: Participant.currentUser.id, mode: .scaleAspectFit)

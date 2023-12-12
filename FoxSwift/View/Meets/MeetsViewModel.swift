@@ -27,7 +27,7 @@ class MeetsViewModel {
 
             switch result {
             case let .success(user):
-                meets.value = user.meetingHistory
+                meets.value = user.recentMeets
             case let .failure(error):
                 error.print()
             }

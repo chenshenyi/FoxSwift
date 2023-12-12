@@ -34,6 +34,9 @@ final class MeetsViewController: FSMeetingTableViewController {
     // MARK: - Setup Subviews
     func bindingViewModel() {
         viewModel.listenToUser()
+        viewModel.meets.bind(inQueue: .main) { [weak self] _ in
+            self?.meetingTableView.reloadData()
+        }
     }
 
     func setupTableView() {

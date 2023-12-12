@@ -63,7 +63,14 @@ class FSUserProvider {
 
     func updateCurrentUser() {
         guard let currentUser = FSUser.currentUser else { return }
-        collectionManager.updateDocument(data: currentUser, documentID: currentUser.id)
+        collectionManager.updateDocument(data: currentUser, documentID: currentUser.id) { result in
+            switch result {
+            case let .failure(error):
+                print(error.localizedDescription.red)
+            case .success:
+                break
+            }
+        }
     }
 
     func listenToCurrentUser(handler: @escaping Handler<FSUser>) {
