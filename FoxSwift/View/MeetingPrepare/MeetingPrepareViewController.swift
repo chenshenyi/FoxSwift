@@ -8,7 +8,7 @@
 import UIKit
 
 final class MeetingPrepareViewController: FSViewController {
-    var viewModel: MeetingPrepareViewModel = .init()
+    var viewModel: MeetingPrepareViewModel?
 
     // MARK: - Subviews
     let meetingNameLabel = UILabel()
@@ -25,11 +25,17 @@ final class MeetingPrepareViewController: FSViewController {
     let joinButton = FSButton()
     let shareButton = FSButton()
 
+    func setupPresentStyle() {
+        if let presentVC = presentationController as? UISheetPresentationController {
+            presentVC.detents = [.custom { _ in 540 }]
+            presentVC.preferredCornerRadius = 30
+        }
+    }
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindViewModel()
         setupNameLabel()
         setupPreviewVideo()
         setupVoiceButton()
@@ -44,9 +50,37 @@ final class MeetingPrepareViewController: FSViewController {
     }
 
     // MARK: - Bind ViewModel
-    func bindViewModel() {
+    func bindViewModel(viewModel: MeetingPrepareViewModel) {
+        self.viewModel = viewModel
+
         meetingNameLabel.bind(viewModel.meetingName)
         urlLabel.bind(viewModel.url)
+
+        viewModel.isCameraOn.bind(inQueue: .main) { [weak self] isCameraOn in
+            guard let self else { return }
+            
+            if isCameraOn {
+                cameraButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
+                cameraButton.tintColor = .accent
+
+            } else {
+                cameraButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
+                cameraButton.tintColor = .accent
+            }
+        }
+
+        viewModel.isMicOn.bind(inQueue: .main) { [weak self] isMicOn in
+            guard let self else { return }
+
+            if isMicOn {
+                voiceButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
+                voiceButton.tintColor = .accent
+                
+            } else {
+                voiceButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
+                voiceButton.tintColor = .accent
+            }
+        }
     }
 
     // MARK: - Setup Subviews
@@ -79,7 +113,7 @@ final class MeetingPrepareViewController: FSViewController {
     }
 
     func setupCameraButton() {
-        cameraButton.setImage(UIImage(systemName: "camera"), for: .normal)
+        cameraButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
         cameraButton.tintColor = .accent
         cameraButton.addTo(view) { make in
             make.top.equalTo(previewVideo.snp.bottom).offset(10)

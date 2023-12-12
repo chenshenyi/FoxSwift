@@ -8,9 +8,22 @@
 import Foundation
 
 class MeetingPrepareViewModel {
+    // MARK: - Binding Value
     var isCameraOn = Box(true)
     var isMicOn = Box(true)
 
-    var meetingName = Box("Normal Meet")
-    var url = Box("http://meeting/nykd54")
+    var meetingName = Box("")
+    var url = Box("")
+    
+    // MARK: - Provider
+    var meetingRoomProvider: MeetingRoomProvider
+
+    init(meetingCode: MeetingRoom.MeetingCode) {
+        meetingRoomProvider = .init(meetingCode: meetingCode)
+        meetingName.value = meetingCode
+        url.value = UrlRouteManager.shared.createUrlString(
+            for: .meeting,
+            components: [meetingCode]
+        )
+    }
 }

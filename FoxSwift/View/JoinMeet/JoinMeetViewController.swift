@@ -77,15 +77,12 @@ final class JoinMeetViewController: FSViewController {
             guard let self else { return }
 
             switch result {
-            case .success:
+            case .success(let viewModel):
                 let presentingVC = presentingViewController
                 dismiss(animated: false) {
                     let vc = MeetingPrepareViewController()
-
-                    if let presentVC = vc.presentationController as? UISheetPresentationController {
-                        presentVC.detents = [.custom { _ in 540 }]
-                        presentVC.preferredCornerRadius = 30
-                    }
+                    vc.setupPresentStyle()
+                    vc.bindViewModel(viewModel: viewModel)
                     presentingVC?.present(vc, animated: true)
                 }
 

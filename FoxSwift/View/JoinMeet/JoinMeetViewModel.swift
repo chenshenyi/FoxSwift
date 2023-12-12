@@ -16,7 +16,7 @@ class JoinMeetViewModel {
 
     func joinMeet(
         meetingCode: MeetingRoom.MeetingCode,
-        _ handler: @escaping (_ result: Result<MeetingViewModel, JoinMeetError>) -> Void
+        _ handler: @escaping (_ result: Result<MeetingPrepareViewModel, JoinMeetError>) -> Void
     ) {
         if meetingCode.isEmpty {
             return
@@ -33,7 +33,7 @@ class JoinMeetViewModel {
             FSUser.currentUser?.addHistory(meetingCode: meetingCode)
             userProvider.updateCurrentUser()
 
-            let viewModel = MeetingViewModel(meetingCode: meetingCode)
+            let viewModel = MeetingPrepareViewModel(meetingCode: meetingCode)
             DispatchQueue.main.async {
                 handler(.success(viewModel))
             }

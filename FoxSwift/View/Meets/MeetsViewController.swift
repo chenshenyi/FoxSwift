@@ -80,13 +80,10 @@ final class MeetsViewController: FSMeetingTableViewController {
         viewModel.createNewCode(showPrepare)
     }
 
-    func showPrepare(meetingCode: MeetingRoom.MeetingCode) {
+    func showPrepare(viewModel: MeetingPrepareViewModel) {
         let vc = MeetingPrepareViewController()
-
-        if let presentVC = vc.presentationController as? UISheetPresentationController {
-            presentVC.detents = [.custom { _ in 540 }]
-            presentVC.preferredCornerRadius = 30
-        }
+        vc.setupPresentStyle()
+        vc.bindViewModel(viewModel: viewModel)
         present(vc, animated: true)
     }
 
@@ -151,6 +148,5 @@ extension MeetsViewController {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
-        showPrepare(meetingCode: meetingCode)
     }
 }
