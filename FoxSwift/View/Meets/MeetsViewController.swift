@@ -92,44 +92,6 @@ final class MeetsViewController: FSMeetingTableViewController {
         vc.setupModelPresentStyle()
         present(vc, animated: true)
     }
-
-    func joinMeet(meetingCode: String) {
-        viewModel.meetingCode.value = meetingCode
-        viewModel.joinMeet { [weak self] viewModel in
-            guard let self else { return }
-
-            let vc = MeetingViewController()
-            vc.viewModel = viewModel
-
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-
-    func shareMeeting() {
-        let meetingCode = viewModel.meetingCode.value
-
-        guard !meetingCode.isEmpty else { return }
-
-        let urlString = UrlRouteManager.shared.createUrlString(
-            for: .meeting,
-            components: [meetingCode]
-        )
-
-        let sharedString = """
-        -- FoxSwift Meeting --
-        Use following url to attend the meeting:
-        \(urlString)
-
-        Or directly paste the following meeting code in app:
-        \(meetingCode)
-        """
-
-        let activityVC = UIActivityViewController(
-            activityItems: [sharedString],
-            applicationActivities: nil
-        )
-        present(activityVC, animated: true, completion: nil)
-    }
 }
 
 
@@ -148,5 +110,6 @@ extension MeetsViewController {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
+        viewModel.joinMeet(meetingCode: meetingCode, handler: showPrepare)
     }
 }

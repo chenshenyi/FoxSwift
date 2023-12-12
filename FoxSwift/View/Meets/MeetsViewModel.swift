@@ -47,16 +47,11 @@ class MeetsViewModel {
         }
     }
 
-    func joinMeet(_ handler: (_ viewModel: MeetingViewModel) -> Void) {
-        if meetingCode.value.isEmpty {
-            return
-        }
-        FSUser.currentUser?.addHistory(meetingCode: meetingCode.value)
-        userProvider.updateCurrentUser()
-
-        activeMeeting.value = meetingCode.value
-
-        let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
+    func joinMeet(
+        meetingCode: MeetingRoom.MeetingCode,
+        handler: @escaping (_ viewModel: MeetingPrepareViewModel) -> Void
+    ) {
+        let viewModel = MeetingPrepareViewModel(meetingCode: meetingCode)
         handler(viewModel)
     }
 }
