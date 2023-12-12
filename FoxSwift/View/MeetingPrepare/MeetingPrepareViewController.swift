@@ -47,6 +47,8 @@ final class MeetingPrepareViewController: FSViewController {
         setupUrlLabel()
         setupJoinButton()
         setupShareButton()
+
+        setupConstraint()
     }
 
     // MARK: - Bind ViewModel
@@ -58,7 +60,7 @@ final class MeetingPrepareViewController: FSViewController {
 
         viewModel.isCameraOn.bind(inQueue: .main) { [weak self] isCameraOn in
             guard let self else { return }
-            
+
             if isCameraOn {
                 cameraButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
                 cameraButton.tintColor = .accent
@@ -75,7 +77,7 @@ final class MeetingPrepareViewController: FSViewController {
             if isMicOn {
                 voiceButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
                 voiceButton.tintColor = .accent
-                
+
             } else {
                 voiceButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
                 voiceButton.tintColor = .accent
@@ -87,88 +89,127 @@ final class MeetingPrepareViewController: FSViewController {
     func setupNameLabel() {
         meetingNameLabel.font = .config(weight: .bold, size: 22)
         meetingNameLabel.textColor = .fsText
-        meetingNameLabel.addTo(view) { make in
-            make.centerX.top.equalTo(view.safeAreaLayoutGuide).inset(40)
-        }
     }
 
     func setupPreviewVideo() {
         previewVideo.backgroundColor = .G_7
         previewVideo.layer.cornerRadius = 12
-        previewVideo.addTo(view) { make in
-            make.top.equalTo(meetingNameLabel.snp.bottom).offset(30)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(200)
-        }
     }
 
     func setupVoiceButton() {
         voiceButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
         voiceButton.tintColor = .accent
-        voiceButton.addTo(view) { make in
-            make.top.equalTo(previewVideo.snp.bottom).offset(10)
-            make.trailing.equalTo(view.snp.centerX).offset(-15)
-            make.size.equalTo(50)
-        }
     }
 
     func setupCameraButton() {
         cameraButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
         cameraButton.tintColor = .accent
-        cameraButton.addTo(view) { make in
-            make.top.equalTo(previewVideo.snp.bottom).offset(10)
-            make.leading.equalTo(view.snp.centerX).offset(15)
-            make.size.equalTo(50)
-        }
     }
 
     func setupSeparaterView() {
         separaterView.backgroundColor = .G_7
-        separaterView.addTo(view) { make in
-            make.top.equalTo(voiceButton.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(1)
-        }
     }
 
     func setupDescriptionLabel() {
         descriptionLablel.text = "Meeting Link"
         descriptionLablel.font = .config(weight: .bold, size: 18)
         descriptionLablel.textColor = .fsSecondary
-        descriptionLablel.addTo(view) { make in
-            make.top.equalTo(separaterView.snp.bottom).offset(24)
-            make.leading.equalToSuperview().inset(70)
-        }
     }
 
     func setupUrlLabel() {
         urlLabel.font = .config(weight: .bold, size: 14)
         urlLabel.textColor = .fsText
-        urlLabel.addTo(view) { make in
-            make.top.equalTo(descriptionLablel.snp.bottom)
-            make.leading.equalToSuperview().inset(70)
-        }
     }
 
     func setupShareButton() {
         shareButton.setTitle("Share", for: .normal)
         shareButton.setupStyle(style: .filled(color: .fsPrimary, textColor: .fsText))
-        shareButton.addTo(view) { make in
-            make.top.equalTo(urlLabel.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(70)
-            make.trailing.equalTo(view.snp.centerX).offset(-15)
-            make.height.equalTo(40)
-        }
+        shareButton.addAction(handler: shareMeeting)
     }
 
     func setupJoinButton() {
         joinButton.setTitle("Join", for: .normal)
         joinButton.setupStyle(style: .filled(color: .accent, textColor: .fsBg))
+        joinButton.addAction(handler: joinMeeting)
+    }
+
+    func setupConstraint() {
+        meetingNameLabel.addTo(view) { make in
+            make.centerX.top.equalTo(view.safeAreaLayoutGuide).inset(40)
+        }
+
+        previewVideo.addTo(view) { make in
+            make.top.equalTo(meetingNameLabel.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(200)
+        }
+
+        voiceButton.addTo(view) { make in
+            make.top.equalTo(previewVideo.snp.bottom).offset(10)
+            make.trailing.equalTo(view.snp.centerX).offset(-15)
+            make.size.equalTo(50)
+        }
+
+        cameraButton.addTo(view) { make in
+            make.top.equalTo(previewVideo.snp.bottom).offset(10)
+            make.leading.equalTo(view.snp.centerX).offset(15)
+            make.size.equalTo(50)
+        }
+
+        separaterView.addTo(view) { make in
+            make.top.equalTo(voiceButton.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(4)
+            make.height.equalTo(1)
+        }
+
+        descriptionLablel.addTo(view) { make in
+            make.top.equalTo(separaterView.snp.bottom).offset(24)
+            make.horizontalEdges.equalToSuperview().inset(30)
+        }
+
+        urlLabel.addTo(view) { make in
+            make.top.equalTo(descriptionLablel.snp.bottom)
+            make.horizontalEdges.equalToSuperview().inset(30)
+        }
+
+        shareButton.addTo(view) { make in
+            make.top.equalTo(urlLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(30)
+            make.trailing.equalTo(view.snp.centerX).offset(-15)
+            make.height.equalTo(30)
+        }
+
         joinButton.addTo(view) { make in
             make.top.equalTo(urlLabel.snp.bottom).offset(20)
-            make.trailing.equalToSuperview().inset(70)
+            make.trailing.equalToSuperview().inset(30)
             make.leading.equalTo(view.snp.centerX).offset(15)
-            make.height.equalTo(40)
+            make.height.equalTo(30)
+        }
+    }
+    
+    // MARK: Function
+    func shareMeeting() {
+        guard let sharedString = viewModel?.sharedString else { return }
+        let activityVC = UIActivityViewController(
+            activityItems: [sharedString],
+            applicationActivities: nil
+        )
+        present(activityVC, animated: true, completion: nil)
+    }
+
+    func joinMeeting() {
+        guard let presentingViewController = presentingViewController else { return }
+
+        viewModel?.joinMeet { [weak self] viewModel in
+            guard let self else { return }
+
+            let vc = MeetingViewController()
+            vc.viewModel = viewModel
+            vc.modalPresentationStyle = .fullScreen
+
+            dismiss(animated: false) {
+                presentingViewController.present(vc, animated: true)
+            }
         }
     }
 }
