@@ -83,6 +83,8 @@ final class MeetingPrepareViewController: FSViewController {
                 voiceButton.tintColor = .accent
             }
         }
+
+        viewModel.startCaptureVideo(view: previewVideo)
     }
 
     // MARK: - Setup Subviews

@@ -5,7 +5,7 @@
 //  Created by chen shen yi on 2023/12/11.
 //
 
-import Foundation
+import UIKit
 
 class MeetingPrepareViewModel {
     // MARK: - Binding Value
@@ -29,6 +29,7 @@ class MeetingPrepareViewModel {
 
     // MARK: - Provider
     var meetingRoomProvider: MeetingRoomProvider
+    var rtcProvider = RTCProvider()
 
     init(meetingCode: MeetingRoom.MeetingCode) {
         meetingRoomProvider = .init(meetingCode: meetingCode)
@@ -44,5 +45,10 @@ class MeetingPrepareViewModel {
     func joinMeet(handler: @escaping (_ viewModel: MeetingViewModel) -> Void) {
         let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
         handler(viewModel)
+    }
+    
+    func startCaptureVideo(view: UIView) {
+        rtcProvider.startCaptureVideo()
+        rtcProvider.renderVideo(to: view, for: Participant.currentUser.id, mode: .scaleAspectFit)
     }
 }
