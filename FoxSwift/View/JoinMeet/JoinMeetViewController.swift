@@ -8,12 +8,14 @@
 import UIKit
 
 final class JoinMeetViewController: FSViewController {
-    // MARK: Subviews
+    var viewModel = JoinMeetViewModel()
+
+    // MARK: - Subviews
     let descriptionLabel = UILabel()
     let meetingTextField = FSTextField(placeholder: "Meeting Code")
     let joinButton = FSButton()
 
-    // MARK: Setup Model Present Style
+    // MARK: - Setup Model Present Style
     func setupModelPresentStyle() {
         if let presentVC = presentationController as? UISheetPresentationController {
             presentVC.detents = [.custom { _ in 220 }]
@@ -21,7 +23,7 @@ final class JoinMeetViewController: FSViewController {
         }
     }
 
-    // MARK: Life Cycle
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +32,7 @@ final class JoinMeetViewController: FSViewController {
         setupJoinButton()
     }
 
-    // MARK: Setup Subviews
+    // MARK: - Setup Subviews
     func setupDescriptionLabel() {
         descriptionLabel.text = "Enter the meeting code shared by the meeting organizer."
         descriptionLabel.font = .config(weight: .regular, size: 16)
@@ -58,10 +60,38 @@ final class JoinMeetViewController: FSViewController {
         joinButton.setupStyle(style: .filled(color: .accent, textColor: .fsPrimary))
         joinButton.setTitle("Join", for: .normal)
         joinButton.titleLabel?.font = .config(weight: .regular, size: 14)
+
         joinButton.addTo(view) { make in
             make.top.equalTo(meetingTextField.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(30)
+        }
+
+        joinButton.addAction(handler: joinMeet)
+    }
+
+    // MARK: - Join Meet
+    func joinMeet() {
+        let meetingCode = meetingTextField.text ?? ""
+        viewModel.joinMeet(meetingCode: meetingCode) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case .success:
+                let presentingVC = presentingViewController
+                dismiss(animated: false) {
+                    let vc = MeetingPrepareViewController()
+
+                    if let presentVC = vc.presentationController as? UISheetPresentationController {
+                        presentVC.detents = [.custom { _ in 540 }]
+                        presentVC.preferredCornerRadius = 30
+                    }
+                    presentingVC?.present(vc, animated: true)
+                }
+
+            case .failure(.meetingNotExist):
+                alertError(text: "No such meeting!")
+            }
         }
     }
 }

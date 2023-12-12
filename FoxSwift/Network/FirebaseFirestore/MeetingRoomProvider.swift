@@ -16,14 +16,13 @@ protocol MeetingRoomProviderDelegate: AnyObject {
 
 /// Warning: This content is to substitute webSocket with Firestore
 class MeetingRoomProvider {
+    typealias CollectionManager = FSCollectionManager<MeetingRoom, MeetingRoom.CodingKeys>
+    
     weak var delegate: MeetingRoomProviderDelegate?
     var meetingCode: String
     var meetingRoom: MeetingRoom?
 
-    let collectionManager = FSCollectionManager<
-        MeetingRoom,
-        MeetingRoom.CodingKeys
-    >(collection: .meetingRoom)
+    let collectionManager = CollectionManager(collection: .meetingRoom)
 
     var currentUser: Participant {
         Participant.currentUser
@@ -36,11 +35,18 @@ class MeetingRoomProvider {
     class func create(completion: @escaping (Result<String, Error>) -> Void) {
         let meetingRoom = MeetingRoom()
 
-        FSCollectionManager<
-            MeetingRoom,
-            MeetingRoom.CodingKeys
-        >(collection: .meetingRoom)
+        CollectionManager(collection: .meetingRoom)
             .createDocument(data: meetingRoom, completion: completion)
+    }
+
+    class func check(meetingCode: MeetingRoom.MeetingCode, completion: @escaping (Error?) -> Void) {
+        CollectionManager(collection: .meetingRoom)
+            .readDocument(documentID: meetingCode) { result in
+                switch result {
+                case .success: completion(nil)
+                case let .failure(error): completion(error)
+                }
+            }
     }
 
     func connect() {
