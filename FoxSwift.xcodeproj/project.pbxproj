@@ -23,7 +23,6 @@
 		2B493C802B130FDA00C64382 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B493C7F2B130FDA00C64382 /* MessageInputView.swift */; };
 		2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1642B05BB52007B717C /* Result+Extension.swift */; };
 		2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1682B0613AF007B717C /* MeetsViewController.swift */; };
-		2B5AC16D2B063506007B717C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC16C2B063506007B717C /* GoogleService-Info.plist */; };
 		2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EB2B0F351400C5C06A /* VideoView.swift */; };
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
@@ -68,6 +67,7 @@
 		2BBF79CF2B270D720003602E /* MeetingPrepareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79CE2B270D720003602E /* MeetingPrepareViewModel.swift */; };
 		2BBF79D12B270F370003602E /* CornerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79D02B270F370003602E /* CornerStyle.swift */; };
 		2BBF79D42B276C710003602E /* JoinMeetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBF79D32B276C710003602E /* JoinMeetViewController.swift */; };
+		2BBF79D62B27F18F0003602E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BBF79D52B27F18F0003602E /* GoogleService-Info.plist */; };
 		2BC45BF72B25B74D0005EF7D /* RecordDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */; };
 		2BC45BFA2B2612780005EF7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BF92B2612780005EF7D /* LoginViewController.swift */; };
 		2BC45BFC2B26130C0005EF7D /* FSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC45BFB2B26130C0005EF7D /* FSTextField.swift */; };
@@ -138,7 +138,6 @@
 		2B493C7F2B130FDA00C64382 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		2B5AC1642B05BB52007B717C /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 		2B5AC1682B0613AF007B717C /* MeetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewController.swift; sourceTree = "<group>"; };
-		2B5AC16C2B063506007B717C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2B66F5EB2B0F351400C5C06A /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
@@ -183,6 +182,7 @@
 		2BBF79CE2B270D720003602E /* MeetingPrepareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingPrepareViewModel.swift; sourceTree = "<group>"; };
 		2BBF79D02B270F370003602E /* CornerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerStyle.swift; sourceTree = "<group>"; };
 		2BBF79D32B276C710003602E /* JoinMeetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMeetViewController.swift; sourceTree = "<group>"; };
+		2BBF79D52B27F18F0003602E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2BC45BF62B25B74D0005EF7D /* RecordDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewModel.swift; sourceTree = "<group>"; };
 		2BC45BF92B2612780005EF7D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2BC45BFB2B26130C0005EF7D /* FSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTextField.swift; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 				2B24FFA22B03739A0000C5A3 /* View */,
 				2BCB8DB42B011F1500DD4C2F /* Assets.xcassets */,
 				2BCB8DB62B011F1500DD4C2F /* LaunchScreen.storyboard */,
-				2B5AC16C2B063506007B717C /* GoogleService-Info.plist */,
+				2BBF79D52B27F18F0003602E /* GoogleService-Info.plist */,
 				2BCB8DB92B011F1500DD4C2F /* Info.plist */,
 			);
 			path = FoxSwift;
@@ -653,6 +653,7 @@
 				2BCB8DA62B011F1400DD4C2F /* Resources */,
 				7DE2F595F3E0170BBB2F407B /* [CP] Embed Pods Frameworks */,
 				2B8F9D222B04AB11002D9076 /* ShellScript */,
+				2BBF79D72B27F58C0003602E /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -751,7 +752,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BCB8DB82B011F1500DD4C2F /* LaunchScreen.storyboard in Resources */,
-				2B5AC16D2B063506007B717C /* GoogleService-Info.plist in Resources */,
+				2BBF79D62B27F18F0003602E /* GoogleService-Info.plist in Resources */,
 				2BCB8DF52B012F0400DD4C2F /* Features.md in Resources */,
 				2BCB8DB52B011F1500DD4C2F /* Assets.xcassets in Resources */,
 			);
@@ -799,7 +800,7 @@
 		2B8F9D222B04AB11002D9076 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -810,9 +811,32 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		2BBF79D72B27F58C0003602E /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		7DE2F595F3E0170BBB2F407B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1159,6 +1183,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = CCZFJ54UN4;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1178,6 +1203,78 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"ESPullToRefresh\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAppCheckInterop\"",
+					"-framework",
+					"\"FirebaseAuthInterop\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreExtension\"",
+					"-framework",
+					"\"FirebaseCoreInternal\"",
+					"-framework",
+					"\"FirebaseFirestore\"",
+					"-framework",
+					"\"FirebaseFirestoreSwift\"",
+					"-framework",
+					"\"FirebaseSharedSwift\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebRTC\"",
+					"-framework",
+					"\"absl\"",
+					"-framework",
+					"\"grpc\"",
+					"-framework",
+					"\"grpcpp\"",
+					"-framework",
+					"\"leveldb\"",
+					"-framework",
+					"\"nanopb\"",
+					"-framework",
+					"\"openssl_grpc\"",
+					"-weak_framework",
+					"\"Combine\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1218,6 +1315,78 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"ESPullToRefresh\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAppCheckInterop\"",
+					"-framework",
+					"\"FirebaseAuthInterop\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreExtension\"",
+					"-framework",
+					"\"FirebaseCoreInternal\"",
+					"-framework",
+					"\"FirebaseFirestore\"",
+					"-framework",
+					"\"FirebaseFirestoreSwift\"",
+					"-framework",
+					"\"FirebaseSharedSwift\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebRTC\"",
+					"-framework",
+					"\"absl\"",
+					"-framework",
+					"\"grpc\"",
+					"-framework",
+					"\"grpcpp\"",
+					"-framework",
+					"\"leveldb\"",
+					"-framework",
+					"\"nanopb\"",
+					"-framework",
+					"\"openssl_grpc\"",
+					"-weak_framework",
+					"\"Combine\"",
+					"-weak_framework",
+					"\"SwiftUI\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenshenyi.FoxSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

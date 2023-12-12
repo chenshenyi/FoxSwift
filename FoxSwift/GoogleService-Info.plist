@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.chenshenyi.FoxSwiftTests</string>
+	<string>com.chenshenyi.FoxSwift</string>
 	<key>PROJECT_ID</key>
 	<string>foxswift2-8074e</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1010468400354:ios:b03f82ccabbe072b1b82bb</string>
+	<string>1:1010468400354:ios:723d25b7732b96751b82bb</string>
+	<key>DATABASE_URL</key>
+	<string>https://foxswift2-8074e-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
