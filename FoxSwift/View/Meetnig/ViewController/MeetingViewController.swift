@@ -14,9 +14,7 @@ final class MeetingViewController: FSViewController {
     var viewModel: MeetingViewModel?
 
     // MARK: - SubViews
-    private var recordButton = UIButton()
-
-    let videoControlBar = VideoControlBar()
+    let videoControlBar = FSButtonStack<ButtonKey>()
 
     var videoCollectionView = UICollectionView(
         frame: .zero,
@@ -27,24 +25,14 @@ final class MeetingViewController: FSViewController {
     var messageView = MessageView()
 
     // MARK: - LifeCycle
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
-        viewModel?.leaveMeet()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bindingViewModel()
         setupCollectionView()
         setupVideoControlBar()
         setupMessageView()
+
+        bindingViewModel()
         viewModel?.requestSpeechRecognition()
     }
 
@@ -53,39 +41,34 @@ final class MeetingViewController: FSViewController {
             guard let self else { return }
             videoCollectionView.reloadData()
         }
+        
+        viewModel?.isOnCamera.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+
+            videoControlBar.reloadButton(for: .camera)
+        }
+
+        viewModel?.isOnMic.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+
+            videoControlBar.reloadButton(for: .mic)
+        }
+
+        viewModel?.isSharingScreen.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+
+            videoControlBar.reloadButton(for: .shareScreen)
+        }
     }
 
     private func setupVideoControlBar() {
         videoControlBar.addTo(view) { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(30)
             make.height.equalTo(60)
-            make.horizontalEdges.equalTo(view)
+            make.horizontalEdges.equalTo(view).inset(20)
         }
-
-        videoControlBar.micButton.onHandler = viewModel?.turnOnMic
-        videoControlBar.micButton.offHandler = viewModel?.turnOffMic
-
-        videoControlBar.speakerButton.onHandler = viewModel?.turnOnAudio
-        videoControlBar.speakerButton.offHandler = viewModel?.turnOffAudio
-        videoControlBar.speakerButton.isOn = false
-
-        videoControlBar.cameraButton.onHandler = viewModel?.turnOnCamera
-        videoControlBar.cameraButton.offHandler = viewModel?.turnOffCamera
-
-        videoControlBar.messageButton.onHandler = { [weak self] in
-            guard let self else { return }
-            messageView.isHidden = false
-            layoutWhenMessaging(4)
-        }
-        videoControlBar.messageButton.offHandler = { [weak self] in
-            guard let self else { return }
-            messageView.isHidden = true
-        }
-        videoControlBar.messageButton.isOn = false
-
-        videoControlBar.shareScreenButton.onHandler = viewModel?.startScreenSharing
-        videoControlBar.shareScreenButton.offHandler = viewModel?.stopScreenSharing
-        videoControlBar.shareScreenButton.isOn = false
+        
+        videoControlBar.delegate = self
     }
 
     func setupMessageView() {

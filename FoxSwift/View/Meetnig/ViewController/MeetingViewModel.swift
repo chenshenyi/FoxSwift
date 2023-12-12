@@ -21,6 +21,10 @@ class MeetingViewModel {
     var meetingCode: Box<String> = .init("")
     var participants: DiffBox<Participant> = .init([.currentUser])
 
+    var isOnMic = Box(true)
+    var isOnCamera = Box(true)
+    var isSharingScreen = Box(false)
+
     // MARK: - Init
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
@@ -55,10 +59,12 @@ class MeetingViewModel {
     }
 
     func startScreenSharing() {
+        isSharingScreen.value = true
         rtcProvider.startSharingScreen()
     }
 
     func stopScreenSharing() {
+        isSharingScreen.value = false
         rtcProvider.startCaptureVideo()
     }
 
@@ -70,11 +76,13 @@ class MeetingViewModel {
 
     // MARK: - Functional Buttons
     func turnOffMic() {
+        isOnMic.value = false
         rtcProvider.speakerOff()
         speechRecognitionManager.interruptRecognition()
     }
 
     func turnOnMic() {
+        isOnMic.value = true
         rtcProvider.speakerOn()
         speechRecognitionManager.startNewRecording()
     }
@@ -96,10 +104,12 @@ class MeetingViewModel {
     }
 
     func turnOnCamera() {
+        isOnCamera.value = true
         rtcProvider.startCaptureVideo()
     }
 
     func turnOffCamera() {
+        isOnCamera.value = false
         rtcProvider.stopCaptureVideo()
     }
 }

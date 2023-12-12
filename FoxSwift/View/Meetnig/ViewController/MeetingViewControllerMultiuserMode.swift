@@ -13,7 +13,7 @@ extension MeetingViewController {
         videoCollectionView.delegate = self
         videoCollectionView.backgroundColor = .fsBg
 
-        defaultLayout()
+        defaultLayout(1)
 
         videoCollectionView.addTo(view) { make in
             make.size.centerX.centerY.equalTo(view.safeAreaLayoutGuide).inset(5)
@@ -22,16 +22,18 @@ extension MeetingViewController {
         videoCollectionView.registReuseCell(for: UICollectionViewCell.self)
     }
 
-    func defaultLayout() {
+    func defaultLayout(_ columnAmount: Int) {
+        let columnAmount = CGFloat(columnAmount)
+
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1 / 2),
-            heightDimension: .fractionalWidth(1 / 2)
+            widthDimension: .fractionalWidth(1 / columnAmount),
+            heightDimension: .fractionalWidth(1 / columnAmount)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1 / 2)
+            heightDimension: .fractionalWidth(1 / columnAmount)
         )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
@@ -41,6 +43,7 @@ extension MeetingViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
 
+        videoCollectionView.alwaysBounceVertical = true
         videoCollectionView.collectionViewLayout = layout
     }
 
@@ -63,6 +66,7 @@ extension MeetingViewController {
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
 
+        videoCollectionView.alwaysBounceVertical = false
         videoCollectionView.collectionViewLayout = layout
         videoCollectionView.scrollToItem(at: .init(row: 0, section: 0), at: .right, animated: false)
     }
@@ -91,11 +95,13 @@ extension MeetingViewController: UICollectionViewDataSource {
 
         let videoView = VideoView(participant: participant)
         videoView.addTo(cell.contentView) { make in
-            make.center.size.equalTo(cell.contentView)
+            make.center.size.equalTo(cell.contentView).inset(8)
         }
 
         viewModel?.fetchVideo(into: videoView, for: participant)
 
+        videoView.showNameLabel()
+        
         return cell
     }
 }
