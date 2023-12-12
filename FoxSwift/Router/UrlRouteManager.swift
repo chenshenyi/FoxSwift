@@ -46,11 +46,16 @@ class UrlRouteManager {
     // MARK: - Meeting
     func meeting(_ urlPathComponents: [String]) {
         guard let tabBarController = rootViewController as? FSTabBarController,
-              let meetsVC = tabBarController.tabsDict[.meets] as? MeetsViewController,
               urlPathComponents.count == 2
         else { return }
 
         let meetingCode = urlPathComponents[1]
-        meetsVC.joinMeet(meetingCode: meetingCode)
+        let viewController = MeetingPrepareViewController()
+        let viewModel = MeetingPrepareViewModel(meetingCode: meetingCode)
+
+        viewController.bindViewModel(viewModel: viewModel)
+        viewController.setupPresentStyle()
+        
+        tabBarController.present(viewController, animated: true)
     }
 }

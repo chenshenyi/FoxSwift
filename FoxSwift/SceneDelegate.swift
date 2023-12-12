@@ -16,16 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         intialize(scene)
-    }
 
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard let url = URLContexts.first?.url else { return }
-        UrlRouteManager.shared.rootViewController = intialize(scene)
+        guard let url = connectionOptions.urlContexts.first?.url else { return }
         UrlRouteManager.shared.open(url: url)
     }
 
-    @discardableResult
-    func intialize(_ scene: UIScene) -> UIViewController {
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        intialize(scene)
+
+        guard let url = URLContexts.first?.url else { return }
+        UrlRouteManager.shared.open(url: url)
+    }
+
+    func intialize(_ scene: UIScene) {
         guard let scene = (scene as? UIWindowScene) else { fatalError("Unknown scene") }
         window = UIWindow(windowScene: scene)
         let tabBarController = FSTabBarController()
@@ -43,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarController.present(loginViewController, animated: false)
         }
 
-        return tabBarController
+        UrlRouteManager.shared.rootViewController = tabBarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
