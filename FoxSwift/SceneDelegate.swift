@@ -37,16 +37,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         let keyChainManager = KeyChainManager()
+        UrlRouteManager.shared.rootViewController = tabBarController
 
         if let user = keyChainManager.loadUser() {
             FSUser.currentUser = user
+
+            FSUserProvider.shared.login(
+                email: user.email,
+                password: user.password
+            ) { result in
+
+                switch result {
+                case let .success(user):
+                    FSUser.currentUser = user
+
+                case .failure:
+                    DispatchQueue.main.async {
+                        let loginViewController = LoginViewController()
+                        loginViewController.modalPresentationStyle = .fullScreen
+                        tabBarController.present(loginViewController, animated: false)
+                    }
+                }
+            }
         } else {
             let loginViewController = LoginViewController()
             loginViewController.modalPresentationStyle = .fullScreen
             tabBarController.present(loginViewController, animated: false)
         }
-
-        UrlRouteManager.shared.rootViewController = tabBarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

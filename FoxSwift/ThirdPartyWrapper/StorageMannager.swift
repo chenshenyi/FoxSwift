@@ -12,6 +12,22 @@ enum StorageFolder: String {
     case file = "File"
 }
 
+enum DefaultImage: String {
+    case profileImage = "Default/Profile-Image"
+    case banner = "Default/Banner"
+
+    var imageData: Data? {
+        let image: UIImage = switch self {
+        case .profileImage:
+            UIImage.foxWithBubble
+        case .banner:
+            .defaultBanner
+        }
+
+        return image.pngData()
+    }
+}
+
 class StorageManager {
     static let db = Storage.storage().reference()
     static let fileManager = StorageManager(folder: .file)
@@ -46,6 +62,10 @@ class StorageManager {
     }
 
     func download(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        if let imageData = DefaultImage(rawValue: url.absoluteString)?.imageData {
+            return
+        }
+
         if let data = cache[url.absoluteString] {
             completion(.success(data))
             return

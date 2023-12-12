@@ -9,9 +9,7 @@ import Foundation
 
 class MeetsViewModel {
     // MARK: - Network Provider
-    private var userProvider: FSUserProvider {
-        .shared
-    }
+    private var userProvider = FSUserProvider()
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingRoom.MeetingCode?> = .init(nil)

@@ -17,8 +17,8 @@ struct FSUser: Codable {
     var name: String
     var email: String = ""
     var password: String = ""
-    var picture: String = "Default"
-    var bannerPicture: String = "Default"
+    var picture: String = DefaultImage.profileImage.rawValue
+    var bannerPicture: String = DefaultImage.banner.rawValue
     var description: String = "Describe yourself."
 
     private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
