@@ -112,6 +112,7 @@ final class LoginViewModel {
 
     func saveUser(user: FSUser) {
         FSUser.currentUser = user
+        FSUserProvider.shared.activeListener(currentUser: user)
         keyChainManager.storeUser()
     }
 }

@@ -97,8 +97,8 @@ class ProfileViewModel {
         case .description: FSUser.currentUser?.description = text
         case .email: FSUser.currentUser?.email = text
         }
-        userProvider.updateCurrentUser()
         setField(text: text, for: stringField)
+        userProvider.updateCurrentUser()
     }
 
     // MARK: - ImageField
@@ -131,6 +131,7 @@ class ProfileViewModel {
 
     private func updateCurrentUser(image: UIImage, for imageField: ImageField) {
         guard let data = image.pngData() else { return }
+        setFiled(image: image, for: imageField)
         imageProvider.upload(
             data: data,
             name: "Picture-" + UUID().uuidString,
@@ -144,7 +145,6 @@ class ProfileViewModel {
                     FSUser.currentUser?.bannerPicture = url.absoluteString
                 }
                 userProvider.updateCurrentUser()
-                fetchImage(url: url, for: imageField)
             }
         )
     }

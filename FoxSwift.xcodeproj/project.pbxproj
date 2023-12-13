@@ -23,6 +23,7 @@
 		2B493C802B130FDA00C64382 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B493C7F2B130FDA00C64382 /* MessageInputView.swift */; };
 		2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1642B05BB52007B717C /* Result+Extension.swift */; };
 		2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1682B0613AF007B717C /* MeetsViewController.swift */; };
+		2B61FC942B299C2900AABFB3 /* LoginFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61FC932B299C2900AABFB3 /* LoginFlowManager.swift */; };
 		2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EB2B0F351400C5C06A /* VideoView.swift */; };
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
@@ -140,6 +141,7 @@
 		2B493C7F2B130FDA00C64382 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		2B5AC1642B05BB52007B717C /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
 		2B5AC1682B0613AF007B717C /* MeetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetsViewController.swift; sourceTree = "<group>"; };
+		2B61FC932B299C2900AABFB3 /* LoginFlowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFlowManager.swift; sourceTree = "<group>"; };
 		2B66F5EB2B0F351400C5C06A /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */,
+				2B61FC932B299C2900AABFB3 /* LoginFlowManager.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */,
+				2B61FC942B299C2900AABFB3 /* LoginFlowManager.swift in Sources */,
 				2BC45BFE2B26145F0005EF7D /* LoginViewModel.swift in Sources */,
 				2B86D4392B1DA76900FCBA97 /* FSMessageCellViewModel.swift in Sources */,
 				2BA0EB832B0A8A4D003B8EFE /* RTCMessage.swift in Sources */,

@@ -70,6 +70,8 @@ final class LoginViewController: FSViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
+            stopLoadingView(id: LoginMode.login.localizedDescription)
+
             switch result {
             case .success:
                 dismiss(animated: true)
@@ -104,6 +106,8 @@ final class LoginViewController: FSViewController {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
 
+            stopLoadingView(id: LoginMode.signUp.localizedDescription)
+
             switch result {
             case .success:
                 dismiss(animated: true)
@@ -130,54 +134,57 @@ final class LoginViewController: FSViewController {
         }
     }
 
+    private func confirmButtonTapped() {
+        let name = nameTextField.text ?? ""
+        let email = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+
+        switch loginMode {
+        case .login: login(email: email, password: password)
+        case .signUp: signUp(name: name, email: email, password: password)
+        }
+    }
+
+    func login(email: String, password: String) {
+        startLoadingView(id: LoginMode.login.localizedDescription)
+        viewModel.login(email: email, password: password, handler: loginResultHandler)
+    }
+
+    func signUp(name: String, email: String, password: String) {
+        startLoadingView(id: LoginMode.signUp.localizedDescription)
+        viewModel.signUp(
+            email: email,
+            password: password,
+            userName: name,
+            handler: signUpResultHandler
+        )
+    }
+
     // MARK: Setup Subviews
-    func setuptitleLabel() {
+    private func setuptitleLabel() {
         titleLabel.text = "Welcome to FoxSwift"
         titleLabel.textColor = .accent
         titleLabel.font = .config(weight: .black, size: 30)
     }
 
-    func setupSelectionView() {
+    private func setupSelectionView() {
         modeSelectionView.dataSource = self
         modeSelectionView.delegate = self
     }
 
-    func setupTextFields() {
+    private func setupTextFields() {
         nameTextField.textContentType = .name
         emailTextField.textContentType = .emailAddress
         passwordTextField.textContentType = .password
         passwordTextField.isSecureTextEntry = true
     }
 
-    func setupConfirmButton() {
+    private func setupConfirmButton() {
         confirmButton.setupStyle(style: .filled(color: .accent, textColor: .fsBg))
-
-        confirmButton.addAction { [weak self] in
-            guard let self else { return }
-
-            let name = nameTextField.text ?? ""
-            let email = emailTextField.text ?? ""
-            let password = passwordTextField.text ?? ""
-
-            switch loginMode {
-            case .login:
-                viewModel.login(
-                    email: email,
-                    password: password,
-                    handler: loginResultHandler
-                )
-            case .signUp:
-                viewModel.signUp(
-                    email: email,
-                    password: password,
-                    userName: name,
-                    handler: signUpResultHandler
-                )
-            }
-        }
+        confirmButton.addAction(handler: confirmButtonTapped)
     }
 
-    func setupStackView() {
+    private func setupStackView() {
         stackView.backgroundColor = .fsPrimary
 
         stackView.axis = .vertical
@@ -195,7 +202,7 @@ final class LoginViewController: FSViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
     }
 
-    func setupConstraint() {
+    private func setupConstraint() {
         stackView.addTo(view) { make in
             make.center.equalToSuperview()
             make.width.equalTo(300)

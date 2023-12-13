@@ -23,6 +23,7 @@ struct FSUser: Codable {
 
     private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
     private(set) var recentMeets: [MeetingRoom.MeetingCode] = []
+    private(set) var records: [MeetingRoom.MeetingCode] = []
 
     // - MARK: CodingKey
     enum CodingKeys: String, CodingKey {
@@ -34,6 +35,7 @@ struct FSUser: Codable {
         case bannerPicture
         case meetingHistory
         case recentMeets
+        case records
     }
 
     mutating func addHistory(meetingCode: MeetingRoom.MeetingCode) {
@@ -54,6 +56,17 @@ struct FSUser: Codable {
 
     mutating func deleteRecent(meetingCode: MeetingRoom.MeetingCode) {
         recentMeets.removeAll { storedMeetingCode in
+            storedMeetingCode == meetingCode
+        }
+    }
+    
+    mutating func addRecord(meetingCode: MeetingRoom.MeetingCode) {
+        deleteRecord(meetingCode: meetingCode)
+        records.insert(meetingCode, at: 0)
+    }
+    
+    mutating func deleteRecord(meetingCode: MeetingRoom.MeetingCode) {
+        records.removeAll { storedMeetingCode in
             storedMeetingCode == meetingCode
         }
     }

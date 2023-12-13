@@ -8,6 +8,8 @@
 import UIKit
 
 class FSUserProvider {
+    static let shared = FSUserProvider()
+
     enum LoginError: Error {
         case passwordIncorrect
         case emailNotFound
@@ -19,27 +21,60 @@ class FSUserProvider {
 
     typealias Handler<T> = (Result<T, Error>) -> Void
 
-    static var shared = FSUserProvider()
-
-    static func createNewUser(user: FSUser) {
+    func createNewUser(user: FSUser) {
         FSCollectionManager<FSUser, FSUser.CodingKeys>(collection: .user)
             .createDocument(data: user, documentID: user.id)
     }
 
     let collectionManager = FSCollectionManager<FSUser, FSUser.CodingKeys>(collection: .user)
 
+    // MARK: - Listener
+    typealias UserListener = (FSUser) -> Void
+    var currentUserListeners: [UserListener] = []
+
+    func activeListener(currentUser: FSUser) {
+        collectionManager.listenToDocument(documentID: currentUser.id) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case let .success(user): listenerBroadCast(user: user)
+            default: break
+            }
+        }
+    }
+
+    private func listenerBroadCast(user: FSUser) {
+        currentUserListeners.forEach { $0(user) }
+    }
+
+    func listenToCurrentUser(handler: @escaping UserListener) {
+        currentUserListeners.append(handler)
+        if let user = FSUser.currentUser {
+            handler(user)
+        }
+    }
+
+    func updateCurrentUser() {
+        guard let currentUser = FSUser.currentUser else { return }
+        collectionManager.updateDocument(data: currentUser, documentID: currentUser.id)
+    }
+
+    // MARK: Login
     func login(
         email: String,
         password: String,
         handler: @escaping ResultHandler<FSUser, LoginError>
     ) {
-        collectionManager.readDocument(documentID: email) { result in
+        collectionManager.readDocument(documentID: email) { [weak self] result in
+            guard let self else { return }
+
             switch result {
             case let .success(user):
                 if user.password != password {
                     handler(.failure(.passwordIncorrect))
                 } else {
                     handler(.success(user))
+                    listenerBroadCast(user: user)
                 }
             case .failure:
                 handler(.failure(.emailNotFound))
@@ -59,28 +94,8 @@ class FSUserProvider {
             case .failure:
                 collectionManager.createDocument(data: user, documentID: user.email)
                 handler(.success(user))
+                listenerBroadCast(user: user)
             }
         }
-    }
-
-    func updateCurrentUser() {
-        guard let currentUser = FSUser.currentUser else { return }
-        collectionManager.updateDocument(data: currentUser, documentID: currentUser.id) { result in
-            switch result {
-            case let .failure(error):
-                print(error.localizedDescription.red)
-            case .success:
-                break
-            }
-        }
-    }
-
-    func listenToCurrentUser(handler: @escaping Handler<FSUser>) {
-        guard let currentUser = FSUser.currentUser else { return }
-
-        collectionManager.listenToDocument(
-            documentID: currentUser.id,
-            completion: handler
-        )
     }
 }

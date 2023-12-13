@@ -14,55 +14,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
+        
     ) {
-        intialize(scene)
-
-        guard let url = connectionOptions.urlContexts.first?.url else { return }
-        UrlRouteManager.shared.open(url: url)
+        let url = connectionOptions.urlContexts.first?.url
+        intialize(scene, url: url)
+        
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        intialize(scene)
-
-        guard let url = URLContexts.first?.url else { return }
-        UrlRouteManager.shared.open(url: url)
+        let url = URLContexts.first?.url
+        intialize(scene, url: url)
     }
 
-    func intialize(_ scene: UIScene) {
+    func intialize(_ scene: UIScene, url: URL? = nil) {
         guard let scene = (scene as? UIWindowScene) else { fatalError("Unknown scene") }
         window = UIWindow(windowScene: scene)
         let tabBarController = FSTabBarController()
 
         window?.rootViewController = tabBarController
-        window?.makeKeyAndVisible()
-
-        let keyChainManager = KeyChainManager()
         UrlRouteManager.shared.rootViewController = tabBarController
+        LoginFlowManager.shared.rootViewController = tabBarController
 
-        if let user = keyChainManager.loadUser() {
-            FSUser.currentUser = user
+        LoginFlowManager.shared.startLoginFlow { [weak self] _ in
+            guard let self, let window else { return }
+            window.makeKeyAndVisible()
 
-            FSUserProvider.shared.login(
-                email: user.email,
-                password: user.password
-            ) { result in
-
-                switch result {
-                case let .success(user):
-                    FSUser.currentUser = user
-
-                case .failure:
-                    DispatchQueue.main.async {
-                        let loginViewController = LoginViewController()
-                        loginViewController.modalPresentationStyle = .fullScreen
-                        tabBarController.present(loginViewController, animated: false)
-                    }
-                }
+            if let url {
+                UrlRouteManager.shared.open(url: url)
             }
-        } else {
-            let loginViewController = LoginViewController()
-            loginViewController.modalPresentationStyle = .fullScreen
-            tabBarController.present(loginViewController, animated: false)
         }
     }
 

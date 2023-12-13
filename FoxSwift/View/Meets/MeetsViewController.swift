@@ -17,7 +17,7 @@ final class MeetsViewController: FSMeetingTableViewController {
     let viewModel = MeetsViewModel()
 
     override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] {
-        [viewModel.meets.value.map { Box($0) }]
+        [viewModel.meets.value]
     }
 
     // MARK: - LifeCycle

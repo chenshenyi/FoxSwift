@@ -9,23 +9,17 @@ import Foundation
 
 class MeetsViewModel {
     // MARK: - Network Provider
-    private var userProvider = FSUserProvider()
+    private var userProvider = FSUserProvider.shared
 
     // MARK: - Binded Properties
     var activeMeeting: Box<MeetingRoom.MeetingCode?> = .init(nil)
     var meetingCode: Box<String> = .init("")
-    var meets: Box<[MeetingRoom.MeetingCode]> = .init([])
+    var meets: Box<[Box<MeetingRoom.MeetingCode>]> = .init([])
 
     func listenToUser() {
-        userProvider.listenToCurrentUser { [weak self] result in
+        userProvider.listenToCurrentUser { [weak self] user in
             guard let self else { return }
-
-            switch result {
-            case let .success(user):
-                meets.value = user.recentMeets
-            case let .failure(error):
-                error.print()
-            }
+            meets.value = user.recentMeets.map { Box($0) }
         }
     }
 
