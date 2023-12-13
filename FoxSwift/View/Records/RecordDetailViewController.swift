@@ -36,7 +36,9 @@ final class RecordDetailViewController: FSMessageViewController {
 
     override func setupMessageTableView() {
         super.setupMessageTableView()
-        messageTableView.pinTo(view, safeArea: true)
+        messageTableView.addTo(view) { make in
+            make.edges.equalToSuperview()
+        }
     }
 
     func setupViewModel(viewModel: ViewModel) {
@@ -45,6 +47,9 @@ final class RecordDetailViewController: FSMessageViewController {
     }
 
     func bindViewModel() {
+        viewModel?.recordName.bind(inQueue: .main) { [weak self] title in
+            self?.navigationItem.title = title
+        }
         viewModel?.messages.bind(inQueue: .main) { [weak self] _ in
             guard let self else { return }
             messageTableView.reloadData()
