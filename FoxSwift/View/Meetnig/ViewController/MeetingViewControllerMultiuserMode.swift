@@ -16,7 +16,8 @@ extension MeetingViewController {
         defaultLayout(1)
 
         videoCollectionView.addTo(view) { make in
-            make.size.centerX.centerY.equalTo(view.safeAreaLayoutGuide).inset(5)
+            make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide).inset(5)
+            make.bottom.equalTo(videoControlBar.snp.top).offset(-20)
         }
 
         videoCollectionView.registReuseCell(for: UICollectionViewCell.self)
@@ -47,7 +48,7 @@ extension MeetingViewController {
         videoCollectionView.collectionViewLayout = layout
     }
 
-    func layoutWhenMessaging(_ amount: Int) {
+    func topRowLayout(_ amount: Int) {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1 / CGFloat(amount)),
             heightDimension: .fractionalWidth(1 / CGFloat(amount))

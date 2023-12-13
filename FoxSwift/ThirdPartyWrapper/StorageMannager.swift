@@ -62,7 +62,8 @@ class StorageManager {
     }
 
     func download(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        if let imageData = DefaultImage(rawValue: url.absoluteString)?.imageData {
+        if let data = DefaultImage(rawValue: url.absoluteString)?.imageData {
+            completion(.success(data))
             return
         }
 

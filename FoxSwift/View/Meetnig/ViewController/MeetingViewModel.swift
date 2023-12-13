@@ -23,7 +23,16 @@ class MeetingViewModel {
 
     var isOnMic = Box(true)
     var isOnCamera = Box(true)
+    var isMessage = Box(false)
     var isSharingScreen = Box(false)
+
+    enum LayoutMode {
+        case oneColumn
+        case twoColumn
+        case topRow(Int)
+    }
+
+    var layoutMode = Box(LayoutMode.oneColumn)
 
     // MARK: - Init
     init(meetingCode: String) {
@@ -112,6 +121,27 @@ class MeetingViewModel {
         isOnCamera.value = false
         rtcProvider.stopCaptureVideo()
     }
+    
+    func showMessage() {
+        isMessage.value = true
+        updateLayout()
+    }
+    
+    func hideMessage() {
+        isMessage.value = false
+        updateLayout()
+    }
+
+    func updateLayout() {
+        let participantsAmount = participants.value.count
+        if isMessage.value {
+            layoutMode.value = .topRow(participantsAmount)
+        } else if participantsAmount > 2 {
+            layoutMode.value = .twoColumn
+        } else {
+            layoutMode.value = .oneColumn
+        }
+    }
 }
 
 // MARK: - RTCProvider
@@ -178,6 +208,7 @@ extension MeetingViewModel: MeetingRoomProviderDelegate {
         }
 
         self.participants.value += participants
+        updateLayout()
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft participants: [Participant]) {

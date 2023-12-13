@@ -43,8 +43,8 @@ extension MeetingViewController: FSButtonStackDelegate {
             isOnCamera ? viewModel.turnOffCamera() : viewModel.turnOnCamera()
 
         case .message:
-            messageView.isHidden = false
-
+            viewModel.showMessage()
+            
         case .shareScreen:
             isSharingScreen ? viewModel.stopScreenSharing() : viewModel.startScreenSharing()
         }

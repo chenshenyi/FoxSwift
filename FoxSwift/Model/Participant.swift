@@ -14,6 +14,10 @@ struct Participant: Codable, Equatable, Hashable {
         FSUser.currentUser?.participant ?? .init()
     }
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     enum CodingKeys: CodingKey {
         case id
         case name

@@ -8,6 +8,8 @@
 import UIKit
 
 protocol MessageViewDelegate: AnyObject {
+    func didClose(_ messageView: MessageView)
+
     func selectImage(_ messageView: MessageView)
 }
 
@@ -65,7 +67,7 @@ class MessageView: UIView {
     private func setupHeader() {
         header.setupCloseButton { [weak self] in
             guard let self else { return }
-            isHidden = true
+            delegate?.didClose(self)
         }
         header.addTo(self) { make in
             make.horizontalEdges.top.equalToSuperview()
