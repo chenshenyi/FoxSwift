@@ -42,8 +42,7 @@ class FSViewController: UIViewController {
     }
 
     func startLoadingView(text: String = "Loading...", id: String) {
-        let loadingView = UIView()
-        loadingView.backgroundColor = .fsSecondary
+        let loadingView = FSLoadingView(text: text)
 
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -51,7 +50,7 @@ class FSViewController: UIViewController {
             loadingViews[id] = loadingView
             loadingView.addTo(view) { make in
                 make.center.equalToSuperview()
-                make.size.equalTo(60)
+                make.size.equalTo(120)
             }
         }
     }

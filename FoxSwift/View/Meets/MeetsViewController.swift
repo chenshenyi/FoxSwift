@@ -91,6 +91,11 @@ final class MeetsViewController: FSMeetingTableViewController {
     }
 
     private func joinMeet() {
+        startLoadingView(id: "tester")
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+            self.stopLoadingView(id: "tester")
+        }
+
         let vc = JoinMeetViewController()
         vc.setupModelPresentStyle()
         present(vc, animated: true)
