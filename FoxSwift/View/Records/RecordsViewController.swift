@@ -10,18 +10,22 @@ import UIKit
 final class RecordsViewController: FSMeetingTableViewController {
     let viewModel: RecordsViewModel = .init()
 
-    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes] }
+    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes.value] }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = editButtonItem
         setupMeetingTableView()
+        bindViewModel()
     }
 
     // MARK: Data Binding
-    func bindViewModel() {}
+    func bindViewModel() {
+        viewModel.meetingCodes.bind(inQueue: .main) { [weak self] _ in
+            self?.meetingTableView.reloadData()
+        }
+    }
 
     // MARK: - Setup Subviews
     func setupMeetingTableView() {
@@ -33,6 +37,13 @@ final class RecordsViewController: FSMeetingTableViewController {
 
 // MARK: TableViewDelegate
 extension RecordsViewController {
+    func tableView(
+        _ tableView: UITableView,
+        titleForHeaderInSection section: Int
+    ) -> String? {
+        "Records"
+    }
+
     // MARK: - Edit
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         true
