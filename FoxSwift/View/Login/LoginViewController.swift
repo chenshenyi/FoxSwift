@@ -63,34 +63,48 @@ final class LoginViewController: FSViewController {
     }
 
     // MARK: Update UI by result
-    func loginResultHandler(result: LoginViewModel.LoginResult) {
+    private func resetTextFieldOnError() {
+        nameTextField.onError = false
         emailTextField.onError = false
         passwordTextField.onError = false
+    }
+    
+    private func enableInteraction() {
+        confirmButton.isUserInteractionEnabled = true
+    }
+    
+    private func dismiss() {
+        dismiss(animated: true)
+    }
 
+    func loginResultHandler(result: LoginViewModel.LoginResult) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+
+            resetTextFieldOnError()
 
             stopLoadingView(id: LoginMode.login.localizedDescription)
 
             switch result {
             case .success:
-                dismiss(animated: true)
+                popup(text: "Success", style: .checkmark, completion: dismiss)
 
             case let .failure(.invalidEmail(rule: rule)):
                 emailTextField.onError = true
-                alertError(text: rule.localizedDescription)
+                popup(text: rule.localizedDescription, style: .error, completion: enableInteraction)
 
             case let .failure(.invalidPassword(rule: rule)):
                 passwordTextField.onError = true
-                alertError(text: rule.localizedDescription)
+                popup(text: rule.localizedDescription, style: .error, completion: enableInteraction)
 
             case .failure(.passwordIncorrect):
                 passwordTextField.onError = true
-                alertError(text: "Password incorrect")
+                popup(text: "Password incorrect", style: .error, completion: enableInteraction)
+                
 
             case .failure(.emailNotFound):
                 emailTextField.onError = true
-                alertError(text: "Email not found")
+                popup(text: "Email not found", style: .error, completion: enableInteraction)
 
             case .failure(.unknownError):
                 fatalError("Unknow error when login")
@@ -99,34 +113,31 @@ final class LoginViewController: FSViewController {
     }
 
     func signUpResultHandler(result: LoginViewModel.SignUpResult) {
-        nameTextField.onError = false
-        emailTextField.onError = false
-        passwordTextField.onError = false
-
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-
+            
+            resetTextFieldOnError()
             stopLoadingView(id: LoginMode.signUp.localizedDescription)
 
             switch result {
             case .success:
-                dismiss(animated: true)
+                popup(text: "Success", style: .checkmark, completion: dismiss)
 
             case let .failure(.invalidUserName(rule: rule)):
                 nameTextField.onError = true
-                alertError(text: rule.localizedDescription)
+                popup(text: rule.localizedDescription, style: .error, completion: enableInteraction)
 
             case let .failure(.invalidEmail(rule: rule)):
                 emailTextField.onError = true
-                alertError(text: rule.localizedDescription)
+                popup(text: rule.localizedDescription, style: .error, completion: enableInteraction)
 
             case let .failure(.invalidPassword(rule: rule)):
                 passwordTextField.onError = true
-                alertError(text: rule.localizedDescription)
+                popup(text: rule.localizedDescription, style: .error, completion: enableInteraction)
 
             case .failure(.emailExist):
                 emailTextField.onError = true
-                alertError(text: "Email already exist")
+                popup(text: "Email already exist", style: .error, completion: enableInteraction)
 
             case .failure(.unknownError):
                 fatalError("Unknow error when login")
@@ -138,6 +149,8 @@ final class LoginViewController: FSViewController {
         let name = nameTextField.text ?? ""
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
+
+        confirmButton.isUserInteractionEnabled = false
 
         switch loginMode {
         case .login: login(email: email, password: password)

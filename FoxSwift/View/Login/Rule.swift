@@ -19,7 +19,7 @@ enum EmailRule: Rule, CaseIterable {
     case notEmpty
 
     var localizedDescription: String {
-        "Email should not be empty."
+        "Email empty."
     }
 
     typealias Email = String
@@ -40,8 +40,8 @@ enum PasswordRule: Rule, CaseIterable {
 
     var localizedDescription: String {
         switch self {
-        case .notEmpty: "Password should not be empty."
-        case .notSameToEmail: "Password should not be same as email."
+        case .notEmpty: "Password empty."
+        case .notSameToEmail: "Password invalid."
         }
     }
 
@@ -60,7 +60,7 @@ enum UserNameRule: Rule, CaseIterable {
     typealias UserName = String
 
     var localizedDescription: String {
-        "User name should not be empty."
+        "Name empty."
     }
 
     var check: (UserName) -> Bool {

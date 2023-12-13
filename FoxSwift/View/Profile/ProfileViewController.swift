@@ -259,15 +259,23 @@ extension ProfileViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         guard let first = results.first else { return }
+
         first.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-            if let error {
-                print(error)
-                return
+
+            DispatchQueue.main.async {
+                if error != nil {
+                    self?.popup(text: "Invalid Format", style: .error, completion: {})
+                    return
+                }
+                
+                guard let image = image as? UIImage else {
+                    self?.popup(text: "Invalid Format", style: .error, completion: {})
+                    return
+                }
+                
+                self?.popup(text: "Success", style: .checkmark, completion: {})
+                self?.didGetImage?(image)
             }
-
-            guard let image = image as? UIImage else { return }
-
-            self?.didGetImage?(image)
         }
     }
 }

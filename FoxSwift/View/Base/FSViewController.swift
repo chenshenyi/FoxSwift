@@ -65,4 +65,18 @@ class FSViewController: UIViewController {
             loadingView.removeFromSuperview()
         }
     }
+
+    func popup(text: String, style: FSPopup.Style, completion: @escaping () -> Void) {
+        let popup = FSPopup(text: text, style: style)
+
+        popup.addTo(view) { make in
+            make.center.equalToSuperview()
+        }
+
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            popup.isHidden = true
+            popup.removeFromSuperview()
+            completion()
+        }
+    }
 }

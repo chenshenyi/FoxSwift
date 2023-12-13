@@ -39,6 +39,6 @@ class LoginFlowManager {
     private func showLoginPage() {
         let loginViewController = LoginViewController()
         loginViewController.modalPresentationStyle = .fullScreen
-        rootViewController?.present(loginViewController, animated: false)
+        rootViewController?.present(loginViewController, animated: true)
     }
 }
