@@ -17,6 +17,8 @@ class MeetingCellViewModel {
     var createdTime: Box<Int?> = .init(nil)
     var meetingName: Box<String?> = .init(nil)
 
+    var isSaved = Box(false)
+
     func setMeetingCode(meetingCode: MeetingRoom.MeetingCode) {
         self.meetingCode.value = meetingCode
         collectionManager.readDocument(documentID: meetingCode) { [weak self] result in
@@ -29,5 +31,21 @@ class MeetingCellViewModel {
                 error.print()
             }
         }
+
+        FSUserProvider.shared.listenToCurrentUser { [weak self] user in
+            self?.isSaved.value = user.records.contains(where: { $0 == meetingCode })
+        }
+    }
+
+    func save() {
+        isSaved.value = true
+        FSUser.currentUser?.addRecord(meetingCode: meetingCode.value)
+        FSUserProvider.shared.updateCurrentUser()
+    }
+
+    func unsave() {
+        isSaved.value = false
+        FSUser.currentUser?.deleteRecord(meetingCode: meetingCode.value)
+        FSUserProvider.shared.updateCurrentUser()
     }
 }

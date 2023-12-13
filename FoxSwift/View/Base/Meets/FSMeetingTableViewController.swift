@@ -51,6 +51,7 @@ extension FSMeetingTableViewController: UITableViewDataSource {
         meetingCode.bind { meetingCode in
             cell.viewModel.setMeetingCode(meetingCode: meetingCode)
         }
+        cell.delegate = self
         return cell
     }
 }
@@ -72,5 +73,15 @@ extension FSMeetingTableViewController: UITableViewDelegate {
         forSection section: Int
     ) {
         (view as? UITableViewHeaderFooterView)?.textLabel?.textColor = .fsSecondary
+    }
+}
+
+extension FSMeetingTableViewController: MeetingCellDelegate {
+    func didSave(_ cell: MeetingCell) {
+        popup(text: "Saved", style: .checkmark, completion: {})
+    }
+    
+    func didUnsave(_ cell: MeetingCell) {
+        popup(text: "Unsaved", style: .checkmark, completion: {})
     }
 }

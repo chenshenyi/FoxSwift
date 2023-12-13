@@ -8,7 +8,15 @@
 import SnapKit
 import UIKit
 
+protocol MeetingCellDelegate: AnyObject {
+    func didSave(_ cell: MeetingCell)
+    
+    func didUnsave(_ cell: MeetingCell)
+}
+
 class MeetingCell: UITableViewCell {
+    weak var delegate: MeetingCellDelegate?
+    
     // MARK: - viewModel
     var viewModel: MeetingCellViewModel = .init()
 
@@ -16,6 +24,7 @@ class MeetingCell: UITableViewCell {
     var iconView = UIImageView()
     var titleLabel = UILabel()
     var timeLabel = UILabel()
+    var saveButton = FSButton()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,6 +36,7 @@ class MeetingCell: UITableViewCell {
         setupIcon()
         setupTitleLabel()
         setupTimeLabel()
+        setupSaveButton()
     }
 
     @available(*, unavailable)
@@ -42,6 +52,11 @@ class MeetingCell: UITableViewCell {
 
             return Date(timeIntervalSinceReferenceDate: TimeInterval(value))
                 .formatted(.relative(presentation: .named))
+        }
+        
+        viewModel.isSaved.bind(inQueue: .main) { [weak self] value in
+            let image = value ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+            self?.saveButton.setImage(image, for: .normal)
         }
     }
 
@@ -78,6 +93,28 @@ class MeetingCell: UITableViewCell {
         timeLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel)
             make.bottom.equalTo(iconView).inset(12)
+        }
+    }
+
+    func setupSaveButton() {
+        saveButton.setImage(UIImage(systemName: "star"), for: .normal)
+        saveButton.tintColor = .accent
+        
+        saveButton.addTo(contentView) { make in
+            make.size.equalTo(50)
+            make.centerY.trailing.equalToSuperview().inset(12)
+        }
+        
+        saveButton.addAction(handler: saveButtonTapped)
+    }
+    
+    func saveButtonTapped() {
+        if viewModel.isSaved.value {
+            viewModel.unsave()
+            delegate?.didUnsave(self)
+        } else {
+            viewModel.save()
+            delegate?.didSave(self)
         }
     }
 }
