@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '16.4'
+platform :ios, '16.3'
 
 target 'FoxSwift' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,10 +7,7 @@ target 'FoxSwift' do
   inhibit_all_warnings!
 
   # Pods for FoxSwift
-  pod 'Kingfisher'
   pod 'WebRTC-lib'
-  pod "ESPullToRefresh"
-  pod 'Alamofire'
   pod "FirebaseFirestore"
   pod "FirebaseFirestoreSwift"
   pod "FirebaseCrashlytics"
@@ -34,7 +31,7 @@ target 'FoxSwift' do
     installer.generated_projects.each do |project|
       project.targets.each do |target|
         target.build_configurations.each do |config|
-          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.4'
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.3'
         end
       end
     end
