@@ -8,9 +8,11 @@
 import UIKit
 
 class FSMessageCellViewModel {
-    var authorName: Box<String> = .init("")
-    var isMyMessage: Box<Bool> = .init(false)
-    var content: Box<String> = .init("")
+    var authorName = Box("")
+    var authorImage: Box<UIImage?> = .init(.fox)
+    var createdTime = Box("")
+    var isMyMessage = Box(false)
+    var content = Box("")
     var image: Box<UIImage?> = .init(.placeholder)
 
     let imageManager = StorageManager.imageManager
@@ -21,6 +23,12 @@ class FSMessageCellViewModel {
 
         authorName.value = message.author.name
 
+        guard let smallPictureData = message.author.smallPicture else { return }
+        authorImage.value = UIImage(data: smallPictureData)
+
+        createdTime.value = Date(timeIntervalSince1970: TimeInterval(message.createdTime))
+            .formatted(.dateTime)
+
         let data = message.data
         switch message.type {
         case .text, .speechText:
@@ -29,7 +37,7 @@ class FSMessageCellViewModel {
             image.value = UIImage(data: data)
         case .imageUrl:
             guard let urlString = String(data: data, encoding: .utf8),
-                let url = URL(string: urlString) else { return }
+                  let url = URL(string: urlString) else { return }
             fetchImage(url: url)
         default:
             fatalError("Such type message not available.")

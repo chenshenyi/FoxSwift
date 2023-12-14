@@ -18,8 +18,7 @@ class FSMessageViewController: FSViewController {
 
         messageTableView.dataSource = self
         messageTableView.backgroundColor = .fsBg
-        messageTableView.separatorStyle = .singleLine
-        messageTableView.separatorColor = .fsText
+        messageTableView.separatorStyle = .none
 
         // Regist cell
         messageTableView.registReuseCell(for: FSTextMessageCell.self)
