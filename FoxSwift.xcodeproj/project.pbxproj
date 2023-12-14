@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
+		2B00085A2B2ADC870023FFAF /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0008592B2ADC870023FFAF /* ResizeImage.swift */; };
 		2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */; };
 		2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */; };
 		2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */; };
@@ -128,6 +129,7 @@
 
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		2B0008592B2ADC870023FFAF /* ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
 		2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSharedMannager.swift; sourceTree = "<group>"; };
 		2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 				2BEAE6AE2B1324440007180B /* UITextView+Extension.swift */,
 				2BCB8DE62B012A0900DD4C2F /* UITableView+Extension.swift */,
 				2BCB8DE42B012A0900DD4C2F /* UICollectionView+Extension.swift */,
+				2B0008592B2ADC870023FFAF /* ResizeImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
 				2B8F9D1F2B0486B4002D9076 /* FSNavigationController.swift in Sources */,
 				2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */,
+				2B00085A2B2ADC870023FFAF /* ResizeImage.swift in Sources */,
 				2BA0DFAF2B286A6700C82249 /* Meeting+FSButtonStackDelegate.swift in Sources */,
 				2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,

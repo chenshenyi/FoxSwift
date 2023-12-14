@@ -131,6 +131,7 @@ class ProfileViewModel {
 
     private func updateCurrentUser(image: UIImage, for imageField: ImageField) {
         guard let data = image.pngData() else { return }
+
         setFiled(image: image, for: imageField)
         imageProvider.upload(
             data: data,
@@ -141,6 +142,7 @@ class ProfileViewModel {
                 switch imageField {
                 case .picture:
                     FSUser.currentUser?.picture = url.absoluteString
+                    FSUser.currentUser?.smallPicture = image.resizeWithLimit(limit: 50)
                 case .banner:
                     FSUser.currentUser?.bannerPicture = url.absoluteString
                 }

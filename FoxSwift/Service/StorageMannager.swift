@@ -15,13 +15,16 @@ enum StorageFolder: String {
 enum DefaultImage: String {
     case profileImage = "Default/Profile-Image"
     case banner = "Default/Banner"
+    case smallProfileImage = "Default/Small-Profile-Image"
 
     var imageData: Data? {
         let image: UIImage = switch self {
         case .profileImage:
-            UIImage.foxWithBubble
+            UIImage.defaultProfilePicture
+        case .smallProfileImage:
+            UIImage.defaultSmallProfilePicture
         case .banner:
-            .defaultBanner
+            UIImage.defaultBanner
         }
 
         return image.pngData()

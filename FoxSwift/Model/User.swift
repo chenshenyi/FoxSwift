@@ -18,6 +18,7 @@ struct FSUser: Codable {
     var email: String = ""
     var password: String = ""
     var picture: String = DefaultImage.profileImage.rawValue
+    var smallPicture: Data? = DefaultImage.profileImage.imageData
     var bannerPicture: String = DefaultImage.banner.rawValue
     var description: String = "Describe yourself."
 
@@ -32,6 +33,7 @@ struct FSUser: Codable {
         case email
         case password
         case picture
+        case smallPicture
         case bannerPicture
         case meetingHistory
         case recentMeets
@@ -52,6 +54,9 @@ struct FSUser: Codable {
     mutating func addRecent(meetingCode: MeetingRoom.MeetingCode) {
         deleteRecent(meetingCode: meetingCode)
         recentMeets.insert(meetingCode, at: 0)
+        if recentMeets.count > 5 {
+            recentMeets.removeLast(recentMeets.count - 5)
+        }
     }
 
     mutating func deleteRecent(meetingCode: MeetingRoom.MeetingCode) {
@@ -74,6 +79,6 @@ struct FSUser: Codable {
 
 extension FSUser {
     var participant: Participant {
-        Participant(id: id, name: name)
+        Participant(id: id, name: name, smallPicture: smallPicture)
     }
 }

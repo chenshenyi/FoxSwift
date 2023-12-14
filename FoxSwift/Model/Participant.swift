@@ -10,6 +10,8 @@ import Foundation
 struct Participant: Codable, Equatable, Hashable {
     var id: String = UUID().uuidString
     var name: String = "小熊貓\(Int.random(in: 0 ... 9999))"
+    var smallPicture: Data?
+
     static var currentUser: Participant {
         FSUser.currentUser?.participant ?? .init()
     }
@@ -21,5 +23,6 @@ struct Participant: Codable, Equatable, Hashable {
     enum CodingKeys: CodingKey {
         case id
         case name
+        case smallPicture
     }
 }
