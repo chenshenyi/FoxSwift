@@ -66,6 +66,7 @@ class MeetingParticipantManager {
 
     func leave() {
         meetingProvider.disconnect()
+        participantDetailProvider.clearUserData()
     }
 
     // MARK: - Fetch video

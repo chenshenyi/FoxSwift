@@ -226,4 +226,10 @@ class ParticipantDetailProvider {
         remoteAnswerManagers[participantId]?.stopListenDocument(documentID: participantId)
         remoteCandidatesManagers[participantId]?.stopListenDocument(documentID: participantId)
     }
+    
+    func clearUserData() {
+        localOfferManager.clearDocument()
+        localAnswerManager.clearDocument()
+        localCandidatesManager.clearDocument()
+    }
 }

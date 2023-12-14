@@ -88,8 +88,10 @@ class SpeechRecognitionManager: NSObject {
 
         // Configure request if results are returned before audio recording is finished
         guard let recognitionRequest else {
-            fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object")
+            print("Unable to created a SFSpeechAudioBufferRecognitionRequest object")
+            return
         }
+
         recognitionRequest.shouldReportPartialResults = true
 
         let recognizer = SFSpeechRecognizer(locale: Locale(identifier: localeIdentifier))

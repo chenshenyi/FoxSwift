@@ -312,6 +312,14 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             completion?(.failure(error))
         }
     }
+    
+    func clearDocument() {
+        reference.getDocuments { snapshot, error in
+            snapshot?.documents.forEach {
+                $0.reference.delete()
+            }
+        }
+    }
 }
 
 extension FSCollectionManager {
