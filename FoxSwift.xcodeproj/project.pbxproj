@@ -308,15 +308,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		2B24FFA12B03738E0000C5A3 /* Network */ = {
+		2B24FFA12B03738E0000C5A3 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				2BA4D16D2B077C0E00637596 /* Config */,
 				2B9C8B1E2B0C44ED00F57C90 /* WebRTC */,
 				2B9C8B212B0C454B00F57C90 /* FirebaseFirestore */,
 				2BEAE6C42B15D54C0007180B /* SpeechRecognitionManager.swift */,
+				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
+				2BEAE6B02B1335DD0007180B /* StorageMannager.swift */,
+				2BBF79C62B26EEAA0003602E /* KeyChainWrapper.swift */,
 			);
-			path = Network;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		2B24FFA22B03739A0000C5A3 /* View */ = {
@@ -354,17 +357,6 @@
 				2B6E2FA12B22E800009C08D1 /* Messages */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */,
-				2BEAE6B02B1335DD0007180B /* StorageMannager.swift */,
-				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
-				2BBF79C62B26EEAA0003602E /* KeyChainWrapper.swift */,
-			);
-			path = ThirdPartyWrapper;
 			sourceTree = "<group>";
 		};
 		2B66F5F12B0F53C900C5C06A /* Meetnig */ = {
@@ -532,8 +524,7 @@
 				2B228F892B04C5BD00539E8A /* Utilities */,
 				2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */,
 				2BCB8DAD2B011F1400DD4C2F /* SceneDelegate.swift */,
-				2B24FFA72B0374470000C5A3 /* ThirdPartyWrapper */,
-				2B24FFA12B03738E0000C5A3 /* Network */,
+				2B24FFA12B03738E0000C5A3 /* Service */,
 				2B0A27D72B219E56009F4E78 /* Router */,
 				2B24FFA02B03734B0000C5A3 /* Model */,
 				2B24FFA22B03739A0000C5A3 /* View */,
@@ -570,6 +561,7 @@
 				2BCB8DE22B012A0900DD4C2F /* String+Extension.swift */,
 				2B5AC1642B05BB52007B717C /* Result+Extension.swift */,
 				2BEAE6BB2B143B830007180B /* Error+Extenision.swift */,
+				2BA0EB782B08DA74003B8EFE /* SnapKit+UIView.swift */,
 				2BCB8DDD2B012A0900DD4C2F /* UIFont+Extension.swift */,
 				2BCB8DDE2B012A0900DD4C2F /* UIColor+Extension.swift */,
 				2BCB8DE32B012A0900DD4C2F /* UIScreen+Extension.swift */,

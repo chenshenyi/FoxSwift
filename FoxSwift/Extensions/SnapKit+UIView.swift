@@ -17,10 +17,10 @@ extension UIView {
     func pinTo(_ view: UIView, safeArea: Bool = false) {
         addTo(view) { make in
             if safeArea {
-                make.margins.equalTo(view.safeAreaLayoutGuide)
+                make.edges.equalTo(view.safeAreaLayoutGuide)
                 return
             }
-            make.margins.equalTo(view)
+            make.edges.equalTo(view)
         }
     }
 }
