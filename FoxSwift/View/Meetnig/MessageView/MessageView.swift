@@ -53,7 +53,7 @@ class MessageView: UIView {
         messageTableView.addTo(self) { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview().inset(40)
-            make.bottom.equalToSuperview().inset(60)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-70)
         }
     }
 
@@ -70,7 +70,7 @@ class MessageView: UIView {
         speechTableView.addTo(self) { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview().inset(40)
-            make.bottom.equalToSuperview().inset(60)
+            make.bottom.equalToSuperview().offset(12)
         }
 
         speechTableView.isHidden = true
@@ -79,8 +79,9 @@ class MessageView: UIView {
     private func setupMessageInputView() {
         messageInputView.delegate = self
         messageInputView.addTo(self) { make in
-            make.horizontalEdges.bottom.equalToSuperview()
-            make.height.equalTo(56)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-70)
         }
     }
 
@@ -113,12 +114,18 @@ class MessageView: UIView {
 
             guard !messages.isEmpty else { return }
 
-            let indexPath = IndexPath(row: messages.count - 1, section: 0)
+            let messagesCount = messages.count
+
             tableView.performBatchUpdates {
+                let indexPath = IndexPath(row: messagesCount - 1, section: 0)
                 tableView.insertRows(at: [indexPath], with: .automatic)
-            } completion: { finished in
-                if finished {
-                    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            } completion: { success in
+                if success {
+                    tableView.scrollToRow(
+                        at: IndexPath(row: messagesCount - 1, section: 0),
+                        at: .top,
+                        animated: true
+                    )
                 }
             }
         }
@@ -228,5 +235,9 @@ extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
         } else {
             return .fsText
         }
+    }
+    
+    func font(_ selectionView: SelectionView, forIndex index: Int) -> UIFont {
+        .config(weight: .regular, size: 12)
     }
 }

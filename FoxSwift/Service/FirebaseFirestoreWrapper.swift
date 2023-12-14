@@ -119,6 +119,38 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         }
     }
 
+    func listenToCollectionSortByTime(
+        listenToAddedOnly: Bool = false,
+        completion: @escaping CompletionHandler<[DataType]>
+    ) {
+        collectionListener = reference.order(by: "createdTime")
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                if let error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let querySnapshot, let self else {
+                    completion(.failure(FSCollectionError.unknownError))
+                    return
+                }
+
+                let documentDecodeResult = listenToAddedOnly
+                    ? listenToAdded(querySnapshot: querySnapshot)
+                    : listenToAll(querySnapshot: querySnapshot)
+
+                let documetFailures = documentDecodeResult.failedResults()
+                let documentData = documentDecodeResult.successfulResults()
+
+
+                if documetFailures.isEmpty {
+                    completion(.success(documentData))
+                } else {
+                    documetFailures.forEach { completion(.failure($0)) }
+                }
+            }
+    }
+
     func listenCollection(
         listenToAddedOnly: Bool = false,
         completion: @escaping CompletionHandler<[DataType]>

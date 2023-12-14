@@ -12,25 +12,38 @@ final class Box<T> {
     var listener: Listener?
     private var queue: DispatchQueue?
 
+    private var semaphore: DispatchSemaphore?
+
     var value: T {
+        willSet {
+            semaphore?.wait()
+        }
         didSet {
             if let queue {
                 queue.async { [weak self] in
                     guard let self else { return }
                     listener?(value)
+                    semaphore?.signal()
                 }
             } else {
                 listener?(value)
+                semaphore?.signal()
             }
         }
     }
 
-    init(_ value: T) {
+    init(_ value: T, semaphore: Int? = nil) {
         self.value = value
+        if let semaphore {
+            self.semaphore = .init(value: semaphore)
+        }
     }
 
-    init<K>() where T == K? {
+    init<K>(semaphore: Int? = nil) where T == K? {
         value = nil
+        if let semaphore {
+            self.semaphore = .init(value: semaphore)
+        }
     }
 
     func bind(inQueue queue: DispatchQueue? = nil, listener: Listener?) {

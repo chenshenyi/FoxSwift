@@ -72,7 +72,7 @@ class FSMessageCell: UITableViewCell {
         }
 
         viewModel.isMyMessage.bind(inQueue: .main) { [weak self] isMyMessage in
-            self?.nameLabel.textColor = isMyMessage ? .accent : .fsSecondary
+            self?.nameLabel.textColor = isMyMessage ? .fsSecondary : .fsSecondary
         }
     }
 }

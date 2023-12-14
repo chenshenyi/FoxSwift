@@ -32,7 +32,7 @@ final class FSTextMessageCell: FSMessageCell {
         contentTextView.isScrollEnabled = false
 
         contentTextView.addTo(contentView) { make in
-            make.leading.equalTo(nameLabel)
+            make.leading.equalTo(nameLabel).offset(-6)
             make.trailing.equalToSuperview().inset(18)
             make.top.equalTo(nameLabel.snp.bottom)
             make.bottom.equalTo(contentView)

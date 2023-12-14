@@ -29,9 +29,10 @@ class MessageProvider {
     }
 
     func startListen(handler: @escaping MessageHandler) {
-        collectionManager.listenCollection(listenToAddedOnly: true) { [weak self] result in
-            self?.readResult(result: result, handler: handler)
-        }
+        collectionManager
+            .listenToCollectionSortByTime(listenToAddedOnly: true) { [weak self] result in
+                self?.readResult(result: result, handler: handler)
+            }
     }
 
     private func readResult(

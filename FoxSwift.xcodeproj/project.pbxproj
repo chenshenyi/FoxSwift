@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		053F6D87BE841895DB81E89A /* Pods_FoxSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61F643D2C7C19BA3EE11A86 /* Pods_FoxSwiftTests.framework */; };
 		2B00085A2B2ADC870023FFAF /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0008592B2ADC870023FFAF /* ResizeImage.swift */; };
+		2B0008632B2AF4A40023FFAF /* MeetingParticipantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0008622B2AF4A40023FFAF /* MeetingParticipantManager.swift */; };
 		2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */; };
 		2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */; };
 		2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */; };
@@ -130,6 +131,7 @@
 /* Begin PBXFileReference section */
 		282CC23D05414AE0E3EA633E /* Pods-FoxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-FoxSwiftTests/Pods-FoxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		2B0008592B2ADC870023FFAF /* ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
+		2B0008622B2AF4A40023FFAF /* MeetingParticipantManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingParticipantManager.swift; sourceTree = "<group>"; };
 		2B04E4462B1F036C0050D4D1 /* ScreenSharedMannager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSharedMannager.swift; sourceTree = "<group>"; };
 		2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 		2B24FFA12B03738E0000C5A3 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				2B0008622B2AF4A40023FFAF /* MeetingParticipantManager.swift */,
 				2BA4D16D2B077C0E00637596 /* Config */,
 				2B9C8B1E2B0C44ED00F57C90 /* WebRTC */,
 				2B9C8B212B0C454B00F57C90 /* FirebaseFirestore */,
@@ -971,6 +974,7 @@
 				2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */,
 				2BBF79D12B270F370003602E /* CornerStyle.swift in Sources */,
 				2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */,
+				2B0008632B2AF4A40023FFAF /* MeetingParticipantManager.swift in Sources */,
 				2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */,
 				2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */,
 				2BC45BFA2B2612780005EF7D /* LoginViewController.swift in Sources */,

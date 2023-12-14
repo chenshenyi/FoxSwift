@@ -22,6 +22,8 @@ class MessageInputView: UIView {
     // MARK: - Init
     init() {
         super.init(frame: .zero)
+        
+        backgroundColor = .fsPrimary
 
         setupAttachmentButton()
         setupDoneButton()
@@ -39,7 +41,7 @@ class MessageInputView: UIView {
         attachmentButton.tintColor = .fsSecondary
 
         attachmentButton.addTo(self) { make in
-            make.centerY.leading.equalToSuperview().inset(6)
+            make.top.leading.equalToSuperview().inset(8)
             make.size.equalTo(30)
         }
 
@@ -56,14 +58,15 @@ class MessageInputView: UIView {
         textView.textColor = .fsText
         textView.font = .systemFont(ofSize: 16)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        textView.layer.cornerRadius = 8
+        textView.layer.cornerRadius = 14
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.fsSecondary.cgColor
 
         textView.setToolBar()
 
         textView.addTo(self) { make in
-            make.verticalEdges.equalToSuperview().inset(6)
+            make.top.equalToSuperview().inset(8)
+            make.centerY.equalTo(doneButton)
             make.leading.equalTo(attachmentButton.snp.trailing).offset(6)
             make.trailing.equalTo(doneButton.snp.leading).offset(-6)
         }
@@ -71,10 +74,10 @@ class MessageInputView: UIView {
 
     func setupDoneButton() {
         doneButton.setImage(.init(systemName: "paperplane.fill"), for: .normal)
-        doneButton.tintColor = .fsSecondary
+        doneButton.tintColor = .fsText
 
         doneButton.addTo(self) { make in
-            make.centerY.trailing.equalToSuperview().inset(6)
+            make.trailing.top.equalToSuperview().inset(8)
             make.size.equalTo(30)
         }
 

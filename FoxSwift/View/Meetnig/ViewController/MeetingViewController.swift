@@ -98,7 +98,7 @@ final class MeetingViewController: FSViewController {
         let topInset = view.frame.width / 2 + 10
         messageView.addTo(view) { make in
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(topInset)
         }
         messageView.isHidden = true

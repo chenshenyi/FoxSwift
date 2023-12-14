@@ -41,14 +41,15 @@ class MessageHeaderView: UIView {
 
         closeButton.addTo(self) { make in
             make.size.equalTo(30)
-            make.centerY.trailing.equalToSuperview().inset(12)
+            make.centerY.trailing.equalToSuperview().inset(14)
         }
     }
 
     private func setupSelectionView() {
         selectionView.addTo(self) { make in
-            make.verticalEdges.equalToSuperview().inset(1)
-            make.leading.equalToSuperview()
+            make.top.equalToSuperview().inset(1)
+            make.bottom.equalToSuperview().inset(1)
+            make.centerX.equalToSuperview()
             make.width.equalTo(200)
         }
     }
