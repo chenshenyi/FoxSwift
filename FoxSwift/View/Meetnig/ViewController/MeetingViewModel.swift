@@ -55,7 +55,7 @@ class MeetingViewModel {
 
     // MARK: - Request speechRecognition
     func requestSpeechRecognition() {
-        speechRecognitionManager.startNewRecording()
+        speechRecognitionManager.enableRecording()
     }
 
     // MARK: - Fetch video
@@ -82,18 +82,17 @@ class MeetingViewModel {
         meetingProvider.disconnect()
     }
 
-
     // MARK: - Functional Buttons
     func turnOffMic() {
         isOnMic.value = false
         rtcProvider.speakerOff()
-        speechRecognitionManager.interruptRecognition()
+        speechRecognitionManager.disableRecording()
     }
 
     func turnOnMic() {
         isOnMic.value = true
         rtcProvider.speakerOn()
-        speechRecognitionManager.startNewRecording()
+        speechRecognitionManager.enableRecording()
     }
 
     func turnOnAudio() {
@@ -268,7 +267,7 @@ extension MeetingViewModel: ParticipantDetailProviderDelegate {
 // MARK: - Speech Provider Delegate
 extension MeetingViewModel: SpeechRecognitionManagerDelegate {
     func startSpeechRecognition(_ manager: SpeechRecognitionManager) {
-        print("Start Recognition")
+//        print("Start Recognition")
     }
 
     func speechTimeOutResult(_ manager: SpeechRecognitionManager, _ ret: String) {
@@ -279,6 +278,9 @@ extension MeetingViewModel: SpeechRecognitionManagerDelegate {
     }
 
     func speechFinalResult(_ manager: SpeechRecognitionManager, _ ret: String) {
-        print("speechFinalResult", ret)
+        guard !ret.isEmpty else { return }
+        guard let data = ret.data(using: .utf8) else { return }
+        let message: FSMessage = .init(data: data, author: .currentUser, type: .text)
+        messageProvider.send(message: message)
     }
 }

@@ -20,107 +20,113 @@ class SpeechRecognitionManager: NSObject {
         case none
         case ready
         case listening
-        case processing
+    }
+
+    var status: Status = .none
+
+    var localeIdentifier: String {
+//        Locale.current.identifier
+        Locale(languageCode: .chinese, script: .hanTraditional, languageRegion: .taiwan).identifier
     }
 
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
     var audioEngine = AVAudioEngine()
-
-    var recognizedText: String = ""
-
-    var recognitionTimer: Timer?
-    /** Speech recognition time limit (maximum time 60 seconds is Apple's limit time) */
-    var recognitionLimitSec: Int = 30
-
-    var noAudioDurationTimer: Timer?
-    /** Threshold for judging period of silence */
-    var noAudioDurationLimitSec: Double = 2
-
-    var status: Status = .none
-
-    var localeIdentifier = Locale(
-        languageCode: .chinese,
-        script: .hanTraditional,
-        languageRegion: .taiwan
-    ).identifier
-
-    weak var delegate: SpeechRecognitionManagerDelegate?
-
     var inputNode: AVAudioNode {
         audioEngine.inputNode
     }
 
-    func setRecognitionLimitSec(_ sec: Int) {
-        /** Speech recognition time limit (maximum time 60 seconds is Apple's limit time) */
-        recognitionLimitSec = sec > 60 ? 60 : sec
+    var recognizedText: String = ""
+
+    // MARK: - Timer
+    var recognitionTimer: Timer?
+    /** Speech recognition time limit (maximum time 60 seconds is Apple's limit time) */
+    var recognitionLimitSec: Int = 30
+
+    /** Threshold for judging period of silence */
+    var noAudioDurationTimer: Timer?
+    var noAudioDurationLimitSec: Double = 1
+
+    weak var delegate: SpeechRecognitionManagerDelegate?
+    
+    func enableRecording() {
+        status = .ready
+        startNewRecording()
+    }
+    
+    func disableRecording() {
+        stopRecording()
+        status = .none
     }
 
+    private func startNewRecording() {
+        if status == .ready {
+            status = .listening
 
-    @objc func interruptRecognition() {
-        var ret = ""
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            ret = recognizedText
-        }
-        inputNode.removeTap(onBus: 0)
-        recognitionRequest = nil
-        recognitionTask = nil
-        stopTimer()
-        stopNoAudioDurationTimer()
-        delegate?.speechTimeOutResult(self, ret)
-    }
-
-    func startNewRecording() {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            inputNode.removeTap(onBus: 0)
-            stopTimer()
-        } else {
-            delegate?.startSpeechRecognition(self)
             recognizedText = ""
-            try? startRecording()
+            delegate?.startSpeechRecognition(self)
+
+            try? startAudioEngine()
             startTimer()
         }
     }
 
-    private func startRecording() throws {
-        // Cancel the previous task if it's running.
-        if let recognitionTask {
-            recognitionTask.cancel()
-            self.recognitionTask = nil
-        }
+    private func stopRecording() {
+        if status == .listening {
+            status = .ready
 
+            stopAudioEngine()
+
+            stopTimer()
+            stopNoAudioDurationTimer()
+        }
+    }
+
+    private func startAudioEngine() throws {
+        // Cancel the previous task if it's running.
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
 
+        // Configure request if results are returned before audio recording is finished
         guard let recognitionRequest else {
             fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object")
         }
-
-        // Configure request so that results are returned before audio recording is finished
         recognitionRequest.shouldReportPartialResults = true
 
         let recognizer = SFSpeechRecognizer(locale: Locale(identifier: localeIdentifier))
-
-        recognizer?.recognitionTask(with: recognitionRequest, delegate: self)
+        recognitionTask = recognizer?.recognitionTask(with: recognitionRequest, delegate: self)
 
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.recognitionRequest?.append(buffer)
         }
+
         audioEngine.prepare()
         try audioEngine.start()
     }
 
+    private func stopAudioEngine() {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+        }
+
+        inputNode.removeTap(onBus: 0)
+        recognitionTask = nil
+        recognitionRequest = nil
+    }
+
+    func timeOut(_: Timer) {
+        stopRecording()
+        delegate?.speechTimeOutResult(self, recognizedText)
+        startNewRecording()
+    }
+
     private func startTimer() {
+        stopTimer()
         recognitionTimer = Timer.scheduledTimer(
-            timeInterval: TimeInterval(recognitionLimitSec),
-            target: self,
-            selector: #selector(interruptRecognition),
-            userInfo: nil,
-            repeats: false
+            withTimeInterval: TimeInterval(recognitionLimitSec),
+            repeats: false,
+            block: timeOut
         )
     }
 
@@ -132,13 +138,11 @@ class SpeechRecognitionManager: NSObject {
     }
 
     private func startNoAudioDurationTimer() {
-        stopTimer()
+        stopNoAudioDurationTimer()
         noAudioDurationTimer = Timer.scheduledTimer(
-            timeInterval: TimeInterval(noAudioDurationLimitSec),
-            target: self,
-            selector: #selector(interruptRecognition),
-            userInfo: nil,
-            repeats: false
+            withTimeInterval: TimeInterval(noAudioDurationLimitSec),
+            repeats: false,
+            block: timeOut
         )
     }
 
@@ -148,14 +152,6 @@ class SpeechRecognitionManager: NSObject {
             noAudioDurationTimer = nil
         }
     }
-
-    private func resetSRMethod() {
-        stopNoAudioDurationTimer()
-        stopTimer()
-        interruptRecognition()
-        status = .ready
-        startNewRecording()
-    }
 }
 
 extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
@@ -164,19 +160,17 @@ extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
         _ task: SFSpeechRecognitionTask,
         didHypothesizeTranscription transcription: SFTranscription
     ) {
-        recognizedText = transcription.formattedString
+        
+        let text = transcription.formattedString
+        
+        if !text.isEmpty {
+            recognizedText = text
 
-        if status == .ready {
-            // Stop voice recognition
-            // Create new voice recognition
+            // Start judgment of silent time
+            print("Sound".yellow)
             stopNoAudioDurationTimer()
-            stopTimer()
-            interruptRecognition()
-            return
+            startNoAudioDurationTimer()
         }
-        // Start judgment of silent time
-        stopNoAudioDurationTimer()
-        startNoAudioDurationTimer()
     }
 
     // Tells the delegate when the task is no longer accepting new audio input, even if final processing is in progress.
@@ -187,7 +181,10 @@ extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
         _ task: SFSpeechRecognitionTask,
         didFinishRecognition recognitionResult: SFSpeechRecognitionResult
     ) {
+        stopRecording()
         recognizedText = recognitionResult.bestTranscription.formattedString
+        delegate?.speechFinalResult(self, recognizedText)
+        startNewRecording()
     }
 
     // Tells the delegate when the recognition of all requested utterances is finished.
@@ -195,14 +192,6 @@ extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
         _ task: SFSpeechRecognitionTask,
         didFinishSuccessfully successfully: Bool
     ) {
-        if status == .ready {
-            status = .listening
-            startNewRecording()
-            return
-        }
-
-        stopNoAudioDurationTimer()
-        delegate?.speechFinalResult(self, recognizedText)
-        resetSRMethod()
+        
     }
 }

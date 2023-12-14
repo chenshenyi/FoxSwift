@@ -19,7 +19,8 @@ class MessageView: UIView {
 
     // MARK: - Subview
     var header = MessageHeaderView()
-    var tableView = UITableView()
+    var messageTableView = UITableView()
+    var speechTableView = UITableView()
     var messageInputView = MessageInputView()
 
     // MARK: - Init
@@ -27,7 +28,8 @@ class MessageView: UIView {
         super.init(frame: .zero)
         backgroundColor = .fsBg
 
-        setupTableView()
+        setupMessageTableView()
+        setupSpeechTableView()
         setupMessageInputView()
         setupHeader()
     }
@@ -38,22 +40,42 @@ class MessageView: UIView {
     }
 
     // MARK: - Setup Subview
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.backgroundColor = .fsBg
-        tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .fsText
+    private func setupMessageTableView() {
+        messageTableView.dataSource = self
+        messageTableView.backgroundColor = .fsBg
+        messageTableView.separatorStyle = .singleLine
+        messageTableView.separatorColor = .fsText
 
         // Regist cell
-        tableView.registReuseCell(for: FSTextMessageCell.self)
-        tableView.registReuseCell(for: FSImageMessageCell.self)
+        messageTableView.registReuseCell(for: FSTextMessageCell.self)
+        messageTableView.registReuseCell(for: FSImageMessageCell.self)
 
         // Make constraint
-        tableView.addTo(self) { make in
+        messageTableView.addTo(self) { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview().inset(40)
             make.bottom.equalToSuperview().inset(60)
         }
+    }
+    
+    private func setupSpeechTableView() {
+        speechTableView.dataSource = self
+        speechTableView.backgroundColor = .fsBg
+        speechTableView.separatorStyle = .singleLine
+        speechTableView.separatorColor = .fsText
+
+        // Regist cell
+        speechTableView.registReuseCell(for: FSTextMessageCell.self)
+        speechTableView.registReuseCell(for: FSImageMessageCell.self)
+
+        // Make constraint
+        speechTableView.addTo(self) { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalToSuperview().inset(40)
+            make.bottom.equalToSuperview().inset(60)
+        }
+
+        speechTableView.isHidden = true
     }
 
     private func setupMessageInputView() {
@@ -73,6 +95,8 @@ class MessageView: UIView {
             make.horizontalEdges.top.equalToSuperview()
             make.height.equalTo(40)
         }
+        
+        header.delegate = self
     }
 
     // MARK: - Setup ViewModel
@@ -80,19 +104,21 @@ class MessageView: UIView {
         self.viewModel = viewModel
 
         // data binding
-        viewModel.messages.bind { [weak self] messages in
-            guard let self else { return }
+        viewModel.messages.bind(inQueue: .main, listener: messageBinder(for: messageTableView))
+        
+        viewModel.speechMessages.bind(inQueue: .main, listener: messageBinder(for: speechTableView))
+    }
+
+    private func messageBinder(for tableView: UITableView) -> ([FSMessage]) -> Void {
+        return { [weak tableView] messages in
+            guard let tableView else { return }
 
             guard !messages.isEmpty else { return }
-
+            
             let indexPath = IndexPath(row: messages.count - 1, section: 0)
-            tableView.performBatchUpdates {[weak self] in
-                guard let self else { return }
-
+            tableView.performBatchUpdates {
                 tableView.insertRows(at: [indexPath], with: .automatic)
-            } completion: { [weak self] finished in
-                guard let self else { return }
-
+            } completion: { finished in
                 if finished {
                     tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 }
@@ -107,14 +133,20 @@ class MessageView: UIView {
 
 // MARK: - UITableViewDataSource
 extension MessageView: UITableViewDataSource {
+    func messages(for index: Int) -> [FSMessage] {
+        switch index {
+        case 0: return viewModel?.messages.value ?? []
+        case 1: return viewModel?.speechMessages.value ?? []
+        default: return []
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.messages.value.count ?? 0
+        messages(for: section).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let message = viewModel?.messages.value[indexPath.row] else {
-            fatalError("no such message")
-        }
+        var message = messages(for: indexPath.section)[indexPath.row]
 
         let cell = switch message.type {
         case .image, .imageUrl:
@@ -151,5 +183,48 @@ extension MessageView: MessageInputViewDelegate {
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
         guard !text.isEmpty else { return }
         viewModel?.sendMessage(text: text)
+    }
+}
+
+
+extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
+    func title(_ selectionView: SelectionView, forIndex index: Int) -> String {
+        switch index {
+            case 0:
+                return "Message"
+            case 1:
+                return "Speech"
+            default:
+                fatalError("Invalid Index")
+        }
+    }
+    
+    func numberOfSelections(_ selectionView: SelectionView) -> Int {
+        2
+    }
+    
+    func selectionDidSelect(_ selectionView: SelectionView, forIndex index: Int) {
+        switch index {
+        case 0:
+            messageTableView.isHidden = false
+            speechTableView.isHidden = true
+        case 1:
+            messageTableView.isHidden = true
+            speechTableView.isHidden = false
+        default:
+            fatalError("Invalid Index")
+        }
+    }
+    
+    func indicatorColor(_ selectionView: SelectionView, forIndex index: Int) -> UIColor {
+        .accent
+    }
+    
+    func textColor(_ selectionView: SelectionView, forIndex index: Int) -> UIColor {
+        if selectionView.selectedIndex == index {
+            return .accent
+        } else {
+            return .fsText
+        }
     }
 }

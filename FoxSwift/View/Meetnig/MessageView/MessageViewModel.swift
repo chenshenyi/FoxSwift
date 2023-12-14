@@ -17,6 +17,7 @@ class MessageViewModel {
     var meetingCode: MeetingRoom.MeetingCode
 
     var messages: Box<[FSMessage]> = .init([])
+    var speechMessages: Box<[FSMessage]> = .init([])
 
     // MARK: Init
     init(meetingCode: MeetingRoom.MeetingCode) {
@@ -28,7 +29,12 @@ class MessageViewModel {
     func setupMessageProvider() {
         messageProvider.startListen { [weak self] message in
             guard let self else { return }
-            messages.value.append(message)
+            switch message.type {
+            case .speechText: 
+                speechMessages.value.append(message)
+            default:
+                messages.value.append(message)
+            }
         }
     }
 

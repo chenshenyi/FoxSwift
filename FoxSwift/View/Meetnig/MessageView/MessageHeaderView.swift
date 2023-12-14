@@ -8,8 +8,15 @@
 import UIKit
 
 class MessageHeaderView: UIView {
-    let titleLabel = UILabel()
     let closeButton = UIButton()
+    let selectionView = SelectionView()
+    
+    weak var delegate: (SelectionViewDelegate&SelectionViewDataSource)? {
+        didSet {
+            selectionView.dataSource = delegate
+            selectionView.delegate = delegate
+        }
+    }
 
     // MARK: Init
     init() {
@@ -19,7 +26,7 @@ class MessageHeaderView: UIView {
         layer.borderWidth = 1
         layer.borderColor = UIColor.fsBg.cgColor
         setupCloseButton()
-        setupTitleLabel()
+        setupSelectionView()
     }
 
     @available(*, unavailable)
@@ -28,15 +35,6 @@ class MessageHeaderView: UIView {
     }
 
     // MARK: Setup Subview
-    private func setupTitleLabel() {
-        titleLabel.textColor = .accent
-        titleLabel.text = "Messages"
-
-        titleLabel.addTo(self) { make in
-            make.centerY.leading.equalToSuperview().inset(12)
-        }
-    }
-
     private func setupCloseButton() {
         closeButton.setImage(.init(systemName: "xmark"), for: .normal)
         closeButton.tintColor = .accent
@@ -44,6 +42,14 @@ class MessageHeaderView: UIView {
         closeButton.addTo(self) { make in
             make.size.equalTo(30)
             make.centerY.trailing.equalToSuperview().inset(12)
+        }
+    }
+
+    private func setupSelectionView() {
+        selectionView.addTo(self) { make in
+            make.verticalEdges.equalToSuperview().inset(1)
+            make.leading.equalToSuperview()
+            make.width.equalTo(200)
         }
     }
 
