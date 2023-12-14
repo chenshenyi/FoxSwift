@@ -30,7 +30,7 @@ class MessageViewModel {
         messageProvider.startListen { [weak self] message in
             guard let self else { return }
             switch message.type {
-            case .speechText: 
+            case .speechText:
                 speechMessages.value.append(message)
             default:
                 messages.value.append(message)

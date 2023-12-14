@@ -43,8 +43,7 @@ class MessageView: UIView {
     private func setupMessageTableView() {
         messageTableView.dataSource = self
         messageTableView.backgroundColor = .fsBg
-        messageTableView.separatorStyle = .singleLine
-        messageTableView.separatorColor = .fsText
+        messageTableView.separatorStyle = .none
 
         // Regist cell
         messageTableView.registReuseCell(for: FSTextMessageCell.self)
@@ -57,12 +56,11 @@ class MessageView: UIView {
             make.bottom.equalToSuperview().inset(60)
         }
     }
-    
+
     private func setupSpeechTableView() {
         speechTableView.dataSource = self
         speechTableView.backgroundColor = .fsBg
-        speechTableView.separatorStyle = .singleLine
-        speechTableView.separatorColor = .fsText
+        speechTableView.separatorStyle = .none
 
         // Regist cell
         speechTableView.registReuseCell(for: FSTextMessageCell.self)
@@ -95,7 +93,7 @@ class MessageView: UIView {
             make.horizontalEdges.top.equalToSuperview()
             make.height.equalTo(40)
         }
-        
+
         header.delegate = self
     }
 
@@ -104,9 +102,9 @@ class MessageView: UIView {
         self.viewModel = viewModel
 
         // data binding
-        viewModel.messages.bind(inQueue: .main, listener: messageBinder(for: messageTableView))
-        
-        viewModel.speechMessages.bind(inQueue: .main, listener: messageBinder(for: speechTableView))
+        viewModel.messages.bind(listener: messageBinder(for: messageTableView))
+
+        viewModel.speechMessages.bind(listener: messageBinder(for: speechTableView))
     }
 
     private func messageBinder(for tableView: UITableView) -> ([FSMessage]) -> Void {
@@ -114,7 +112,7 @@ class MessageView: UIView {
             guard let tableView else { return }
 
             guard !messages.isEmpty else { return }
-            
+
             let indexPath = IndexPath(row: messages.count - 1, section: 0)
             tableView.performBatchUpdates {
                 tableView.insertRows(at: [indexPath], with: .automatic)
@@ -133,20 +131,23 @@ class MessageView: UIView {
 
 // MARK: - UITableViewDataSource
 extension MessageView: UITableViewDataSource {
-    func messages(for index: Int) -> [FSMessage] {
-        switch index {
-        case 0: return viewModel?.messages.value ?? []
-        case 1: return viewModel?.speechMessages.value ?? []
+    func messages(for tableView: UITableView) -> [FSMessage] {
+        guard let viewModel else { return [] }
+
+        switch tableView {
+        case messageTableView: return viewModel.messages.value
+        case speechTableView: return viewModel.speechMessages.value
         default: return []
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        messages(for: section).count
+        messages(for: tableView).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var message = messages(for: indexPath.section)[indexPath.row]
+        let messages = messages(for: tableView)
+        let message = messages[indexPath.row]
 
         let cell = switch message.type {
         case .image, .imageUrl:
@@ -186,23 +187,22 @@ extension MessageView: MessageInputViewDelegate {
     }
 }
 
-
 extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
     func title(_ selectionView: SelectionView, forIndex index: Int) -> String {
         switch index {
-            case 0:
-                return "Message"
-            case 1:
-                return "Speech"
-            default:
-                fatalError("Invalid Index")
+        case 0:
+            return "Message"
+        case 1:
+            return "Speech"
+        default:
+            fatalError("Invalid Index")
         }
     }
-    
+
     func numberOfSelections(_ selectionView: SelectionView) -> Int {
         2
     }
-    
+
     func selectionDidSelect(_ selectionView: SelectionView, forIndex index: Int) {
         switch index {
         case 0:
@@ -215,11 +215,11 @@ extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
             fatalError("Invalid Index")
         }
     }
-    
+
     func indicatorColor(_ selectionView: SelectionView, forIndex index: Int) -> UIColor {
         .accent
     }
-    
+
     func textColor(_ selectionView: SelectionView, forIndex index: Int) -> UIColor {
         if selectionView.selectedIndex == index {
             return .accent

@@ -273,14 +273,14 @@ extension MeetingViewModel: SpeechRecognitionManagerDelegate {
     func speechTimeOutResult(_ manager: SpeechRecognitionManager, _ ret: String) {
         guard !ret.isEmpty else { return }
         guard let data = ret.data(using: .utf8) else { return }
-        let message: FSMessage = .init(data: data, author: .currentUser, type: .text)
+        let message: FSMessage = .init(data: data, author: .currentUser, type: .speechText)
         messageProvider.send(message: message)
     }
 
     func speechFinalResult(_ manager: SpeechRecognitionManager, _ ret: String) {
         guard !ret.isEmpty else { return }
         guard let data = ret.data(using: .utf8) else { return }
-        let message: FSMessage = .init(data: data, author: .currentUser, type: .text)
+        let message: FSMessage = .init(data: data, author: .currentUser, type: .speechText)
         messageProvider.send(message: message)
     }
 }
