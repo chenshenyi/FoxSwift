@@ -116,18 +116,13 @@ class MessageView: UIView {
 
             let messagesCount = messages.count
 
-            tableView.performBatchUpdates {
-                let indexPath = IndexPath(row: messagesCount - 1, section: 0)
-                tableView.insertRows(at: [indexPath], with: .automatic)
-            } completion: { success in
-                if success {
-                    tableView.scrollToRow(
-                        at: IndexPath(row: messagesCount - 1, section: 0),
-                        at: .top,
-                        animated: true
-                    )
-                }
-            }
+            let indexPath = IndexPath(row: messagesCount - 1, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+            tableView.scrollToRow(
+                at: IndexPath(row: messagesCount - 1, section: 0),
+                at: .top,
+                animated: true
+            )
         }
     }
 

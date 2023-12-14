@@ -11,7 +11,6 @@ import UIKit
 class MeetingViewModel {
     // MARK: - Network Provider
     private let rtcMannager: MeetingParticipantManager
-    private let screenSharingMannager: MeetingParticipantManager
     private let messageProvider: MessageProvider
     private let speechRecognitionManager = SpeechRecognitionManager()
 
@@ -36,17 +35,7 @@ class MeetingViewModel {
     init(meetingCode: String) {
         self.meetingCode = .init(meetingCode)
 
-        let participant = Participant.currentUser
         rtcMannager = .init(meetingCode: meetingCode)
-
-        let screenShare = Participant(
-            id: participant.id + "Screen",
-            name: participant.name + "(Screen)",
-            smallPicture: participant.smallPicture
-        )
-        screenSharingMannager = .init(
-            meetingCode: meetingCode
-        )
 
         messageProvider = .init(meetingCode: meetingCode)
 
@@ -70,23 +59,25 @@ class MeetingViewModel {
         rtcMannager.fetchVideo(into: view, for: participant)
         view.layoutIfNeeded()
     }
+    
+    func fetchScreenSharing(into view: UIView, for participant: Participant) {
+        rtcMannager.fetchScreenSharing(into: view, for: participant)
+        view.layoutIfNeeded()
+    }
 
     func startScreenSharing() {
         isSharingScreen.value = true
-        screenSharingMannager.connect()
-        screenSharingMannager.startScreenSharing()
+        rtcMannager.startScreenSharing()
     }
 
     func stopScreenSharing() {
         isSharingScreen.value = false
-        screenSharingMannager.leave()
-        screenSharingMannager.stopScreenSharing()
+        rtcMannager.stopScreenSharing()
     }
 
     // MARK: - Leave Meet
     func leaveMeet() {
         rtcMannager.leave()
-        screenSharingMannager.leave()
     }
 
     // MARK: - Functional Buttons

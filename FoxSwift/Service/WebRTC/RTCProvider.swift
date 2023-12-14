@@ -37,6 +37,16 @@ class RTCProvider: NSObject, FSWebRTCObject {
             peerConnectionProviders[participantId]?.renderRemoteVideo(to: renderer)
         }
     }
+    
+    func renderScreenSharing(to view: UIView, for participantId: String) {
+        let renderer = RTCMTLVideoView(frame: .zero)
+        renderer.pinTo(view)
+        if participantId == Participant.currentUser.id {
+            renderScreenSharing(to: renderer)
+        } else {
+//            peerConnectionProviders[participantId]?.renderRemoteScreenSharing(to: renderer)
+        }
+    }
 
     func setRemoteAudio(isEnable: Bool, for participantId: String) {
         peerConnectionProviders[participantId]?.remoteAudioTrack?.isEnabled = isEnable
@@ -136,20 +146,24 @@ extension RTCProvider {
     }
 
     func startSharingScreen() {
-        stopCaptureVideo()
         screenSharedManager.startSharing { [weak self] frame in
             guard let self else { return }
-            videoSource.capturer(videoCapturer, didCapture: frame)
+            screenSharingSource.capturer(videoCapturer, didCapture: frame)
         }
-        localVideoTrack.isEnabled = true
+        screenSharingTrack.isEnabled = true
     }
 
     func stopSharingScreen() {
         screenSharedManager.stopSharing()
+        screenSharingTrack.isEnabled = false
     }
 
     private func renderLocalVideo(to renderer: RTCVideoRenderer) {
         localVideoTrack.add(renderer)
+    }
+    
+    private func renderScreenSharing(to renderer: RTCVideoRenderer) {
+        screenSharingTrack.add(renderer)
     }
 }
 

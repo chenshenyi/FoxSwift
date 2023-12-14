@@ -40,6 +40,8 @@ class MeetingParticipantManager {
 
         meetingProvider = .init(meetingCode: meetingCode)
         participantDetailProvider = .init(meetingCode: meetingCode)
+        
+        setupProvider()
     }
 
     func setupProvider() {
@@ -62,6 +64,14 @@ class MeetingParticipantManager {
             rtcProvider.startCaptureVideo()
         }
         rtcProvider.renderVideo(to: view, for: participant.id, mode: .scaleAspectFill)
+        view.layoutIfNeeded()
+    }
+    
+    func fetchScreenSharing(into view: UIView, for participant: Participant) {
+        if participant.id == Participant.currentUser.id {
+            rtcProvider.startSharingScreen()
+        }
+        rtcProvider.renderScreenSharing(to: view, for: participant.id)
         view.layoutIfNeeded()
     }
 
