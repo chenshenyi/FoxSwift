@@ -19,7 +19,8 @@ final class FSImageMessageCell: FSMessageCell {
     private func setupImage() {
         pictureView.contentMode = .scaleAspectFit
         pictureView.addTo(contentView) { make in
-            make.horizontalEdges.equalTo(nameLabel)
+            make.leading.equalTo(nameLabel)
+            make.trailing.equalToSuperview().inset(12)
             make.top.equalTo(nameLabel.snp.bottom).offset(12)
             make.height.equalTo(120)
             make.bottom.equalTo(contentView).inset(12)

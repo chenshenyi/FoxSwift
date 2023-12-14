@@ -207,9 +207,11 @@ extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
         switch index {
         case 0:
             messageTableView.isHidden = false
+            messageInputView.isHidden = false
             speechTableView.isHidden = true
         case 1:
             messageTableView.isHidden = true
+            messageInputView.isHidden = true
             speechTableView.isHidden = false
         default:
             fatalError("Invalid Index")

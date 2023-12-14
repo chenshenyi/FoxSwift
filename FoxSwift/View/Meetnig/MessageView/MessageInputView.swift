@@ -35,7 +35,7 @@ class MessageInputView: UIView {
 
     // MARK: - setupSubview
     func setupAttachmentButton() {
-        attachmentButton.setImage(.init(systemName: "paperclip.circle"), for: .normal)
+        attachmentButton.setImage(.init(systemName: "paperclip"), for: .normal)
         attachmentButton.tintColor = .fsSecondary
 
         attachmentButton.addTo(self) { make in
