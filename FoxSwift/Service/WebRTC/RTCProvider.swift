@@ -9,11 +9,11 @@
 import UIKit
 import WebRTC
 
-
 // MARK: - WebRTCProvider
 class RTCProvider: NSObject, FSWebRTCObject {
     // Device media manager
-    lazy var videoCapturer = RTCCameraVideoCapturer(delegate: self)
+    lazy var cameraCapturer = RTCCameraVideoCapturer(delegate: self)
+    lazy var screenCapturer = RTCCameraVideoCapturer(delegate: self)
     let rtcAudioSession = RTCAudioSession.sharedInstance()
 
     weak var delegate: RTCProviderDelegate?
@@ -44,7 +44,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
         if participantId == Participant.currentUser.id {
             renderScreenSharing(to: renderer)
         } else {
-//            peerConnectionProviders[participantId]?.renderRemoteScreenSharing(to: renderer)
+            peerConnectionProviders[participantId]?.renderRemoteScreenSharing(to: renderer)
         }
     }
 
@@ -115,7 +115,6 @@ class RTCProvider: NSObject, FSWebRTCObject {
 // MARK: - Camera
 extension RTCProvider {
     func startCaptureVideo() {
-        stopSharingScreen()
         // Get frontCamera from all captureDevice
         guard let frontCamera = RTCCameraVideoCapturer.captureDevices()
             .first(where: { $0.position == .front }) else { return }
@@ -132,7 +131,7 @@ extension RTCProvider {
         guard let fps = format.videoSupportedFrameRateRanges
             .max(by: { return $0.maxFrameRate < $1.maxFrameRate }) else { return }
 
-        videoCapturer.startCapture(
+        cameraCapturer.startCapture(
             with: frontCamera,
             format: format,
             fps: Int(fps.maxFrameRate)
@@ -141,14 +140,21 @@ extension RTCProvider {
     }
 
     func stopCaptureVideo() {
-        videoCapturer.stopCapture()
+        cameraCapturer.stopCapture()
         localVideoTrack.isEnabled = false
     }
 
+    private func renderLocalVideo(to renderer: RTCVideoRenderer) {
+        localVideoTrack.add(renderer)
+    }
+}
+
+//MARK: - ScreenSharing
+extension RTCProvider {
     func startSharingScreen() {
         screenSharedManager.startSharing { [weak self] frame in
             guard let self else { return }
-            screenSharingSource.capturer(videoCapturer, didCapture: frame)
+            screenSharingSource.capturer(screenCapturer, didCapture: frame)
         }
         screenSharingTrack.isEnabled = true
     }
@@ -158,10 +164,6 @@ extension RTCProvider {
         screenSharingTrack.isEnabled = false
     }
 
-    private func renderLocalVideo(to renderer: RTCVideoRenderer) {
-        localVideoTrack.add(renderer)
-    }
-    
     private func renderScreenSharing(to renderer: RTCVideoRenderer) {
         screenSharingTrack.add(renderer)
     }
@@ -209,6 +211,11 @@ extension RTCProvider {
 // MARK: - RTCVideoCapturerDelegate
 extension RTCProvider: RTCVideoCapturerDelegate {
     func capturer(_ capturer: RTCVideoCapturer, didCapture frame: RTCVideoFrame) {
-        videoSource.capturer(capturer, didCapture: frame)
+        if capturer == cameraCapturer {
+            videoSource.capturer(capturer, didCapture: frame)
+        }
+        if capturer == screenCapturer {
+            screenSharingSource.capturer(capturer, didCapture: frame)
+        }
     }
 }

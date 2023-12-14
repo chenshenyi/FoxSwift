@@ -25,6 +25,7 @@ class PeerConnectionProvider: NSObject, FSWebRTCObject {
     }()
 
     // MARK: Remote Tracks
+    var remoteSharingTrack: RTCVideoTrack?
     var remoteVideoTrack: RTCVideoTrack?
     var remoteAudioTrack: RTCAudioTrack?
 
@@ -39,6 +40,7 @@ class PeerConnectionProvider: NSObject, FSWebRTCObject {
 
         addLocalTracks()
         addRemoteTracks()
+//        addSharingTrack()
         createDataChannel()
     }
 }
@@ -50,6 +52,10 @@ extension PeerConnectionProvider {
 
         peerConnection.add(localAudioTrack, streamIds: [streamId])
         peerConnection.add(localVideoTrack, streamIds: [streamId])
+
+        let screenStream = "ScreenSharing"
+
+//        peerConnection.add(screenSharingTrack, streamIds: [screenStream])
     }
 
     private func addRemoteTracks() {
@@ -57,7 +63,13 @@ extension PeerConnectionProvider {
             .receiver
             .track as? RTCAudioTrack
 
-        remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?
+        let streamId = "Stream"
+
+        remoteVideoTrack = peerConnection.transceivers.filter { transceiver in
+            transceiver.sender.streamIds == [streamId]
+        }.first { transceiver in
+            transceiver.mediaType == .video
+        }?
             .receiver
             .track as? RTCVideoTrack
     }
@@ -83,6 +95,25 @@ extension PeerConnectionProvider {
 
     func renderRemoteVideo(to renderer: RTCVideoRenderer) {
         remoteVideoTrack?.add(renderer)
+    }
+}
+
+// MARK: - Screen Sharing
+extension PeerConnectionProvider {
+    func addSharingTrack() {
+        let screenStream = "ScreenSharing"
+
+        remoteSharingTrack = peerConnection.transceivers.filter { transceiver in
+            transceiver.mediaType == .video
+        }.first { transceiver in
+            transceiver.sender.streamIds == [screenStream]
+        }?
+            .receiver
+            .track as? RTCVideoTrack
+    }
+
+    func renderRemoteScreenSharing(to renderer: RTCVideoRenderer) {
+        remoteSharingTrack?.add(renderer)
     }
 }
 

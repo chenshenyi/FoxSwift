@@ -13,10 +13,12 @@ struct MeetingRoom: Codable {
 
     let createdTime: Int
     var participants: [Participant] = []
+    var screenSharer: Participant?
 
     enum CodingKeys: CodingKey {
         case createdTime
         case participants
+        case screenSharer
     }
 
     init() {

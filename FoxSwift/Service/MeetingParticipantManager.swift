@@ -23,6 +23,16 @@ protocol MeetingParticipantManagerDelegate: AnyObject {
         _ manager: MeetingParticipantManager,
         didRecieveLeft participants: [Participant]
     )
+
+    func meetingRoom(
+        _ manager: MeetingParticipantManager,
+        startSharingScreen participant: Participant
+    )
+
+    func meetingRoom(
+        _ manager: MeetingParticipantManager,
+        stopSharingScreen participant: Participant
+    )
 }
 
 class MeetingParticipantManager {
@@ -40,7 +50,7 @@ class MeetingParticipantManager {
 
         meetingProvider = .init(meetingCode: meetingCode)
         participantDetailProvider = .init(meetingCode: meetingCode)
-        
+
         setupProvider()
     }
 
@@ -66,7 +76,7 @@ class MeetingParticipantManager {
         rtcProvider.renderVideo(to: view, for: participant.id, mode: .scaleAspectFill)
         view.layoutIfNeeded()
     }
-    
+
     func fetchScreenSharing(into view: UIView, for participant: Participant) {
         if participant.id == Participant.currentUser.id {
             rtcProvider.startSharingScreen()
@@ -76,12 +86,19 @@ class MeetingParticipantManager {
     }
 
     // FIXME: incorrect open
-    func startScreenSharing() {
-        rtcProvider.startSharingScreen()
+    func startScreenSharing() -> Bool {
+        do {
+            try meetingProvider.sharingScreen()
+            rtcProvider.startSharingScreen()
+        } catch {
+            return false
+        }
+        return true
     }
 
     func stopScreenSharing() {
-        rtcProvider.startCaptureVideo()
+        meetingProvider.stopSharingScreen()
+        rtcProvider.stopSharingScreen()
     }
 
     // MARK: - Functional Buttons
@@ -154,7 +171,7 @@ extension MeetingParticipantManager: MeetingRoomProviderDelegate {
         }
 
         self.participants += participants
-        
+
         delegate?.meetingRoom(self, didRecieveInitial: participants)
     }
 
@@ -180,7 +197,7 @@ extension MeetingParticipantManager: MeetingRoomProviderDelegate {
         }
 
         self.participants += participants
-        
+
         delegate?.meetingRoom(self, didRecieveNew: participants)
     }
 
@@ -189,12 +206,21 @@ extension MeetingParticipantManager: MeetingRoomProviderDelegate {
             participantDetailProvider.stoplisten(participantId: participant.id)
             self.participants.removeAll { participant == $0 }
         }
-        
+
         delegate?.meetingRoom(self, didRecieveLeft: participants)
     }
 
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveError error: Error) {
         print(error.localizedDescription.red)
+    }
+
+    // MARK: Screen Sharing
+    func meetingRoom(_ provider: MeetingRoomProvider, startSharingScreen participant: Participant) {
+        delegate?.meetingRoom(self, startSharingScreen: participant)
+    }
+
+    func meetingRoom(_ provider: MeetingRoomProvider, stopSharingScreen participant: Participant) {
+        delegate?.meetingRoom(self, stopSharingScreen: participant)
     }
 }
 

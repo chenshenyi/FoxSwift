@@ -12,12 +12,24 @@ protocol MeetingRoomProviderDelegate: AnyObject {
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveNew: [Participant])
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveLeft: [Participant])
     func meetingRoom(_ provider: MeetingRoomProvider, didRecieveError: Error)
+    func meetingRoom(
+        _ provider: MeetingRoomProvider,
+        startSharingScreen participant: Participant
+    )
+    func meetingRoom(
+        _ provider: MeetingRoomProvider,
+        stopSharingScreen participant: Participant
+    )
 }
 
 /// Warning: This content is to substitute webSocket with Firestore
 class MeetingRoomProvider {
     typealias CollectionManager = FSCollectionManager<MeetingRoom, MeetingRoom.CodingKeys>
-    
+
+    enum MeetingRoomError: Error {
+        case cantSharingScreen
+    }
+
     weak var delegate: MeetingRoomProviderDelegate?
     var meetingCode: String
     var meetingRoom: MeetingRoom?
@@ -77,6 +89,26 @@ class MeetingRoomProvider {
         collectionManager.stopListenDocument(documentID: meetingCode)
     }
 
+    func sharingScreen() throws {
+        guard var meetingRoom,
+              meetingRoom.screenSharer == nil
+        else { throw MeetingRoomError.cantSharingScreen }
+
+        self.meetingRoom?.screenSharer = currentUser
+        meetingRoom.screenSharer = currentUser
+
+        collectionManager.updateDocument(data: meetingRoom, documentID: meetingCode)
+    }
+
+    func stopSharingScreen() {
+        guard meetingRoom?.screenSharer?.id == currentUser.id else { return }
+
+        meetingRoom?.screenSharer = nil
+        guard let meetingRoom else { return }
+
+        collectionManager.updateDocument(data: meetingRoom, documentID: meetingCode)
+    }
+
     private func recieveRead(result: Result<MeetingRoom, Error>) {
         switch result {
         case let .success(newMeetingRoom):
@@ -105,6 +137,19 @@ class MeetingRoomProvider {
 
             delegate?.meetingRoom(self, didRecieveNew: Array(newParticipants))
             delegate?.meetingRoom(self, didRecieveLeft: Array(leftParticipants))
+            
+            let oldSharer = meetingRoom.screenSharer
+            let newSharer = newMeetingRoom.screenSharer
+            
+            if oldSharer != newSharer {
+                if let oldSharer {
+                    delegate?.meetingRoom(self, stopSharingScreen: oldSharer)
+                }
+
+                if let newSharer {
+                    delegate?.meetingRoom(self, startSharingScreen: newSharer)
+                }
+            }
 
             self.meetingRoom = newMeetingRoom
         case let .failure(error):

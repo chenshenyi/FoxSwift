@@ -77,6 +77,11 @@ final class MeetingViewController: FSViewController {
                 topRowLayout(count)
             }
         }
+        
+        viewModel.sharer.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+            videoCollectionView.reloadData()
+        }
     }
 
     private func setupVideoControlBar() {

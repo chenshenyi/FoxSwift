@@ -17,6 +17,7 @@ class MeetingViewModel {
     // MARK: - Binded Properties
     var meetingCode: Box<String> = .init("")
     var participants: DiffBox<Participant> = .init([.currentUser])
+    var sharer: Box<Participant?> = .init(semaphore: 1)
 
     var isOnMic = Box(true)
     var isOnCamera = Box(true)
@@ -59,20 +60,25 @@ class MeetingViewModel {
         rtcMannager.fetchVideo(into: view, for: participant)
         view.layoutIfNeeded()
     }
-    
+
     func fetchScreenSharing(into view: UIView, for participant: Participant) {
         rtcMannager.fetchScreenSharing(into: view, for: participant)
         view.layoutIfNeeded()
     }
 
     func startScreenSharing() {
-        isSharingScreen.value = true
-        rtcMannager.startScreenSharing()
+        isSharingScreen.value = rtcMannager.startScreenSharing()
+        sharer.value = Participant.currentUser
+        updateLayout()
     }
 
     func stopScreenSharing() {
         isSharingScreen.value = false
         rtcMannager.stopScreenSharing()
+        if sharer.value?.id == Participant.currentUser.id {
+            sharer.value = nil
+        }
+        updateLayout()
     }
 
     // MARK: - Leave Meet
@@ -122,7 +128,7 @@ class MeetingViewModel {
     }
 
     func updateLayout() {
-        let participantsAmount = participants.value.count
+        let participantsAmount = participants.value.count + (sharer.value == nil ? 0 : 1)
         if isMessage.value {
             layoutMode.value = .topRow(participantsAmount)
         } else if participantsAmount > 2 {
@@ -137,9 +143,28 @@ class MeetingViewModel {
 extension MeetingViewModel: MeetingParticipantManagerDelegate {
     func meetingRoom(
         _ manager: MeetingParticipantManager,
+        startSharingScreen participant: Participant
+    ) {
+        sharer.value = participant
+        updateLayout()
+    }
+
+    func meetingRoom(
+        _ manager: MeetingParticipantManager,
+        stopSharingScreen participant: Participant
+    ) {
+        if sharer.value?.id == participant.id {
+            sharer.value = nil
+        }
+        updateLayout()
+    }
+
+    func meetingRoom(
+        _ manager: MeetingParticipantManager,
         didRecieveInitial participants: [Participant]
     ) {
         self.participants.value += participants
+        updateLayout()
     }
 
     func meetingRoom(
@@ -157,9 +182,9 @@ extension MeetingViewModel: MeetingParticipantManagerDelegate {
         participants.forEach { participant in
             self.participants.value.removeAll { participant == $0 }
         }
+        updateLayout()
     }
 }
-
 
 // MARK: - Speech Provider Delegate
 extension MeetingViewModel: SpeechRecognitionManagerDelegate {

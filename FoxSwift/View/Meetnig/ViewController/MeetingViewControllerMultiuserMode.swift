@@ -78,7 +78,7 @@ extension MeetingViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        viewModel?.participants.value.count ?? 0
+        (viewModel?.participants.value.count ?? 0) + (viewModel?.sharer.value == nil ? 0 : 1)
     }
 
     func collectionView(
@@ -90,19 +90,40 @@ extension MeetingViewController: UICollectionViewDataSource {
             indexPath: indexPath
         ) else { fatalError("No such cell") }
 
-        guard let participant = viewModel?.participants.value[indexPath.row] else {
-            fatalError("no participant")
+        let index = indexPath.row - (viewModel?.sharer.value == nil ? 0 : 1)
+
+        if index >= 0 {
+            guard let participant = viewModel?.participants.value[index] else {
+                fatalError("no participant")
+            }
+
+            let videoView = VideoView(participant: participant)
+            videoView.addTo(cell.contentView) { make in
+                make.center.size.equalTo(cell.contentView).inset(8)
+            }
+
+            if participant.id != Participant.currentUser.id ||
+                viewModel?.isOnCamera.value == true {
+            
+                viewModel?.fetchVideo(into: videoView, for: participant)
+            }
+
+            videoView.showNameLabel()
+        } else {
+            guard let participant = viewModel?.sharer.value else {
+                fatalError("no participant")
+            }
+
+            let videoView = VideoView(participant: participant)
+            videoView.addTo(cell.contentView) { make in
+                make.center.size.equalTo(cell.contentView).inset(8)
+            }
+
+            viewModel?.fetchScreenSharing(into: videoView, for: participant)
+
+            videoView.showNameLabel()
         }
 
-        let videoView = VideoView(participant: participant)
-        videoView.addTo(cell.contentView) { make in
-            make.center.size.equalTo(cell.contentView).inset(8)
-        }
-
-        viewModel?.fetchVideo(into: videoView, for: participant)
-
-        videoView.showNameLabel()
-        
         return cell
     }
 }

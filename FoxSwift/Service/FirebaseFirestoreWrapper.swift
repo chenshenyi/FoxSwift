@@ -173,7 +173,6 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             let documetFailures = documentDecodeResult.failedResults()
             let documentData = documentDecodeResult.successfulResults()
 
-
             if documetFailures.isEmpty {
                 completion(.success(documentData))
             } else {
@@ -307,7 +306,7 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
         completion: CompletionHandler<DataType>? = nil
     ) {
         do {
-            try reference.document(documentID).setData(from: data, merge: true)
+            try reference.document(documentID).setData(from: data, merge: false)
             completion?(.success(data))
         } catch {
             completion?(.failure(error))

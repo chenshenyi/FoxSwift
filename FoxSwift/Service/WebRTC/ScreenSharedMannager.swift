@@ -8,7 +8,7 @@
 import ReplayKit
 import WebRTC
 
-class ScreenSharedMannager {
+class ScreenSharedMannager: NSObject {
     typealias BufferHandler = (RTCVideoFrame) -> Void
 
     let screenRecorder = RPScreenRecorder.shared()
