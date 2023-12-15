@@ -37,7 +37,7 @@ class RTCProvider: NSObject, FSWebRTCObject {
             peerConnectionProviders[participantId]?.renderRemoteVideo(to: renderer)
         }
     }
-    
+
     func renderScreenSharing(to view: UIView, for participantId: String) {
         let renderer = RTCMTLVideoView(frame: .zero)
         renderer.pinTo(view)
@@ -149,7 +149,7 @@ extension RTCProvider {
     }
 }
 
-//MARK: - ScreenSharing
+// MARK: - ScreenSharing
 extension RTCProvider {
     func startSharingScreen() {
         screenSharedManager.startSharing { [weak self] frame in

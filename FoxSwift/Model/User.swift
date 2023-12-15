@@ -64,12 +64,12 @@ struct FSUser: Codable {
             storedMeetingCode == meetingCode
         }
     }
-    
+
     mutating func addRecord(meetingCode: MeetingRoom.MeetingCode) {
         deleteRecord(meetingCode: meetingCode)
         records.insert(meetingCode, at: 0)
     }
-    
+
     mutating func deleteRecord(meetingCode: MeetingRoom.MeetingCode) {
         records.removeAll { storedMeetingCode in
             storedMeetingCode == meetingCode

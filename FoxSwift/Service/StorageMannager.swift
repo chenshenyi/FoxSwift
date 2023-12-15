@@ -18,11 +18,13 @@ enum DefaultImage: String {
     case smallProfileImage = "Default/Small-Profile-Image"
 
     var imageData: Data? {
-        let image: UIImage = switch self {
+        let image = switch self {
         case .profileImage:
             UIImage.defaultProfilePicture
+
         case .smallProfileImage:
             UIImage.defaultSmallProfilePicture
+
         case .banner:
             UIImage.defaultBanner
         }

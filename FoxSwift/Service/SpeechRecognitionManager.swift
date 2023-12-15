@@ -48,12 +48,12 @@ class SpeechRecognitionManager: NSObject {
     var noAudioDurationLimitSec: Double = 1
 
     weak var delegate: SpeechRecognitionManagerDelegate?
-    
+
     func enableRecording() {
         status = .ready
         startNewRecording()
     }
-    
+
     func disableRecording() {
         stopRecording()
         status = .none
@@ -156,15 +156,14 @@ class SpeechRecognitionManager: NSObject {
     }
 }
 
+// Tells the delegate that a hypothesized transcription is available.
 extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
-    // Tells the delegate that a hypothesized transcription is available.
     func speechRecognitionTask(
         _ task: SFSpeechRecognitionTask,
         didHypothesizeTranscription transcription: SFTranscription
     ) {
-        
         let text = transcription.formattedString
-        
+
         if !text.isEmpty {
             recognizedText = text
 
@@ -193,7 +192,5 @@ extension SpeechRecognitionManager: SFSpeechRecognitionTaskDelegate {
     func speechRecognitionTask(
         _ task: SFSpeechRecognitionTask,
         didFinishSuccessfully successfully: Bool
-    ) {
-        
-    }
+    ) {}
 }

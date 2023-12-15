@@ -61,7 +61,7 @@ final class MeetingViewController: FSViewController {
 
             videoControlBar.reloadButton(for: .shareScreen)
         }
-        
+
         viewModel.isMessage.bind(inQueue: .main) { [weak messageView] isMessage in
             messageView?.isHidden = !isMessage
         }
@@ -71,13 +71,15 @@ final class MeetingViewController: FSViewController {
             switch mode {
             case .oneColumn:
                 defaultLayout(1)
+
             case .twoColumn:
                 defaultLayout(2)
+
             case let .topRow(count):
                 topRowLayout(count)
             }
         }
-        
+
         viewModel.sharer.bind(inQueue: .main) { [weak self] _ in
             guard let self else { return }
             videoCollectionView.reloadData()

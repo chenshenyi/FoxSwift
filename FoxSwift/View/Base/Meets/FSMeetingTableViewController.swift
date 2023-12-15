@@ -78,10 +78,10 @@ extension FSMeetingTableViewController: UITableViewDelegate {
 
 extension FSMeetingTableViewController: MeetingCellDelegate {
     func didSave(_ cell: MeetingCell) {
-        popup(text: "Saved", style: .checkmark, completion: {})
+        popup(text: "Saved", style: .checkmark) {}
     }
-    
+
     func didUnsave(_ cell: MeetingCell) {
-        popup(text: "Unsaved", style: .checkmark, completion: {})
+        popup(text: "Unsaved", style: .checkmark) {}
     }
 }

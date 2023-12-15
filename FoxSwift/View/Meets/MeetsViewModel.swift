@@ -30,6 +30,7 @@ class MeetsViewModel {
             case let .success(meetingCode):
                 self.meetingCode.value = meetingCode
                 handler(.init(meetingCode: meetingCode))
+
             case let .failure(error):
                 print(error)
             }

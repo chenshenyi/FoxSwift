@@ -33,12 +33,15 @@ class FSMessageCellViewModel {
         switch message.type {
         case .text, .speechText:
             content.value = String(data: data, encoding: .utf8) ?? "???"
+
         case .image:
             image.value = UIImage(data: data)
+
         case .imageUrl:
             guard let urlString = String(data: data, encoding: .utf8),
                   let url = URL(string: urlString) else { return }
             fetchImage(url: url)
+
         default:
             fatalError("Such type message not available.")
         }
@@ -52,6 +55,7 @@ class FSMessageCellViewModel {
             switch result {
             case let .success(data):
                 image.value = UIImage(data: data)
+
             case let .failure(error):
                 print(error.localizedDescription.red)
             }

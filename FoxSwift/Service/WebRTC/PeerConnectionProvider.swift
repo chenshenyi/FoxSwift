@@ -53,7 +53,7 @@ extension PeerConnectionProvider {
         peerConnection.add(localAudioTrack, streamIds: [streamId])
         peerConnection.add(localVideoTrack, streamIds: [streamId])
 
-        let screenStream = "ScreenSharing"
+//        let screenStream = "ScreenSharing"
 
 //        peerConnection.add(screenSharingTrack, streamIds: [screenStream])
     }
@@ -65,10 +65,8 @@ extension PeerConnectionProvider {
 
         let streamId = "Stream"
 
-        remoteVideoTrack = peerConnection.transceivers.filter { transceiver in
-            transceiver.sender.streamIds == [streamId]
-        }.first { transceiver in
-            transceiver.mediaType == .video
+        remoteVideoTrack = peerConnection.transceivers.first { transceiver in
+            transceiver.sender.streamIds == [streamId] && transceiver.mediaType == .video
         }?
             .receiver
             .track as? RTCVideoTrack
@@ -103,13 +101,11 @@ extension PeerConnectionProvider {
     func addSharingTrack() {
         let screenStream = "ScreenSharing"
 
-        remoteSharingTrack = peerConnection.transceivers.filter { transceiver in
-            transceiver.mediaType == .video
-        }.first { transceiver in
-            transceiver.sender.streamIds == [screenStream]
+        remoteSharingTrack = peerConnection.transceivers.first { transceiver in
+            transceiver.mediaType == .video && transceiver.sender.streamIds == [screenStream]
         }?
-            .receiver
-            .track as? RTCVideoTrack
+        .receiver
+        .track as? RTCVideoTrack
     }
 
     func renderRemoteScreenSharing(to renderer: RTCVideoRenderer) {

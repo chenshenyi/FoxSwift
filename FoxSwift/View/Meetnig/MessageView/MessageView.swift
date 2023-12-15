@@ -154,8 +154,10 @@ extension MessageView: UITableViewDataSource {
         let cell = switch message.type {
         case .image, .imageUrl:
             tableView.getReuseCell(for: FSImageMessageCell.self, indexPath: indexPath)
+
         case .text, .speechText:
             tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath)
+
         default:
             fatalError("\(message.type) message haven't implemented")
         }
@@ -211,10 +213,12 @@ extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
             messageTableView.isHidden = false
             messageInputView.isHidden = false
             speechTableView.isHidden = true
+
         case 1:
             messageTableView.isHidden = true
             messageInputView.isHidden = true
             speechTableView.isHidden = false
+
         default:
             fatalError("Invalid Index")
         }
@@ -231,7 +235,7 @@ extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
             return .fsText
         }
     }
-    
+
     func font(_ selectionView: SelectionView, forIndex index: Int) -> UIFont {
         .config(weight: .regular, size: 12)
     }

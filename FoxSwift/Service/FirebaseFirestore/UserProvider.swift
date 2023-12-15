@@ -76,6 +76,7 @@ class FSUserProvider {
                     handler(.success(user))
                     listenerBroadCast(user: user)
                 }
+
             case .failure:
                 handler(.failure(.emailNotFound))
             }
@@ -91,6 +92,7 @@ class FSUserProvider {
             switch result {
             case .success:
                 handler(.failure(.emailAlreadyExist))
+
             case .failure:
                 collectionManager.createDocument(data: user, documentID: user.email)
                 handler(.success(user))

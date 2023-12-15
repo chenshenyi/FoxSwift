@@ -54,12 +54,14 @@ class FSLoadingView: UIView {
         imageView.layer.add(rotation, forKey: "rotationAnimation")
 
         let changeColor = CAKeyframeAnimation(keyPath: "backgroundColor")
-        changeColor.values = [UIColor.fsBg.cgColor,
-                              UIColor.fsPrimary.cgColor,
-                              UIColor.fsBg.cgColor]
+        changeColor.values = [
+            UIColor.fsBg.cgColor,
+            UIColor.fsPrimary.cgColor,
+            UIColor.fsBg.cgColor
+        ]
         changeColor.duration = 1
         changeColor.keyTimes = [0, 0.5, 1]
         changeColor.repeatCount = .greatestFiniteMagnitude
-        self.layer.add(changeColor, forKey: "backgroundColor")
+        layer.add(changeColor, forKey: "backgroundColor")
     }
 }

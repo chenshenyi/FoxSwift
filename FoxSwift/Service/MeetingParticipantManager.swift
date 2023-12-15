@@ -43,7 +43,7 @@ class MeetingParticipantManager {
 
     var meetingCode: MeetingRoom.MeetingCode
     var participants: [Participant] = []
-    var delegate: MeetingParticipantManagerDelegate?
+    weak var delegate: MeetingParticipantManagerDelegate?
 
     init(meetingCode: String) {
         self.meetingCode = meetingCode
@@ -188,6 +188,7 @@ extension MeetingParticipantManager: MeetingRoomProviderDelegate {
                 case let .success(sdp):
                     rtcProvider.set(localSdp: sdp, for: id)
                     participantDetailProvider.send(sdp, to: id)
+
                 case let .failure(error):
                     print(error.localizedDescription.red)
                 }
@@ -240,6 +241,7 @@ extension MeetingParticipantManager: ParticipantDetailProviderDelegate {
             case let .success(sdp):
                 rtcProvider.set(localSdp: sdp, for: id)
                 participantDetailProvider.send(sdp, to: id)
+
             case let .failure(error):
                 print(error.localizedDescription.red)
             }

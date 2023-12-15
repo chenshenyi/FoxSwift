@@ -10,13 +10,13 @@ import UIKit
 
 protocol MeetingCellDelegate: AnyObject {
     func didSave(_ cell: MeetingCell)
-    
+
     func didUnsave(_ cell: MeetingCell)
 }
 
 class MeetingCell: UITableViewCell {
     weak var delegate: MeetingCellDelegate?
-    
+
     // MARK: - viewModel
     var viewModel: MeetingCellViewModel = .init()
 
@@ -53,7 +53,7 @@ class MeetingCell: UITableViewCell {
             return Date(timeIntervalSinceReferenceDate: TimeInterval(value))
                 .formatted(.relative(presentation: .named))
         }
-        
+
         viewModel.isSaved.bind(inQueue: .main) { [weak self] value in
             let image = value ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
             self?.saveButton.setImage(image, for: .normal)
@@ -99,15 +99,15 @@ class MeetingCell: UITableViewCell {
     func setupSaveButton() {
         saveButton.setImage(UIImage(systemName: "star"), for: .normal)
         saveButton.tintColor = .accent
-        
+
         saveButton.addTo(contentView) { make in
             make.size.equalTo(50)
             make.centerY.trailing.equalToSuperview().inset(12)
         }
-        
+
         saveButton.addAction(handler: saveButtonTapped)
     }
-    
+
     func saveButtonTapped() {
         if viewModel.isSaved.value {
             viewModel.unsave()

@@ -21,7 +21,7 @@ class MeetingPrepareViewModel {
         -- FoxSwift Meeting --
         Use following url to attend the meeting:
         \(url.value)
-        
+
         Or directly paste the following meeting code in app:
         \(meetingName.value)
         """
@@ -30,7 +30,7 @@ class MeetingPrepareViewModel {
     // MARK: - Provider
     var meetingRoomProvider: MeetingRoomProvider
     var rtcProvider = RTCProvider()
-    
+
     var userProvider: FSUserProvider {
         .shared
     }

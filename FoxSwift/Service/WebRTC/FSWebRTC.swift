@@ -56,11 +56,11 @@ enum FSWebRTC {
     }()
 
     static let videoSource = factory.videoSource()
-    
+
     static let localAudioTrack = factory.audioTrack(with: audioSource, trackId: "audio0")
 
     static let localVideoTrack = factory.videoTrack(with: videoSource, trackId: "video0")
-    
+
     static let screenSharingSource = factory.videoSource(forScreenCast: true)
 
     static let screenSharingTrack = factory.videoTrack(with: screenSharingSource, trackId: "video0")

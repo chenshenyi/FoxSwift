@@ -102,9 +102,7 @@ extension MeetingViewController: UICollectionViewDataSource {
                 make.center.size.equalTo(cell.contentView).inset(8)
             }
 
-            if participant.id != Participant.currentUser.id ||
-                viewModel?.isOnCamera.value == true {
-            
+            if participant.id != Participant.currentUser.id || viewModel?.isOnCamera.value == true {
                 viewModel?.fetchVideo(into: videoView, for: participant)
             }
 

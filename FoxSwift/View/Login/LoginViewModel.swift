@@ -33,6 +33,7 @@ final class LoginViewModel {
     var userProvider: FSUserProvider {
         .shared
     }
+
     var keyChainManager = KeyChainManager()
 
     func signUp(
@@ -70,6 +71,7 @@ final class LoginViewModel {
             case let .success(user):
                 saveUser(user: user)
                 handler(.success(user))
+
             case .failure(.emailAlreadyExist):
                 handler(.failure(.emailExist))
             }
@@ -102,8 +104,10 @@ final class LoginViewModel {
             case let .success(user):
                 saveUser(user: user)
                 handler(.success(user))
+
             case .failure(.emailNotFound):
                 handler(.failure(.emailNotFound))
+
             case .failure(.passwordIncorrect):
                 handler(.failure(.passwordIncorrect))
             }

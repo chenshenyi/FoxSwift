@@ -35,18 +35,19 @@ extension MeetingViewController: FSButtonStackDelegate {
         case .hangUp:
             viewModel.leaveMeet()
             dismiss(animated: true)
-            
+
         case .mic:
-            isOnMic ? viewModel.turnOffMic() : viewModel.turnOnMic()
+            if isOnMic { viewModel.turnOffMic() } else { viewModel.turnOnMic() }
 
         case .camera:
-            isOnCamera ? viewModel.turnOffCamera() : viewModel.turnOnCamera()
+            if isOnCamera { viewModel.turnOffCamera() } else { viewModel.turnOnCamera() }
 
         case .message:
             viewModel.showMessage()
-            
+
         case .shareScreen:
-            isSharingScreen ? viewModel.stopScreenSharing() : viewModel.startScreenSharing()
+            if isSharingScreen { viewModel.stopScreenSharing()
+            } else { viewModel.startScreenSharing() }
         }
     }
 

@@ -19,8 +19,10 @@ extension RTCMessage: Codable {
         switch type {
         case String(describing: SessionDescription.self):
             self = try .sdp(container.decode(SessionDescription.self, forKey: .payload))
+
         case String(describing: IceCandidate.self):
             self = try .candidate(container.decode(IceCandidate.self, forKey: .payload))
+
         default:
             throw DecodeError.unknownType
         }
@@ -32,6 +34,7 @@ extension RTCMessage: Codable {
         case let .sdp(sessionDescription):
             try container.encode(sessionDescription, forKey: .payload)
             try container.encode(String(describing: SessionDescription.self), forKey: .type)
+
         case let .candidate(iceCandidate):
             try container.encode(iceCandidate, forKey: .payload)
             try container.encode(String(describing: IceCandidate.self), forKey: .type)

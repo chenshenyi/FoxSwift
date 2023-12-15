@@ -14,8 +14,7 @@ class LoginFlowManager {
     let userProvider = FSUserProvider.shared
     var rootViewController: UIViewController?
 
-    func startLoginFlow(didCheckLogin: @escaping (_ isSuccess: Bool)->Void) {
-
+    func startLoginFlow(didCheckLogin: @escaping (_ isSuccess: Bool) -> Void) {
         if let user = keyChainManager.loadUser() {
             userProvider.login(email: user.email, password: user.password) { [weak self] result in
                 guard let self else { return }
@@ -25,6 +24,7 @@ class LoginFlowManager {
                     FSUser.currentUser = user
                     userProvider.activeListener(currentUser: user)
                     didCheckLogin(true)
+
                 case .failure:
                     didCheckLogin(false)
                     showLoginPage()

@@ -44,6 +44,7 @@ class MessageProvider {
             messages.forEach { message in
                 handler(message)
             }
+
         case let .failure(error):
             debugPrint(error.localizedDescription.red)
         }

@@ -77,6 +77,7 @@ class ProfileViewController: FSViewController {
             case .invalidDescription:
                 descriptionTextView.layer.borderWidth = 1
                 descriptionTextView.layer.borderColor = UIColor.error.cgColor
+
             case .invalidName:
                 nameTextField.layer.borderWidth = 1
                 nameTextField.layer.borderColor = UIColor.error.cgColor
@@ -119,6 +120,7 @@ class ProfileViewController: FSViewController {
                 descriptionTextView.backgroundColor = .clear
                 nameTextField.layer.borderWidth = 0
                 descriptionTextView.layer.borderWidth = 0
+
             case .editing:
                 setupDoneButton()
                 editBannerButton.isHidden = false
@@ -261,19 +263,18 @@ extension ProfileViewController: PHPickerViewControllerDelegate {
         guard let first = results.first else { return }
 
         first.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-
             DispatchQueue.main.async {
                 if error != nil {
-                    self?.popup(text: "Invalid Format", style: .error, completion: {})
+                    self?.popup(text: "Invalid Format", style: .error) {}
                     return
                 }
-                
+
                 guard let image = image as? UIImage else {
-                    self?.popup(text: "Invalid Format", style: .error, completion: {})
+                    self?.popup(text: "Invalid Format", style: .error) {}
                     return
                 }
-                
-                self?.popup(text: "Success", style: .checkmark, completion: {})
+
+                self?.popup(text: "Success", style: .checkmark) {}
                 self?.didGetImage?(image)
             }
         }

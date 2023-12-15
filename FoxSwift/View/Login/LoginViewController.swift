@@ -68,11 +68,11 @@ final class LoginViewController: FSViewController {
         emailTextField.onError = false
         passwordTextField.onError = false
     }
-    
+
     private func enableInteraction() {
         confirmButton.isUserInteractionEnabled = true
     }
-    
+
     private func dismiss() {
         dismiss(animated: true)
     }
@@ -100,7 +100,7 @@ final class LoginViewController: FSViewController {
             case .failure(.passwordIncorrect):
                 passwordTextField.onError = true
                 popup(text: "Password incorrect", style: .error, completion: enableInteraction)
-                
+
 
             case .failure(.emailNotFound):
                 emailTextField.onError = true
@@ -115,7 +115,7 @@ final class LoginViewController: FSViewController {
     func signUpResultHandler(result: LoginViewModel.SignUpResult) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            
+
             resetTextFieldOnError()
             stopLoadingView(id: LoginMode.signUp.localizedDescription)
 

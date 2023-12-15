@@ -38,8 +38,10 @@ extension FSMessageViewController: UITableViewDataSource {
         let cell = switch message.type {
         case .image, .imageUrl:
             tableView.getReuseCell(for: FSImageMessageCell.self, indexPath: indexPath)
+
         case .text, .speechText:
             tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath)
+
         default:
             fatalError("\(message.type) message haven't implemented")
         }

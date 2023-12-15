@@ -37,6 +37,14 @@
 		2B6E2FA82B22F873009C08D1 /* FSMeetingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */; };
 		2B6E2FAC2B23F45A009C08D1 /* RecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */; };
 		2B6FF8B92B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */; };
+		2B737F012B2CF82A0017462C /* MVVM_TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737EFE2B2CF82A0017462C /* MVVM_TableView.swift */; };
+		2B737F022B2CF82A0017462C /* MVVM_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737EFF2B2CF82A0017462C /* MVVM_ViewModel.swift */; };
+		2B737F032B2CF82A0017462C /* MVVM_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F002B2CF82A0017462C /* MVVM_View.swift */; };
+		2B737F0B2B2CF8450017462C /* ParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F062B2CF8450017462C /* ParticipantCell.swift */; };
+		2B737F0C2B2CF8450017462C /* ParticipantCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F072B2CF8450017462C /* ParticipantCellVM.swift */; };
+		2B737F0D2B2CF8450017462C /* ParticipantsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F082B2CF8450017462C /* ParticipantsVM.swift */; };
+		2B737F0E2B2CF8450017462C /* MeetingInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F092B2CF8450017462C /* MeetingInformationViewController.swift */; };
+		2B737F0F2B2CF8450017462C /* ParticipantsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B737F0A2B2CF8450017462C /* ParticipantsVC.swift */; };
 		2B7F8E062B26326C005C3085 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F8E052B26326C005C3085 /* Rule.swift */; };
 		2B7F8E082B268FE8005C3085 /* FSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7F8E072B268FE8005C3085 /* FSButton.swift */; };
 		2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */; };
@@ -175,6 +183,14 @@
 		2B6E2FA72B22F873009C08D1 /* FSMeetingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMeetingTableViewController.swift; sourceTree = "<group>"; };
 		2B6E2FAB2B23F45A009C08D1 /* RecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewModel.swift; sourceTree = "<group>"; };
 		2B6FF8B82B05ADB800E9C933 /* FirebaseFirestoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreWrapper.swift; sourceTree = "<group>"; };
+		2B737EFE2B2CF82A0017462C /* MVVM_TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVVM_TableView.swift; sourceTree = "<group>"; };
+		2B737EFF2B2CF82A0017462C /* MVVM_ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVVM_ViewModel.swift; sourceTree = "<group>"; };
+		2B737F002B2CF82A0017462C /* MVVM_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVVM_View.swift; sourceTree = "<group>"; };
+		2B737F062B2CF8450017462C /* ParticipantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantCell.swift; sourceTree = "<group>"; };
+		2B737F072B2CF8450017462C /* ParticipantCellVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantCellVM.swift; sourceTree = "<group>"; };
+		2B737F082B2CF8450017462C /* ParticipantsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsVM.swift; sourceTree = "<group>"; };
+		2B737F092B2CF8450017462C /* MeetingInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingInformationViewController.swift; sourceTree = "<group>"; };
+		2B737F0A2B2CF8450017462C /* ParticipantsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsVC.swift; sourceTree = "<group>"; };
 		2B7F8E052B26326C005C3085 /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		2B7F8E072B268FE8005C3085 /* FSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSButton.swift; sourceTree = "<group>"; };
 		2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSImageMessageCell.swift; sourceTree = "<group>"; };
@@ -352,6 +368,7 @@
 				2BBF79CB2B270D3F0003602E /* MeetingPrepare */,
 				2BBF79D22B276C320003602E /* JoinMeet */,
 				2B66F5F12B0F53C900C5C06A /* Meetnig */,
+				2B737F042B2CF8450017462C /* MeetingInformation */,
 				2B6E2F9E2B22E0DA009C08D1 /* Records */,
 				2B0A27CC2B204302009F4E78 /* Profile */,
 			);
@@ -370,6 +387,7 @@
 		2B24FFA62B0374140000C5A3 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				2B737EFD2B2CF82A0017462C /* MVVM */,
 				2BA0EB752B08AEF7003B8EFE /* Component */,
 				2B24FFA82B0374A30000C5A3 /* FSTabBarController.swift */,
 				2B8F9D1E2B0486B4002D9076 /* FSNavigationController.swift */,
@@ -417,6 +435,36 @@
 				2BEAE6B42B142C7F0007180B /* MeetingCell */,
 			);
 			path = Meets;
+			sourceTree = "<group>";
+		};
+		2B737EFD2B2CF82A0017462C /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				2B737EFE2B2CF82A0017462C /* MVVM_TableView.swift */,
+				2B737EFF2B2CF82A0017462C /* MVVM_ViewModel.swift */,
+				2B737F002B2CF82A0017462C /* MVVM_View.swift */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		2B737F042B2CF8450017462C /* MeetingInformation */ = {
+			isa = PBXGroup;
+			children = (
+				2B737F052B2CF8450017462C /* ParticipantCell */,
+				2B737F082B2CF8450017462C /* ParticipantsVM.swift */,
+				2B737F092B2CF8450017462C /* MeetingInformationViewController.swift */,
+				2B737F0A2B2CF8450017462C /* ParticipantsVC.swift */,
+			);
+			path = MeetingInformation;
+			sourceTree = "<group>";
+		};
+		2B737F052B2CF8450017462C /* ParticipantCell */ = {
+			isa = PBXGroup;
+			children = (
+				2B737F062B2CF8450017462C /* ParticipantCell.swift */,
+				2B737F072B2CF8450017462C /* ParticipantCellVM.swift */,
+			);
+			path = ParticipantCell;
 			sourceTree = "<group>";
 		};
 		2B9C8B1E2B0C44ED00F57C90 /* WebRTC */ = {
@@ -833,7 +881,7 @@
 		2B8F9D222B04AB11002D9076 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -845,7 +893,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
@@ -972,6 +1020,7 @@
 				2B9C8B232B0C45CC00F57C90 /* FSWebRTC.swift in Sources */,
 				2B8F9D212B048C10002D9076 /* FSViewController.swift in Sources */,
 				2BEAE6B12B1335DD0007180B /* StorageMannager.swift in Sources */,
+				2B737F0B2B2CF8450017462C /* ParticipantCell.swift in Sources */,
 				2BBF79C32B26C21C0003602E /* SelectionView.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
@@ -989,6 +1038,7 @@
 				2BA0EB5B2B079ADB003B8EFE /* UITextField+Extension.swift in Sources */,
 				2BEAE6BA2B142E010007180B /* User.swift in Sources */,
 				2BBF79C72B26EEAA0003602E /* KeyChainWrapper.swift in Sources */,
+				2B737F0F2B2CF8450017462C /* ParticipantsVC.swift in Sources */,
 				2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */,
 				2BCB8DEE2B012A0900DD4C2F /* UIScreen+Extension.swift in Sources */,
 				2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */,
@@ -1002,6 +1052,7 @@
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BEAE6BC2B143B830007180B /* Error+Extenision.swift in Sources */,
 				2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */,
+				2B737F0C2B2CF8450017462C /* ParticipantCellVM.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */,
 				2B61FC942B299C2900AABFB3 /* LoginFlowManager.swift in Sources */,
@@ -1028,12 +1079,14 @@
 				2BCB8DE82B012A0900DD4C2F /* UIFont+Extension.swift in Sources */,
 				2BCB8DAE2B011F1400DD4C2F /* SceneDelegate.swift in Sources */,
 				2BA4D16A2B074EF300637596 /* FSWebRTCConfig.swift in Sources */,
+				2B737F032B2CF82A0017462C /* MVVM_View.swift in Sources */,
 				2BBF79CF2B270D720003602E /* MeetingPrepareViewModel.swift in Sources */,
 				2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,
 				2B86D4312B1D683F00FCBA97 /* FSImageMessageCell.swift in Sources */,
 				2BCB8DF22B012A0900DD4C2F /* Array+Extension.swift in Sources */,
+				2B737F022B2CF82A0017462C /* MVVM_ViewModel.swift in Sources */,
 				2BBF79C42B26C21C0003602E /* SelectionVIewDelegate.swift in Sources */,
 				2BCB8DEB2B012A0900DD4C2F /* UIButton+Extension.swift in Sources */,
 				2BC45BF72B25B74D0005EF7D /* RecordDetailViewModel.swift in Sources */,
@@ -1045,10 +1098,13 @@
 				2BEAE6AF2B1324440007180B /* UITextView+Extension.swift in Sources */,
 				2B1F84812B11C66700136190 /* Message.swift in Sources */,
 				2BEAE6C12B1490330007180B /* MessageViewModel.swift in Sources */,
+				2B737F0E2B2CF8450017462C /* MeetingInformationViewController.swift in Sources */,
+				2B737F0D2B2CF8450017462C /* ParticipantsVM.swift in Sources */,
 				2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */,
 				2B9C8B1D2B0C439400F57C90 /* PeerConnectionProvider.swift in Sources */,
 				2BA0DFAD2B285F2500C82249 /* FSButtonStack.swift in Sources */,
 				2BCB8DF12B012A0900DD4C2F /* UITableView+Extension.swift in Sources */,
+				2B737F012B2CF82A0017462C /* MVVM_TableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

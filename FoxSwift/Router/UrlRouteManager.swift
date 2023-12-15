@@ -55,7 +55,7 @@ class UrlRouteManager {
 
         viewController.bindViewModel(viewModel: viewModel)
         viewController.setupPresentStyle()
-        
+
         tabBarController.present(viewController, animated: true)
     }
 }

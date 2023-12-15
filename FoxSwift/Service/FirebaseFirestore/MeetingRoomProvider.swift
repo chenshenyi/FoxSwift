@@ -118,6 +118,7 @@ class MeetingRoomProvider {
                 .subtracting([currentUser])
 
             delegate?.meetingRoom(self, didRecieveInitial: Array(participants))
+
         case let .failure(error):
             delegate?.meetingRoom(self, didRecieveError: error)
         }
@@ -137,10 +138,10 @@ class MeetingRoomProvider {
 
             delegate?.meetingRoom(self, didRecieveNew: Array(newParticipants))
             delegate?.meetingRoom(self, didRecieveLeft: Array(leftParticipants))
-            
+
             let oldSharer = meetingRoom.screenSharer
             let newSharer = newMeetingRoom.screenSharer
-            
+
             if oldSharer != newSharer {
                 if let oldSharer {
                     delegate?.meetingRoom(self, stopSharingScreen: oldSharer)
@@ -152,6 +153,7 @@ class MeetingRoomProvider {
             }
 
             self.meetingRoom = newMeetingRoom
+
         case let .failure(error):
             delegate?.meetingRoom(self, didRecieveError: error)
         }

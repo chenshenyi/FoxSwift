@@ -10,12 +10,10 @@ import UIKit
 extension UIImage {
     func resizeWithLimit(limit: CGFloat) -> Data? {
         let ratio = size.width / size.height
-        let newSize: CGSize
-        
-        if size.width > size.height {
-            newSize = .init(width: limit, height: limit / ratio)
+        let newSize: CGSize = if size.width > size.height {
+            .init(width: limit, height: limit / ratio)
         } else {
-            newSize = .init(width: limit * ratio, height: limit)
+            .init(width: limit * ratio, height: limit)
         }
 
         let newFrame = CGRect(origin: .zero, size: newSize)

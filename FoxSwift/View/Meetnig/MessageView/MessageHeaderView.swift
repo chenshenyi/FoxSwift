@@ -10,8 +10,8 @@ import UIKit
 class MessageHeaderView: UIView {
     let closeButton = UIButton()
     let selectionView = SelectionView()
-    
-    weak var delegate: (SelectionViewDelegate&SelectionViewDataSource)? {
+
+    weak var delegate: (SelectionViewDelegate & SelectionViewDataSource)? {
         didSet {
             selectionView.dataSource = delegate
             selectionView.delegate = delegate

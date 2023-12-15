@@ -52,7 +52,7 @@ class FSMessageCell: UITableViewCell {
             make.top.equalTo(contentView).inset(12)
         }
     }
-    
+
     private func setupTimeLabel() {
         timeLabel.textColor = .G_3
         timeLabel.font = .config(weight: .regular, size: 10)
@@ -64,9 +64,9 @@ class FSMessageCell: UITableViewCell {
 
     private func bindViewModel() {
         nameLabel.bind(viewModel.authorName)
-        
+
         timeLabel.bind(viewModel.createdTime)
-        
+
         viewModel.authorImage.bind(inQueue: .main) { [weak self] image in
             self?.userImageView.image = image
         }

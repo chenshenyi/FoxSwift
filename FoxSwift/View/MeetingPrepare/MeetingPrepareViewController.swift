@@ -64,7 +64,6 @@ final class MeetingPrepareViewController: FSViewController {
             if isCameraOn {
                 cameraButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
                 cameraButton.tintColor = .accent
-
             } else {
                 cameraButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
                 cameraButton.tintColor = .accent
@@ -77,7 +76,6 @@ final class MeetingPrepareViewController: FSViewController {
             if isMicOn {
                 voiceButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
                 voiceButton.tintColor = .accent
-
             } else {
                 voiceButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
                 voiceButton.tintColor = .accent
@@ -188,7 +186,7 @@ final class MeetingPrepareViewController: FSViewController {
             make.height.equalTo(30)
         }
     }
-    
+
     // MARK: Function
     func shareMeeting() {
         guard let sharedString = viewModel?.sharedString else { return }
@@ -200,7 +198,7 @@ final class MeetingPrepareViewController: FSViewController {
     }
 
     func joinMeeting() {
-        guard let presentingViewController = presentingViewController else { return }
+        guard let presentingViewController else { return }
 
         viewModel?.joinMeet { [weak self] viewModel in
             guard let self else { return }

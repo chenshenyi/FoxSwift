@@ -29,6 +29,7 @@ class FSButton: UIButton, CornerStyled {
             backgroundColor = color
             layer.borderWidth = 0
             setTitleColor(textColor, for: .normal)
+
         case let .outline(color):
             backgroundColor = .clear
             layer.borderColor = color.cgColor

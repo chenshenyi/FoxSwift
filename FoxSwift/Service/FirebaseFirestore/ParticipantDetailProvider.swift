@@ -89,8 +89,10 @@ class ParticipantDetailProvider {
         switch sdp.type {
         case .offer:
             manager = localOfferManager
+
         case .answer, .prAnswer:
             manager = localAnswerManager
+
         case .rollback:
             fatalError("Can't send such sdp")
         }
@@ -189,11 +191,14 @@ class ParticipantDetailProvider {
                 switch sdp.type {
                 case .answer, .prAnswer:
                     delegate?.didGetAnswer(self, sdp: sdp, for: participantId)
+
                 case .offer:
                     delegate?.didGetOffer(self, sdp: sdp, for: participantId)
+
                 case .rollback:
                     return
                 }
+
             case let .failure(error):
                 delegate?.didGetError(self, error: error)
             }
@@ -215,6 +220,7 @@ class ParticipantDetailProvider {
                     self.delegate?.didGetCandidate(self, iceCandidate: $0, for: participantId)
                 }
                 oldCandidates[participantId] = newCandidates
+
             case let .failure(error):
                 delegate?.didGetError(self, error: error)
             }
@@ -226,7 +232,7 @@ class ParticipantDetailProvider {
         remoteAnswerManagers[participantId]?.stopListenDocument(documentID: participantId)
         remoteCandidatesManagers[participantId]?.stopListenDocument(documentID: participantId)
     }
-    
+
     func clearUserData() {
         localOfferManager.clearDocument()
         localAnswerManager.clearDocument()

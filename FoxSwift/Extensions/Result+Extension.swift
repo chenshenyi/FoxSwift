@@ -36,6 +36,7 @@ func successHandler<T>(
         switch result {
         case let .success(successResult):
             handler(successResult)
+
         case let .failure(error):
             print(error.localizedDescription.red)
         }

@@ -12,7 +12,7 @@ import UIKit
 class SelectionView: UIStackView {
     // MARK: - Delegate and DataSource
 
-    var delegate: SelectionViewDelegate?
+    weak var delegate: SelectionViewDelegate?
 
     var dataSource: SelectionViewDataSource? {
         didSet {

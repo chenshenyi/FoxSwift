@@ -10,12 +10,12 @@ import UIKit
 class FSNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .fsPrimary
         appearance.titleTextAttributes = [.foregroundColor: UIColor.fsText]
-        
+
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
     }

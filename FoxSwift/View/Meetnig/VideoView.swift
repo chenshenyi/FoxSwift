@@ -33,7 +33,7 @@ class VideoView: UIView {
     private func setupNameLabel() {
         nameLabel.text = participant?.name
         nameLabel.textColor = .fsText
-        
+
         nameLabel.addTo(self) { make in
             make.bottom.leading.equalToSuperview().inset(6)
         }

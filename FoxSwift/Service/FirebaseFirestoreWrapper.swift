@@ -143,11 +143,8 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
                 let documentData = documentDecodeResult.successfulResults()
 
 
-                if documetFailures.isEmpty {
-                    completion(.success(documentData))
-                } else {
-                    documetFailures.forEach { completion(.failure($0)) }
-                }
+                if documetFailures.isEmpty { completion(.success(documentData))
+                } else { documetFailures.forEach { completion(.failure($0)) } }
             }
     }
 
@@ -255,11 +252,8 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     ) {
         do {
             try reference.document(documentID).setData(from: data) { error in
-                if let error {
-                    completion?(.failure(error))
-                    return
-                }
-                completion?(.success(documentID))
+                if let error { completion?(.failure(error))
+                } else { completion?(.success(documentID)) }
             }
         } catch {
             completion?(.failure(error))
@@ -312,12 +306,10 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
             completion?(.failure(error))
         }
     }
-    
+
     func clearDocument() {
-        reference.getDocuments { snapshot, error in
-            snapshot?.documents.forEach {
-                $0.reference.delete()
-            }
+        reference.getDocuments { snapshot, _ in
+            snapshot?.documents.forEach { $0.reference.delete() }
         }
     }
 }
@@ -332,11 +324,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: data]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(data))
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(data)) }
         }
     }
 
@@ -354,11 +343,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayRemove(serialDatas)]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(objects))
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(objects)) }
         }
     }
 
@@ -376,11 +362,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayUnion(serialDatas)]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(objects))
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(objects)) }
         }
     }
 
@@ -393,11 +376,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayRemove(serialObjects)]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(serialObjects))
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(serialObjects)) }
         }
     }
 
@@ -410,11 +390,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayUnion(serialObjects)]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-                return
-            }
-            completion?(.success(serialObjects))
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(serialObjects)) }
         }
     }
 }

@@ -36,6 +36,7 @@ class MessageViewModel {
                 switch message.type {
                 case .speechText:
                     speechMessages.value.append(message)
+
                 default:
                     messages.value.append(message)
                 }
@@ -75,6 +76,7 @@ class MessageViewModel {
                 guard let message = FSMessage(string: url.absoluteString, type: .imageUrl)
                 else { return }
                 messageProvider.send(message: message)
+
             case let .failure(error):
                 print(error.localizedDescription.red)
             }
@@ -92,6 +94,7 @@ class MessageViewModel {
                 guard let message = FSMessage(string: url.absoluteString, type: .fileUrl)
                 else { return }
                 messageProvider.send(message: message)
+
             case let .failure(error):
                 print(error.localizedDescription.red)
             }

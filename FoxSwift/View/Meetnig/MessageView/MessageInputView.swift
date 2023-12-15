@@ -22,7 +22,7 @@ class MessageInputView: UIView {
     // MARK: - Init
     init() {
         super.init(frame: .zero)
-        
+
         backgroundColor = .fsPrimary
 
         setupAttachmentButton()

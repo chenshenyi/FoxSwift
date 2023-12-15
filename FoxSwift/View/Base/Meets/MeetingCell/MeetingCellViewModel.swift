@@ -27,13 +27,14 @@ class MeetingCellViewModel {
             switch result {
             case let .success(meetingRoom):
                 createdTime.value = meetingRoom.createdTime
+
             case let .failure(error):
                 error.print()
             }
         }
 
         FSUserProvider.shared.listenToCurrentUser { [weak self] user in
-            self?.isSaved.value = user.records.contains(where: { $0 == meetingCode })
+            self?.isSaved.value = user.records.contains { $0 == meetingCode }
         }
     }
 
