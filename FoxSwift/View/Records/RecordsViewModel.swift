@@ -8,28 +8,34 @@
 import Foundation
 
 final class RecordsViewModel {
-    var meetingCodes: Box<[Box<MeetingRoom.MeetingCode>]> = Box([])
+    var meetingInfos: Box<[Box<MeetingInfo>]> = Box([])
 
     func loadData(completion: @escaping () -> Void) {
-        FSUserProvider.shared.readCurrentUser { [weak self] user in
-            guard let self else { return }
-            if let user {
-                meetingCodes.value = user.meetingHistory.map { Box($0) }                
+        Timer.scheduledTimer(
+            withTimeInterval: 0.5,
+            repeats: true
+        ) { [weak self] timer in
+            guard let self else {
+                timer.invalidate()
+                return
             }
+            guard let user = FSUser.currentUser else { return }
+            meetingInfos.value = user.records.map { Box($0) }
+            timer.invalidate()
             completion()
         }
     }
 
     func deleteRecord(for index: Int) {
-        FSUser.currentUser?.deleteRecord(meetingCode: meetingCodes.value[index].value)
-        meetingCodes.value.remove(at: index)
+        FSUser.currentUser?.deleteRecord(meetingInfo: meetingInfos.value[index].value)
+        meetingInfos.value.remove(at: index)
         FSUserProvider.shared.updateCurrentUser()
     }
 
     func renameRecord(for index: Int, to newName: String) {}
 
     func moveRecord(from oldIndex: Int, to newIndex: Int) {
-        let meetingCode = meetingCodes.value.remove(at: oldIndex)
-        meetingCodes.value.insert(meetingCode, at: newIndex)
+        let meetingCode = meetingInfos.value.remove(at: oldIndex)
+        meetingInfos.value.insert(meetingCode, at: newIndex)
     }
 }

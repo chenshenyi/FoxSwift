@@ -48,7 +48,7 @@ class FSViewController: UIViewController {
 
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-
+            loadingView.startLoading()
             loadingViews[id] = loadingView
             loadingView.addTo(view) { make in
                 make.center.equalToSuperview()

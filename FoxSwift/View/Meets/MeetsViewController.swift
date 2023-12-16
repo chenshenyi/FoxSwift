@@ -16,7 +16,7 @@ final class MeetsViewController: FSMeetingTableViewController {
     // MARK: - ViewModel
     let viewModel = MeetsViewModel()
 
-    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] {
+    override var meetingInfos: [[Box<MeetingInfo>]] {
         [viewModel.meets.value]
     }
 
@@ -105,7 +105,7 @@ extension MeetsViewController {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
-        viewModel.joinMeet(meetingCode: meetingCode, handler: showPrepare)
+        let meetingInfo = meetingInfos[indexPath.section][indexPath.row].value
+        viewModel.joinMeet(meetingInfo: meetingInfo, handler: showPrepare)
     }
 }

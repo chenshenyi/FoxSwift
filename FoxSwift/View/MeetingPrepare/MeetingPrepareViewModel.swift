@@ -14,6 +14,7 @@ class MeetingPrepareViewModel {
 
     var meetingCode = Box("")
     var meetingName = Box("")
+    var meetingInfo: MeetingInfo?
     var url = Box("")
 
     var sharedString: String {
@@ -35,9 +36,11 @@ class MeetingPrepareViewModel {
         .shared
     }
 
-    init(meetingCode: MeetingRoom.MeetingCode) {
+    init(meetingInfo: MeetingInfo) {
+        let meetingCode = meetingInfo.meetingCode
+        self.meetingInfo = meetingInfo
         meetingRoomProvider = .init(meetingCode: meetingCode)
-        meetingName.value = meetingCode
+        meetingName.value = meetingInfo.meetingName ?? meetingCode
         self.meetingCode.value = meetingCode
 
         url.value = UrlRouteManager.shared.createUrlString(
@@ -45,7 +48,7 @@ class MeetingPrepareViewModel {
             components: [meetingCode]
         )
 
-        FSUser.currentUser?.addRecent(meetingCode: meetingCode)
+        FSUser.currentUser?.addRecent(meetingInfo: meetingInfo)
         userProvider.updateCurrentUser()
     }
 
@@ -55,7 +58,8 @@ class MeetingPrepareViewModel {
     }
 
     func addToHistory() {
-        FSUser.currentUser?.addHistory(meetingCode: meetingCode.value)
+        guard let meetingInfo else { return }
+        FSUser.currentUser?.addHistory(meetingInfo: meetingInfo)
         userProvider.updateCurrentUser()
     }
 

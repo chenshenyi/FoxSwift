@@ -22,9 +22,9 @@ struct FSUser: Codable {
     var bannerPicture: String = DefaultImage.banner.rawValue
     var description: String = "Describe yourself."
 
-    private(set) var meetingHistory: [MeetingRoom.MeetingCode] = []
-    private(set) var recentMeets: [MeetingRoom.MeetingCode] = []
-    private(set) var records: [MeetingRoom.MeetingCode] = []
+    private(set) var meetingHistory: [MeetingInfo] = []
+    private(set) var recentMeets: [MeetingInfo] = []
+    private(set) var records: [MeetingInfo] = []
 
     // - MARK: CodingKey
     enum CodingKeys: String, CodingKey {
@@ -40,39 +40,39 @@ struct FSUser: Codable {
         case records
     }
 
-    mutating func addHistory(meetingCode: MeetingRoom.MeetingCode) {
-        deleteHistory(meetingCode: meetingCode)
-        meetingHistory.insert(meetingCode, at: 0)
+    mutating func addHistory(meetingInfo: MeetingInfo) {
+        deleteHistory(meetingInfo: meetingInfo)
+        meetingHistory.insert(meetingInfo, at: 0)
     }
 
-    mutating func deleteHistory(meetingCode: MeetingRoom.MeetingCode) {
-        meetingHistory.removeAll { storedMeetingCode in
-            storedMeetingCode == meetingCode
+    mutating func deleteHistory(meetingInfo: MeetingInfo) {
+        meetingHistory.removeAll { storedInfo in
+            storedInfo.meetingCode == meetingInfo.meetingCode
         }
     }
 
-    mutating func addRecent(meetingCode: MeetingRoom.MeetingCode) {
-        deleteRecent(meetingCode: meetingCode)
-        recentMeets.insert(meetingCode, at: 0)
+    mutating func addRecent(meetingInfo: MeetingInfo) {
+        deleteRecent(meetingInfo: meetingInfo)
+        recentMeets.insert(meetingInfo, at: 0)
         if recentMeets.count > 5 {
             recentMeets.removeLast(recentMeets.count - 5)
         }
     }
 
-    mutating func deleteRecent(meetingCode: MeetingRoom.MeetingCode) {
-        recentMeets.removeAll { storedMeetingCode in
-            storedMeetingCode == meetingCode
+    mutating func deleteRecent(meetingInfo: MeetingInfo) {
+        recentMeets.removeAll { storedMeetingInfo in
+            storedMeetingInfo.meetingCode == meetingInfo.meetingCode
         }
     }
 
-    mutating func addRecord(meetingCode: MeetingRoom.MeetingCode) {
-        deleteRecord(meetingCode: meetingCode)
-        records.insert(meetingCode, at: 0)
+    mutating func addRecord(meetingInfo: MeetingInfo) {
+        deleteRecord(meetingInfo: meetingInfo)
+        records.insert(meetingInfo, at: 0)
     }
 
-    mutating func deleteRecord(meetingCode: MeetingRoom.MeetingCode) {
-        records.removeAll { storedMeetingCode in
-            storedMeetingCode == meetingCode
+    mutating func deleteRecord(meetingInfo: MeetingInfo) {
+        records.removeAll { storedInfo in
+            storedInfo.meetingCode == meetingInfo.meetingCode
         }
     }
 }

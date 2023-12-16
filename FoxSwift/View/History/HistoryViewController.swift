@@ -10,7 +10,7 @@ import UIKit
 final class HistoryViewController: FSMeetingTableViewController {
     let viewModel: HistoryViewModel = .init()
 
-    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes.value] }
+    override var meetingInfos: [[Box<MeetingInfo>]] { [viewModel.meetingInfos.value] }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ final class HistoryViewController: FSMeetingTableViewController {
 
     // MARK: Data Binding
     func bindViewModel() {
-        viewModel.meetingCodes.bind(inQueue: .main) { [weak self] _ in
+        viewModel.meetingInfos.bind(inQueue: .main) { [weak self] _ in
             self?.meetingTableView.reloadData()
         }
     }

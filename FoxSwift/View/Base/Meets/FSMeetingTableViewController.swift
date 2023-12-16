@@ -10,7 +10,7 @@ import UIKit
 // MARK: FSMeetingTableViewController
 /// - Note: You should manually add the `MeetingTableView` into your view as subview
 class FSMeetingTableViewController: FSViewController {
-    var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [] }
+    var meetingInfos: [[Box<MeetingInfo>]] { [] }
 
     var meetingTableView = UITableView(frame: .zero, style: .grouped)
 
@@ -40,16 +40,16 @@ class FSMeetingTableViewController: FSViewController {
 // MARK: - TableViewDataSource
 extension FSMeetingTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        meetingCodes[section].count
+        meetingInfos[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.getReuseCell(for: MeetingCell.self, indexPath: indexPath) else {
             fatalError("The cell not regist")
         }
-        let meetingCode = meetingCodes[indexPath.section][indexPath.row]
-        meetingCode.bind { meetingCode in
-            cell.viewModel.setMeetingCode(meetingCode: meetingCode)
+        let meetingInfo = meetingInfos[indexPath.section][indexPath.row]
+        meetingInfo.bind { meetingInfo in
+            cell.viewModel.setMeetingInfo(meetingInfo: meetingInfo)
         }
         cell.delegate = self
         return cell
@@ -60,7 +60,7 @@ extension FSMeetingTableViewController: UITableViewDataSource {
 // MARK: - TableViewDelegate
 extension FSMeetingTableViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        meetingCodes.count
+        meetingInfos.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -51,12 +51,12 @@ class MeetingRoomProvider {
             .createDocument(data: meetingRoom, completion: completion)
     }
 
-    class func check(meetingCode: MeetingRoom.MeetingCode, completion: @escaping (Error?) -> Void) {
+    class func check(meetingCode: MeetingRoom.MeetingCode, completion: @escaping (MeetingRoom?) -> Void) {
         CollectionManager(collection: .meetingRoom)
             .readDocument(documentID: meetingCode) { result in
                 switch result {
-                case .success: completion(nil)
-                case let .failure(error): completion(error)
+                case let .success(meetingRoom): completion(meetingRoom)
+                case .failure: completion(nil)
                 }
             }
     }
@@ -157,5 +157,28 @@ class MeetingRoomProvider {
         case let .failure(error):
             delegate?.meetingRoom(self, didRecieveError: error)
         }
+    }
+
+    private func read(completion: @escaping () -> Void) {
+        collectionManager.readDocument(
+            documentID: meetingCode
+        ) { [weak self] result in
+            switch result {
+            case let .success(meetingRoom):
+                self?.meetingRoom = meetingRoom
+                completion()
+
+            case .failure:
+                break
+            }
+        }
+    }
+
+    func rename(name: String) {
+        collectionManager.updateData(
+            data: name,
+            documentID: meetingCode,
+            field: .meetingName
+        )
     }
 }

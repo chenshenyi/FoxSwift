@@ -51,7 +51,7 @@ class UrlRouteManager {
 
         let meetingCode = urlPathComponents[1]
         let viewController = MeetingPrepareViewController()
-        let viewModel = MeetingPrepareViewModel(meetingCode: meetingCode)
+        let viewModel = MeetingPrepareViewModel(meetingInfo: MeetingInfo(meetingCode: meetingCode))
 
         viewController.bindViewModel(viewModel: viewModel)
         viewController.setupPresentStyle()

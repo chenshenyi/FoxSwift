@@ -43,9 +43,7 @@ class FSLoadingView: UIView {
         }
     }
 
-    override func didAddSubview(_ subview: UIView) {
-        super.didAddSubview(subview)
-
+    func startLoading() {
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = NSNumber(value: Double.pi * 2)
         rotation.duration = 1

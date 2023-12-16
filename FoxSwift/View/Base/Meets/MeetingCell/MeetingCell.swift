@@ -46,7 +46,7 @@ class MeetingCell: UITableViewCell {
 
     // MARK: - Setup ViewModel
     func bindViewModel() {
-        titleLabel.bind(viewModel.meetingCode)
+        titleLabel.bind(viewModel.meetingName)
         timeLabel.bind(viewModel.createdTime) { value in
             guard let value else { return "" }
 

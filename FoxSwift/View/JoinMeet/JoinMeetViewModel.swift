@@ -24,18 +24,19 @@ class JoinMeetViewModel {
             return
         }
 
-        MeetingRoomProvider.check(meetingCode: meetingCode) { [weak self] error in
-            guard let self, error == nil else {
+        MeetingRoomProvider.check(meetingCode: meetingCode) { [weak self] meetingRoom in
+            guard let self, let meetingRoom else {
                 DispatchQueue.main.async {
                     handler(.failure(.meetingNotExist))
                 }
                 return
             }
 
-            FSUser.currentUser?.addHistory(meetingCode: meetingCode)
+            let meetingInfo = meetingRoom.meetingInfo(meetingCode: meetingCode)
+            FSUser.currentUser?.addHistory(meetingInfo: meetingInfo)
             userProvider.updateCurrentUser()
 
-            let viewModel = MeetingPrepareViewModel(meetingCode: meetingCode)
+            let viewModel = MeetingPrepareViewModel(meetingInfo: meetingInfo)
             DispatchQueue.main.async {
                 handler(.success(viewModel))
             }

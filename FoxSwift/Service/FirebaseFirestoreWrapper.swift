@@ -315,11 +315,11 @@ class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
 }
 
 extension FSCollectionManager {
-    func updateData(
-        data: DataType,
+    func updateData<T: Codable>(
+        data: T,
         documentID: String,
         field: KeyedDecodingContainer<CodingKeys>.Key,
-        completion: CompletionHandler<DataType>? = nil
+        completion: CompletionHandler<T>? = nil
     ) {
         reference.document(documentID).updateData(
             [field.stringValue: data]

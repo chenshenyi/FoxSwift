@@ -15,38 +15,34 @@ class MeetingCellViewModel {
 
     var meetingCode: Box<String> = .init("")
     var createdTime: Box<Int?> = .init(nil)
-    var meetingName: Box<String?> = .init(nil)
+    var meetingName: Box<String> = .init("")
+    var meetingInfo: MeetingInfo?
 
     var isSaved = Box(false)
 
-    func setMeetingCode(meetingCode: MeetingRoom.MeetingCode) {
-        self.meetingCode.value = meetingCode
-        collectionManager.readDocument(documentID: meetingCode) { [weak self] result in
-            guard let self else { return }
-
-            switch result {
-            case let .success(meetingRoom):
-                createdTime.value = meetingRoom.createdTime
-
-            case let .failure(error):
-                error.print()
-            }
-        }
-
+    func setMeetingInfo(meetingInfo: MeetingInfo) {
+        self.meetingInfo = meetingInfo
+        meetingCode.value = meetingInfo.meetingCode
+        createdTime.value = meetingInfo.createdTime
+        meetingName.value = meetingInfo.meetingName ?? meetingCode.value
         FSUserProvider.shared.listenToCurrentUser { [weak self] user in
-            self?.isSaved.value = user.records.contains { $0 == meetingCode }
+            self?.isSaved.value = user.records.contains { [weak self] saved in
+                saved.meetingCode == self?.meetingCode.value
+            }
         }
     }
 
     func save() {
         isSaved.value = true
-        FSUser.currentUser?.addRecord(meetingCode: meetingCode.value)
+        guard let meetingInfo else { return }
+        FSUser.currentUser?.addRecord(meetingInfo: meetingInfo)
         FSUserProvider.shared.updateCurrentUser()
     }
 
     func unsave() {
         isSaved.value = false
-        FSUser.currentUser?.deleteRecord(meetingCode: meetingCode.value)
+        guard let meetingInfo else { return }
+        FSUser.currentUser?.deleteRecord(meetingInfo: meetingInfo)
         FSUserProvider.shared.updateCurrentUser()
     }
 }

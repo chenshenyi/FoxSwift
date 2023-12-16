@@ -10,7 +10,7 @@ import UIKit
 final class RecordsViewController: FSMeetingTableViewController {
     let viewModel: RecordsViewModel = .init()
 
-    override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes.value] }
+    override var meetingInfos: [[Box<MeetingInfo>]] { [viewModel.meetingInfos.value] }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ final class RecordsViewController: FSMeetingTableViewController {
 
     // MARK: Data Binding
     func bindViewModel() {
-        viewModel.meetingCodes.bind(inQueue: .main) { [weak self] _ in
+        viewModel.meetingInfos.bind(inQueue: .main) { [weak self] _ in
             self?.meetingTableView.reloadData()
         }
     }
@@ -77,8 +77,11 @@ extension RecordsViewController {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
-        let viewModel = RecordDetailViewModel(meetingCode: meetingCode)
+        let meetingInfo = meetingInfos[indexPath.section][indexPath.row].value
+        let viewModel = RecordDetailViewModel(
+            meetingCode: meetingInfo.meetingCode,
+            name: meetingInfo.meetingName
+        )
 
         let viewController = RecordDetailViewController()
         viewController.setupViewModel(viewModel: viewModel)
