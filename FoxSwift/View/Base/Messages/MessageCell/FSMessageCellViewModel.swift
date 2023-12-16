@@ -23,8 +23,9 @@ class FSMessageCellViewModel {
 
         authorName.value = message.author.name
 
-        guard let smallPictureData = message.author.smallPicture else { return }
-        authorImage.value = UIImage(data: smallPictureData)
+        if let smallPictureData = message.author.smallPicture {
+            authorImage.value = UIImage(data: smallPictureData)
+        }
 
         createdTime.value = Date(timeIntervalSince1970: TimeInterval(message.createdTime))
             .formatted(.dateTime)

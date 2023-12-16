@@ -114,10 +114,10 @@ class RTCProvider: NSObject, FSWebRTCObject {
 
 // MARK: - Camera
 extension RTCProvider {
-    func startCaptureVideo() {
+    func startCaptureVideo(camera: AVCaptureDevice.Position = .front) {
         // Get frontCamera from all captureDevice
         guard let frontCamera = RTCCameraVideoCapturer.captureDevices()
-            .first(where: { $0.position == .front }) else { return }
+            .first(where: { $0.position == camera }) else { return }
 
         let getWidth: (AVCaptureDevice.Format) -> Int32 = { format in
             CMVideoFormatDescriptionGetDimensions(format.formatDescription).width

@@ -165,6 +165,7 @@ class ProfileViewController: FSViewController {
         nameTextField.layer.masksToBounds = true
         nameTextField.layer.cornerRadius = 5
         nameTextField.setToolBar()
+        nameTextField.adjustsFontSizeToFitWidth = true
         nameTextField.addTo(view) { make in
             make.centerY.equalTo(userPicture)
             make.leading.equalTo(userPicture.snp.trailing).offset(15)

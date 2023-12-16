@@ -33,6 +33,7 @@ struct FSUser: Codable {
         case email
         case password
         case picture
+        case description
         case smallPicture
         case bannerPicture
         case meetingHistory
@@ -79,6 +80,6 @@ struct FSUser: Codable {
 
 extension FSUser {
     var participant: Participant {
-        Participant(id: id, name: name, smallPicture: smallPicture)
+        Participant(id: id, name: name, smallPicture: nil)
     }
 }

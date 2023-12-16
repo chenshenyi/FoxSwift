@@ -362,8 +362,11 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayUnion(serialDatas)]
         ) { error in
-            if let error { completion?(.failure(error))
-            } else { completion?(.success(objects)) }
+            if let error {
+                completion?(.failure(error))
+            } else {
+                completion?(.success(objects))
+            }
         }
     }
 

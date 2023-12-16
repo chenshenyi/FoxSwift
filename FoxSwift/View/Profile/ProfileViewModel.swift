@@ -77,7 +77,7 @@ class ProfileViewModel {
     }
 
     func updateName(text: String?) throws {
-        guard let text, text.count >= 2, text.count <= 15 else {
+        guard let text, text.count >= 2, text.count <= 30 else {
             throw ProfileInvalidField.invalidName
         }
         updateCurrentUser(text: text, for: .name)
@@ -141,7 +141,7 @@ class ProfileViewModel {
                 switch imageField {
                 case .picture:
                     FSUser.currentUser?.picture = url.absoluteString
-                    FSUser.currentUser?.smallPicture = image.resizeWithLimit(limit: 50)
+                    FSUser.currentUser?.smallPicture = image.resizeWithLimit(limit: 20)
 
                 case .banner:
                     FSUser.currentUser?.bannerPicture = url.absoluteString

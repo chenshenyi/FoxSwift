@@ -20,7 +20,7 @@ final class FSImageMessageCell: FSMessageCell {
         pictureView.contentMode = .scaleAspectFit
         pictureView.addTo(contentView) { make in
             make.leading.equalTo(nameLabel)
-            make.trailing.equalToSuperview().inset(12)
+            make.trailing.lessThanOrEqualToSuperview().inset(12)
             make.top.equalTo(nameLabel.snp.bottom).offset(12)
             make.height.equalTo(200)
             make.bottom.equalTo(contentView).inset(12)
