@@ -64,7 +64,7 @@ extension FSMeetingTableViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        70
     }
 
     func tableView(

@@ -90,3 +90,9 @@ final class RecordDetailViewController: FSMessageViewController {
         }
     }
 }
+
+extension RecordDetailViewController {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+}

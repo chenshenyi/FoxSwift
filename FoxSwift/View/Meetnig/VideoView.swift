@@ -27,15 +27,15 @@ class VideoView: UIView {
         clipsToBounds = true
         layer.borderColor = UIColor.fsBg.cgColor
         layer.borderWidth = 1
-        layer.cornerRadius = 4
+        layer.cornerRadius = 12
     }
 
     private func setupNameLabel() {
         nameLabel.text = participant?.name
         nameLabel.textColor = .fsText
-
+        nameLabel.font = .config(weight: .regular, size: 12)
         nameLabel.addTo(self) { make in
-            make.bottom.leading.equalToSuperview().inset(6)
+            make.bottom.leading.equalToSuperview().inset(12)
         }
     }
 

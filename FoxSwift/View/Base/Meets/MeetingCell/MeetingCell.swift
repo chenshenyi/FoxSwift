@@ -68,31 +68,31 @@ class MeetingCell: UITableViewCell {
 
         iconView.snp.makeConstraints { make in
             make.centerY.leading.equalToSuperview().inset(16)
-            make.height.width.equalTo(70)
+            make.height.width.equalTo(50)
         }
     }
 
     func setupTitleLabel() {
-        titleLabel.font = .config(weight: .regular, size: 18)
+        titleLabel.font = .config(weight: .regular, size: 14)
         titleLabel.textColor = .fsText
 
         contentView.addSubview(titleLabel)
 
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(iconView.snp.trailing).offset(8)
-            make.top.equalTo(iconView).inset(12)
+            make.top.equalTo(iconView).inset(6)
         }
     }
 
     func setupTimeLabel() {
-        timeLabel.font = .config(weight: .regular, size: 16)
+        timeLabel.font = .config(weight: .regular, size: 12)
         timeLabel.textColor = .G_3
 
         contentView.addSubview(timeLabel)
 
         timeLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel)
-            make.bottom.equalTo(iconView).inset(12)
+            make.bottom.equalTo(iconView).inset(6)
         }
     }
 
