@@ -56,12 +56,6 @@ final class MeetingViewController: FSViewController {
             videoControlBar.reloadButton(for: .mic)
         }
 
-        viewModel.isSharingScreen.bind(inQueue: .main) { [weak self] _ in
-            guard let self else { return }
-
-            videoControlBar.reloadButton(for: .shareScreen)
-        }
-
         viewModel.isMessage.bind(inQueue: .main) { [weak messageView] isMessage in
             messageView?.isHidden = !isMessage
         }

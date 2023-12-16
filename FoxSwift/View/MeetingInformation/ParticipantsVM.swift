@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ParticipantsViewModel: TableDataSourceViewModel {
-    var participants: Box<[Participant]> = Box([], semaphore: 1)
+class ParticipantsViewModel: MVVMTableDataSourceViewModel, ParticipantsViewModelProtocol {
+    private(set) var participants: Box<[Participant]> = Box([], semaphore: 1)
 
     func numberOfRows(for section: Int) -> Int {
         participants.value.count

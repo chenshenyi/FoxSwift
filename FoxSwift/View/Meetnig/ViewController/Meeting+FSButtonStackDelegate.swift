@@ -13,7 +13,7 @@ extension MeetingViewController: FSButtonStackDelegate {
         case mic
         case camera
         case message
-        case shareScreen
+        case more
     }
 
     var isOnCamera: Bool {
@@ -22,10 +22,6 @@ extension MeetingViewController: FSButtonStackDelegate {
 
     var isOnMic: Bool {
         viewModel?.isOnMic.value ?? false
-    }
-
-    var isSharingScreen: Bool {
-        viewModel?.isSharingScreen.value ?? false
     }
 
     func buttonDidTapped(_ buttonStack: ButtonStack, for key: ButtonKey) {
@@ -45,9 +41,12 @@ extension MeetingViewController: FSButtonStackDelegate {
         case .message:
             viewModel.showMessage()
 
-        case .shareScreen:
-            if isSharingScreen { viewModel.stopScreenSharing()
-            } else { viewModel.startScreenSharing() }
+        case .more:
+            let viewModel = viewModel.meetingInformationViewModel
+            let viewController = MeetingInformationViewController()
+            viewController.setupViewModel(viewModel: viewModel)
+
+            present(viewController, animated: true)
         }
     }
 
@@ -65,8 +64,8 @@ extension MeetingViewController: FSButtonStackDelegate {
         case .message:
             "message.fill"
 
-        case .shareScreen:
-            "rectangle.inset.filled.and.person.filled"
+        case .more:
+            "ellipsis"
         }
 
         return UIImage(systemName: systemName)
@@ -83,8 +82,8 @@ extension MeetingViewController: FSButtonStackDelegate {
         case .hangUp, .message:
             .fsText
 
-        case .shareScreen:
-            isSharingScreen ? .accent : .fsText
+        case .more:
+            .fsText
         }
     }
 

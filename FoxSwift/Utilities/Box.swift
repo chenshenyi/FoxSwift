@@ -9,24 +9,38 @@ import Foundation
 
 final class Box<T> {
     typealias Listener = (T) -> Void
-    var listener: Listener?
-    private var queue: DispatchQueue?
 
-    private var semaphore: DispatchSemaphore?
+    private struct BoxListener {
+        var listener: Listener
+        var queue: DispatchQueue?
+        var semaphoreSignal: Bool
+    }
+
+    private var listeners: [BoxListener] = []
+
+    var semaphore: DispatchSemaphore?
 
     var value: T {
         willSet {
             semaphore?.wait()
         }
         didSet {
-            if let queue {
-                queue.async { [weak self] in
-                    guard let self else { return }
-                    listener?(value)
+            listeners.forEach(callBoxListener)
+        }
+    }
+
+    private func callBoxListener(boxListener: BoxListener) {
+        if let queue = boxListener.queue {
+            queue.async { [weak self] in
+                guard let self else { return }
+                boxListener.listener(value)
+                if boxListener.semaphoreSignal {
                     semaphore?.signal()
                 }
-            } else {
-                listener?(value)
+            }
+        } else {
+            boxListener.listener(value)
+            if boxListener.semaphoreSignal {
                 semaphore?.signal()
             }
         }
@@ -46,9 +60,17 @@ final class Box<T> {
         }
     }
 
-    func bind(inQueue queue: DispatchQueue? = nil, listener: Listener?) {
-        self.listener = listener
-        self.queue = queue
-        listener?(value)
+    func bind(
+        inQueue queue: DispatchQueue? = nil,
+        semaphoreSignal: Bool = true,
+        listener: @escaping Listener
+    ) {
+        let boxListener = BoxListener(
+            listener: listener,
+            queue: queue,
+            semaphoreSignal: semaphoreSignal
+        )
+        listeners.append(boxListener)
+        callBoxListener(boxListener: boxListener)
     }
 }

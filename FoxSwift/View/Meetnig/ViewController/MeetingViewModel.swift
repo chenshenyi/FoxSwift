@@ -19,6 +19,8 @@ class MeetingViewModel {
     var participants: DiffBox<Participant> = .init([.currentUser])
     var sharer: Box<Participant?> = .init(semaphore: 1)
 
+    let meetingInformationViewModel = MeetingInformationViewModel()
+
     var isOnMic = Box(true)
     var isOnCamera = Box(true)
     var isMessage = Box(false)
@@ -83,6 +85,7 @@ class MeetingViewModel {
 
     // MARK: - Leave Meet
     func leaveMeet() {
+        speechRecognitionManager.disableRecording()
         rtcMannager.leave()
     }
 
@@ -164,6 +167,7 @@ extension MeetingViewModel: MeetingParticipantManagerDelegate {
         didRecieveInitial participants: [Participant]
     ) {
         self.participants.value += participants
+        meetingInformationViewModel.update(participants: self.participants.value)
         updateLayout()
     }
 
@@ -172,6 +176,7 @@ extension MeetingViewModel: MeetingParticipantManagerDelegate {
         didRecieveNew participants: [Participant]
     ) {
         self.participants.value += participants
+        meetingInformationViewModel.update(participants: self.participants.value)
         updateLayout()
     }
 
@@ -182,6 +187,7 @@ extension MeetingViewModel: MeetingParticipantManagerDelegate {
         participants.forEach { participant in
             self.participants.value.removeAll { participant == $0 }
         }
+        meetingInformationViewModel.update(participants: self.participants.value)
         updateLayout()
     }
 }

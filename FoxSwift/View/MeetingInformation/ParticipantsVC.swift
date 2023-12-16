@@ -7,8 +7,12 @@
 
 import UIKit
 
-class ParticipantsViewController: UIViewController, MVVMView {
-    typealias ViewModel = TableDataSourceViewModel
+protocol ParticipantsViewModelProtocol {
+    var participants: Box<[Participant]> { get }
+}
+
+class ParticipantsViewController: FSViewController, MVVMView {
+    typealias ViewModel = MVVMTableDataSourceViewModel & ParticipantsViewModelProtocol
 
     var viewModel: ViewModel?
 
@@ -18,12 +22,16 @@ class ParticipantsViewController: UIViewController, MVVMView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Participants"
+
         setupTableView()
     }
 
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+
+        tableView.backgroundColor = .fsBg
 
         tableView.pinTo(view, safeArea: true)
 
@@ -33,10 +41,28 @@ class ParticipantsViewController: UIViewController, MVVMView {
     // MARK: Setup ViewModel
     func setupViewModel(viewModel: ViewModel) {
         self.viewModel = viewModel
+        viewModel.participants.bind(inQueue: .main) { [weak self] _ in
+            self?.tableView.reloadData()
+        }
     }
 }
 
+// MARK: UITableViewDataSource
 extension ParticipantsViewController: UITableViewDataSource {
+    func tableViewCell<Cell: MVVMTableCell>(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> Cell {
+        guard let cell = tableView.getReuseCell(for: Cell.self, indexPath: indexPath)
+        else { fatalError("\(Cell.reuseIdentifier) not regist.") }
+        
+        if let cellViewModel = viewModel?.cellViewModel(for: indexPath) as? Cell.ViewModel {
+            cell.setupViewModel(viewModel: cellViewModel)
+        }
+        
+        return cell
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.numberOfRows(for: section) ?? 0
     }
@@ -47,4 +73,5 @@ extension ParticipantsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension ParticipantsViewController: UITableViewDelegate {}

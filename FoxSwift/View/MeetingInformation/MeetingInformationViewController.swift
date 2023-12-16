@@ -7,11 +7,23 @@
 
 import UIKit
 
-class MeetingInformationViewController: FSViewController {
-    var backButton = FSButton()
-    var titleLabel = UILabel()
-    var selectionView = SelectionView()
-    var seperatorline = UIView()
+protocol MeetingInformationViewModelProtocol {
+    var participantViewModel: ParticipantsViewModelProtocol & MVVMTableDataSourceViewModel { get }
+}
+
+final class MeetingInformationViewController: FSViewController, MVVMView {
+    typealias ViewModel = MVVMViewModel & MeetingInformationViewModelProtocol
+
+    var viewModel: ViewModel?
+
+    // MARK: - Subviews
+    let backButton = FSButton()
+    let titleLabel = UILabel()
+    let selectionView = SelectionView()
+    let seperatorline = UIView()
+
+    // MARK: - Children
+    let participantsViewController = ParticipantsViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +31,11 @@ class MeetingInformationViewController: FSViewController {
 
         setupBackButton()
         setupTitleLabel()
-        setupSelectionView()
         setupSeparator()
         setupConstraint()
+
+        setupChildren()
+        setupSelectionView()
     }
 
     // MARK: Setup subviews
@@ -29,12 +43,12 @@ class MeetingInformationViewController: FSViewController {
         backButton.cornerStyle = .rounded
         backButton.backgroundColor = .fsText.withAlphaComponent(0.1)
         backButton.tintColor = .fsText
-        backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
 
         backButton.addAction { [weak self] in
             guard let self else { return }
 
-            navigationController?.popViewController(animated: true)
+            dismiss(animated: true)
         }
     }
 
@@ -47,10 +61,11 @@ class MeetingInformationViewController: FSViewController {
     func setupSelectionView() {
         selectionView.dataSource = self
         selectionView.delegate = self
+        selectionView.selectedIndex = 0
     }
 
     func setupSeparator() {
-        seperatorline.backgroundColor = .fsPrimary
+        seperatorline.backgroundColor = .fsText.withAlphaComponent(0.3)
     }
 
     func setupConstraint() {
@@ -79,19 +94,35 @@ class MeetingInformationViewController: FSViewController {
 
         view.sendSubviewToBack(seperatorline)
     }
-}
 
-extension MeetingInformationViewController: SelectionViewDataSource {
-    var selections: [String] {
-        ["People", "Schedule", "Other"]
+    // MARK: Setup Children
+    func setupChildren() {
+        [participantsViewController, UIViewController(), UIViewController()].forEach { child in
+            addChild(child)
+            child.view.addTo(view) { make in
+                make.horizontalEdges.equalToSuperview()
+                make.bottom.equalToSuperview()
+                make.top.equalTo(seperatorline.snp.bottom)
+            }
+            child.didMove(toParent: self)
+            child.view.isHidden = true
+            child.view.backgroundColor = .fsBg
+        }
     }
 
+    func setupViewModel(viewModel: ViewModel) {
+        participantsViewController.setupViewModel(viewModel: viewModel.participantViewModel)
+    }
+}
+
+// MARK: SelectionViewDataSource
+extension MeetingInformationViewController: SelectionViewDataSource {
     func numberOfSelections(_ selectionView: SelectionView) -> Int {
-        selections.count
+        children.count
     }
 
     func title(_ selectionView: SelectionView, forIndex index: Int) -> String {
-        selections[index]
+        children[index].title ?? "Tab\(index)"
     }
 
     func textColor(_ selectionView: SelectionView, forIndex index: Int) -> UIColor {
@@ -111,4 +142,12 @@ extension MeetingInformationViewController: SelectionViewDataSource {
     }
 }
 
-extension MeetingInformationViewController: SelectionViewDelegate {}
+// MARK: SelectionViewDelegate
+extension MeetingInformationViewController: SelectionViewDelegate {
+    func selectionDidSelect(_ selectionView: SelectionView, forIndex index: Int) {
+        children.forEach { vc in
+            vc.view.isHidden = true
+        }
+        children[index].view.isHidden = false
+    }
+}

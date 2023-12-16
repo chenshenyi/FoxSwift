@@ -24,7 +24,7 @@ class SelectionView: UIStackView {
 
     private(set) var selections: [UIButton] = []
 
-    var selectedIndex: Int = 0 {
+    var selectedIndex: Int = -1 {
         didSet {
             guard let dataSource else { return }
 
@@ -37,7 +37,7 @@ class SelectionView: UIStackView {
                 return
             }
 
-            moveIndicator()
+            moveIndicator(animated: oldValue != -1)
             updateButtonView()
             delegate?.selectionDidSelect(self, forIndex: selectedIndex)
         }
@@ -100,24 +100,33 @@ class SelectionView: UIStackView {
         }
     }
 
-    private func moveIndicator() {
+    private func moveIndicator(animated: Bool = true) {
         if selections.isEmpty {
             indicator.isHidden = true
             return
         }
 
         indicator.isHidden = false
-        layoutIfNeeded()
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            guard let self else { return }
-            indicator.snp.remakeConstraints { [weak self] make in
-                guard let self else { return }
 
-                make.height.equalTo(1)
-                make.bottom.width.centerX.equalTo(selections[selectedIndex])
-            }
-            indicator.backgroundColor = dataSource?.indicatorColor(self, forIndex: selectedIndex)
+        if animated {
             layoutIfNeeded()
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                guard let self else { return }
+                remakeIndicatorConstraint()
+                layoutIfNeeded()
+            }
+        } else {
+            remakeIndicatorConstraint()
         }
+    }
+
+    private func remakeIndicatorConstraint() {
+        indicator.snp.remakeConstraints { [weak self] make in
+            guard let self else { return }
+
+            make.height.equalTo(1)
+            make.bottom.width.centerX.equalTo(selections[selectedIndex])
+        }
+        indicator.backgroundColor = dataSource?.indicatorColor(self, forIndex: selectedIndex)
     }
 }

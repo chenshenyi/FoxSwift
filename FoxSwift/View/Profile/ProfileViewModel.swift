@@ -25,7 +25,6 @@ class ProfileViewModel {
         case editing
         case view
     }
-
     private(set) var state: Box<State> = .init(.view)
 
     // MARK: - Manager
