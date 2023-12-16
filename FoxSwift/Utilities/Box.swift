@@ -16,7 +16,7 @@ final class Box<T> {
         var semaphoreSignal: Bool
     }
 
-    private var listeners: [BoxListener] = []
+    private var boxListener: BoxListener?
 
     var semaphore: DispatchSemaphore?
 
@@ -25,20 +25,23 @@ final class Box<T> {
             semaphore?.wait()
         }
         didSet {
-            listeners.forEach(callBoxListener)
+            if let boxListener {
+                callBoxListener(boxListener: boxListener)
+            }
         }
     }
 
     private func callBoxListener(boxListener: BoxListener) {
-        if let queue = boxListener.queue {
-            queue.async { [weak self] in
-                guard let self else { return }
-                boxListener.listener(value)
-                if boxListener.semaphoreSignal {
-                    semaphore?.signal()
-                }
+        guard let queue = boxListener.queue else {
+            boxListener.listener(value)
+            if boxListener.semaphoreSignal {
+                semaphore?.signal()
             }
-        } else {
+            return
+        }
+
+        queue.async { [weak self] in
+            guard let self else { return }
             boxListener.listener(value)
             if boxListener.semaphoreSignal {
                 semaphore?.signal()
@@ -49,14 +52,14 @@ final class Box<T> {
     init(_ value: T, semaphore: Int? = nil) {
         self.value = value
         if let semaphore {
-            self.semaphore = .init(value: semaphore)
+//            self.semaphore = .init(value: semaphore)
         }
     }
 
     init<K>(semaphore: Int? = nil) where T == K? {
         value = nil
         if let semaphore {
-            self.semaphore = .init(value: semaphore)
+//            self.semaphore = .init(value: semaphore)
         }
     }
 
@@ -70,7 +73,16 @@ final class Box<T> {
             queue: queue,
             semaphoreSignal: semaphoreSignal
         )
-        listeners.append(boxListener)
-        callBoxListener(boxListener: boxListener)
+        self.boxListener = boxListener
+
+        guard let queue = boxListener.queue else {
+            boxListener.listener(value)
+            return
+        }
+
+        queue.async { [weak self] in
+            guard let self else { return }
+            boxListener.listener(value)
+        }
     }
 }

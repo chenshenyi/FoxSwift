@@ -13,7 +13,7 @@ class MeetingInformationViewModel: MVVMViewModel, MeetingInformationViewModelPro
     init() {
         participantViewModel = ParticipantsViewModel()
     }
-    
+
     func update(participants: [Participant]) {
         participantViewModel.participants.value = participants
     }

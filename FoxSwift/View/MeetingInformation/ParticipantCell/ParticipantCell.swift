@@ -11,12 +11,20 @@ protocol ParticipantCellViewModelProtocol: MVVMViewModel {
     var name: String { get }
 
     var image: UIImage { get }
+
+    var participant: Participant { get }
+}
+
+protocol ParticipantCellDelegate: AnyObject {
+    func controlButtonDidTapped(_ cell: ParticipantCell)
 }
 
 class ParticipantCell: UITableViewCell, MVVMTableCell {
     typealias ViewModel = ParticipantCellViewModelProtocol
 
     var viewModel: ViewModel?
+
+    weak var delegate: ParticipantCellDelegate?
 
     // MARK: Subview
     let nameLabel = UILabel()
@@ -26,6 +34,9 @@ class ParticipantCell: UITableViewCell, MVVMTableCell {
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        selectionStyle = .none
+        backgroundColor = .clear
 
         setupNameLabel()
         setupPicture()
@@ -59,7 +70,9 @@ class ParticipantCell: UITableViewCell, MVVMTableCell {
         controlButton.addAction(handler: controlButtonDidTapped)
     }
 
-    func controlButtonDidTapped() {}
+    func controlButtonDidTapped() {
+        delegate?.controlButtonDidTapped(self)
+    }
 
     func setupConstraint() {
         picture.addTo(contentView) { make in

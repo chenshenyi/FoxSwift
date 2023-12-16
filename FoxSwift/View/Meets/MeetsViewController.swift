@@ -83,22 +83,10 @@ final class MeetsViewController: FSMeetingTableViewController {
         viewModel.createNewCode(showPrepare)
     }
 
-    func showPrepare(viewModel: MeetingPrepareViewModel) {
-        let vc = MeetingPrepareViewController()
-        vc.setupPresentStyle()
-        vc.bindViewModel(viewModel: viewModel)
-        present(vc, animated: true)
-    }
-
-    #warning("testing")
     private func joinMeet() {
         let vc = JoinMeetViewController()
         vc.setupModelPresentStyle()
-//        present(vc, animated: true)
-        navigationController?.pushViewController(
-            MeetingInformationViewController(),
-            animated: false
-        )
+        present(vc, animated: true)
     }
 }
 

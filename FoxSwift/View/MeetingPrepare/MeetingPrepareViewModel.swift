@@ -54,6 +54,11 @@ class MeetingPrepareViewModel {
         handler(viewModel)
     }
 
+    func addToHistory() {
+        FSUser.currentUser?.addHistory(meetingCode: meetingCode.value)
+        userProvider.updateCurrentUser()
+    }
+
     func startCaptureVideo(view: UIView) {
         rtcProvider.startCaptureVideo()
         rtcProvider.renderVideo(to: view, for: Participant.currentUser.id, mode: .scaleAspectFit)

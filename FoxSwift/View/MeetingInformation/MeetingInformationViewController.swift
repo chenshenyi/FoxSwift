@@ -100,7 +100,7 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
         [participantsViewController, UIViewController(), UIViewController()].forEach { child in
             addChild(child)
             child.view.addTo(view) { make in
-                make.horizontalEdges.equalToSuperview()
+                make.horizontalEdges.equalToSuperview().inset(20)
                 make.bottom.equalToSuperview()
                 make.top.equalTo(seperatorline.snp.bottom)
             }

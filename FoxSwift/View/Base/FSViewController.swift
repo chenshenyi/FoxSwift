@@ -31,6 +31,8 @@ class FSViewController: UIViewController {
             preferredStyle: .alert
         )
 
+        alert.overrideUserInterfaceStyle = .dark
+
         let okAction = UIAlertAction(
             title: "OK",
             style: .default,
@@ -78,5 +80,12 @@ class FSViewController: UIViewController {
             popup.removeFromSuperview()
             completion()
         }
+    }
+
+    func showPrepare(viewModel: MeetingPrepareViewModel) {
+        let vc = MeetingPrepareViewController()
+        vc.setupPresentStyle()
+        vc.bindViewModel(viewModel: viewModel)
+        present(vc, animated: true)
     }
 }

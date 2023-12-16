@@ -10,11 +10,13 @@ import Foundation
 final class RecordsViewModel {
     var meetingCodes: Box<[Box<MeetingRoom.MeetingCode>]> = Box([])
 
-    init() {
-        FSUserProvider.shared.listenToCurrentUser { [weak self] user in
+    func loadData(completion: @escaping () -> Void) {
+        FSUserProvider.shared.readCurrentUser { [weak self] user in
             guard let self else { return }
-
-            meetingCodes.value = user.records.map { Box($0) }
+            if let user {
+                meetingCodes.value = user.meetingHistory.map { Box($0) }                
+            }
+            completion()
         }
     }
 

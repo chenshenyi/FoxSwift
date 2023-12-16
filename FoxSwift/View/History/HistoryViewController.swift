@@ -1,14 +1,14 @@
 //
-//  RecordsViewController.swift
+//  RecordsViewModel.swift
 //  FoxSwift
 //
-//  Created by chen shen yi on 2023/12/8.
+//  Created by chen shen yi on 2023/12/9.
 //
 
 import UIKit
 
-final class RecordsViewController: FSMeetingTableViewController {
-    let viewModel: RecordsViewModel = .init()
+final class HistoryViewController: FSMeetingTableViewController {
+    let viewModel: HistoryViewModel = .init()
 
     override var meetingCodes: [[Box<MeetingRoom.MeetingCode>]] { [viewModel.meetingCodes.value] }
 
@@ -44,12 +44,12 @@ final class RecordsViewController: FSMeetingTableViewController {
 }
 
 // MARK: TableViewDelegate
-extension RecordsViewController {
+extension HistoryViewController {
     func tableView(
         _ tableView: UITableView,
         titleForHeaderInSection section: Int
     ) -> String? {
-        "Records"
+        "History Meeting"
     }
 
     // MARK: - Edit
@@ -63,25 +63,12 @@ extension RecordsViewController {
         forRowAt indexPath: IndexPath
     ) {
         if editingStyle == .delete {
-            viewModel.deleteRecord(for: indexPath.row)
+            viewModel.deleteHistory(for: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        moveRowAt sourceIndexPath: IndexPath,
-        to destinationIndexPath: IndexPath
-    ) {
-        viewModel.moveRecord(from: sourceIndexPath.row, to: destinationIndexPath.row)
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meetingCode = meetingCodes[indexPath.section][indexPath.row].value
-        let viewModel = RecordDetailViewModel(meetingCode: meetingCode)
-
-        let viewController = RecordDetailViewController()
-        viewController.setupViewModel(viewModel: viewModel)
-        navigationController?.pushViewController(viewController, animated: true)
+        showPrepare(viewModel: viewModel.prepareViewModel(for: indexPath))
     }
 }

@@ -43,6 +43,16 @@ class FSUserProvider {
         }
     }
 
+    func readCurrentUser(handler: @escaping (FSUser?) -> Void) {
+        guard let currentUser = FSUser.currentUser else { return }
+        collectionManager.readDocument(documentID: currentUser.id) { result in
+            switch result {
+            case let .success(user): handler(user)
+            default:  handler(nil)
+            }
+        }
+    }
+
     private func listenerBroadCast(user: FSUser) {
         currentUserListeners.forEach { $0(user) }
     }

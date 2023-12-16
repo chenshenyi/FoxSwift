@@ -12,4 +12,3 @@ protocol MVVMTableDataSourceViewModel: MVVMViewModel {
 
     func cellViewModel(for indexPath: IndexPath) -> MVVMViewModel
 }
-

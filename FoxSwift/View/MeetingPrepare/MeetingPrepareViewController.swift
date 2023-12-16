@@ -194,12 +194,14 @@ final class MeetingPrepareViewController: FSViewController {
             activityItems: [sharedString],
             applicationActivities: nil
         )
+        activityVC.overrideUserInterfaceStyle = .dark
         present(activityVC, animated: true, completion: nil)
     }
 
     func joinMeeting() {
         guard let presentingViewController else { return }
 
+        viewModel?.addToHistory()
         viewModel?.joinMeet { [weak self] viewModel in
             guard let self else { return }
 
