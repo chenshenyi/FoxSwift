@@ -21,6 +21,8 @@ final class MeetingViewController: FSViewController {
         collectionViewLayout: UICollectionViewLayout()
     )
 
+    let switchCameraButton = FSButton()
+
     // MARK: - Message View
     var messageView = MessageView()
 
@@ -29,6 +31,7 @@ final class MeetingViewController: FSViewController {
         super.viewDidLoad()
 
         setupVideoControlBar()
+        setupSwitchCameraButton()
         setupCollectionView()
         setupMessageView()
 
@@ -38,11 +41,21 @@ final class MeetingViewController: FSViewController {
 
     private func bindingViewModel() {
         guard let viewModel else { return }
+        bindState()
 
         viewModel.participants.bind { [weak self] _ in
             guard let self else { return }
             videoCollectionView.reloadData()
         }
+
+        viewModel.sharer.bind(inQueue: .main) { [weak self] _ in
+            guard let self else { return }
+            videoCollectionView.reloadData()
+        }
+    }
+
+    private func bindState() {
+        guard let viewModel else { return }
 
         viewModel.isOnCamera.bind(inQueue: .main) { [weak self] _ in
             guard let self else { return }
@@ -56,8 +69,21 @@ final class MeetingViewController: FSViewController {
             videoControlBar.reloadButton(for: .mic)
         }
 
-        viewModel.isMessage.bind(inQueue: .main) { [weak messageView] isMessage in
-            messageView?.isHidden = !isMessage
+        viewModel.isMessage.bind(inQueue: .main) { [weak self] isMessage in
+            guard let self, let view else { return }
+            messageView.isHidden = !isMessage
+            switchCameraButton.isHidden = isMessage
+            if isMessage {
+                switchCameraButton.snp.remakeConstraints { make in
+                    make.size.centerX.centerY.equalTo(0)
+                }
+            } else {
+                switchCameraButton.snp.remakeConstraints { make in
+                    make.top.equalTo(view.safeAreaLayoutGuide)
+                    make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+                    make.size.equalTo(30)
+                }
+            }
         }
 
         viewModel.layoutMode.bind(inQueue: .main) { [weak self] mode in
@@ -73,11 +99,6 @@ final class MeetingViewController: FSViewController {
                 topRowLayout(count)
             }
         }
-
-        viewModel.sharer.bind(inQueue: .main) { [weak self] _ in
-            guard let self else { return }
-            videoCollectionView.reloadData()
-        }
     }
 
     private func setupVideoControlBar() {
@@ -88,6 +109,24 @@ final class MeetingViewController: FSViewController {
         }
 
         videoControlBar.delegate = self
+    }
+
+    private func setupSwitchCameraButton() {
+        switchCameraButton.cornerStyle = .rounded
+        switchCameraButton.backgroundColor = .fsText.withAlphaComponent(0.1)
+        switchCameraButton.setImage(.init(systemName: "camera.rotate.fill"), for: .normal)
+        switchCameraButton.tintColor = .fsText
+
+        switchCameraButton.addTo(view) { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.size.equalTo(30)
+        }
+
+        switchCameraButton.addAction { [weak self] in
+            guard let self else { return }
+            viewModel?.switchCamera()
+        }
     }
 
     func setupMessageView() {

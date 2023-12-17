@@ -51,16 +51,16 @@ final class Box<T> {
 
     init(_ value: T, semaphore: Int? = nil) {
         self.value = value
-        if let semaphore {
-//            self.semaphore = .init(value: semaphore)
-        }
+//        if let semaphore {
+////            self.semaphore = .init(value: semaphore)
+//        }
     }
 
     init<K>(semaphore: Int? = nil) where T == K? {
         value = nil
-        if let semaphore {
-//            self.semaphore = .init(value: semaphore)
-        }
+//        if let semaphore {
+////            self.semaphore = .init(value: semaphore)
+//        }
     }
 
     func bind(

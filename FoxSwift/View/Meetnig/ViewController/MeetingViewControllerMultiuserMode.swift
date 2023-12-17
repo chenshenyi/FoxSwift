@@ -16,7 +16,8 @@ extension MeetingViewController {
         defaultLayout(1)
 
         videoCollectionView.addTo(view) { make in
-            make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide).inset(5)
+            make.top.equalTo(switchCameraButton.snp.bottom)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(5)
             make.bottom.equalTo(videoControlBar.snp.top).offset(-20)
         }
 

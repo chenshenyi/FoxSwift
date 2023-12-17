@@ -130,11 +130,22 @@ class MeetingViewModel {
         updateLayout()
     }
 
+    var isFront = true
+
+    func switchCamera() {
+        isFront.toggle()
+        if isFront {
+            rtcMannager.switchCamera(.front)
+        } else {
+            rtcMannager.switchCamera(.back)
+        }
+    }
+
     func updateLayout() {
         let participantsAmount = participants.value.count + (sharer.value == nil ? 0 : 1)
         if isMessage.value {
             layoutMode.value = .topRow(participantsAmount)
-        } else if participantsAmount > 2 {
+        } else if participantsAmount > 4 {
             layoutMode.value = .twoColumn
         } else {
             layoutMode.value = .oneColumn

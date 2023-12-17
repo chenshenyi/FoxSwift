@@ -246,7 +246,6 @@
 - Record: 4hr
     - Rename record
     - Delete message
-    - Edit Message
 
 ## Learning
 

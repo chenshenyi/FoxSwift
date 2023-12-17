@@ -5,6 +5,7 @@
 //  Created by chen shen yi on 2023/12/14.
 //
 
+import AVFoundation
 import Foundation
 import UIKit
 
@@ -121,6 +122,11 @@ class MeetingParticipantManager {
         participants.map(\.id).forEach { id in
             rtcProvider.setRemoteAudio(isEnable: false, for: id)
         }
+    }
+
+    func switchCamera(_ camera: AVCaptureDevice.Position = .front) {
+        rtcProvider.stopCaptureVideo()
+        rtcProvider.startCaptureVideo(camera: camera)
     }
 
     func turnOnCamera() {
