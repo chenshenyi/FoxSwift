@@ -35,12 +35,16 @@ class MeetingViewModel {
     var layoutMode = Box(LayoutMode.oneColumn)
 
     // MARK: - Init
-    init(meetingCode: String) {
+    init(meetingInfo: MeetingInfo) {
+        let meetingCode = meetingInfo.meetingCode
+
         self.meetingCode = .init(meetingCode)
 
         rtcMannager = .init(meetingCode: meetingCode)
 
         messageProvider = .init(meetingCode: meetingCode)
+
+        meetingInformationViewModel.update(meetingInfo: meetingInfo)
 
         setupProvider()
     }
@@ -155,6 +159,15 @@ class MeetingViewModel {
 
 // MARK: - MeetingRoomProviderDelegate
 extension MeetingViewModel: MeetingParticipantManagerDelegate {
+    func meetingRoom(_ manager: MeetingParticipantManager, renamed newName: String) {
+        let meetingInfo = MeetingInfo(
+            meetingCode: meetingCode.value,
+            createdTime: 0,
+            meetingName: newName
+        )
+        meetingInformationViewModel.update(meetingInfo: meetingInfo)
+    }
+
     func meetingRoom(
         _ manager: MeetingParticipantManager,
         startSharingScreen participant: Participant
@@ -205,9 +218,7 @@ extension MeetingViewModel: MeetingParticipantManagerDelegate {
 
 // MARK: - Speech Provider Delegate
 extension MeetingViewModel: SpeechRecognitionManagerDelegate {
-    func startSpeechRecognition(_ manager: SpeechRecognitionManager) {
-//        print("Start Recognition")
-    }
+    func startSpeechRecognition(_ manager: SpeechRecognitionManager) {}
 
     func speechTimeOutResult(_ manager: SpeechRecognitionManager, _ ret: String) {
         guard !ret.isEmpty else { return }
@@ -216,10 +227,5 @@ extension MeetingViewModel: SpeechRecognitionManagerDelegate {
         messageProvider.send(message: message)
     }
 
-    func speechFinalResult(_ manager: SpeechRecognitionManager, _ ret: String) {
-//        guard !ret.isEmpty else { return }
-//        guard let data = ret.data(using: .utf8) else { return }
-//        let message: FSMessage = .init(data: data, author: .currentUser, type: .speechText)
-//        messageProvider.send(message: message)
-    }
+    func speechFinalResult(_ manager: SpeechRecognitionManager, _ ret: String) {}
 }

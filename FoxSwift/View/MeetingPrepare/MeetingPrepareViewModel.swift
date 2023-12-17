@@ -53,7 +53,8 @@ class MeetingPrepareViewModel {
     }
 
     func joinMeet(handler: @escaping (_ viewModel: MeetingViewModel) -> Void) {
-        let viewModel = MeetingViewModel(meetingCode: meetingCode.value)
+        guard let meetingInfo else { return }
+        let viewModel = MeetingViewModel(meetingInfo: meetingInfo)
         handler(viewModel)
     }
 

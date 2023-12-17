@@ -34,6 +34,11 @@ protocol MeetingParticipantManagerDelegate: AnyObject {
         _ manager: MeetingParticipantManager,
         stopSharingScreen participant: Participant
     )
+
+    func meetingRoom(
+        _ manager: MeetingParticipantManager,
+        renamed newName: String
+    )
 }
 
 class MeetingParticipantManager {
@@ -165,6 +170,10 @@ extension MeetingParticipantManager: RTCProviderDelegate {
 
 // MARK: - MeetingRoomProviderDelegate
 extension MeetingParticipantManager: MeetingRoomProviderDelegate {
+    func meetingRoom(_ provider: MeetingRoomProvider, renamed name: String?) {
+        delegate?.meetingRoom(self, renamed: name ?? "")
+    }
+
     func meetingRoom(
         _ provider: MeetingRoomProvider,
         didRecieveInitial participants: [Participant]

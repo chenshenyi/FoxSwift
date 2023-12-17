@@ -51,7 +51,7 @@ class ParticipantCell: UITableViewCell, MVVMTableCell {
 
     // MARK: Setup Subview
     func setupNameLabel() {
-        nameLabel.font = .config(weight: .regular, size: 12)
+        nameLabel.font = .config(weight: .regular, size: 16)
         nameLabel.textColor = .fsText
     }
 

@@ -14,6 +14,8 @@
 		2B0A27CE2B204386009F4E78 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CD2B204386009F4E78 /* ProfileViewModel.swift */; };
 		2B0A27D02B204391009F4E78 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */; };
 		2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */; };
+		2B1212482B2EC5AE00AC5B7A /* InformationDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1212472B2EC5AE00AC5B7A /* InformationDetailVM.swift */; };
+		2B12124D2B2EC5EB00AC5B7A /* InformationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12124C2B2EC5EB00AC5B7A /* InformationDetailVC.swift */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
 		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
@@ -165,6 +167,8 @@
 		2B0A27CF2B204391009F4E78 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteManager.swift; sourceTree = "<group>"; };
 		2B11CDEA2B2B9B7B00BB5D56 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = "Pods/WebRTC-lib/WebRTC.xcframework"; sourceTree = "<group>"; };
+		2B1212472B2EC5AE00AC5B7A /* InformationDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailVM.swift; sourceTree = "<group>"; };
+		2B12124C2B2EC5EB00AC5B7A /* InformationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailVC.swift; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
@@ -331,6 +335,26 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		2B1212492B2EC5B500AC5B7A /* Participants */ = {
+			isa = PBXGroup;
+			children = (
+				2B737F082B2CF8450017462C /* ParticipantsVM.swift */,
+				2B737F0A2B2CF8450017462C /* ParticipantsVC.swift */,
+				2B5878562B2D6ACA00681728 /* ParticipantActionSheet.swift */,
+				2B737F052B2CF8450017462C /* ParticipantCell */,
+			);
+			path = Participants;
+			sourceTree = "<group>";
+		};
+		2B12124A2B2EC5C700AC5B7A /* InformationDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2B1212472B2EC5AE00AC5B7A /* InformationDetailVM.swift */,
+				2B12124C2B2EC5EB00AC5B7A /* InformationDetailVC.swift */,
+			);
+			path = InformationDetail;
+			sourceTree = "<group>";
+		};
 		2B228F892B04C5BD00539E8A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,10 +506,8 @@
 			children = (
 				2B737F102B2D2F960017462C /* MeetingInformationViewModel.swift */,
 				2B737F092B2CF8450017462C /* MeetingInformationViewController.swift */,
-				2B737F082B2CF8450017462C /* ParticipantsVM.swift */,
-				2B737F0A2B2CF8450017462C /* ParticipantsVC.swift */,
-				2B5878562B2D6ACA00681728 /* ParticipantActionSheet.swift */,
-				2B737F052B2CF8450017462C /* ParticipantCell */,
+				2B1212492B2EC5B500AC5B7A /* Participants */,
+				2B12124A2B2EC5C700AC5B7A /* InformationDetail */,
 			);
 			path = MeetingInformation;
 			sourceTree = "<group>";
@@ -1041,6 +1063,7 @@
 				2BEAE6BF2B148E3C0007180B /* MessageView.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2BC45BFC2B26130C0005EF7D /* FSTextField.swift in Sources */,
+				2B1212482B2EC5AE00AC5B7A /* InformationDetailVM.swift in Sources */,
 				2B25DEAD2B04F19000D3E87A /* MeetingRoomProvider.swift in Sources */,
 				2BA0EB692B085F01003B8EFE /* MeetingCell.swift in Sources */,
 				2B228F8B2B04C90C00539E8A /* Participant.swift in Sources */,
@@ -1085,6 +1108,7 @@
 				2BA0EB672B0857E3003B8EFE /* MeetingCellViewModel.swift in Sources */,
 				2BEAE6BC2B143B830007180B /* Error+Extenision.swift in Sources */,
 				2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */,
+				2B12124D2B2EC5EB00AC5B7A /* InformationDetailVC.swift in Sources */,
 				2B737F0C2B2CF8450017462C /* ParticipantCellVM.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */,

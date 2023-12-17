@@ -9,6 +9,7 @@ import UIKit
 
 protocol MeetingInformationViewModelProtocol {
     var participantViewModel: ParticipantsViewModelProtocol & MVVMTableDataSourceViewModel { get }
+    var informationDetailViewModel: MVVMViewModel & InformationDetailViewModelProtocol { get }
 }
 
 final class MeetingInformationViewController: FSViewController, MVVMView {
@@ -23,7 +24,8 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
     let seperatorline = UIView()
 
     // MARK: - Children
-    let participantsViewController = ParticipantsViewController()
+    let participantsVC = ParticipantsViewController()
+    let informationDetailVC = InformationDetailViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +99,11 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
 
     // MARK: Setup Children
     func setupChildren() {
-        [participantsViewController, UIViewController(), UIViewController()].forEach { child in
+        [
+            participantsVC,
+            informationDetailVC,
+            UIViewController()
+        ].forEach { child in
             addChild(child)
             child.view.addTo(view) { make in
                 make.horizontalEdges.equalToSuperview().inset(20)
@@ -111,7 +117,8 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
     }
 
     func setupViewModel(viewModel: ViewModel) {
-        participantsViewController.setupViewModel(viewModel: viewModel.participantViewModel)
+        participantsVC.setupViewModel(viewModel: viewModel.participantViewModel)
+        informationDetailVC.setupViewModel(viewModel: viewModel.informationDetailViewModel)
     }
 }
 

@@ -20,6 +20,10 @@ protocol MeetingRoomProviderDelegate: AnyObject {
         _ provider: MeetingRoomProvider,
         stopSharingScreen participant: Participant
     )
+    func meetingRoom(
+        _ provider: MeetingRoomProvider,
+        renamed name: String?
+    )
 }
 
 /// Warning: This content is to substitute webSocket with Firestore
@@ -128,6 +132,10 @@ class MeetingRoomProvider {
         switch result {
         case let .success(newMeetingRoom):
             guard let meetingRoom else { return }
+
+            if meetingRoom.meetingName != newMeetingRoom.meetingName {
+                delegate?.meetingRoom(self, renamed: newMeetingRoom.meetingName)
+            }
 
             let leftParticipants = Set(meetingRoom.participants)
                 .subtracting(newMeetingRoom.participants)
