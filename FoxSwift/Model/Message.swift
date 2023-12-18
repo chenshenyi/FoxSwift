@@ -16,6 +16,7 @@ struct FSMessage: Codable, Identifiable {
         case file
         case fileUrl
         case speechText
+        case stroke
     }
 
     enum CodingKeys: CodingKey {

@@ -40,6 +40,8 @@
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
 		2B67DAF92B2FDC0C00D97C03 /* FSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */; };
 		2B67DAFE2B2FEED800D97C03 /* FSFileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */; };
+		2B67DB072B3045EF00D97C03 /* WhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */; };
+		2B67DB0A2B30461A00D97C03 /* WhiteboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */; };
 		2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */; };
 		2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */; };
 		2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */; };
@@ -197,6 +199,8 @@
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
 		2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFile.swift; sourceTree = "<group>"; };
 		2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFileMessageCell.swift; sourceTree = "<group>"; };
+		2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteboardViewController.swift; sourceTree = "<group>"; };
+		2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteboardViewModel.swift; sourceTree = "<group>"; };
 		2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
@@ -470,6 +474,15 @@
 			path = Meetnig;
 			sourceTree = "<group>";
 		};
+		2B67DB042B3045D900D97C03 /* Whiteboard */ = {
+			isa = PBXGroup;
+			children = (
+				2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */,
+				2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */,
+			);
+			path = Whiteboard;
+			sourceTree = "<group>";
+		};
 		2B6E2F9E2B22E0DA009C08D1 /* Records */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +527,7 @@
 			children = (
 				2B737F102B2D2F960017462C /* MeetingInformationViewModel.swift */,
 				2B737F092B2CF8450017462C /* MeetingInformationViewController.swift */,
+				2B67DB042B3045D900D97C03 /* Whiteboard */,
 				2B1212492B2EC5B500AC5B7A /* Participants */,
 				2B12124A2B2EC5C700AC5B7A /* InformationDetail */,
 			);
@@ -1088,6 +1102,7 @@
 				2B5878572B2D6ACA00681728 /* ParticipantActionSheet.swift in Sources */,
 				2B737F0B2B2CF8450017462C /* ParticipantCell.swift in Sources */,
 				2BBF79C32B26C21C0003602E /* SelectionView.swift in Sources */,
+				2B67DB072B3045EF00D97C03 /* WhiteboardViewController.swift in Sources */,
 				2B5AC1652B05BB52007B717C /* Result+Extension.swift in Sources */,
 				2BEAE6C32B1498EA0007180B /* MessageHeaderView.swift in Sources */,
 				2BBF79CD2B270D630003602E /* MeetingPrepareViewController.swift in Sources */,
@@ -1141,6 +1156,7 @@
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
 				2B67DAF92B2FDC0C00D97C03 /* FSFile.swift in Sources */,
 				2BA0DFA72B28015000C82249 /* JoinMeetViewModel.swift in Sources */,
+				2B67DB0A2B30461A00D97C03 /* WhiteboardViewModel.swift in Sources */,
 				2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */,
 				2B61FC982B29F7D200AABFB3 /* FSPopup.swift in Sources */,
 				2BEAE6B82B142DEE0007180B /* UserProvider.swift in Sources */,

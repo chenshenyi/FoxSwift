@@ -43,10 +43,8 @@ extension MeetingViewController: FSButtonStackDelegate {
 
         case .more:
             let viewModel = viewModel.meetingInformationViewModel
-            let viewController = MeetingInformationViewController()
-            viewController.setupViewModel(viewModel: viewModel)
-
-            present(viewController, animated: true)
+            meetingInformationViewController.setupViewModel(viewModel: viewModel)
+            present(meetingInformationViewController, animated: true)
         }
     }
 

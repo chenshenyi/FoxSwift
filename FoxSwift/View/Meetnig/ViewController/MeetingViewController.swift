@@ -25,6 +25,12 @@ final class MeetingViewController: FSViewController {
 
     let switchCameraButton = FSButton()
 
+    let meetingInformationViewController = {
+        let vc = MeetingInformationViewController()
+        vc.modalPresentationStyle = .fullScreen
+        return vc
+    }()
+
     // MARK: - Message View
     var messageView = MessageView()
 

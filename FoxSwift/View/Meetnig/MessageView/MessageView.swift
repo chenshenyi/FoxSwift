@@ -72,7 +72,7 @@ class MessageView: UIView {
         speechTableView.addTo(self) { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalToSuperview().inset(40)
-            make.bottom.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().inset(12)
         }
 
         speechTableView.isHidden = true

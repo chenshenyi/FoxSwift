@@ -26,6 +26,7 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
     // MARK: - Children
     let participantsVC = ParticipantsViewController()
     let informationDetailVC = InformationDetailViewController()
+    let whiteboardVC = WhiteboardViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +103,7 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
         [
             participantsVC,
             informationDetailVC,
-            UIViewController()
+            whiteboardVC
         ].forEach { child in
             addChild(child)
             child.view.addTo(view) { make in
