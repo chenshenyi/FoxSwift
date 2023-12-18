@@ -85,6 +85,7 @@ extension FSMessageViewController: FSFileMessageCellDelegate {
                 activityItems: [tempFileUrl],
                 applicationActivities: []
             )
+            activityVC.overrideUserInterfaceStyle = .dark
             self?.present(activityVC, animated: true)
         }
     }

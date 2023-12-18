@@ -158,6 +158,7 @@ extension MeetingViewController: MessageViewDelegate {
         config.selectionLimit = 1
         let phViewController = PHPickerViewController(configuration: config)
         phViewController.delegate = self
+        phViewController.overrideUserInterfaceStyle = .dark
         present(phViewController, animated: true)
     }
 
@@ -189,6 +190,7 @@ extension MeetingViewController: FSFileMessageCellDelegate {
                 activityItems: [tempFileUrl],
                 applicationActivities: []
             )
+            activityVC.overrideUserInterfaceStyle = .dark
             self?.present(activityVC, animated: true)
         }
     }
