@@ -16,6 +16,7 @@
 		2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0A27D82B219E8F009F4E78 /* UrlRouteManager.swift */; };
 		2B1212482B2EC5AE00AC5B7A /* InformationDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1212472B2EC5AE00AC5B7A /* InformationDetailVM.swift */; };
 		2B12124D2B2EC5EB00AC5B7A /* InformationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12124C2B2EC5EB00AC5B7A /* InformationDetailVC.swift */; };
+		2B1212552B2F178200AC5B7A /* UTTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1212542B2F178200AC5B7A /* UTTypes+Extension.swift */; };
 		2B1F84812B11C66700136190 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84802B11C66700136190 /* Message.swift */; };
 		2B1F84832B11CEF500136190 /* MessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84822B11CEF500136190 /* MessageProvider.swift */; };
 		2B1F84892B1229BA00136190 /* FSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1F84882B1229BA00136190 /* FSMessageCell.swift */; };
@@ -37,6 +38,7 @@
 		2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EB2B0F351400C5C06A /* VideoView.swift */; };
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
+		2B67DAF92B2FDC0C00D97C03 /* FSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */; };
 		2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */; };
 		2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */; };
 		2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */; };
@@ -169,6 +171,8 @@
 		2B11CDEA2B2B9B7B00BB5D56 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = "Pods/WebRTC-lib/WebRTC.xcframework"; sourceTree = "<group>"; };
 		2B1212472B2EC5AE00AC5B7A /* InformationDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailVM.swift; sourceTree = "<group>"; };
 		2B12124C2B2EC5EB00AC5B7A /* InformationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationDetailVC.swift; sourceTree = "<group>"; };
+		2B1212542B2F178200AC5B7A /* UTTypes+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTTypes+Extension.swift"; sourceTree = "<group>"; };
+		2B1212562B2F1D5200AC5B7A /* FoxSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoxSwift.entitlements; sourceTree = "<group>"; };
 		2B1F84802B11C66700136190 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2B1F84822B11CEF500136190 /* MessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageProvider.swift; sourceTree = "<group>"; };
 		2B1F84882B1229BA00136190 /* FSMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageCell.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 		2B66F5EB2B0F351400C5C06A /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
+		2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFile.swift; sourceTree = "<group>"; };
 		2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
@@ -375,6 +380,7 @@
 				2B24FFAA2B03753F0000C5A3 /* Localizable.swift */,
 				2BA0EB5E2B084D40003B8EFE /* MeetingRoom.swift */,
 				2B1F84802B11C66700136190 /* Message.swift */,
+				2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */,
 				2BEAE6B92B142E010007180B /* User.swift */,
 			);
 			path = Model;
@@ -642,6 +648,7 @@
 		2BCB8DAA2B011F1400DD4C2F /* FoxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2B1212562B2F1D5200AC5B7A /* FoxSwift.entitlements */,
 				2BCB8DF32B012EF000DD4C2F /* Docs */,
 				2B228F892B04C5BD00539E8A /* Utilities */,
 				2BCB8DAB2B011F1400DD4C2F /* AppDelegate.swift */,
@@ -693,6 +700,7 @@
 				2BCB8DE62B012A0900DD4C2F /* UITableView+Extension.swift */,
 				2BCB8DE42B012A0900DD4C2F /* UICollectionView+Extension.swift */,
 				2B0008592B2ADC870023FFAF /* ResizeImage.swift */,
+				2B1212542B2F178200AC5B7A /* UTTypes+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1110,6 +1118,7 @@
 				2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */,
 				2B12124D2B2EC5EB00AC5B7A /* InformationDetailVC.swift in Sources */,
 				2B737F0C2B2CF8450017462C /* ParticipantCellVM.swift in Sources */,
+				2B1212552B2F178200AC5B7A /* UTTypes+Extension.swift in Sources */,
 				2BA4D1662B073CAE00637596 /* IceCandidate.swift in Sources */,
 				2B04E4472B1F036C0050D4D1 /* ScreenSharedMannager.swift in Sources */,
 				2B61FC942B299C2900AABFB3 /* LoginFlowManager.swift in Sources */,
@@ -1127,6 +1136,7 @@
 				2B0A27D92B219E8F009F4E78 /* UrlRouteManager.swift in Sources */,
 				2BA4D1652B073CAE00637596 /* SessionDescription.swift in Sources */,
 				2BCB8DAC2B011F1400DD4C2F /* AppDelegate.swift in Sources */,
+				2B67DAF92B2FDC0C00D97C03 /* FSFile.swift in Sources */,
 				2BA0DFA72B28015000C82249 /* JoinMeetViewModel.swift in Sources */,
 				2B9C8B252B0C49D000F57C90 /* PeerConnectionDelegate.swift in Sources */,
 				2B61FC982B29F7D200AABFB3 /* FSPopup.swift in Sources */,
@@ -1249,7 +1259,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1312,7 +1323,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1337,6 +1349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FoxSwift/FoxSwift.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1444,6 +1457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FoxSwift/FoxSwift.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

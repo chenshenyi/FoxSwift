@@ -32,7 +32,7 @@ class FSMessageCellViewModel {
 
         let data = message.data
         switch message.type {
-        case .text, .speechText:
+        case .text, .speechText, .fileUrl:
             content.value = String(data: data, encoding: .utf8) ?? "???"
 
         case .image:

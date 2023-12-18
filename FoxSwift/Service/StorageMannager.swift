@@ -66,6 +66,28 @@ class StorageManager {
         }
     }
 
+    func upload(
+        url: URL,
+        name: String,
+        completion: @escaping (Result<URL, Error>) -> Void
+    ) {
+        let reference = reference.child(UUID().uuidString).child(name)
+
+        reference.putFile(from: url, metadata: nil) { _, error in
+            if let error {
+                completion(.failure(error))
+            } else {
+                reference.downloadURL { url, error in
+                    if let error {
+                        completion(.failure(error))
+                    } else if let url {
+                        completion(.success(url))
+                    }
+                }
+            }
+        }
+    }
+
     func download(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         if let data = DefaultImage(rawValue: url.absoluteString)?.imageData {
             completion(.success(data))

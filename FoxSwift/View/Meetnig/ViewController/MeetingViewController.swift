@@ -5,8 +5,10 @@
 //  Created by chen shen yi on 2023/11/17.
 //
 
+import CoreServices
 import PhotosUI
 import UIKit
+import UniformTypeIdentifiers
 
 @MainActor
 final class MeetingViewController: FSViewController {
@@ -158,6 +160,18 @@ extension MeetingViewController: MessageViewDelegate {
         phViewController.delegate = self
         present(phViewController, animated: true)
     }
+
+    func selectFile(_ messageView: MessageView) {
+        let documentPickerVC = UIDocumentPickerViewController(
+            forOpeningContentTypes: UTType.allCases
+        )
+
+        documentPickerVC.overrideUserInterfaceStyle = .dark
+        documentPickerVC.allowsMultipleSelection = false
+        documentPickerVC.delegate = self
+
+        present(documentPickerVC, animated: true, completion: nil)
+    }
 }
 
 extension MeetingViewController: PHPickerViewControllerDelegate {
@@ -173,6 +187,34 @@ extension MeetingViewController: PHPickerViewControllerDelegate {
             guard let image = image as? UIImage else { return }
 
             self?.messageView.sendImage(image: image)
+        }
+    }
+}
+
+extension MeetingViewController: UIDocumentPickerDelegate {
+    func documentPicker(
+        _ controller: UIDocumentPickerViewController,
+        didPickDocumentsAt urls: [URL]
+    ) {
+        guard let url = urls.first else { return }
+
+        #warning("Bad practice to access the viewModel in subview.\nMust Fix It Later.")
+        messageView.viewModel?.sendFile(localUrl: url) { [weak self] error in
+            guard let self else { return }
+
+            switch error {
+            case .fileTooLarge:
+                popup(text: "Exceed 5MB", style: .error) {}
+
+            case .invalidFile:
+                popup(text: "Invalide File", style: .error) {}
+
+            case .uploadError:
+                popup(text: "Upload Error", style: .error) {}
+
+            case .none:
+                break
+            }
         }
     }
 }

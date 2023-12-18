@@ -100,4 +100,52 @@ class MessageViewModel {
             }
         }
     }
+
+    enum MessageError: Error {
+        case fileTooLarge
+        case invalidFile
+        case uploadError
+    }
+
+    func sendFile(localUrl: URL, handler: @escaping (MessageError?) -> Void) {
+        guard localUrl.startAccessingSecurityScopedResource() else { return }
+
+        do {
+            let fileName = localUrl.lastPathComponent
+            let resourceValue = try localUrl.resourceValues(forKeys: [.fileSizeKey])
+            let fileSize = resourceValue.fileSize ?? .max
+            if fileSize > 5_000_000 {
+                throw MessageError.fileTooLarge
+            }
+
+            guard let data = try? Data(contentsOf: localUrl) else {
+                handler(.invalidFile)
+                return
+            }
+
+            fileManager.upload(
+                data: data,
+                name: fileName
+            ) { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case let .success(url):
+                    guard let message = FSMessage(string: url.absoluteString, type: .fileUrl) else {
+                        handler(.uploadError)
+                        return
+                    }
+                    messageProvider.send(message: message)
+                    handler(nil)
+    
+                case let .failure(error):
+                    print(error.localizedDescription.red)
+                    handler(.uploadError)
+                }
+            }
+        } catch let error as MessageError {
+            handler(error)
+        } catch {
+            handler(.invalidFile)
+        }
+    }
 }

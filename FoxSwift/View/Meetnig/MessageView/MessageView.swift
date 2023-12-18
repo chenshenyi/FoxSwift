@@ -11,6 +11,8 @@ protocol MessageViewDelegate: AnyObject {
     func didClose(_ messageView: MessageView)
 
     func selectImage(_ messageView: MessageView)
+    
+    func selectFile(_ messageView: MessageView)
 }
 
 class MessageView: UIView {
@@ -151,6 +153,7 @@ extension MessageView: UITableViewDataSource {
         let messages = messages(for: tableView)
         let message = messages[indexPath.row]
 
+        #warning("TODO: File Cell")
         let cell = switch message.type {
         case .image, .imageUrl:
             tableView.getReuseCell(for: FSImageMessageCell.self, indexPath: indexPath)
@@ -158,6 +161,9 @@ extension MessageView: UITableViewDataSource {
         case .text, .speechText:
             tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath)
 
+//        case .fileUrl:
+//            tableView.getReuseCell(for: , indexPath: )
+            
         default:
             fatalError("\(message.type) message haven't implemented")
         }
@@ -181,8 +187,10 @@ extension MessageView: UITableViewDelegate {
 
 // MARK: - Message Input View Delegate
 extension MessageView: MessageInputViewDelegate {
+    #warning("TODO: share image should implement")
+    // TODO: share image should implement
     func attachmentButtonDidTapped(_ input: MessageInputView) {
-        delegate?.selectImage(self)
+        delegate?.selectFile(self)
     }
 
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
