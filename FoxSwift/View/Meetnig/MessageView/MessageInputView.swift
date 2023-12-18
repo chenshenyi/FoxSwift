@@ -9,11 +9,13 @@ import UIKit
 
 protocol MessageInputViewDelegate: AnyObject {
     func attachmentButtonDidTapped(_ input: MessageInputView)
+    func imageButtonDidTapped(_ input: MessageInputView)
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String)
 }
 
 class MessageInputView: UIView {
     let attachmentButton = UIButton()
+    let imageButton = UIButton()
     let textView = UITextView()
     let doneButton = UIButton()
 
@@ -26,6 +28,7 @@ class MessageInputView: UIView {
         backgroundColor = .fsPrimary
 
         setupAttachmentButton()
+        setupImageButton()
         setupDoneButton()
         setupTextView()
     }
@@ -38,7 +41,7 @@ class MessageInputView: UIView {
     // MARK: - setupSubview
     func setupAttachmentButton() {
         attachmentButton.setImage(.init(systemName: "paperclip"), for: .normal)
-        attachmentButton.tintColor = .fsSecondary
+        attachmentButton.tintColor = .fsText.withAlphaComponent(0.9)
 
         attachmentButton.addTo(self) { make in
             make.top.leading.equalToSuperview().inset(8)
@@ -50,6 +53,24 @@ class MessageInputView: UIView {
 
             textView.endEditing(true)
             delegate?.attachmentButtonDidTapped(self)
+        }
+    }
+
+    func setupImageButton() {
+        imageButton.setImage(.init(systemName: "photo.fill"), for: .normal)
+        imageButton.tintColor = .fsText.withAlphaComponent(0.9)
+
+        imageButton.addTo(self) { make in
+            make.top.equalToSuperview().inset(8)
+            make.leading.equalTo(attachmentButton.snp.trailing).offset(6)
+            make.size.equalTo(30)
+        }
+
+        imageButton.addAction { [weak self] in
+            guard let self else { return }
+
+            textView.endEditing(true)
+            delegate?.imageButtonDidTapped(self)
         }
     }
 
@@ -67,7 +88,7 @@ class MessageInputView: UIView {
         textView.addTo(self) { make in
             make.top.equalToSuperview().inset(8)
             make.centerY.equalTo(doneButton)
-            make.leading.equalTo(attachmentButton.snp.trailing).offset(6)
+            make.leading.equalTo(imageButton.snp.trailing).offset(6)
             make.trailing.equalTo(doneButton.snp.leading).offset(-6)
         }
     }

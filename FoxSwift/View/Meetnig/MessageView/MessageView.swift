@@ -193,9 +193,12 @@ extension MessageView: UITableViewDelegate {
 // MARK: - Message Input View Delegate
 extension MessageView: MessageInputViewDelegate {
     #warning("TODO: share image should implement")
-    // TODO: share image should implement
     func attachmentButtonDidTapped(_ input: MessageInputView) {
         delegate?.selectFile(self)
+    }
+
+    func imageButtonDidTapped(_ input: MessageInputView) {
+        delegate?.selectImage(self)
     }
 
     func sendButtonDidTapped(_ input: MessageInputView, sendText text: String) {
@@ -204,6 +207,7 @@ extension MessageView: MessageInputViewDelegate {
     }
 }
 
+// MARK: SelectionView DataSource and Delegate
 extension MessageView: SelectionViewDelegate, SelectionViewDataSource {
     func title(_ selectionView: SelectionView, forIndex index: Int) -> String {
         switch index {

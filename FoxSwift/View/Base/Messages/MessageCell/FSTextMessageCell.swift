@@ -40,7 +40,7 @@ final class FSTextMessageCell: FSMessageCell {
     }
 
     private func bindViewModel() {
-        viewModel.content.bind(inQueue: .main) { [weak self] content in
+        viewModel.content.bind { [weak self] content in
             self?.contentTextView.text = content
         }
     }
