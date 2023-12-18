@@ -10,10 +10,12 @@ import Foundation
 class MeetingInformationViewModel: MVVMViewModel, MeetingInformationViewModelProtocol {
     var participantViewModel: ParticipantsViewModelProtocol & MVVMTableDataSourceViewModel
     var informationDetailViewModel: InformationDetailViewModelProtocol & MVVMViewModel
+    var whiteboardViewModel: WhiteboardViewModel
 
     init() {
         participantViewModel = ParticipantsViewModel()
         informationDetailViewModel = InformationDetailViewModel()
+        whiteboardViewModel = WhiteboardViewModel()
     }
 
     func update(participants: [Participant]) {
@@ -22,5 +24,6 @@ class MeetingInformationViewModel: MVVMViewModel, MeetingInformationViewModelPro
 
     func update(meetingInfo: MeetingInfo) {
         informationDetailViewModel.update(meetingInfo: meetingInfo)
+        whiteboardViewModel.update(meetingCode: meetingInfo.meetingCode)
     }
 }

@@ -22,8 +22,8 @@ enum FSCollection: String {
     case withParticipant = "Participants"
     case messages = "Messages"
     case user = "User"
+    case strokes = "Strokes"
 }
-
 
 class FSCollectionManager<DataType: Codable, CodingKeys: CodingKey> {
     typealias CompletionHandler<T> = (_ result: Result<T, Error>) -> Void
@@ -362,11 +362,8 @@ extension FSCollectionManager {
         reference.document(documentID).updateData(
             [field.stringValue: FieldValue.arrayUnion(serialDatas)]
         ) { error in
-            if let error {
-                completion?(.failure(error))
-            } else {
-                completion?(.success(objects))
-            }
+            if let error { completion?(.failure(error))
+            } else { completion?(.success(objects)) }
         }
     }
 

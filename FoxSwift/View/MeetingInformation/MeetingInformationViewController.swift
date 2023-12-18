@@ -10,6 +10,7 @@ import UIKit
 protocol MeetingInformationViewModelProtocol {
     var participantViewModel: ParticipantsViewModelProtocol & MVVMTableDataSourceViewModel { get }
     var informationDetailViewModel: MVVMViewModel & InformationDetailViewModelProtocol { get }
+    var whiteboardViewModel: WhiteboardViewModel { get }
 }
 
 final class MeetingInformationViewController: FSViewController, MVVMView {
@@ -120,6 +121,7 @@ final class MeetingInformationViewController: FSViewController, MVVMView {
     func setupViewModel(viewModel: ViewModel) {
         participantsVC.setupViewModel(viewModel: viewModel.participantViewModel)
         informationDetailVC.setupViewModel(viewModel: viewModel.informationDetailViewModel)
+        whiteboardVC.setupViewModel(viewModel: viewModel.whiteboardViewModel)
     }
 }
 

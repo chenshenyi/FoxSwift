@@ -42,6 +42,8 @@
 		2B67DAFE2B2FEED800D97C03 /* FSFileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */; };
 		2B67DB072B3045EF00D97C03 /* WhiteboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */; };
 		2B67DB0A2B30461A00D97C03 /* WhiteboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */; };
+		2B67DB0E2B3093AF00D97C03 /* PencilKit+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB0D2B3093AF00D97C03 /* PencilKit+Codable.swift */; };
+		2B67DB102B30A70C00D97C03 /* DrawingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DB0F2B30A70C00D97C03 /* DrawingProvider.swift */; };
 		2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */; };
 		2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */; };
 		2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */; };
@@ -201,6 +203,8 @@
 		2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFileMessageCell.swift; sourceTree = "<group>"; };
 		2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteboardViewController.swift; sourceTree = "<group>"; };
 		2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteboardViewModel.swift; sourceTree = "<group>"; };
+		2B67DB0D2B3093AF00D97C03 /* PencilKit+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PencilKit+Codable.swift"; sourceTree = "<group>"; };
+		2B67DB0F2B30A70C00D97C03 /* DrawingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingProvider.swift; sourceTree = "<group>"; };
 		2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
@@ -388,6 +392,7 @@
 				2B1F84802B11C66700136190 /* Message.swift */,
 				2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */,
 				2BEAE6B92B142E010007180B /* User.swift */,
+				2B67DB0D2B3093AF00D97C03 /* PencilKit+Codable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -477,8 +482,8 @@
 		2B67DB042B3045D900D97C03 /* Whiteboard */ = {
 			isa = PBXGroup;
 			children = (
-				2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */,
 				2B67DB092B30461A00D97C03 /* WhiteboardViewModel.swift */,
+				2B67DB062B3045EF00D97C03 /* WhiteboardViewController.swift */,
 			);
 			path = Whiteboard;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				2BA4D15E2B072DCB00637596 /* ParticipantDetailProvider.swift */,
 				2B1F84822B11CEF500136190 /* MessageProvider.swift */,
 				2BEAE6B72B142DEE0007180B /* UserProvider.swift */,
+				2B67DB0F2B30A70C00D97C03 /* DrawingProvider.swift */,
 			);
 			path = FirebaseFirestore;
 			sourceTree = "<group>";
@@ -1086,6 +1092,7 @@
 				2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */,
 				2BA0EB852B0B51A8003B8EFE /* RTCProvider.swift in Sources */,
 				2BEAE6BF2B148E3C0007180B /* MessageView.swift in Sources */,
+				2B67DB102B30A70C00D97C03 /* DrawingProvider.swift in Sources */,
 				2BA4D16C2B07519200637596 /* MeetingViewController.swift in Sources */,
 				2BC45BFC2B26130C0005EF7D /* FSTextField.swift in Sources */,
 				2B1212482B2EC5AE00AC5B7A /* InformationDetailVM.swift in Sources */,
@@ -1126,6 +1133,7 @@
 				2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */,
 				2BBF79D12B270F370003602E /* CornerStyle.swift in Sources */,
 				2B66F5EC2B0F351400C5C06A /* VideoView.swift in Sources */,
+				2B67DB0E2B3093AF00D97C03 /* PencilKit+Codable.swift in Sources */,
 				2B0008632B2AF4A40023FFAF /* MeetingParticipantManager.swift in Sources */,
 				2BA0EB5F2B084D40003B8EFE /* MeetingRoom.swift in Sources */,
 				2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */,
