@@ -50,30 +50,8 @@ class StorageManager {
     }
 
     func upload(data: Data, name: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        let reference = reference.child(name)
-        reference.putData(data, metadata: nil) { _, error in
-            if let error {
-                completion(.failure(error))
-            } else {
-                reference.downloadURL { url, error in
-                    if let error {
-                        completion(.failure(error))
-                    } else if let url {
-                        completion(.success(url))
-                    }
-                }
-            }
-        }
-    }
-
-    func upload(
-        url: URL,
-        name: String,
-        completion: @escaping (Result<URL, Error>) -> Void
-    ) {
         let reference = reference.child(UUID().uuidString).child(name)
-
-        reference.putFile(from: url, metadata: nil) { _, error in
+        reference.putData(data, metadata: nil) { _, error in
             if let error {
                 completion(.failure(error))
             } else {

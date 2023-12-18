@@ -9,12 +9,12 @@ import Foundation
 
 struct FSFile: Codable {
     var name: String
-    var size: String
-    var data: Data
+    var size: Int
+    var urlString: String
 
     enum CodingKeys: CodingKey {
         case name
         case size
-        case data
+        case urlString
     }
 }

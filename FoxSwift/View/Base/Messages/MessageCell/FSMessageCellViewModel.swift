@@ -14,9 +14,12 @@ class FSMessageCellViewModel {
     var isMyMessage = Box(false)
     var content = Box("")
     var image: Box<UIImage?> = .init(.placeholder)
+    var fileName = Box("")
+    var fileSize = Box("")
+    var fileUrlString = ""
 
     let imageManager = StorageManager.imageManager
-    let fileManager = StorageManager.fileManager
+    let storageFileManager = StorageManager.fileManager
 
     func setup(message: FSMessage) {
         isMyMessage.value = message.author.id == Participant.currentUser.id
@@ -32,7 +35,7 @@ class FSMessageCellViewModel {
 
         let data = message.data
         switch message.type {
-        case .text, .speechText, .fileUrl:
+        case .text, .speechText:
             content.value = String(data: data, encoding: .utf8) ?? "???"
 
         case .image:
@@ -43,9 +46,22 @@ class FSMessageCellViewModel {
                   let url = URL(string: urlString) else { return }
             fetchImage(url: url)
 
+        case .fileUrl:
+            guard let file = try? JSONDecoder().decode(FSFile.self, from: data) else { return }
+            fileName.value = file.name
+            fileSize.value = sizeFormattedString(size: file.size)
+            fileUrlString = file.urlString
+
         default:
             fatalError("Such type message not available.")
         }
+    }
+
+    private func sizeFormattedString(size: Int) -> String {
+        let bcf = ByteCountFormatter()
+        bcf.allowedUnits = [.useMB, .useKB, .useBytes] // optional: restricts the units to MB only
+        bcf.countStyle = .file
+        return bcf.string(fromByteCount: Int64(size))
     }
 
     private func fetchImage(url: URL) {
@@ -59,6 +75,42 @@ class FSMessageCellViewModel {
 
             case let .failure(error):
                 print(error.localizedDescription.red)
+            }
+        }
+    }
+
+    enum DownloadError: Error {
+        case downloadError
+        case localError
+    }
+
+    func fetchFile(handler: @escaping ResultHandler<URL, DownloadError>) {
+        guard let url = URL(string: fileUrlString) else {
+            handler(.failure(.downloadError))
+            return
+        }
+
+        storageFileManager.download(url: url) { [weak self] result in
+            guard let self else {
+                handler(.failure(.localError))
+                return
+            }
+
+            switch result {
+            case let .success(data):
+                let tempDirectory = FileManager.default.temporaryDirectory
+                let tempFileURL = tempDirectory.appendingPathComponent(fileName.value)
+
+                do {
+                    try data.write(to: tempFileURL)
+                    handler(.success(tempFileURL))
+                } catch {
+                    handler(.failure(.localError))
+                    return
+                }
+
+            case .failure:
+                handler(.failure(.downloadError))
             }
         }
     }

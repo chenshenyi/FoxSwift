@@ -39,6 +39,7 @@
 		2B66F5EE2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */; };
 		2B66F5F02B0F45AA00C5C06A /* CollectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */; };
 		2B67DAF92B2FDC0C00D97C03 /* FSFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */; };
+		2B67DAFE2B2FEED800D97C03 /* FSFileMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */; };
 		2B6E2FA02B22E100009C08D1 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */; };
 		2B6E2FA32B22E827009C08D1 /* FSMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */; };
 		2B6E2FA52B22F768009C08D1 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */; };
@@ -195,6 +196,7 @@
 		2B66F5ED2B0F397F00C5C06A /* MeetingViewControllerMultiuserMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingViewControllerMultiuserMode.swift; sourceTree = "<group>"; };
 		2B66F5EF2B0F45AA00C5C06A /* CollectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBox.swift; sourceTree = "<group>"; };
 		2B67DAF82B2FDC0C00D97C03 /* FSFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFile.swift; sourceTree = "<group>"; };
+		2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFileMessageCell.swift; sourceTree = "<group>"; };
 		2B6E2F9F2B22E100009C08D1 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA22B22E827009C08D1 /* FSMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageViewController.swift; sourceTree = "<group>"; };
 		2B6E2FA42B22F768009C08D1 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				2B1F84882B1229BA00136190 /* FSMessageCell.swift */,
 				2B86D4322B1D695E00FCBA97 /* FSTextMessageCell.swift */,
 				2B86D4302B1D683F00FCBA97 /* FSImageMessageCell.swift */,
+				2B67DAFD2B2FEED800D97C03 /* FSFileMessageCell.swift */,
 			);
 			path = MessageCell;
 			sourceTree = "<group>";
@@ -1150,6 +1153,7 @@
 				2BA4D16A2B074EF300637596 /* FSWebRTCConfig.swift in Sources */,
 				2B737F032B2CF82A0017462C /* MVVM_View.swift in Sources */,
 				2BBF79CF2B270D720003602E /* MeetingPrepareViewModel.swift in Sources */,
+				2B67DAFE2B2FEED800D97C03 /* FSFileMessageCell.swift in Sources */,
 				2BA0EB7B2B09DD87003B8EFE /* RTCStates.swift in Sources */,
 				2B5AC1692B0613AF007B717C /* MeetsViewController.swift in Sources */,
 				2BCB8DE92B012A0900DD4C2F /* UIColor+Extension.swift in Sources */,

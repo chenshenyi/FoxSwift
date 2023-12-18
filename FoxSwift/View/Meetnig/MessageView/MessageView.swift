@@ -11,13 +11,13 @@ protocol MessageViewDelegate: AnyObject {
     func didClose(_ messageView: MessageView)
 
     func selectImage(_ messageView: MessageView)
-    
+
     func selectFile(_ messageView: MessageView)
 }
 
 class MessageView: UIView {
     var viewModel: MessageViewModel?
-    weak var delegate: MessageViewDelegate?
+    weak var delegate: (MessageViewDelegate & FSFileMessageCellDelegate)?
 
     // MARK: - Subview
     var header = MessageHeaderView()
@@ -50,6 +50,7 @@ class MessageView: UIView {
         // Regist cell
         messageTableView.registReuseCell(for: FSTextMessageCell.self)
         messageTableView.registReuseCell(for: FSImageMessageCell.self)
+        messageTableView.registReuseCell(for: FSFileMessageCell.self)
 
         // Make constraint
         messageTableView.addTo(self) { make in
@@ -66,7 +67,6 @@ class MessageView: UIView {
 
         // Regist cell
         speechTableView.registReuseCell(for: FSTextMessageCell.self)
-        speechTableView.registReuseCell(for: FSImageMessageCell.self)
 
         // Make constraint
         speechTableView.addTo(self) { make in
@@ -161,15 +161,20 @@ extension MessageView: UITableViewDataSource {
         case .text, .speechText:
             tableView.getReuseCell(for: FSTextMessageCell.self, indexPath: indexPath)
 
-//        case .fileUrl:
-//            tableView.getReuseCell(for: , indexPath: )
-            
+        case .fileUrl:
+            tableView.getReuseCell(for: FSFileMessageCell.self, indexPath: indexPath)
+
         default:
             fatalError("\(message.type) message haven't implemented")
         }
         guard let cell else { fatalError("No Such Cell") }
 
         cell.viewModel.setup(message: message)
+
+        #warning("should not directly set delegate as delegate.")
+        if let cell = cell as? FSFileMessageCell {
+            cell.delegate = delegate
+        }
 
         return cell
     }

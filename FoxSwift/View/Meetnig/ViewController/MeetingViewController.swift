@@ -174,6 +174,33 @@ extension MeetingViewController: MessageViewDelegate {
     }
 }
 
+extension MeetingViewController: FSFileMessageCellDelegate {
+    func fileWillDownload(_ cell: FSMessageCell) {
+        DispatchQueue.main.async { [weak self] in
+            self?.startLoadingView(id: cell.description)
+        }
+    }
+
+    func fileDidDownload(_ cell: FSFileMessageCell, tempFileUrl: URL) {
+        DispatchQueue.main.async { [weak self] in
+            self?.stopLoadingView(id: cell.description)
+
+            let activityVC = UIActivityViewController(
+                activityItems: [tempFileUrl],
+                applicationActivities: []
+            )
+            self?.present(activityVC, animated: true)
+        }
+    }
+
+    func fileDidDownload(_ cell: FSFileMessageCell, error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.stopLoadingView(id: cell.description)
+            self?.popup(text: "Error", style: .error) {}
+        }
+    }
+}
+
 extension MeetingViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)

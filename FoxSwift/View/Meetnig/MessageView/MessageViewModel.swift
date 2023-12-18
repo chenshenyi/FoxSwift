@@ -130,13 +130,26 @@ class MessageViewModel {
                 guard let self else { return }
                 switch result {
                 case let .success(url):
-                    guard let message = FSMessage(string: url.absoluteString, type: .fileUrl) else {
-                        handler(.uploadError)
+                    let file = FSFile(
+                        name: fileName,
+                        size: fileSize,
+                        urlString: url.absoluteString
+                    )
+
+                    guard let fileData = try? JSONEncoder().encode(file) else {
+                        handler(.invalidFile)
                         return
                     }
+
+                    let message = FSMessage(
+                        data: fileData,
+                        author: .currentUser,
+                        type: .fileUrl
+                    )
+
                     messageProvider.send(message: message)
                     handler(nil)
-    
+
                 case let .failure(error):
                     print(error.localizedDescription.red)
                     handler(.uploadError)
