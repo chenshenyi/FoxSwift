@@ -1,3 +1,5 @@
+![Icon](/Resource/Icon.png)
+
 # FoxSwift
 
 FoxSwift is a meeting app for iOS with features like creating meetings, joining meetings, speech recognition, and whiteboard. It is built using Swift and Firebase.
