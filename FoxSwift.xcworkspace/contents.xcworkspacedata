@@ -2,6 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:README">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Resourece">
+   </Group>
+   <FileRef
       location = "group:FoxSwift.xcodeproj">
    </FileRef>
    <FileRef
