@@ -1,4 +1,6 @@
-![Icon](/Resource/icon.png)
+<p align="center">
+  <img src="Resource/icon.png" width="120"/>
+</p>
 
 # FoxSwift
 
