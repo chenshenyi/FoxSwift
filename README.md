@@ -1,4 +1,4 @@
-![Icon](/Resource/Icon.png)
+![Icon](/Resource/icon.png)
 
 # FoxSwift
 
