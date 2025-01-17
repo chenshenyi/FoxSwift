@@ -1,26 +1,26 @@
 # FoxSwiftServer
 
-## Environment
+> This is the signal server for FoxSwift WebRTC communication.
 
-### Xcode
+[![Swift](https://img.shields.io/badge/swift-6.0%2B-orange.svg)](https://swift.org)
+[![Vapor](https://img.shields.io/badge/vapor-4.0%2B-blue.svg)](https://vapor.codes)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-- Xcode >= 16.2
-- Swift >= 6.0
+## Overview
 
-### Database
+FoxSwiftServer is a WebRTC signaling server built with Vapor framework. It handles WebRTC signaling and maintains essential data structures for peer-to-peer communication.
 
-```bash
-brew install postgresql
+### Key Features
 
-brew services start postgresql@14
-```
+- WebRTC signal exchange
+- User connection state management
+- Basic data structure storage
+- PostgreSQL database integration
 
-- create db
+## Documentation
 
-```bash
-createuser foxswiftdev
+For detailed documentation, please visit our [Documentation](Documents/index.md).
 
-createdb foxswiftdb -O foxswiftdev -E utf8
+## License
 
-psql -l
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
