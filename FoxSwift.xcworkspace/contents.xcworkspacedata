@@ -5,6 +5,6 @@
       location = "group:FoxSwiftServer">
    </FileRef>
    <FileRef
-      location = "group:References">
+      location = "group:FoxSwiftAPI">
    </FileRef>
 </Workspace>
