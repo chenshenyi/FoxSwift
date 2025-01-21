@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "FoxSwiftAPI",
+    name: "fox-swift-api",
     platforms: [
         .macOS(.v14),
         .iOS(.v16),

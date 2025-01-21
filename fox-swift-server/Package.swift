@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "FoxSwiftServer",
+    name: "fox-swift-server",
     platforms: [
        .macOS(.v13)
     ],

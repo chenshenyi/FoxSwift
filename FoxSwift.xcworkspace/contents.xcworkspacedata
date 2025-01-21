@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:FoxSwiftServer">
+      location = "group:fox-swift-server">
    </FileRef>
    <FileRef
-      location = "group:FoxSwiftAPI">
+      location = "group:fox-swift-api">
    </FileRef>
 </Workspace>
