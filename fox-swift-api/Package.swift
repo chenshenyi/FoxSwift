@@ -3,22 +3,54 @@
 
 import PackageDescription
 
+extension String {
+    // dependencies
+    static let testUtil = "test-util"
+
+    // targets
+    static let foxSwiftAPI = "FoxSwiftAPI"
+    static let apiCore = "APICore"
+    
+    // test targets
+    static let apiCoreTest = "APICoreTest"
+}
+
 let package = Package(
     name: "fox-swift-api",
     platforms: [
         .macOS(.v14),
         .iOS(.v16),
     ],
+    products: [
+        .library(
+            name: .foxSwiftAPI,
+            targets: [
+                .foxSwiftAPI,
+                .apiCore
+            ]
+        )
+    ],
+    dependencies: [
+        .package(name: .testUtil, path: .testUtil)
+    ],
     targets: [
         .target(
-            name: "FoxSwiftAPI",
-            dependencies: [.byName(name: "APICore")],
+            name: .foxSwiftAPI,
+            dependencies: [.byName(name: .apiCore)],
             swiftSettings: swiftSettings
         ),
         .target(
-            name: "APICore",
+            name: .apiCore,
+            dependencies: [
+                .product(name: "TestableFatal", package: .testUtil),
+            ],
             swiftSettings: swiftSettings
         ),
+        .testTarget(
+            name: .apiCoreTest,
+            dependencies: [.byName(name: .apiCore)],
+            swiftSettings: swiftSettings
+        )
     ]
 )
 
