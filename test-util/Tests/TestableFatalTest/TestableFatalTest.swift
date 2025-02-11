@@ -61,10 +61,3 @@ struct FatalTest {
         }
     }
 }
-
-// Uncomment this block to test if the fatal error works when not in testing
-//
-//@Test
-//func shouldCrash() async throws {
-//    Fatal.unknown()
-//}
