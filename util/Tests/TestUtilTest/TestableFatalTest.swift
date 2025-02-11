@@ -8,15 +8,17 @@
 import Foundation
 import Testing
 import OSLog
-@testable import TestableFatal
+@testable import TestUtil
+
 
 enum Fatal: String {
-    case unknown
+    case first
+    case second
 }
 
 extension Fatal: TestableFatalProtocol {
     static let logger: Logger = Logger(subsystem: "TestableFatal", category: "Test")
-    static var testableFatal: ((Fatal) -> Void)? = nil
+
     var debugDescription: String {
         rawValue
     }
@@ -25,19 +27,19 @@ extension Fatal: TestableFatalProtocol {
 @Suite("Test Testable Fatal", .serialized)
 struct FatalTest {
     @Test func testThrowFatal() async throws {
-        await #expect(throws: Fatal.unknown) {
+        await #expect(throws: Fatal.first) {
             try await Fatal.test {
-                Fatal.unknown()
+                Fatal.first()
             }
         }
     }
 
     @Test func testAsync() async throws {
         let startTime = Date.now
-        await #expect(throws: Fatal.unknown) {
+        await #expect(throws: Fatal.second) {
             try await Fatal.test(timeout: .seconds(5)) {
                 try await Task.sleep(for: .seconds(2))
-                Fatal.unknown()
+                Fatal.second()
             }
         }
         #expect(Date.now.timeIntervalSince(startTime) > 2)

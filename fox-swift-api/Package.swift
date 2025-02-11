@@ -5,7 +5,7 @@ import PackageDescription
 
 extension String {
     // dependencies
-    static let testUtil = "test-util"
+    static let util = "util"
 
     // targets
     static let foxSwiftAPI = "FoxSwiftAPI"
@@ -31,7 +31,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: .testUtil, path: .testUtil)
+        .package(name: .util, path: .util)
     ],
     targets: [
         .target(
@@ -42,7 +42,7 @@ let package = Package(
         .target(
             name: .apiCore,
             dependencies: [
-                .product(name: "TestableFatal", package: .testUtil),
+                .product(name: "CommonUtil", package: .util),
             ],
             swiftSettings: swiftSettings
         ),

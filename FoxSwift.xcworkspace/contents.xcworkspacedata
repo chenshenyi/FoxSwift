@@ -8,6 +8,6 @@
       location = "group:fox-swift-api">
    </FileRef>
    <FileRef
-      location = "group:test-util">
+      location = "group:util">
    </FileRef>
 </Workspace>

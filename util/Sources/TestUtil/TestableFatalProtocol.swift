@@ -1,12 +1,13 @@
 //
 //  TestableFatalProtocol.swift
-//  TestableFatal
+//  TestUtil
 //
 //  Created by chen shen yi on 2025/2/1.
 //
 
 import Foundation
 import OSLog
+import ConcurrencyUtil
 
 /// A protocol that enables testable fatal errors in Swift.
 ///
@@ -40,28 +41,12 @@ import OSLog
 ///     connect() // This will throw instead of causing a fatal error
 /// }
 /// ```
-///
-/// - Warning: This protocol uses unsafe static properties for testing purposes.
-///            Always use the `.serialized` trait when running tests.
 public protocol TestableFatalProtocol: Equatable, Error, CustomDebugStringConvertible {
     /// The logger instance used for recording fatal errors.
     ///
     /// This should be configured with appropriate subsystem and category values
     /// for your specific use case.
     static var logger: Logger { get }
-
-    /// A closure that can be set during testing to capture fatal errors instead of crashing.
-    ///
-    /// This property is deliberately marked as `nonisolated(unsafe)` to match the behavior of `fatalError`,
-    /// which can be called from any thread. Using an actor or thread-confined approach would create
-    /// inconsistencies with real fatal error behavior.
-    ///
-    /// - Important: This property should only be modified through the `test` method.
-    ///              Direct modification is unsafe and may lead to undefined behavior.
-    ///
-    /// - Note: The unsafe nature of this property is necessary to accurately simulate fatal errors,
-    ///         which can occur on any thread. The `test` method provides a safe interface for testing.
-    nonisolated(unsafe) static var testableFatal: ((Self) -> Void)? { get set }
 }
 
 extension TestableFatalProtocol {
@@ -73,15 +58,26 @@ extension TestableFatalProtocol {
     ///
     /// ## Usage
     /// ```swift
+    /// // In production code
     /// MyError.errorCase() // Triggers the fatal error
+    ///
+    /// // With custom file and line information
+    /// MyError.errorCase(file: "CustomFile.swift", line: 42)
     /// ```
     ///
+    /// ## Implementation Details
+    /// The method performs the following steps:
+    /// 1. Logs the error with detailed location information
+    /// 2. Checks if running in test mode
+    /// 3. Either throws the error (test mode) or triggers fatal error
+    ///
     /// - Parameters:
-    ///   - file: The file where the fatal error occurred
-    ///   - line: The line number where the fatal error occurred
-    ///   - column: The column number where the fatal error occurred
-    ///   - function: The function name where the fatal error occurred
+    ///   - file: The file where the fatal error occurred (defaults to current file)
+    ///   - line: The line number where the fatal error occurred (defaults to current line)
+    ///   - column: The column number where the fatal error occurred (defaults to current column)
+    ///   - function: The function name where the fatal error occurred (defaults to current function)
     /// - Returns: Never returns as it either crashes or throws
+    /// - Note: When used in test mode, ensure proper error handling is in place
     public func callAsFunction(
         file: StaticString = #fileID,
         line: UInt = #line,
@@ -97,28 +93,33 @@ extension TestableFatalProtocol {
             """
         )
 
-        if let testableFatal = Self.testableFatal {
-            testableFatal(self)
+        if let continuation = TestableFatalState.continuation {
+            continuation.resume(throwing: self)
             unreachable()
         } else {
-            fatalError(self.debugDescription)
+            fatalError(debugDescription)
         }
     }
+}
 
-    /// A function that will never return, used to prevent code from continuing execution
-    /// after a fatal error has been handled in test mode.
-    ///
-    /// This implementation uses `RunLoop` with a specific mode to:
-    /// 1. Keep the thread alive until the error is properly thrown
-    /// 2. Minimize resource usage by only processing the minimum required events
-    /// 3. Avoid interfering with other `RunLoop` observers
-    ///
-    /// - Note: While this keeps the thread alive, the error will already have been
-    ///         captured by the test handler before this is called.
-    private func unreachable() -> Never {
-        repeat {
-            RunLoop.current.run()
-        } while true
+private actor TestableFatalState {
+    /// A closure that can be set during testing to capture fatal errors instead of crashing.
+    static var continuation: (CheckedContinuation<Void, any Error>)?
+}
+
+/// A function that will never return, used to prevent code from continuing execution
+/// after a fatal error has been handled in test mode.
+///
+/// This implementation uses `RunLoop` with a specific mode to:
+/// 1. Keep the thread alive until the error is properly thrown
+/// 2. Minimize resource usage by only processing the minimum required events
+/// 3. Avoid interfering with other `RunLoop` observers
+///
+/// - Note: While this keeps the thread alive, the error will already have been
+///         captured by the test handler before this is called.
+private func unreachable() -> Never {
+    while true {
+        RunLoop.current.run()
     }
 }
 
@@ -131,11 +132,7 @@ extension TestableFatalProtocol {
     /// 3. Waiting for either a fatal error or timeout
     /// 4. Cleaning up the handler
     ///
-    /// ## Thread Safety
-    /// While the underlying `testableFatal` property is unsafe and thread-unrestricted
-    /// (to match `fatalError` behavior), this method provides a safe interface for testing.
-    ///
-    /// ## Example
+    /// ## Basic Usage
     /// ```swift
     /// try await DatabaseError.test {
     ///     // This code might trigger DatabaseError.connectionFailed()
@@ -143,21 +140,38 @@ extension TestableFatalProtocol {
     /// }
     /// ```
     ///
+    /// ## Advanced Usage
+    /// ```swift
+    /// // Testing with custom timeout
+    /// try await DatabaseError.test(timeout: .seconds(5)) {
+    ///     await performLongOperation()
+    /// }
+    ///
+    /// // Testing multiple potential errors
+    /// try await DatabaseError.test {
+    ///     try await database.connect()
+    ///     try await database.query("SELECT * FROM users")
+    /// }
+    /// ```
+    ///
     /// - Parameters:
-    ///     - timeout: Duration to wait before concluding no fatal error occurred
+    ///     - timeout: Duration to wait before concluding no fatal error occurred (defaults to 1 second)
     ///     - test: The async code block to test
     ///
     /// - Throws: The fatal error if one occurs during testing
     ///
     /// - Warning: Use `.serialized` trait when testing to avoid concurrent test execution
     ///           that might interfere with the global error handler.
-    public static func test(timeout: Duration = .seconds(1),
-                     test: @Sendable @escaping () async throws -> Void) async throws {
+    ///
+    /// - Note: The timeout parameter should be adjusted based on the expected execution time
+    ///         of the test code. Operations that might take longer should use a longer timeout.
+    public static func test(
+        timeout: Duration = .seconds(1),
+        test: @Sendable @escaping () async throws -> Void
+    ) async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, any Error>) in
             Task {
-                testableFatal = { fatal in
-                    continuation.resume(throwing: fatal)
-                }
+                TestableFatalState.continuation = continuation
 
                 do {
                     try await test()
@@ -168,6 +182,5 @@ extension TestableFatalProtocol {
                 }
             }
         }
-        testableFatal = nil
     }
 }
