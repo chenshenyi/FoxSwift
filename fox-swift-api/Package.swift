@@ -26,29 +26,18 @@ let package = Package(
             name: .foxSwiftAPI,
             targets: [
                 .foxSwiftAPI,
-                .apiCore
             ]
         )
     ],
     dependencies: [
-        .package(name: .util, path: .util)
+        .package(url: "https://github.com/joshuawright11/papyrus.git", from: "0.6.0")
     ],
     targets: [
         .target(
             name: .foxSwiftAPI,
-            dependencies: [.byName(name: .apiCore)],
-            swiftSettings: swiftSettings
-        ),
-        .target(
-            name: .apiCore,
             dependencies: [
-                .product(name: "CommonUtil", package: .util),
+                .product(name: "Papyrus", package: "papyrus")
             ],
-            swiftSettings: swiftSettings
-        ),
-        .testTarget(
-            name: .apiCoreTest,
-            dependencies: [.byName(name: .apiCore)],
             swiftSettings: swiftSettings
         )
     ]
