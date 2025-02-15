@@ -7,6 +7,7 @@
 
 import Papyrus
 import Foundation
+import Vapor
 
 public typealias FS = FoxSwift
 
@@ -16,20 +17,20 @@ public enum FoxSwift {
         "/api/v\(apiVersion)"
     }
 
-    public typealias DTO = Codable&Sendable
+    public typealias CodableContent = Vapor.Content&Codable&Equatable&Sendable
 
-    public enum Error: Swift.Error, DTO {
+    public enum APIError: Swift.Error, Codable {
         case missingQuery(queryName: String, msg: String)
         case missingPathParameter(String)
         case requestBodyDecodingError(msg: String)
         case unknown
     }
 
-    public enum ResponseResult<Payload: DTO>: DTO {
+    public enum ResponseResult<Payload: Codable>: Codable {
         case success(Payload)
-        case error(Error)
+        case error(APIError)
 
-        public func throwing() throws(Error) -> Payload {
+        public func throwing() throws(APIError) -> Payload {
             switch self {
             case let .success(payload): payload
             case let .error(error): throw error

@@ -6,15 +6,17 @@
 //
 
 import Papyrus
+import APICore
+import Vapor
 
 extension FS {
-    public struct User: Identifiable, DTO {
-        public let id: UUID
+    public struct User: Identifiable, CodableContent {
+        public let id: UUID?
         public let account: String
         public var name: String
         public var bio: String?
 
-        public init(id: UUID, account: String, name: String, bio: String? = nil) {
+        public init(id: UUID? = nil, account: String, name: String, bio: String? = nil) {
             self.id = id
             self.account = account
             self.name = name
@@ -23,7 +25,7 @@ extension FS {
     }
 
     @API
-    @Mock
+    @Service
     public protocol Users {
         @GET("/users")
         func getUsers(limit: Int) async throws -> [User]
