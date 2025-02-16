@@ -10,7 +10,7 @@ import SwiftSyntax
 
 extension ProtocolDeclSyntax {
     var access: String {
-        modifiers.first.map { $0.trimmedDescription } ?? ""
+        modifiers.first.map { $0.trimmedDescription + " " } ?? ""
     }
 
     var functions: any Sequence<FunctionDeclSyntax> {

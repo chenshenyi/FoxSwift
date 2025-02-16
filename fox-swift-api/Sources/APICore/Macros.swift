@@ -8,4 +8,4 @@
 import APIPlugin
 
 @attached(peer, names: suffixed(RouteCollection), suffixed(ServiceProtocol))
-public macro Service(_ typeName: String? = nil) = #externalMacro(module: "APIPlugin", type: "ServiceMacro")
+public macro Service() = #externalMacro(module: "APIPlugin", type: "ServiceMacro")

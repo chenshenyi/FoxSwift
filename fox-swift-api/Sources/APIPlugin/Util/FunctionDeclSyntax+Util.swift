@@ -17,9 +17,10 @@ extension FunctionDeclSyntax {
                   )?.representedLiteralValue
             else { continue }
             let attributeName = attributeSyntax.attributeName.trimmedDescription
+            guard let path = attributeFirstArgument.split(separator: /[#\?]/).first else { continue }
             switch attributeName {
             case "GET", "DELETE", "PATCH", "POST", "PUT", "OPTIONS", "HEAD", "TRACE", "CONNECT":
-                return (attributeName, attributeFirstArgument)
+                return (attributeName, String(path))
             default: continue
             }
         }

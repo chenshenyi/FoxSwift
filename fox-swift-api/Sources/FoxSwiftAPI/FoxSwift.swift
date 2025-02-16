@@ -25,16 +25,4 @@ public enum FoxSwift {
         case requestBodyDecodingError(msg: String)
         case unknown
     }
-
-    public enum ResponseResult<Payload: Codable>: Codable {
-        case success(Payload)
-        case error(APIError)
-
-        public func throwing() throws(APIError) -> Payload {
-            switch self {
-            case let .success(payload): payload
-            case let .error(error): throw error
-            }
-        }
-    }
 }

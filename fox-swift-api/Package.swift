@@ -12,10 +12,7 @@ extension String {
     static let foxSwiftAPI = "FoxSwiftAPI"
     static let apiPlugin = "APIPlugin"
     static let apiCore = "APICore"
-
-    var test: String {
-        self + "Test"
-    }
+    static let tests = "Tests"
 }
 
 let package = Package(
@@ -34,12 +31,20 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax", from: "510.0.0"),
+        // 🍎 A collection of Swift tools for parsing, inspecting, and transforming Swift source code.
+        .package(url: "https://github.com/swiftlang/swift-syntax", "509.0.0"..<"601.0.0"),
+
+        // 🛠️ A convenient utility for building RESTful APIs with macros.
         .package(url: "https://github.com/joshuawright11/papyrus.git", from: "0.6.0"),
+
+        // 🛠️ A high-performance routing library for Swift.
         .package(url: "https://github.com/vapor/routing-kit.git", from: "4.9.0"),
 
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.110.1"),
+
+        // 🩺 A testing framework for Swift macros.
+        .package(url: "https://github.com/pointfreeco/swift-macro-testing.git", from: "0.1.0"),
     ],
     targets: [
         .target(
@@ -67,20 +72,19 @@ let package = Package(
                 .product(name: "SwiftOperators", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "SwiftParserDiagnostics", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
         ),
         .testTarget(
-            name: .apiPlugin.test,
+            name: .foxSwiftAPI + "Test",
             dependencies: [
-                .target(name: .apiPlugin)
-            ]
-        ),
-        .testTarget(
-            name: .foxSwiftAPI.test,
-            dependencies: [
-                .target(name: .foxSwiftAPI)
-            ]
+                .target(name: .apiPlugin),
+                .target(name: .foxSwiftAPI),
+                .target(name: .apiCore),
+                .product(name: "VaporTesting", package: "vapor"),
+                .product(name: "MacroTesting", package: "swift-macro-testing"),
+            ],
+            path: .tests
         )
     ]
 )

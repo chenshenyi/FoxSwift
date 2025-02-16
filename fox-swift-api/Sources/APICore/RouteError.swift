@@ -11,16 +11,12 @@ public enum RouteError: Error, CustomDebugStringConvertible {
     case missingPathParameter(name: String, type: Any.Type)
     case queryDecodingError(name: String, message: String)
     case bodyDecodingError(String)
-    case invalidPath(String)
-    case unknown(String? = nil)
 
     var name: String {
         switch self {
         case .missingPathParameter: "Missing Path Parameter"
         case .queryDecodingError: "Query Decoding Error"
         case .bodyDecodingError: "Body Decoding Error"
-        case .invalidPath: "Invalid Path"
-        case .unknown: "Unknown Error"
         }
     }
 
@@ -38,16 +34,6 @@ public enum RouteError: Error, CustomDebugStringConvertible {
 
         case let .bodyDecodingError(error):
             "Decode body error with \(error)"
-
-        case let .invalidPath(path):
-            "Invalid path \(path)"
-
-        case let .unknown(error):
-            if let error {
-                "Unknown error with \(error)"
-            } else {
-                "Unknown"
-            }
         }
     }
 }

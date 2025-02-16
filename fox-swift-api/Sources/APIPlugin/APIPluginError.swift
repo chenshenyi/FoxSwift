@@ -7,14 +7,10 @@
 
 import Foundation
 
-public struct APIPluginError: Error, ExpressibleByStringLiteral, ExpressibleByStringInterpolation, CustomDebugStringConvertible {
+public struct APIPluginError: Error, ExpressibleByStringLiteral, CustomDebugStringConvertible {
     public let debugDescription: String
 
     public init(stringLiteral value: StringLiteralType) {
         self.debugDescription = value
-    }
-
-    public init(stringInterpolation: DefaultStringInterpolation) {
-        self.debugDescription = stringInterpolation.description
     }
 }

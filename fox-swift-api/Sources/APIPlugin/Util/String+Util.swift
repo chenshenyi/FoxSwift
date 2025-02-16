@@ -7,12 +7,6 @@
 
 import Foundation
 
-extension Array where Element == String {
-    var asLines: String {
-        joined(separator: "\n")
-    }
-}
-
 extension String {
     var quoted: String {
         "\"\(self)\""

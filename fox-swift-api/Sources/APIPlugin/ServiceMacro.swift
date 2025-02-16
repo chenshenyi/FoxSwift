@@ -22,20 +22,18 @@ public struct ServiceMacro: PeerMacro {
         let protocolName = protocolDeclSyntax.name.text
         let access = protocolDeclSyntax.access
 
-        // first argument must be string
-        let firstMacroArgument = node.firstArgument(StringLiteralExprSyntax.self)?.representedLiteralValue
-        let routeCollectionName = firstMacroArgument ?? "\(protocolName)RouteCollection"
-
+        let routeCollectionName = "\(protocolName)RouteCollection"
         let serviceProtocolName = "\(protocolName)ServiceProtocol"
 
         return [
         """
-        \(access) typealias \(serviceProtocolName) = ServiceProtocol&\(protocolName)
+        \(access)typealias \(serviceProtocolName) = ServiceProtocol&\(protocolName)
         """,
         """
-        \(access) struct \(routeCollectionName)<Service: \(serviceProtocolName)>: ServiceRouteCollection {
-            \(access) init() {}
-            \(access) func boot(routes: any Vapor.RoutesBuilder) throws {
+        \(access)struct \(routeCollectionName)<Service: \(serviceProtocolName)>: ServiceRouteCollection {
+            \(access)init() {}
+        
+            \(access)func boot(routes: any Vapor.RoutesBuilder) throws {
                 \(try routes(protocolDeclSyntax: protocolDeclSyntax, in: context).joined())
             }
         }
@@ -55,7 +53,7 @@ public struct ServiceMacro: PeerMacro {
             let functionParameters = functionDeclSyntax.parameters
             
             return """
-            routes.on(.init(rawValue: "\(httpMethod)"), \(pathComponentsAsFunctionParameter)) { request in 
+            routes.on(.init(rawValue: "\(httpMethod)"), \(pathComponentsAsFunctionParameter)) { request in
             \(initParameter(parameters: functionParameters, route: (httpMethod, pathComponents)).joined())
             return try await Service(request: request).\(functionName)(\(setParameter(parameters: functionParameters)))
             }
@@ -71,19 +69,16 @@ public struct ServiceMacro: PeerMacro {
         parameters.compactMap { (functionParameterSyntax: FunctionParameterSyntax) -> String? in
             let name = functionParameterSyntax.firstName.trimmedDescription
             let type = functionParameterSyntax.type.trimmedDescription
-            if let getValue = getValue(of: functionParameterSyntax, route: route) {
-                return "let \(name): \(type) = try request.\(getValue)\n"
-            } else {
-                return nil
-            }
+            let getValue = getValue(of: functionParameterSyntax, route: route)
+            return "let \(name): \(type) = try request.\(getValue)\n"
         }
     }
 
     private static func getValue(
         of functionParameterSyntax: FunctionParameterSyntax,
         route: Route
-    ) -> String? {
-        let name = functionParameterSyntax.firstName.trimmedDescription
+    ) -> String {
+        let name = functionParameterSyntax.secondName?.trimmedDescription ?? functionParameterSyntax.firstName.trimmedDescription
 
         if let identifierTypeSyntax = functionParameterSyntax.type.as(IdentifierTypeSyntax.self) {
             switch identifierTypeSyntax.name.trimmedDescription {
@@ -98,11 +93,15 @@ public struct ServiceMacro: PeerMacro {
             }
         }
 
-        if route.path.contains(where: { String($0.trimmingPrefix(":")) == name }) {
+        if route.path.contains(where: { isMatchedParameter(path: $0, name: name) }) {
             return "getParameter(name: \"\(name)\")"
         } else {
             return "getQuery(at: \"\(name)\")"
         }
+    }
+
+    private static func isMatchedParameter(path: String, name: String) -> Bool {
+        path.hasPrefix(":") && path.trimmingPrefix(":") == name
     }
 
     private static func setParameter(
