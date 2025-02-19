@@ -25,12 +25,13 @@ extension FS {
     }
 
     @API
+    @Mock
     @Service
     public protocol Users {
         @GET("/users")
         func getUsers(limit: Int) async throws -> [User]
 
         @PUT("/users/:id")
-        func putUser(id: Int, user: Body<User>) async throws -> User
+        func putUser(id: UUID, user: Body<User>) async throws -> User
     }
 }
