@@ -57,45 +57,79 @@ struct Res<T: Codable&Equatable&Content>: Content, Codable, Equatable, AsyncResp
 
 @Suite(.serialized)
 struct VaporPapyrusTestingTests {
-    func withApi(_ block: (CoolestAPI) async throws -> Void) async throws {
-        let app = try await Application.make(.testing)
+    struct WithAPITests {
+        func withApi(_ block: (CoolestAPI) async throws -> Void) async throws {
+            let app = try await Application.make(.testing)
 
-        try app.register(collection: CoolestRouteCollection<CoolestService>())
-        let api = CoolestAPI(provider: .vaporTestingProvider(app: app))
-        do {
-            try await block(api)
-        } catch {
+            try app.register(collection: CoolestRouteCollection<CoolestService>())
+            let api = CoolestAPI(provider: .vaporTestingProvider(app: app))
+            do {
+                try await block(api)
+            } catch {
+                try await app.asyncShutdown()
+                throw error
+            }
             try await app.asyncShutdown()
-            throw error
+        }
+
+        @Test func testRethrow() async throws {
+            let err = NSError(domain: "", code: -1)
+            await #expect(throws: err) {
+                try await withApi { api in
+                    throw err
+                }
+            }
+        }
+
+        @Test func getHello() async throws {
+            try await withApi { api in
+                let res = try await api.getHello()
+                #expect(res == "Hello World")
+            }
+        }
+
+        @Test func echoWord() async throws {
+            try await withApi { api in
+                let res = try await api.echo(word: "Hello")
+                #expect(res == "Hello!!")
+            }
+        }
+
+        @Test func echoPath() async throws {
+            try await withApi { api in
+                let res = try await api.echo(path: 5)
+                #expect(res == 5)
+            }
+        }
+
+        @Test func queryItems() async throws {
+            try await withApi { api in
+                let res = try await api.queryItems(limit: 10)
+                #expect(res == 11)
+            }
+        }
+    }
+
+    @Test func completionNotImplemented() async throws {
+        let app = try await Application.make(.testing)
+        let provider = Provider.vaporTestingProvider(app: app)
+        var requestBuilder = RequestBuilder(baseURL: "", method: "", path: "")
+        provider.request(&requestBuilder) { res in
+            #expect(res.error as? TestingRequestError == .functionNotImplemented)
         }
         try await app.asyncShutdown()
     }
 
-    @Test func getHello() async throws {
-        try await withApi { api in
-            let res = try await api.getHello()
-            #expect(res == "Hello World")
-        }
-    }
+    @Test func appEarlyTeriminated() async throws {
+        await #expect(throws: TestingRequestError.appNotExist) {
+            var app: Application? = try await Application.make(.testing, .singleton)
+            try await app?.asyncShutdown()
 
-    @Test func echoWord() async throws {
-        try await withApi { api in
-            let res = try await api.echo(word: "Hello")
-            #expect(res == "Hello!!")
-        }
-    }
+            let provider = app.map { Provider.vaporTestingProvider(app: $0) }
+            let api = provider.map { CoolestAPI(provider: $0) }
+            app = nil
+            _ = try await api?.getHello()
 
-    @Test func echoPath() async throws {
-        try await withApi { api in
-            let res = try await api.echo(path: 5)
-            #expect(res == 5)
-        }
-    }
-
-    @Test func queryItems() async throws {
-        try await withApi { api in
-            let res = try await api.queryItems(limit: 10)
-            #expect(res == 11)
         }
     }
 }

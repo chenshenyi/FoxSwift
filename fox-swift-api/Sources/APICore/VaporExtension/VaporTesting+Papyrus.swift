@@ -10,9 +10,8 @@ import Papyrus
 import VaporTesting
 
 public enum TestingRequestError: Error {
-    case invalidURL
     case appNotExist
-    case closureNotResponse
+    case functionNotImplemented
 }
 
 extension Provider {
@@ -22,13 +21,13 @@ extension Provider {
     }
 }
 
-private struct VaporTestingService: Papyrus.HTTPService {
+struct VaporTestingService: Papyrus.HTTPService {
     struct Response: Papyrus.Response {
         var request: (any PapyrusCore.Request)?
         var body: Data?
         var headers: [String : String]?
         var statusCode: Int?
-        let error: (any Error)? = nil
+        let error: (any Error)?
     }
 
     struct Request: Papyrus.Request {
@@ -47,18 +46,14 @@ private struct VaporTestingService: Papyrus.HTTPService {
     }
 
     func request(_ req: any PapyrusCore.Request) async -> any PapyrusCore.Response {
-        guard let app else {
-            return .error(TestingRequestError.appNotExist)
-        }
-
-        guard let url = req.url else {
-            return .error(TestingRequestError.invalidURL)
-        }
-
         do {
+            guard let app else {
+                throw TestingRequestError.appNotExist
+            }
+
             let vaporRequest = TestingHTTPRequest(
                 method: .RAW(value: req.method),
-                url: .init(stringLiteral: url.absoluteString),
+                url: .init(stringLiteral: req.url!.absoluteString),
                 headers: HTTPHeaders(req.headers.map { $0 }),
                 body: req.body.map(ByteBuffer.init(data:)) ?? ByteBufferAllocator().buffer(capacity: 0)
             )
@@ -69,8 +64,9 @@ private struct VaporTestingService: Papyrus.HTTPService {
             return Response(
                 request: req,
                 body: Data(res.body.readableBytesView),
-                headers: .init(res.headers.map { $0 }) { _, newValue in newValue },
-                statusCode: Int(res.status.code)
+                headers: .init(uniqueKeysWithValues: res.headers.map { $0 }),
+                statusCode: Int(res.status.code),
+                error: nil
             )
         } catch {
             return .error(error)
@@ -78,52 +74,7 @@ private struct VaporTestingService: Papyrus.HTTPService {
     }
 
     func request(_ req: any PapyrusCore.Request, completionHandler: @escaping (any PapyrusCore.Response) -> Void) {
-        guard let url = req.url
-        else {
-            completionHandler(.error(TestingRequestError.invalidURL))
-            return
-        }
-
-        guard let app else {
-            completionHandler(.error(TestingRequestError.appNotExist))
-            return
-        }
-
-        do {
-            let group = dispatch_group_t()
-            var res: TestingHTTPResponse?
-            let method = HTTPMethod.RAW(value: req.method)
-            let headers = HTTPHeaders(req.headers.map { $0 })
-            let body = req.body.map(ByteBuffer.init(data:)) ?? ByteBufferAllocator().buffer(capacity: 0)
-            let vaporRequest = TestingHTTPRequest(
-                method: method,
-                url: .init(stringLiteral: url.absoluteString),
-                headers: headers,
-                body: body
-            )
-
-            Task {
-                group.enter()
-                res = try await app.testing(method: testingMethod)
-                    .performTest(request: vaporRequest)
-
-                group.leave()
-            }
-            group.wait()
-
-            guard let res else {
-                throw TestingRequestError.closureNotResponse
-            }
-            let papyrusResponse = Response(
-                request: req,
-                body: Data(res.body.readableBytesView),
-                headers: .init(res.headers.map { $0 }) { _, newValue in newValue },
-                statusCode: Int(res.status.code)
-            )
-            completionHandler(papyrusResponse)
-        } catch {
-            completionHandler(.error(error))
-        }
+        completionHandler(.error(TestingRequestError.functionNotImplemented))
     }
 }
 
