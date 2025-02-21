@@ -5,9 +5,6 @@ import PackageDescription
 import CompilerPluginSupport
 
 extension String {
-    // dependencies
-    static let util = "util"
-
     // targets
     static let foxSwiftAPI = "FoxSwiftAPI"
     static let apiPlugin = "APIPlugin"

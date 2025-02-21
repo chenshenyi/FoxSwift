@@ -7,7 +7,4 @@
    <FileRef
       location = "group:fox-swift-api">
    </FileRef>
-   <FileRef
-      location = "group:util">
-   </FileRef>
 </Workspace>
