@@ -5,7 +5,7 @@
 //  Created by chen shen yi on 2025/2/13.
 //
 
-import Papyrus
+@preconcurrency import Papyrus
 import APICore
 import Vapor
 
@@ -35,3 +35,5 @@ extension FS {
         func putUser(id: UUID, user: Body<User>) async throws -> User
     }
 }
+
+extension FS.UsersAPI: Sendable {}

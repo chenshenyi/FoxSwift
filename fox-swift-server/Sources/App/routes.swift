@@ -1,14 +1,10 @@
 import Fluent
 import Vapor
+import FoxSwiftAPI
 
 func routes(_ app: Application) throws {
-    app.get { req async in
-        "It works!"
-    }
+    // Health check
+    app.get { req async in "OK" }
 
-    app.get("hello") { req async -> String in
-        "Hello, world!"
-    }
-
-    try app.register(collection: TodoController())
+    try app.register(collection: FS.UsersRouteCollection<UsersService>())
 }

@@ -27,7 +27,7 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
-                .product(name: "FoxSwiftAPI", package: "fox-swift-api"),
+                .product(name: "FoxSwiftAPI", package: "fox-swift-api")
             ],
             swiftSettings: swiftSettings
         ),
