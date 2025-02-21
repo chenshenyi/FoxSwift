@@ -34,9 +34,6 @@ let package = Package(
         // 🛠️ A convenient utility for building RESTful APIs with macros.
         .package(url: "https://github.com/joshuawright11/papyrus.git", from: "0.6.0"),
 
-        // 🛠️ A high-performance routing library for Swift.
-        .package(url: "https://github.com/vapor/routing-kit.git", from: "4.9.0"),
-
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.110.1"),
 
@@ -57,7 +54,7 @@ let package = Package(
             name: .apiCore,
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
-                .product(name: "RoutingKit", package: "routing-kit"),
+                .product(name: "VaporTesting", package: "vapor"),
                 .byName(name: .apiPlugin)
             ]
         ),
