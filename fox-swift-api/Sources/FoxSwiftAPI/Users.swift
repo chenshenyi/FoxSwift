@@ -33,6 +33,9 @@ extension FS {
 
         @PUT("/users/:id")
         func putUser(id: UUID, user: Body<User>) async throws -> User
+
+        @GET("/users/:id")
+        func getUser(id: UUID) async throws -> User
     }
 }
 

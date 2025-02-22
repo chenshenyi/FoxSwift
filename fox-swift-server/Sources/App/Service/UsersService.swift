@@ -24,4 +24,9 @@ struct UsersService: FS.UsersServiceProtocol {
         try await user.save(on: request.db)
         return user.toDTO()
     }
+
+    func getUser(id: UUID) async throws -> FoxSwift.User {
+        let user = try await User.find(id, on: request.db).unwrap(or: Abort(.notFound)).get()
+        return user.toDTO()
+    }
 }
