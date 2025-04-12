@@ -15,6 +15,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.8.0"),
         // 🔵 Non-blocking, event-driven networking for Swift. Used for custom executors
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
+        //
+        .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.1"),
         // 🦊 FoxSwift API
         .package(name: "fox-swift-api", path: "fox-swift-api")
     ],
@@ -27,7 +29,8 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
-                .product(name: "FoxSwiftAPI", package: "fox-swift-api")
+                .product(name: "FoxSwiftAPI", package: "fox-swift-api"),
+                .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
             ],
             swiftSettings: swiftSettings
         ),

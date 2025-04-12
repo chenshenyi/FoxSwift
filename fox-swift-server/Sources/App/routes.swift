@@ -7,4 +7,5 @@ func routes(_ app: Application) throws {
     app.get { req async in "OK" }
 
     try app.register(collection: FS.UsersRouteCollection<UsersService>())
+    try app.register(collection: MeetingRoomController())
 }
