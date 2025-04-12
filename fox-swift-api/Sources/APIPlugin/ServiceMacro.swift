@@ -78,7 +78,8 @@ public struct ServiceMacro: PeerMacro {
         of functionParameterSyntax: FunctionParameterSyntax,
         route: Route
     ) -> String {
-        let name = functionParameterSyntax.secondName?.trimmedDescription ?? functionParameterSyntax.firstName.trimmedDescription
+        let name = functionParameterSyntax.secondName?.trimmedDescription
+        ?? functionParameterSyntax.firstName.trimmedDescription
 
         if let identifierTypeSyntax = functionParameterSyntax.type.as(IdentifierTypeSyntax.self) {
             switch identifierTypeSyntax.name.trimmedDescription {
@@ -110,6 +111,7 @@ public struct ServiceMacro: PeerMacro {
         parameters.map { functionParameterSyntax in
             let name = functionParameterSyntax.firstName.trimmedDescription
             return "\(name): \(name)"
-        }.joined(separator: ", ")
+        }
+        .joined(separator: ", ")
     }
 }

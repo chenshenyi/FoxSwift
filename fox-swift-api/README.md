@@ -10,7 +10,7 @@
 
 ### 核心技術 Core Technologies
 
-- **Swift 6.0+**: 使用最新的 Swift 特性，包含 Macro 系統
+- **Swift 6.1+**: 使用最新的 Swift 特性，包含 Macro 系統
 - **Vapor**: 高效能的 Swift 後端框架
 - **Swift Concurrency**: 全面採用 async/await 處理非同步操作
 - **Protocol Oriented**: 以 Protocol 為導向的程式設計，提供高度的可擴展性
@@ -19,7 +19,7 @@
 
 <br>
 
-- **Swift 6.0+**: Use the latest Swift features, including the Macro system
+- **Swift 6.1+**: Use the latest Swift features, including the Macro system
 - **Vapor**: A high-performance Swift backend framework
 - **Swift Concurrency**: Adopt async/await for asynchronous operations
 - **Protocol Oriented**: Program design oriented by Protocol, providing high scalability

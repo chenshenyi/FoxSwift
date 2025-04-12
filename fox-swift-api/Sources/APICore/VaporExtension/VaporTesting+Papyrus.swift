@@ -47,7 +47,7 @@ struct VaporTestingService: Papyrus.HTTPService {
     struct Response: Papyrus.Response {
         var request: (any PapyrusCore.Request)?
         var body: Data?
-        var headers: [String : String]?
+        var headers: [String: String]?
         var statusCode: Int?
         let error: (any Error)?
     }
@@ -57,9 +57,8 @@ struct VaporTestingService: Papyrus.HTTPService {
         var body: Data?
         var url: URL?
         var method: String
-        var headers: [String : String]
+        var headers: [String: String]
     }
-
 
     /// The Vapor application instance being tested.
     weak var app: Application?
@@ -74,7 +73,7 @@ struct VaporTestingService: Papyrus.HTTPService {
     ///   - headers: The request headers.
     ///   - body: The request body data.
     /// - Returns: A request object conforming to `PapyrusCore.Request`.
-    func build(method: String, url: URL, headers: [String : String], body: Data?) -> any PapyrusCore.Request {
+    func build(method: String, url: URL, headers: [String: String], body: Data?) -> any PapyrusCore.Request {
         Request(body: body, url: url, method: method, headers: headers)
     }
 
@@ -83,14 +82,17 @@ struct VaporTestingService: Papyrus.HTTPService {
     /// - Returns: A response object conforming to `PapyrusCore.Response`.
     func request(_ req: any PapyrusCore.Request) async -> any PapyrusCore.Response {
         do {
-            guard let app else {
+            guard
+                let app,
+                let urlString = req.url?.absoluteString
+            else {
                 throw TestingRequestError.appNotExist
             }
 
             let vaporRequest = TestingHTTPRequest(
                 method: .RAW(value: req.method),
-                url: .init(stringLiteral: req.url!.absoluteString),
-                headers: HTTPHeaders(req.headers.map { $0 }),
+                url: .init(stringLiteral: urlString),
+                headers: HTTPHeaders(Array(req.headers)),
                 body: req.body.map(ByteBuffer.init(data:)) ?? ByteBufferAllocator().buffer(capacity: 0)
             )
 
@@ -100,7 +102,7 @@ struct VaporTestingService: Papyrus.HTTPService {
             return Response(
                 request: req,
                 body: Data(res.body.readableBytesView),
-                headers: .init(uniqueKeysWithValues: res.headers.map { $0 }),
+                headers: .init(uniqueKeysWithValues: Array(res.headers)),
                 statusCode: Int(res.status.code),
                 error: nil
             )
@@ -117,4 +119,3 @@ struct VaporTestingService: Papyrus.HTTPService {
         completionHandler(.error(TestingRequestError.functionNotImplemented))
     }
 }
-

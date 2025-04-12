@@ -32,7 +32,7 @@ extension FS {
         func getUsers(limit: Int) async throws -> [User]
 
         @PUT("/users/:id")
-        func putUser(id: UUID, user: Body<User>) async throws -> User
+        func putUser(id: Path<UUID>, user: Body<User>) async throws -> User
 
         @GET("/users/:id")
         func getUser(id: UUID) async throws -> User

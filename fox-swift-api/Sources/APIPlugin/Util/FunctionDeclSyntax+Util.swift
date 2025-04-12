@@ -11,13 +11,12 @@ import SwiftSyntax
 extension FunctionDeclSyntax {
     var route: (httpMethod: String, path: String)? {
         for attribute in attributes {
-            guard let attributeSyntax = attribute.as(AttributeSyntax.self),
-                  let attributeFirstArgument = attributeSyntax.firstArgument(
-                    StringLiteralExprSyntax.self
-                  )?.representedLiteralValue
+            guard
+                let attributeSyntax = attribute.as(AttributeSyntax.self),
+                let attributeFirstArgument = attributeSyntax.firstArgument(StringLiteralExprSyntax.self),
+                let path = attributeFirstArgument.representedLiteralValue?.split(separator: /[#\?]/).first
             else { continue }
             let attributeName = attributeSyntax.attributeName.trimmedDescription
-            guard let path = attributeFirstArgument.split(separator: /[#\?]/).first else { continue }
             switch attributeName {
             case "GET", "DELETE", "PATCH", "POST", "PUT", "OPTIONS", "HEAD", "TRACE", "CONNECT":
                 return (attributeName, String(path))

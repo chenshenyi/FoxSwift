@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -29,7 +29,7 @@ let package = Package(
     ],
     dependencies: [
         // 🍎 A collection of Swift tools for parsing, inspecting, and transforming Swift source code.
-        .package(url: "https://github.com/swiftlang/swift-syntax", "509.0.0"..<"601.0.0"),
+        .package(url: "https://github.com/swiftlang/swift-syntax", from: "509.0.0"),
 
         // 🛠️ A convenient utility for building RESTful APIs with macros.
         .package(url: "https://github.com/joshuawright11/papyrus.git", from: "0.6.0"),
@@ -39,6 +39,8 @@ let package = Package(
 
         // 🩺 A testing framework for Swift macros.
         .package(url: "https://github.com/pointfreeco/swift-macro-testing.git", from: "0.1.0"),
+
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.0")
     ],
     targets: [
         .target(
@@ -48,7 +50,10 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .byName(name: .apiCore)
             ],
-            swiftSettings: swiftSettings
+            swiftSettings: swiftSettings,
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ],
         ),
         .target(
             name: .apiCore,
@@ -56,7 +61,10 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "VaporTesting", package: "vapor"),
                 .byName(name: .apiPlugin)
-            ]
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ],
         ),
         .macro(
             name: .apiPlugin,
@@ -67,7 +75,10 @@ let package = Package(
                 .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "SwiftParserDiagnostics", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-            ]
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ],
         ),
         .testTarget(
             name: .foxSwiftAPI + "Test",
@@ -78,7 +89,10 @@ let package = Package(
                 .product(name: "VaporTesting", package: "vapor"),
                 .product(name: "MacroTesting", package: "swift-macro-testing"),
             ],
-            path: .tests
+            path: .tests,
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+            ],
         )
     ]
 )
