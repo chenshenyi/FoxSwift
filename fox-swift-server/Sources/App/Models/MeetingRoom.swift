@@ -17,7 +17,7 @@ struct MeetingRoom: Identifiable {
         self.id = id
     }
 
-    mutating func join(userId: User.IDValue, ws: WebSocket) {
-        users[userId] = ws
+    mutating func join(userId: User.IDValue, webSocket: WebSocket) {
+        users[userId] = webSocket
     }
 }

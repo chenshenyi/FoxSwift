@@ -36,18 +36,17 @@ struct MeetingRoomController: RouteCollection {
     }
 
     @MeetingRoomActor
-    func joinRoom(id: MeetingRoom.ID, userId: User.IDValue, ws: WebSocket) async {
+    func joinRoom(id: MeetingRoom.ID, userId: User.IDValue, webSocket: WebSocket) async {
         if rooms[id: id] == nil {
             rooms.append(MeetingRoom(id: id))
         }
-        rooms[id: id]?.join(userId: userId, ws: ws)
+        rooms[id: id]?.join(userId: userId, webSocket: webSocket)
     }
 
     func boot(routes: any Vapor.RoutesBuilder) throws {
-        routes.webSocket("meetingRoom", ":id") { req, ws in
+        routes.webSocket("meetingRoom", ":id") { req, webSocket in
             guard let id = req.parameters.get("id", as: UUID.self) else {
-                do { try await ws.close() }
-                catch {}
+                try? await webSocket.close()
                 return
             }
 
@@ -55,7 +54,7 @@ struct MeetingRoomController: RouteCollection {
                   let userIdValue = UUID(uuidString: userId)
             else { return }
 
-            await joinRoom(id: id, userId: userIdValue, ws: ws)
+            await joinRoom(id: id, userId: userIdValue, webSocket: webSocket)
         }
     }
 }

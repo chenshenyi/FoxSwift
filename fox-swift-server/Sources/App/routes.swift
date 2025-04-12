@@ -4,7 +4,7 @@ import FoxSwiftAPI
 
 func routes(_ app: Application) throws {
     // Health check
-    app.get { req async in "OK" }
+    app.get { _ in "OK" }
 
     try app.register(collection: FS.UsersRouteCollection<UsersService>())
     try app.register(collection: MeetingRoomController())
