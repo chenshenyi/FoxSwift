@@ -9,10 +9,10 @@ import Foundation
 
 extension WebSocket {
     /// Namespace for WebSocket connection close-related types and functionality.
-    enum Close {
+    public enum Close {
         /// Protocol requirement for close reason types.
         /// Must be both `Codable` for serialization and `Sendable` for concurrency safety.
-        typealias ReasonProtocol = Codable&Sendable
+        public typealias ReasonProtocol = Codable&Sendable
 
         /// Represents information about how a WebSocket connection was closed.
         ///
@@ -21,9 +21,9 @@ extension WebSocket {
         /// closures without a reason, and cases where the connection object was deallocated before closure.
         ///
         /// - Note: Generic over the `Reason` type, which must conform to `ReasonProtocol`.
-        enum Info<Reason: ReasonProtocol> {
+        public enum Info<Reason: ReasonProtocol>: Sendable {
             /// Type alias for URLSessionWebSocketTask's close code type.
-            typealias Code = URLSessionWebSocketTask.CloseCode
+            public typealias Code = URLSessionWebSocketTask.CloseCode
             
             /// The connection closed with a specific code and reason.
             case info(code: Code, reason: Reason)

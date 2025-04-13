@@ -10,7 +10,7 @@ import AsyncAlgorithms
 
 extension WebSocket {
     /// Errors that can occur during WebSocket operations with URLSessionProvider.
-    enum URLSessionProviderError: Error {
+    public enum URLSessionProviderError: Error {
         /// Thrown when an unsupported message type is received.
         case unsupportedMessageType
         /// Thrown when a message couldn't be properly decoded.
@@ -19,12 +19,12 @@ extension WebSocket {
         case messageEncodingFailed(Error)
     }
     
-    struct URLSessionProvider<Message: Codable&Sendable, CloseReason: Close.ReasonProtocol>: Provider {
-        let webSocketTask: URLSessionWebSocketTask
-        var jsonEncoder: JSONEncoder = JSONEncoder()
-        var jsonDecoder: JSONDecoder = JSONDecoder()
+    public struct URLSessionProvider<Message: Codable&Sendable, CloseReason: Close.ReasonProtocol>: Provider {
+        package let webSocketTask: URLSessionWebSocketTask
+        package var jsonEncoder: JSONEncoder = JSONEncoder()
+        package var jsonDecoder: JSONDecoder = JSONDecoder()
 
-        var state: URLSessionWebSocketTask.State {
+        public var state: URLSessionWebSocketTask.State {
             webSocketTask.state
         }
 
@@ -32,7 +32,7 @@ extension WebSocket {
             self.webSocketTask = webSocketTask
         }
 
-        func ping() async throws {
+        public func ping() async throws {
             try await withUnsafeThrowingContinuation { (continuation: UnsafeContinuation<Void, any Error>) in
                 webSocketTask.sendPing { error in
                     if let error {
@@ -44,7 +44,7 @@ extension WebSocket {
             }
         }
 
-        func send(message: Message) async throws {
+        public func send(message: Message) async throws {
             do {
                 let messageData = try jsonEncoder.encode(message)
                 try await webSocketTask.send(.data(messageData))
@@ -53,7 +53,7 @@ extension WebSocket {
             }
         }
 
-        func receive() async throws -> Message {
+        public func receive() async throws -> Message {
             let messageData = try await webSocketTask.receive()
             guard case let .data(data) = messageData else {
                 throw URLSessionProviderError.unsupportedMessageType
@@ -67,7 +67,7 @@ extension WebSocket {
             }
         }
 
-        func close(
+        public func close(
             code: URLSessionWebSocketTask.CloseCode,
             reason: CloseReason
         ) async throws {
@@ -84,7 +84,7 @@ extension WebSocket {
             webSocketTask.cancel(with: code, reason: reason)
         }
 
-        func awaitClosed() async throws -> Close.Info<CloseReason> {
+        public func awaitClosed() async throws -> Close.Info<CloseReason> {
             let delegate = Delegate(jsonDecoder: jsonDecoder)
             webSocketTask.delegate = delegate
 
