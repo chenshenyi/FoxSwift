@@ -1,0 +1,104 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Dependency Management Guidelines
+
+## Package Manager
+
+### Swift Package Manager
+
+- 優先使用 Swift Package Manager
+- 明確指定套件版本
+- 使用語意化版本控制
+- 定期更新相依套件
+
+### 版本控制
+
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
+    .package(url: "https://github.com/apple/swift-log.git", "1.0.0"..<"2.0.0"),
+    .package(url: "https://github.com/vapor/vapor.git", exact: "4.0.0")
+]
+```
+
+## 版本管理
+
+### 版本規範
+
+- 遵循語意化版本 (SemVer)
+- 主版本：不相容的 API 變更
+- 次版本：向下相容的功能新增
+- 修訂版本：向下相容的問題修正
+
+### 版本鎖定
+
+- 使用版本範圍
+- 避免使用最新版本 (.upToNextMajor)
+- 必要時鎖定特定版本
+- 記錄版本更新原因
+
+## 模組化設計
+
+### 模組原則
+
+- 高內聚低耦合
+- 明確的模組邊界
+- 最小化公開 API
+- 避免循環相依
+
+### 模組結構
+
+```swift
+// 模組定義
+public protocol NetworkingModule {
+    func configure()
+    func start() async throws
+    func stop() async
+}
+
+// 相依注入
+public struct AppModules {
+    let networking: NetworkingModule
+    let storage: StorageModule
+    let auth: AuthModule
+    
+    public init(
+        networking: NetworkingModule,
+        storage: StorageModule,
+        auth: AuthModule
+    ) {
+        self.networking = networking
+        self.storage = storage
+        self.auth = auth
+    }
+}
+```
+
+## 相依性注入
+
+### 注入方式
+
+- 建構子注入
+- 屬性注入
+- 方法注入
+- 介面注入
+
+### 注入範例
+
+```swift
+protocol DataFetching {
+    func fetch() async throws -> Data
+}
+
+class NetworkService {
+    private let fetcher: DataFetching
+    
+    init(fetcher: DataFetching) {
+        self.fetcher = fetcher
+    }
+}
+```

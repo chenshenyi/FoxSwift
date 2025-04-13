@@ -1,0 +1,158 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Error Handling Guidelines
+
+## Error Definition
+
+- 所有錯誤必須實作 `AppError` protocol
+- 錯誤必須包含本地化描述和除錯描述
+- 錯誤訊息必須包含中英文對照
+
+### Error Structure
+
+```swift
+enum AppError: Error, CustomStringConvertible {
+    case userFacing(String)
+    case internal(Error)
+}
+
+enum NetworkError: Error, CustomStringConvertible {
+    case connectionFailed(reason: String)
+    case invalidResponse(statusCode: Int)
+    case timeout(after: TimeInterval)
+    
+    var localizedDescription: String {
+        switch self {
+        case let .connectionFailed(reason):
+            return "連線失敗：\(reason)"
+        case let .invalidResponse(statusCode):
+            return "無效的回應：HTTP \(statusCode)"
+        case let .timeout(time):
+            return "連線逾時：\(time) 秒"
+        }
+    }
+}
+```
+
+## Error Handling Requirements
+
+- 使用 Swift 的 try-catch 機制處理錯誤
+- 禁止使用 `try!`，除非能保證絕對不會發生錯誤
+- `try?` 僅用於可忽略錯誤的情況
+- 必須記錄所有錯誤
+- 對使用者顯示的錯誤訊息必須本地化
+
+```swift
+func fetchData() async throws(AppError) -> Data {
+    do {
+        let data = try await networkClient.fetch()
+        Logger.network.info("Data fetched successfully")
+        return data
+    } catch NetworkError.connectionFailed(let reason) {
+        Logger.network.error("Connection failed: \(reason)")
+        throw AppError.userFacing("無法連線到伺服器：\(reason)")
+    } catch NetworkError.timeout {
+        Logger.network.error("Connection timeout")
+        throw AppError.userFacing("連線逾時，請稍後再試")
+    } catch {
+        Logger.network.fault("Unknown error: \(error)")
+        throw AppError.internal(error)
+    }
+}
+```
+
+## Logging Requirements
+
+- 使用 OSLog 進行日誌記錄
+- 依功能模組分類日誌類別
+- 禁止記錄敏感資訊
+- 錯誤日誌必須包含完整的錯誤資訊
+- 使用適當的日誌等級
+
+```swift
+import OSLog
+
+private extension Logger {
+    enum Category: String {
+        case app
+        case network
+        case database
+        case security
+    }
+
+    static func getLogger(for category: Category) -> Logger {
+        Logger(
+            subsystem: Bundle.main.bundleIdentifier!, 
+            category: category.rawValue
+        )
+    }
+}
+
+extension Logger {
+    /// 應用程式主要 Logger
+    static let app = getLogger(for: .app)
+    
+    /// 網路相關 Logger
+    static let network = getLogger(for: .network)
+    
+    /// 資料庫相關 Logger
+    static let database = getLogger(for: .database)
+    
+    /// 安全性相關 Logger
+    static let security = getLogger(for: .security)
+}
+```
+
+### 日誌等級使用
+
+```swift
+// Debug: 開發時的除錯資訊
+Logger.app.debug("開始初始化應用程式...")
+
+// Info: 一般操作資訊
+Logger.network.info("開始下載檔案：\(url.absoluteString)")
+
+// Notice: 重要但不緊急的事件
+Logger.app.notice("使用者登入成功：\(userID)")
+
+// Warning: 潛在問題警告
+Logger.database.warning("資料庫連線重試次數過多")
+
+// Error: 錯誤資訊
+Logger.network.error("網路請求失敗：\(error.localizedDescription)")
+
+// Critical: 嚴重錯誤
+Logger.security.critical("偵測到未授權的存取嘗試")
+
+// Fault: 系統層級錯誤
+Logger.app.fault("應用程式即將崩潰：\(fatalError)")
+```
+
+## Error Reporting Requirements
+
+- 必須記錄所有錯誤的完整資訊
+- 必須包含系統環境資訊
+- 必須包含使用者操作記錄
+- 必須包含相關日誌
+- 敏感資訊必須遮蔽
+
+```swift
+struct ErrorReport {
+    let error: Error
+    let timestamp: Date
+    let deviceInfo: DeviceInfo
+    let stackTrace: String
+    let userAction: String?
+    let logs: [LogEntry]
+}
+
+struct DeviceInfo {
+    let osVersion: String
+    let appVersion: String
+    let deviceModel: String
+    let locale: String
+}
+```

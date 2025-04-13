@@ -1,0 +1,195 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Documentation Guidelines
+
+## 文件類型
+
+### 專案文件
+
+- README.md
+- CONTRIBUTING.md
+- CHANGELOG.md
+- LICENSE
+- API 文件
+- 架構文件
+- 使用手冊
+- 開發指南
+
+### 程式碼文件
+
+- 檔案頭部註解
+- 函式/方法註解
+- 類別/結構體註解
+- 協定註解
+- 重要演算法說明
+- 使用範例
+
+## DocC 文件
+
+### 基本格式
+
+```swift
+/// 一個網路請求的管理器
+///
+/// NetworkManager 負責處理所有的網路請求，包括：
+/// - HTTP/HTTPS 請求
+/// - WebSocket 連線
+/// - 檔案上傳/下載
+///
+/// ## Topics
+/// ### 基本操作
+/// - ``configure``
+/// - ``start``
+/// - ``stop``
+///
+/// ### HTTP 請求
+/// - ``get(_:)``
+/// - ``post(_:data:)``
+/// - ``put(_:data:)``
+/// - ``delete(_:)``
+///
+/// ### 範例
+/// ```swift
+/// let manager = NetworkManager()
+/// try await manager.configure()
+/// let data = try await manager.get("https://api.example.com/data")
+/// ```
+public class NetworkManager {
+    // 實作內容
+}
+```
+
+### 文件結構
+
+- 簡短描述
+- 詳細說明
+- 參數說明
+- 回傳值說明
+- 錯誤說明
+- 範例程式碼
+- 相關主題
+
+## Markdown 文件
+
+### 基本規則
+
+- 使用標準 Markdown 語法
+- 適當使用標題層級
+- 加入目錄（大型文件）
+- 使用程式碼區塊
+- 加入連結與參考
+- 使用清單與表格
+
+### 文件範例
+
+```markdown
+# 專案名稱
+
+> 簡短的專案描述
+
+## 目錄
+- [安裝說明](mdc:#安裝說明)
+- [使用方式](mdc:#使用方式)
+- [API 文件](mdc:#api-文件)
+- [貢獻指南](mdc:#貢獻指南)
+- [授權條款](mdc:#授權條款)
+
+## 安裝說明
+
+### 系統需求
+- Swift 6.0+
+- Xcode 15.0+
+- iOS 16.0+
+
+### 安裝步驟
+1. 複製專案
+2. 安裝相依套件
+3. 建置專案
+
+## 使用方式
+
+### 基本設定
+
+- <Code>
+
+```
+
+## API 文件
+
+### 格式規範
+
+- 使用 OpenAPI 規範
+- 包含版本資訊
+- 詳細的參數說明
+- 回應格式範例
+- 錯誤碼說明
+- 認證方式說明
+
+### 範例
+
+```yaml
+openapi: 3.0.0
+info:
+  title: API 名稱
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: 取得使用者列表
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+```
+
+## 圖表使用
+
+### Mermaid 圖表
+
+```mermaid
+sequenceDiagram
+    Client->>Server: 請求資料
+    Server->>Database: 查詢資料
+    Database-->>Server: 回傳結果
+    Server-->>Client: 回應資料
+```
+
+### 使用時機
+
+- 系統架構圖
+- 流程圖
+- 時序圖
+- 狀態圖
+- 類別圖
+- 元件圖
+
+## 最佳實踐
+
+### 文件維護
+
+- 定期更新文件
+- 版本號對應
+- 審查文件變更
+- 自動化文件生成
+- 文件測試
+
+### 文件組織
+
+- 清晰的目錄結構
+- 模組化文件
+- 連結相關文件
+- 版本控制整合
+- 搜尋優化

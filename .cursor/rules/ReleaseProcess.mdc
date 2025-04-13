@@ -1,0 +1,54 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Release Process Guidelines
+
+## 版本號管理
+
+### 版本號規則
+
+- 遵循 Semantic Versioning (SemVer)
+- 格式：MAJOR.MINOR.PATCH
+- 主版本號：不相容的 API 變更
+- 次版本號：向下相容的功能新增
+- 修訂版本號：向下相容的問題修正
+
+### 版本標記
+
+```bash
+# 建立版本標記
+git tag -a v1.0.0 -m "Release version 1.0.0"
+git push origin v1.0.0
+```
+
+## 變更記錄
+
+### 格式範例
+
+```markdown
+# Changelog
+
+## [1.0.0] - 2024-03-20
+
+### Added
+- 新增使用者認證功能
+- 實作檔案上傳功能
+- 加入多語言支援
+
+### Changed
+- 優化資料庫查詢效能
+- 更新使用者介面設計
+- 改善錯誤處理機制
+
+### Fixed
+- 修復記憶體洩漏問題
+- 解決並行處理衝突
+- 修正 UI 排版問題
+
+### Security
+- 更新加密演算法
+- 強化存取控制機制
+- 修補安全性漏洞
+```

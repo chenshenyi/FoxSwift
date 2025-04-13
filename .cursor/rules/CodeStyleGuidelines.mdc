@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Code Style Guidelines
+
+## 命名規範
+
+### 通用規則
+
+- 使用有意義且具描述性的名稱
+- 避免縮寫（除非是普遍接受的縮寫）
+- 不使用匈牙利命名法
+
+### 具體規範
+
+- 類別/結構體：PascalCase
+
+  ```swift
+  struct UserProfile { }
+  class NetworkManager { }
+  ```
+
+- 協定：PascalCase，通常以 -able、-ible 或 Protocol 結尾
+
+  ```swift
+  protocol Downloadable { }
+  protocol NetworkProtocol { }
+  ```
+
+- 函式/方法：camelCase，使用動詞開頭
+
+  ```swift
+  func fetchData() { }
+  func handleError(_ error: Error) { }
+  ```
+
+- 變數/屬性：camelCase
+
+  ```swift
+  var userName: String
+  let maxRetryCount: Int
+  ```
+
+- 列舉：PascalCase，case 使用 camelCase
+
+  ```swift
+  enum NetworkError {
+      case connectionTimeout
+      case invalidResponse
+  }
+  ```
+
+## 程式碼格式化
+
+### 縮排
+
+- 使用空格而非 Tab
+- 縮排寬度為 4 個空格
+- 大括號使用 K&R 風格（放在同一行）
+
+### 空白與換行
+
+- 運算子前後加空格
+- 逗號後加空格
+- 冒號前不加空格，後加空格（用於型別宣告）
+- 函式之間空一行
+- 邏輯區塊之間空一行
+
+## 程式碼檢查工具
+
+- 使用 SwiftLint 進行程式碼檢查
+- 自定義規則存放於專案根目錄的 `.swiftlint.yml`
+- CI/CD 流程中包含 SwiftLint 檢查
+
+## Access Control
+
+### 使用原則
+
+- 預設使用 `internal`
+- 對外公開的 API 使用 `public`
+- 模組內部使用的 API 使用 `internal`
+- 只在檔案內使用的內容使用 `private`
+- 允許子類別存取使用 `fileprivate`
+
+### 建議
+
+- 盡可能使用最嚴格的存取層級
+- 為公開的 API 提供完整的文件註解
+- 考慮使用 `final` 防止繼承
+
+## 註解規範
+
+- 使用 DocC 風格的註解
+- 為所有 public API 提供文件註解
+- 複雜的演算法需要提供實作說明
+- TODO/FIXME 註解需包含 issue 編號或說明
+
+## 最佳實踐
+
+- 避免強制解包（Force Unwrap）
+- 優先使用 `guard` 而非巢狀 `if`
+- 善用 Swift 的型別推斷
+- 使用 Swift 的新特性（如 async/await）
+- 遵循 SOLID 原則
+- 單一檔案不超過 600 行
+- 單一函式不超過 80 行
