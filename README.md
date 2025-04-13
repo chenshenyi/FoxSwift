@@ -2,6 +2,16 @@
   <img src="Resource/icon.png" width="120"/>
 </p>
 
+> We are currently conducting a significant refactoring in a [separate branch](https://github.com/chenshenyi/FoxSwift/tree/TimChen/feat/FoxSwiftServer#).
+>
+> This work includes:
+> - Migrating to **Swift Package Manager** (SPM)
+> - Setting up a **SignalServer using Swift**
+> 
+> The main branch will not be maintained while this experimental work continues. We'll merge changes once the refactoring is stable and tested. 
+
+
+
 # FoxSwift
 
 FoxSwift is a meeting app for iOS with features like creating meetings, joining meetings, speech recognition, and whiteboard. It is built using Swift and Firebase.
