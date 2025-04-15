@@ -7,9 +7,9 @@ alwaysApply: true
 
 ## Error Definition
 
-- 所有錯誤必須實作 `AppError` protocol
-- 錯誤必須包含本地化描述和除錯描述
-- 錯誤訊息必須包含中英文對照
+- All errors must implement the `AppError` protocol
+- Errors must include localized descriptions and debug descriptions
+- Error messages must include both Chinese and English translations
 
 ### Error Structure
 
@@ -27,11 +27,11 @@ enum NetworkError: Error, CustomStringConvertible {
     var localizedDescription: String {
         switch self {
         case let .connectionFailed(reason):
-            return "連線失敗：\(reason)"
+            return "Connection failed: \(reason)"
         case let .invalidResponse(statusCode):
-            return "無效的回應：HTTP \(statusCode)"
+            return "Invalid response: HTTP \(statusCode)"
         case let .timeout(time):
-            return "連線逾時：\(time) 秒"
+            return "Connection timed out: \(time) seconds"
         }
     }
 }
@@ -39,11 +39,11 @@ enum NetworkError: Error, CustomStringConvertible {
 
 ## Error Handling Requirements
 
-- 使用 Swift 的 try-catch 機制處理錯誤
-- 禁止使用 `try!`，除非能保證絕對不會發生錯誤
-- `try?` 僅用於可忽略錯誤的情況
-- 必須記錄所有錯誤
-- 對使用者顯示的錯誤訊息必須本地化
+- Use Swift's try-catch mechanism to handle errors
+- Avoid using `try!` unless you can guarantee that an error will never occur
+- Use `try?` only in situations where errors can be ignored
+- All errors must be logged
+- Error messages displayed to users must be localized
 
 ```swift
 func fetchData() async throws(AppError) -> Data {
@@ -53,10 +53,10 @@ func fetchData() async throws(AppError) -> Data {
         return data
     } catch NetworkError.connectionFailed(let reason) {
         Logger.network.error("Connection failed: \(reason)")
-        throw AppError.userFacing("無法連線到伺服器：\(reason)")
+        throw AppError.userFacing("Unable to connect to server: \(reason)")
     } catch NetworkError.timeout {
         Logger.network.error("Connection timeout")
-        throw AppError.userFacing("連線逾時，請稍後再試")
+        throw AppError.userFacing("Connection timed out, please try again later")
     } catch {
         Logger.network.fault("Unknown error: \(error)")
         throw AppError.internal(error)
@@ -66,11 +66,11 @@ func fetchData() async throws(AppError) -> Data {
 
 ## Logging Requirements
 
-- 使用 OSLog 進行日誌記錄
-- 依功能模組分類日誌類別
-- 禁止記錄敏感資訊
-- 錯誤日誌必須包含完整的錯誤資訊
-- 使用適當的日誌等級
+- Use OSLog for logging
+- Categorize logs by functional module
+- Do not log sensitive information
+- Error logs must include complete error information
+- Use appropriate log levels
 
 ```swift
 import OSLog
@@ -92,52 +92,52 @@ private extension Logger {
 }
 
 extension Logger {
-    /// 應用程式主要 Logger
+    /// Application main Logger
     static let app = getLogger(for: .app)
     
-    /// 網路相關 Logger
+    /// Network-related Logger
     static let network = getLogger(for: .network)
     
-    /// 資料庫相關 Logger
+    /// Database-related Logger
     static let database = getLogger(for: .database)
     
-    /// 安全性相關 Logger
+    /// Security-related Logger
     static let security = getLogger(for: .security)
 }
 ```
 
-### 日誌等級使用
+### Log Level Usage
 
 ```swift
-// Debug: 開發時的除錯資訊
-Logger.app.debug("開始初始化應用程式...")
+// Debug: Debugging information during development
+Logger.app.debug("Starting application initialization...")
 
-// Info: 一般操作資訊
-Logger.network.info("開始下載檔案：\(url.absoluteString)")
+// Info: General operational information
+Logger.network.info("Starting file download: \(url.absoluteString)")
 
-// Notice: 重要但不緊急的事件
-Logger.app.notice("使用者登入成功：\(userID)")
+// Notice: Important but non-urgent events
+Logger.app.notice("User login successful: \(userID)")
 
-// Warning: 潛在問題警告
-Logger.database.warning("資料庫連線重試次數過多")
+// Warning: Potential problem warnings
+Logger.database.warning("Too many database connection retry attempts")
 
-// Error: 錯誤資訊
-Logger.network.error("網路請求失敗：\(error.localizedDescription)")
+// Error: Error information
+Logger.network.error("Network request failed: \(error.localizedDescription)")
 
-// Critical: 嚴重錯誤
-Logger.security.critical("偵測到未授權的存取嘗試")
+// Critical: Severe errors
+Logger.security.critical("Unauthorized access attempt detected")
 
-// Fault: 系統層級錯誤
-Logger.app.fault("應用程式即將崩潰：\(fatalError)")
+// Fault: System-level errors
+Logger.app.fault("Application about to crash: \(fatalError)")
 ```
 
 ## Error Reporting Requirements
 
-- 必須記錄所有錯誤的完整資訊
-- 必須包含系統環境資訊
-- 必須包含使用者操作記錄
-- 必須包含相關日誌
-- 敏感資訊必須遮蔽
+- Must record complete information for all errors
+- Must include system environment information
+- Must include user action history
+- Must include relevant logs
+- Sensitive information must be masked
 
 ```swift
 struct ErrorReport {

@@ -5,27 +5,27 @@ alwaysApply: true
 ---
 # Release Process Guidelines
 
-## 版本號管理
+## Version Number Management
 
-### 版本號規則
+### Version Number Rules
 
-- 遵循 Semantic Versioning (SemVer)
-- 格式：MAJOR.MINOR.PATCH
-- 主版本號：不相容的 API 變更
-- 次版本號：向下相容的功能新增
-- 修訂版本號：向下相容的問題修正
+- Follow Semantic Versioning (SemVer)
+- Format: MAJOR.MINOR.PATCH
+- Major version: Incompatible API changes
+- Minor version: Backward-compatible feature additions
+- Patch version: Backward-compatible bug fixes
 
-### 版本標記
+### Version Tagging
 
 ```bash
-# 建立版本標記
+# Create version tag
 git tag -a v1.0.0 -m "Release version 1.0.0"
 git push origin v1.0.0
 ```
 
-## 變更記錄
+## Changelog
 
-### 格式範例
+### Format Example
 
 ```markdown
 # Changelog
@@ -33,22 +33,22 @@ git push origin v1.0.0
 ## [1.0.0] - 2024-03-20
 
 ### Added
-- 新增使用者認證功能
-- 實作檔案上傳功能
-- 加入多語言支援
+- Added user authentication functionality
+- Implemented file upload functionality
+- Added multilingual support
 
 ### Changed
-- 優化資料庫查詢效能
-- 更新使用者介面設計
-- 改善錯誤處理機制
+- Optimized database query performance
+- Updated user interface design
+- Improved error handling mechanism
 
 ### Fixed
-- 修復記憶體洩漏問題
-- 解決並行處理衝突
-- 修正 UI 排版問題
+- Fixed memory leak issues
+- Resolved concurrency conflicts
+- Fixed UI layout issues
 
 ### Security
-- 更新加密演算法
-- 強化存取控制機制
-- 修補安全性漏洞
+- Updated encryption algorithms
+- Strengthened access control mechanisms
+- Patched security vulnerabilities
 ```

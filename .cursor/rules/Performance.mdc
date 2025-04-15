@@ -7,113 +7,113 @@ alwaysApply: true
 
 ## Memory Management
 
-### 記憶體使用
+### Memory Usage
 
-- 避免記憶體洩漏
-- 適時使用 weak 和 unowned 參考
-- 大型物件使用 lazy 載入
-- 實作適當的記憶體警告處理
+- Avoid memory leaks
+- Use weak and unowned references appropriately
+- Use lazy loading for large objects
+- Implement proper memory warning handling
 
-### 資源釋放
+### Resource Release
 
-- 及時釋放不需要的資源
-- 實作 deinit 確保資源清理
-- 監控記憶體使用趨勢
+- Release unnecessary resources promptly
+- Implement deinit to ensure resource cleanup
+- Monitor memory usage trends
 
-## Cache 管理
+## Cache Management
 
-### Cache 策略
+### Cache Strategy
 
-- 實作多層級快取
-- 設定適當的快取過期時間
-- 實作快取清理機制
-- 監控快取命中率
+- Implement multi-level caching
+- Set appropriate cache expiration times
+- Implement cache cleaning mechanisms
+- Monitor cache hit rates
 
-### Cache 實作
+### Cache Implementation
 
-- 使用適當的快取儲存方式
-- 實作快取大小限制
-- 處理快取失效情況
-- 實作快取預熱機制
+- Use appropriate cache storage methods
+- Implement cache size limits
+- Handle cache invalidation scenarios
+- Implement cache warming mechanisms
 
-## 大型資料處理
+## Large Data Processing
 
-### 分頁處理
+### Pagination
 
-- 實作資料分頁機制
-- 使用適當的分頁大小
-- 實作無限滾動
-- 優化分頁載入效能
+- Implement data pagination mechanisms
+- Use appropriate page sizes
+- Implement infinite scrolling
+- Optimize pagination loading performance
 
-### 資料結構選擇
+### Data Structure Selection
 
-- 選擇適當的資料結構
-- 避免過度使用高成本操作
-- 實作資料索引
-- 優化搜尋演算法
+- Choose appropriate data structures
+- Avoid overusing high-cost operations
+- Implement data indexing
+- Optimize search algorithms
 
-## 網路效能
+## Network Performance
 
-### 請求優化
+### Request Optimization
 
-- 實作請求合併
-- 使用適當的序列化格式
-- 實作請求快取
-- 處理網路狀態變化
+- Implement request batching
+- Use appropriate serialization formats
+- Implement request caching
+- Handle network state changes
 
-### 資料傳輸
+### Data Transfer
 
-- 實作資料壓縮
-- 使用適當的傳輸協議
-- 優化傳輸封包大小
-- 實作斷點續傳
+- Implement data compression
+- Use appropriate transport protocols
+- Optimize transfer packet size
+- Implement resumable transfers
 
-## UI 效能
+## UI Performance
 
-### 渲染優化
+### Rendering Optimization
 
-- 避免主線程阻塞
-- 使用適當的渲染策略
-- 實作 UI 重用機制
-- 優化動畫效能
+- Avoid main thread blocking
+- Use appropriate rendering strategies
+- Implement UI reuse mechanisms
+- Optimize animation performance
 
-### 響應性
+### Responsiveness
 
-- 保持 UI 響應性
-- 實作適當的載入指示
-- 處理長時間操作
-- 優化手勢處理
+- Maintain UI responsiveness
+- Implement appropriate loading indicators
+- Handle long-running operations
+- Optimize gesture handling
 
-## 效能監控
+## Performance Monitoring
 
-### 監控指標
+### Monitoring Metrics
 
-- CPU 使用率
-- 記憶體使用量
-- 網路延遲
-- 畫面更新率（FPS）
-- 啟動時間
-- 電池使用量
+- CPU usage
+- Memory usage
+- Network latency
+- Frame rate (FPS)
+- Launch time
+- Battery usage
 
-### 監控工具
+### Monitoring Tools
 
-- 使用 Instruments 進行分析
-- 實作效能日誌
-- 設定效能警告閾值
-- 定期進行效能檢測
+- Use Instruments for analysis
+- Implement performance logging
+- Set performance warning thresholds
+- Conduct regular performance testing
 
-## 最佳實踐
+## Best Practices
 
-### 程式碼優化
+### Code Optimization
 
-- 避免重複計算
-- 使用適當的並行處理
-- 實作程式碼效能分析
-- 優化迴圈與演算法
+- Avoid redundant calculations
+- Use appropriate concurrency
+- Implement code performance profiling
+- Optimize loops and algorithms
 
-### 資源優化
+### Resource Optimization
 
-- 優化圖片資源
-- 實作資源預載入
-- 處理背景工作
-- 優化應用程式大小
+- Optimize image resources
+- Implement resource preloading
+- Handle background tasks
+- Optimize application size

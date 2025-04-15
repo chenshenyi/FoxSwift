@@ -9,12 +9,12 @@ alwaysApply: true
 
 ### Swift Package Manager
 
-- 優先使用 Swift Package Manager
-- 明確指定套件版本
-- 使用語意化版本控制
-- 定期更新相依套件
+- Prioritize using Swift Package Manager
+- Explicitly specify package versions
+- Use semantic versioning
+- Regularly update dependencies
 
-### 版本控制
+### Version Control
 
 ```swift
 // Package.swift
@@ -25,42 +25,42 @@ dependencies: [
 ]
 ```
 
-## 版本管理
+## Version Management
 
-### 版本規範
+### Version Standards
 
-- 遵循語意化版本 (SemVer)
-- 主版本：不相容的 API 變更
-- 次版本：向下相容的功能新增
-- 修訂版本：向下相容的問題修正
+- Follow Semantic Versioning (SemVer)
+- Major version: Incompatible API changes
+- Minor version: Backward-compatible feature additions
+- Patch version: Backward-compatible bug fixes
 
-### 版本鎖定
+### Version Pinning
 
-- 使用版本範圍
-- 避免使用最新版本 (.upToNextMajor)
-- 必要時鎖定特定版本
-- 記錄版本更新原因
+- Use version ranges
+- Avoid using latest version (.upToNextMajor)
+- Lock specific versions when necessary
+- Document reasons for version updates
 
-## 模組化設計
+## Modular Design
 
-### 模組原則
+### Module Principles
 
-- 高內聚低耦合
-- 明確的模組邊界
-- 最小化公開 API
-- 避免循環相依
+- High cohesion, low coupling
+- Clear module boundaries
+- Minimize public APIs
+- Avoid circular dependencies
 
-### 模組結構
+### Module Structure
 
 ```swift
-// 模組定義
+// Module definition
 public protocol NetworkingModule {
     func configure()
     func start() async throws
     func stop() async
 }
 
-// 相依注入
+// Dependency injection
 public struct AppModules {
     let networking: NetworkingModule
     let storage: StorageModule
@@ -78,16 +78,16 @@ public struct AppModules {
 }
 ```
 
-## 相依性注入
+## Dependency Injection
 
-### 注入方式
+### Injection Methods
 
-- 建構子注入
-- 屬性注入
-- 方法注入
-- 介面注入
+- Constructor injection
+- Property injection
+- Method injection
+- Interface injection
 
-### 注入範例
+### Injection Example
 
 ```swift
 protocol DataFetching {

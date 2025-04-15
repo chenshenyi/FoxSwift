@@ -7,23 +7,23 @@ alwaysApply: true
 
 ## Git Commit Message Format
 
-- 使用 Conventional Commits 規範
-- 格式：`<type>(<scope>): <description>`
-- Type 分類：
-  - feat: 新功能
-  - fix: 錯誤修復
-  - docs: 文件更新
-  - style: 程式碼格式調整
-  - refactor: 重構
-  - test: 測試相關
-  - chore: 建置/輔助工具的變動
+- Use Conventional Commits standard
+- Format: `<type>(<scope>): <description>`
+- Type categories:
+  - feat: New feature
+  - fix: Bug fix
+  - docs: Documentation update
+  - style: Code formatting adjustment
+  - refactor: Refactoring
+  - test: Testing related
+  - chore: Build/auxiliary tool changes
 
 ## Branch Naming
 
-- 主要分支：
-  - `main`: 主要發布分支
-  - `develop`: 開發分支
-- 功能分支：
+- Main branches:
+  - `main`: Main release branch
+  - `develop`: Development branch
+- Feature branches:
   - `feat/<feature-name>`
   - `fix/<bug-name>`
   - `docs/<document-name>`
@@ -31,30 +31,30 @@ alwaysApply: true
 
 ## Pull Request Guidelines
 
-- PR 標題使用與 commit message 相同格式
-- PR 描述需包含：
-  - 功能說明
-  - 測試方式
-  - 相關 issue 連結
-  - Breaking changes（如果有）
+- PR title should use the same format as commit messages
+- PR description should include:
+  - Feature description
+  - Testing method
+  - Related issue links
+  - Breaking changes (if any)
 
 ## Code Review Standards
 
-- 審核重點：
-  - 程式碼品質與風格
-  - 測試覆蓋率
-  - 效能考量
-  - 安全性議題
-  - 文件完整性
-- 使用建設性的評論語氣
-- 必要時提供程式碼範例
+- Review focus:
+  - Code quality and style
+  - Test coverage
+  - Performance considerations
+  - Security issues
+  - Documentation completeness
+- Use constructive comment tone
+- Provide code examples when necessary
 
 ## Release Process
 
-- 版本號採用 Semantic Versioning
-- Release branch 命名：`release/vX.Y.Z`
-- 每個 release 都需要更新：
-  - 版本號
+- Version numbers should use Semantic Versioning
+- Release branch naming: `release/vX.Y.Z`
+- Each release needs to update:
+  - Version number
   - Changelog
   - Release Notes
-  - 相關文件
+  - Related documentation
