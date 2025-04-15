@@ -18,9 +18,10 @@ struct UsersService: FS.UsersServiceProtocol {
         return users.map { $0.toDTO() }
     }
 
-    func putUser(id: UUID, user: Body<FoxSwiftAPI.FoxSwift.User>) async throws
-        -> FoxSwiftAPI.FoxSwift.User
-    {
+    func putUser(
+        id: UUID,
+        user: Body<FoxSwiftAPI.FoxSwift.User>
+    ) async throws -> FoxSwiftAPI.FoxSwift.User {
         let user = User(user)
         user.id = id
         try await user.save(on: request.db)

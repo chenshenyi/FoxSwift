@@ -33,8 +33,7 @@ struct RequestExtensionTests {
                         let res = try await test(request)
                         continuation.resume()
                         return res
-                    }
-                    catch {
+                    } catch {
                         continuation.resume(throwing: error)
                         throw error
                     }

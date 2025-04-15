@@ -45,8 +45,7 @@ public struct ServiceMacro: PeerMacro {
         protocolDeclSyntax: ProtocolDeclSyntax,
         in context: some MacroExpansionContext
     ) throws(APIPluginError) -> [String] {
-        protocolDeclSyntax.functions.compactMap {
-            (functionDeclSyntax: FunctionDeclSyntax) -> String? in
+        protocolDeclSyntax.functions.compactMap { (functionDeclSyntax: FunctionDeclSyntax) -> String? in
             guard let (httpMethod, path) = functionDeclSyntax.route else { return nil }
             let pathComponents = path.components(separatedBy: "/").filter { !$0.isEmpty }
             let pathComponentsAsFunctionParameter = pathComponents.map(\.quoted).joined(
@@ -58,7 +57,8 @@ public struct ServiceMacro: PeerMacro {
             return """
                 routes.on(.init(rawValue: "\(httpMethod)"), \(pathComponentsAsFunctionParameter)) { request in
                 \(initParameter(parameters: functionParameters, route: (httpMethod, pathComponents)).joined())
-                return try await Service(request: request).\(functionName)(\(setParameter(parameters: functionParameters)))
+                return try await Service(request: request)
+                    .\(functionName)(\(setParameter(parameters: functionParameters)))
                 }
                 """
         }
@@ -100,8 +100,7 @@ public struct ServiceMacro: PeerMacro {
 
         if route.path.contains(where: { isMatchedParameter(path: $0, name: name) }) {
             return "getParameter(name: \"\(name)\")"
-        }
-        else {
+        } else {
             return "getQuery(at: \"\(name)\")"
         }
     }

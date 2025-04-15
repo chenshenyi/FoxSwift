@@ -24,8 +24,8 @@ extension WebSocket {
         CloseReason: Close.ReasonProtocol
     >: Provider {
         package let webSocketTask: URLSessionWebSocketTask
-        package var jsonEncoder: JSONEncoder = JSONEncoder()
-        package var jsonDecoder: JSONDecoder = JSONDecoder()
+        package var jsonEncoder: JSONEncoder = .init()
+        package var jsonDecoder: JSONDecoder = .init()
 
         public var state: URLSessionWebSocketTask.State {
             webSocketTask.state
@@ -36,13 +36,11 @@ extension WebSocket {
         }
 
         public func ping() async throws {
-            try await withUnsafeThrowingContinuation {
-                (continuation: UnsafeContinuation<Void, any Error>) in
+            try await withUnsafeThrowingContinuation { (continuation: UnsafeContinuation<Void, any Error>) in
                 webSocketTask.sendPing { error in
                     if let error {
                         continuation.resume(throwing: error)
-                    }
-                    else {
+                    } else {
                         continuation.resume()
                     }
                 }
@@ -53,8 +51,7 @@ extension WebSocket {
             do {
                 let messageData = try jsonEncoder.encode(message)
                 try await webSocketTask.send(.data(messageData))
-            }
-            catch let error as EncodingError {
+            } catch let error as EncodingError {
                 throw URLSessionProviderError.messageEncodingFailed(error)
             }
         }
@@ -68,8 +65,7 @@ extension WebSocket {
             do {
                 let message = try jsonDecoder.decode(Message.self, from: data)
                 return message
-            }
-            catch let error as DecodingError {
+            } catch let error as DecodingError {
                 throw URLSessionProviderError.messageDecodingFailed(error)
             }
         }
@@ -157,8 +153,7 @@ extension WebSocket.URLSessionProvider {
             do {
                 let decodedReason = try jsonDecoder.decode(CloseReason.self, from: reasonData)
                 closeInfo = .info(code: closeCode, reason: decodedReason)
-            }
-            catch {
+            } catch {
                 closeInfo = .reasonDecodingFailed(code: closeCode, error: error)
             }
         }

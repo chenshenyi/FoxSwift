@@ -14,8 +14,7 @@ enum Entrypoint {
         do {
             try await configure(app)
             try? await app.autoMigrate()
-        }
-        catch {
+        } catch {
             app.logger.report(error: error)
             try? await app.asyncShutdown()
             throw error

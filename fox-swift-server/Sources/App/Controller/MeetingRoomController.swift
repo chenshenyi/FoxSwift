@@ -28,8 +28,7 @@ struct MeetingRoomController: RouteCollection {
     func getRoom(id: MeetingRoom.ID) async -> MeetingRoom {
         if let room = rooms[id: id] {
             return room
-        }
-        else {
+        } else {
             let room = MeetingRoom(id: id)
             rooms.append(room)
             return room

@@ -76,9 +76,12 @@ struct VaporTestingService: Papyrus.HTTPService {
     ///   - headers: The request headers.
     ///   - body: The request body data.
     /// - Returns: A request object conforming to `PapyrusCore.Request`.
-    func build(method: String, url: URL, headers: [String: String], body: Data?) -> any PapyrusCore
-        .Request
-    {
+    func build(
+        method: String,
+        url: URL,
+        headers: [String: String],
+        body: Data?
+    ) -> any PapyrusCore.Request {
         Request(body: body, url: url, method: method, headers: headers)
     }
 
@@ -112,8 +115,7 @@ struct VaporTestingService: Papyrus.HTTPService {
                 statusCode: Int(res.status.code),
                 error: nil
             )
-        }
-        catch {
+        } catch {
             return .error(error)
         }
     }

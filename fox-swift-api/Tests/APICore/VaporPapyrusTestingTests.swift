@@ -66,8 +66,7 @@ struct VaporPapyrusTestingTests {
             let api = CoolestAPI(provider: .vaporTestingProvider(app: app))
             do {
                 try await block(api)
-            }
-            catch {
+            } catch {
                 try await app.asyncShutdown()
                 throw error
             }
@@ -116,7 +115,7 @@ struct VaporPapyrusTestingTests {
         let app = try await Application.make(.testing)
         let provider = Provider.vaporTestingProvider(app: app)
         var requestBuilder = RequestBuilder(baseURL: "", method: "", path: "")
-        provider.request(&requestBuilder) { res in
+        provider.request(requestBuilder) { res in
             #expect(res.error as? TestingRequestError == .functionNotImplemented)
         }
         try await app.asyncShutdown()

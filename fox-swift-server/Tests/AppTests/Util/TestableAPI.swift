@@ -25,8 +25,7 @@ func test<T: TestableAPI>(api: T.Type = T.self, _ block: (Application, T) async 
         try await configure(app)
         try await app.autoMigrate()
         try await block(app, api)
-    }
-    catch {
+    } catch {
         try await app.autoRevert()
         try await app.asyncShutdown()
         throw error
