@@ -18,7 +18,7 @@ let package = Package(
         //
         .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.1"),
         // 🦊 FoxSwift API
-        .package(name: "fox-swift-api", path: "fox-swift-api"),
+        .package(name: "fox-swift-api", path: "../fox-swift-api"),
     ],
     targets: [
         .executableTarget(
