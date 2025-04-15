@@ -72,7 +72,7 @@
 
 ## System Requirements
 
-- Swift 6.0 or higher
+- Swift 6.1 or higher
 - iOS 16.0+ / macOS 13.0+
 - Xcode 15.0+
 
