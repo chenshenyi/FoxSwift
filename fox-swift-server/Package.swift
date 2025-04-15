@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "fox-swift-server",
     platforms: [
-       .macOS(.v14)
+        .macOS(.v14)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -36,7 +36,7 @@ let package = Package(
             ],
             swiftSettings: swiftSettings,
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ],
         ),
         .testTarget(
@@ -46,12 +46,14 @@ let package = Package(
                 .product(name: "VaporTesting", package: "vapor"),
             ],
             swiftSettings: swiftSettings
-        )
+        ),
     ],
     swiftLanguageModes: [.v5]
 )
 
-var swiftSettings: [SwiftSetting] { [
-    .enableUpcomingFeature("DisableOutwardActorInference"),
-    .enableExperimentalFeature("StrictConcurrency"),
-] }
+var swiftSettings: [SwiftSetting] {
+    [
+        .enableUpcomingFeature("DisableOutwardActorInference"),
+        .enableExperimentalFeature("StrictConcurrency"),
+    ]
+}

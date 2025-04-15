@@ -35,7 +35,10 @@ extension Provider {
     ///   - app: The Vapor application instance to test.
     ///   - method: The testing method to use (defaults to `.inMemory`).
     /// - Returns: A configured Papyrus provider for testing.
-    public static func vaporTestingProvider(app: Application, method: Application.Method = .inMemory) -> Provider {
+    public static func vaporTestingProvider(
+        app: Application,
+        method: Application.Method = .inMemory
+    ) -> Provider {
         let service = VaporTestingService(app: app, testingMethod: method)
         return Provider(baseURL: "", http: service)
     }
@@ -62,7 +65,7 @@ struct VaporTestingService: Papyrus.HTTPService {
 
     /// The Vapor application instance being tested.
     weak var app: Application?
-    
+
     /// The testing method being used.
     let testingMethod: Application.Method
 
@@ -73,7 +76,9 @@ struct VaporTestingService: Papyrus.HTTPService {
     ///   - headers: The request headers.
     ///   - body: The request body data.
     /// - Returns: A request object conforming to `PapyrusCore.Request`.
-    func build(method: String, url: URL, headers: [String: String], body: Data?) -> any PapyrusCore.Request {
+    func build(method: String, url: URL, headers: [String: String], body: Data?) -> any PapyrusCore
+        .Request
+    {
         Request(body: body, url: url, method: method, headers: headers)
     }
 
@@ -93,7 +98,8 @@ struct VaporTestingService: Papyrus.HTTPService {
                 method: .RAW(value: req.method),
                 url: .init(stringLiteral: urlString),
                 headers: HTTPHeaders(Array(req.headers)),
-                body: req.body.map(ByteBuffer.init(data:)) ?? ByteBufferAllocator().buffer(capacity: 0)
+                body: req.body.map(ByteBuffer.init(data:))
+                    ?? ByteBufferAllocator().buffer(capacity: 0)
             )
 
             let res = try await app.testing(method: testingMethod)
@@ -106,7 +112,8 @@ struct VaporTestingService: Papyrus.HTTPService {
                 statusCode: Int(res.status.code),
                 error: nil
             )
-        } catch {
+        }
+        catch {
             return .error(error)
         }
     }
@@ -115,7 +122,10 @@ struct VaporTestingService: Papyrus.HTTPService {
     /// - Parameters:
     ///   - req: The request to perform.
     ///   - completionHandler: A callback to handle the response.
-    func request(_ req: any PapyrusCore.Request, completionHandler: @escaping (any PapyrusCore.Response) -> Void) {
+    func request(
+        _ req: any PapyrusCore.Request,
+        completionHandler: @escaping (any PapyrusCore.Response) -> Void
+    ) {
         completionHandler(.error(TestingRequestError.functionNotImplemented))
     }
 }

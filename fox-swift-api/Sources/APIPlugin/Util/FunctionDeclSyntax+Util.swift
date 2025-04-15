@@ -13,8 +13,11 @@ extension FunctionDeclSyntax {
         for attribute in attributes {
             guard
                 let attributeSyntax = attribute.as(AttributeSyntax.self),
-                let attributeFirstArgument = attributeSyntax.firstArgument(StringLiteralExprSyntax.self),
-                let path = attributeFirstArgument.representedLiteralValue?.split(separator: /[#\?]/).first
+                let attributeFirstArgument = attributeSyntax.firstArgument(
+                    StringLiteralExprSyntax.self
+                ),
+                let path = attributeFirstArgument.representedLiteralValue?.split(separator: /[#\?]/)
+                    .first
             else { continue }
             let attributeName = attributeSyntax.attributeName.trimmedDescription
             switch attributeName {

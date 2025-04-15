@@ -5,8 +5,8 @@
 //  Created by chen shen yi on 2025/2/17.
 //
 
-import Foundation
 import Fluent
+import Foundation
 
 enum SchemaName: String {
     case users

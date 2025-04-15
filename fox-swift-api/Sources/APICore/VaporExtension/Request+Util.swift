@@ -26,7 +26,8 @@ extension Request {
     public func getQuery<T: Decodable>(at key: String) throws(RouteError) -> T {
         do {
             return try query.get(at: key)
-        } catch {
+        }
+        catch {
             throw .queryDecodingError(name: key, message: error.localizedDescription)
         }
     }
@@ -47,7 +48,8 @@ extension Request {
     public func getParameter<T: LosslessStringConvertible>(name: String) throws(RouteError) -> T {
         if let value = parameters.get(name, as: T.self) {
             return value
-        } else {
+        }
+        else {
             throw .missingPathParameter(name: name, type: T.self)
         }
     }
@@ -67,7 +69,8 @@ extension Request {
     public func getBody<T: Decodable>() throws(RouteError) -> T {
         do {
             return try content.decode(T.self, as: .json)
-        } catch {
+        }
+        catch {
             throw .bodyDecodingError(error.localizedDescription)
         }
     }

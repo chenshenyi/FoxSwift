@@ -1,6 +1,6 @@
 import Fluent
-import Vapor
 import FoxSwiftAPI
+import Vapor
 
 func routes(_ app: Application) throws {
     // Health check

@@ -28,10 +28,10 @@ import Vapor
 public protocol ServiceRouteCollection<Service>: RouteCollection {
     /// The associated service type that this route collection manages.
     associatedtype Service: ServiceProtocol
-    
+
     /// Creates a new instance of the route collection.
     init()
-    
+
     /// Registers all routes for this collection with the given route builder.
     /// - Parameter routes: The route builder to register routes with.
     /// - Throws: An error if route registration fails.

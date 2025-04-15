@@ -6,24 +6,27 @@
 //
 
 import Foundation
-import Vapor
 import Papyrus
+import Vapor
+
 @testable import App
 
 protocol TestableAPI {
     init(provider: Provider)
 }
 
-func test<T: TestableAPI>(api: T.Type = T.self, _ block: (Application, T) async throws -> Void) async throws {
+func test<T: TestableAPI>(api: T.Type = T.self, _ block: (Application, T) async throws -> Void)
+    async throws
+{
     let app = try await Application.make(.testing)
-
 
     let api = T(provider: .vaporTestingProvider(app: app))
     do {
         try await configure(app)
         try await app.autoMigrate()
         try await block(app, api)
-    } catch {
+    }
+    catch {
         try await app.autoRevert()
         try await app.asyncShutdown()
         throw error

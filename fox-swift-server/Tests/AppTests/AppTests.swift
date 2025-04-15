@@ -1,6 +1,7 @@
-@testable import App
-import VaporTesting
 import Testing
+import VaporTesting
+
+@testable import App
 
 @Suite("App Tests", .serialized)
 struct AppTests {
@@ -16,10 +17,14 @@ struct AppTests {
 
     @Test func healthCheckTest() async throws {
         try await withApp { app in
-            try await app.testing().test(.GET, "", afterResponse: { res async in
-                #expect(res.status == .ok)
-                #expect(res.body.string == "OK")
-            })
+            try await app.testing().test(
+                .GET,
+                "",
+                afterResponse: { res async in
+                    #expect(res.status == .ok)
+                    #expect(res.body.string == "OK")
+                }
+            )
             return
         }
     }

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Papyrus
 import Testing
 import VaporTesting
-import Papyrus
+
 @testable import APICore
 
 @API
@@ -43,14 +44,14 @@ struct CoolestService: CoolestServiceProtocol {
     }
 
     func queryItems(limit: Int) async throws -> Res<Int> {
-        .init(limit+1)
+        .init(limit + 1)
     }
 }
 
-struct Res<T: Codable&Equatable&Content>: Content, Codable, Equatable, AsyncResponseEncodable {
+struct Res<T: Codable & Equatable & Content>: Content, Codable, Equatable, AsyncResponseEncodable {
     var payload: T
     init(_ payload: T) { self.payload = payload }
-    static func ==(lhs: Self, rhs: T) -> Bool {
+    static func == (lhs: Self, rhs: T) -> Bool {
         return lhs.payload == rhs
     }
 }
@@ -65,7 +66,8 @@ struct VaporPapyrusTestingTests {
             let api = CoolestAPI(provider: .vaporTestingProvider(app: app))
             do {
                 try await block(api)
-            } catch {
+            }
+            catch {
                 try await app.asyncShutdown()
                 throw error
             }

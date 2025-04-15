@@ -5,12 +5,13 @@
 //  Created by chen shen yi on 2025/2/16.
 //
 
-@testable import App
-import VaporTesting
-import Testing
 import Fluent
 import FoxSwiftAPI
 import Papyrus
+import Testing
+import VaporTesting
+
+@testable import App
 
 extension FS.UsersAPI: TestableAPI {}
 

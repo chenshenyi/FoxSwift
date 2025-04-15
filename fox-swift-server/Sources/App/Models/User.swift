@@ -5,10 +5,11 @@
 //  Created by chen shen yi on 2025/2/14.
 //
 
-import Fluent
-import struct Foundation.UUID
 import CoreServices
+import Fluent
 import FoxSwiftAPI
+
+import struct Foundation.UUID
 
 /// Property wrappers interact poorly with `Sendable` checking, causing a warning for the `@ID` property
 /// It is recommended you write your model with sendability checking on and then suppress the warning
@@ -28,7 +29,7 @@ final class User: NamedSchemaModel, @unchecked Sendable {
     @Field(key: "bio")
     var bio: String?
 
-    init() { }
+    init() {}
 
     convenience init(_ dto: FS.User) {
         self.init()

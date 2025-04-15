@@ -19,13 +19,13 @@ public enum RouteError: Error, CustomDebugStringConvertible {
     ///   - name: The name of the missing parameter
     ///   - type: The expected type of the parameter
     case missingPathParameter(name: String, type: Any.Type)
-    
+
     /// Indicates that a query parameter could not be decoded properly.
     /// - Parameters:
     ///   - name: The name of the query parameter
     ///   - message: A detailed error message explaining the decoding failure
     case queryDecodingError(name: String, message: String)
-    
+
     /// Indicates that the request body could not be decoded properly.
     /// - Parameter message: A detailed error message explaining the decoding failure
     case bodyDecodingError(String)

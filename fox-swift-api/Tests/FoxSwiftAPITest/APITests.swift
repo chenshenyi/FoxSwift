@@ -6,8 +6,8 @@
 //
 
 import Testing
-@testable import FoxSwiftAPI
 
+@testable import FoxSwiftAPI
 
 @Suite
 struct APITests {

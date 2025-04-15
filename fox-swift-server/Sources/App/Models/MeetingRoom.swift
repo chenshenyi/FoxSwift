@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Vapor
 import FoxSwiftAPI
+import Vapor
 
 struct MeetingRoom: Identifiable {
     let id: UUID

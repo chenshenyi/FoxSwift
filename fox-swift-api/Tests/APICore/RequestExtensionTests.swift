@@ -8,6 +8,7 @@
 import Foundation
 import Testing
 import VaporTesting
+
 @testable import APICore
 
 extension RouteError: Equatable {
@@ -24,14 +25,16 @@ struct RequestExtensionTests {
         test: @Sendable @escaping (Request) async throws -> T
     ) async throws {
         let app = try await Application.make(.testing)
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+        try await withCheckedThrowingContinuation {
+            (continuation: CheckedContinuation<Void, Error>) in
             Task {
                 app.get(pathComponent) { request in
                     do {
                         let res = try await test(request)
                         continuation.resume()
                         return res
-                    } catch {
+                    }
+                    catch {
                         continuation.resume(throwing: error)
                         throw error
                     }
@@ -43,7 +46,8 @@ struct RequestExtensionTests {
     }
 
     @Test func noErrorTest() async throws {
-        try await testInternalError(path: "/users/bob", pathComponent: "users", ":name") { request in
+        try await testInternalError(path: "/users/bob", pathComponent: "users", ":name") {
+            request in
             let bob: String = try request.getParameter(name: "name")
             return bob
         }

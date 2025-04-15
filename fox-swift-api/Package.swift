@@ -1,8 +1,8 @@
 // swift-tools-version: 6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
 import CompilerPluginSupport
+import PackageDescription
 
 extension String {
     // targets
@@ -23,7 +23,7 @@ let package = Package(
             name: .foxSwiftAPI,
             targets: [
                 .foxSwiftAPI,
-                .apiCore
+                .apiCore,
             ]
         )
     ],
@@ -40,7 +40,7 @@ let package = Package(
         // 🩺 A testing framework for Swift macros.
         .package(url: "https://github.com/pointfreeco/swift-macro-testing.git", from: "0.1.0"),
 
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.0")
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.0"),
     ],
     targets: [
         .target(
@@ -48,7 +48,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Papyrus", package: "papyrus"),
                 .product(name: "Vapor", package: "vapor"),
-                .byName(name: .apiCore)
+                .byName(name: .apiCore),
             ],
             swiftSettings: swiftSettings,
             plugins: [
@@ -60,7 +60,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "VaporTesting", package: "vapor"),
-                .byName(name: .apiPlugin)
+                .byName(name: .apiPlugin),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -93,7 +93,7 @@ let package = Package(
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ],
-        )
+        ),
     ]
 )
 

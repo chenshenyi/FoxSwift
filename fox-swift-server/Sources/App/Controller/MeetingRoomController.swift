@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Vapor
 import IdentifiedCollections
+import Vapor
 
 @globalActor
 actor MeetingRoomActor {
@@ -28,7 +28,8 @@ struct MeetingRoomController: RouteCollection {
     func getRoom(id: MeetingRoom.ID) async -> MeetingRoom {
         if let room = rooms[id: id] {
             return room
-        } else {
+        }
+        else {
             let room = MeetingRoom(id: id)
             rooms.append(room)
             return room
@@ -45,13 +46,14 @@ struct MeetingRoomController: RouteCollection {
 
     func boot(routes: any Vapor.RoutesBuilder) throws {
         routes.webSocket("meetingRoom", ":id") { req, webSocket in
-            guard let id = req.parameters.get("id", as: UUID.self) else {
+            guard let id = req.parameters.get("id", as: UUID.self)
+            else {
                 try? await webSocket.close()
                 return
             }
 
             guard let userId = req.headers["UserId"].first,
-                  let userIdValue = UUID(uuidString: userId)
+                let userIdValue = UUID(uuidString: userId)
             else { return }
 
             await joinRoom(id: id, userId: userIdValue, webSocket: webSocket)

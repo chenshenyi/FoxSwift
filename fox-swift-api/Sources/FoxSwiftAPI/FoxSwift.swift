@@ -5,8 +5,8 @@
 //  Created by chen shen yi on 2025/1/18.
 //
 
-import Papyrus
 import Foundation
+import Papyrus
 import Vapor
 
 /// A type alias for the `FoxSwift` namespace.
@@ -19,7 +19,7 @@ public typealias FS = FoxSwift
 public enum FoxSwift {
     /// The current version of the API.
     public static let apiVersion: Int = 1
-    
+
     /// The base path for all API endpoints.
     ///
     /// This path includes the version number and is used as a prefix for all API routes.
@@ -35,7 +35,7 @@ public enum FoxSwift {
     /// - Codable for JSON serialization
     /// - Equatable for comparison
     /// - Sendable for concurrent operations
-    public typealias CodableContent = Vapor.Content&Codable&Equatable&Sendable
+    public typealias CodableContent = Vapor.Content & Codable & Equatable & Sendable
 
     /// Represents errors that can occur during API operations.
     ///
@@ -46,15 +46,15 @@ public enum FoxSwift {
         ///   - queryName: The name of the missing query parameter.
         ///   - msg: A detailed error message.
         case missingQuery(queryName: String, msg: String)
-        
+
         /// Indicates that a required path parameter is missing.
         /// - Parameter name: The name of the missing path parameter.
         case missingPathParameter(String)
-        
+
         /// Indicates that the request body could not be decoded.
         /// - Parameter msg: A detailed error message.
         case requestBodyDecodingError(msg: String)
-        
+
         /// Indicates an unknown error occurred.
         case unknown
     }
