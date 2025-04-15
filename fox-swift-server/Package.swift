@@ -19,8 +19,6 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.1"),
         // 🦊 FoxSwift API
         .package(name: "fox-swift-api", path: "fox-swift-api"),
-
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.0"),
     ],
     targets: [
         .executableTarget(
@@ -35,9 +33,6 @@ let package = Package(
                 .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
             ],
             swiftSettings: swiftSettings,
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
-            ],
         ),
         .testTarget(
             name: "AppTests",

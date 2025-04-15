@@ -39,8 +39,6 @@ let package = Package(
 
         // 🩺 A testing framework for Swift macros.
         .package(url: "https://github.com/pointfreeco/swift-macro-testing.git", from: "0.1.0"),
-
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.0"),
     ],
     targets: [
         .target(
@@ -51,9 +49,6 @@ let package = Package(
                 .byName(name: .apiCore),
             ],
             swiftSettings: swiftSettings,
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
-            ],
         ),
         .target(
             name: .apiCore,
@@ -61,9 +56,6 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "VaporTesting", package: "vapor"),
                 .byName(name: .apiPlugin),
-            ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ],
         ),
         .macro(
@@ -76,9 +68,6 @@ let package = Package(
                 .product(name: "SwiftParserDiagnostics", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ],
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
-            ],
         ),
         .testTarget(
             name: .foxSwiftAPI + "Test",
@@ -90,9 +79,6 @@ let package = Package(
                 .product(name: "MacroTesting", package: "swift-macro-testing"),
             ],
             path: .tests,
-            plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
-            ],
         ),
     ]
 )
