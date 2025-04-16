@@ -39,6 +39,8 @@ let package = Package(
 
         // 🩺 A testing framework for Swift macros.
         .package(url: "https://github.com/pointfreeco/swift-macro-testing.git", from: "0.1.0"),
+
+        .package(url: "https://github.com/apple/swift-async-algorithms", from: "1.0.3"),
     ],
     targets: [
         .target(
@@ -55,6 +57,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "VaporTesting", package: "vapor"),
+                .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
                 .byName(name: .apiPlugin),
             ],
         ),

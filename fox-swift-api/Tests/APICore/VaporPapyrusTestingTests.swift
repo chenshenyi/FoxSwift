@@ -22,7 +22,7 @@ protocol Coolest {
     func echo(word: Body<String>) async throws -> Res<String>
 
     @PUT("/echo/:path")
-    func echo(path: Int) async throws -> Res<Int>
+    func echo(path: Path<Int>) async throws -> Res<Int>
 
     @GET("/queryItems")
     func queryItems(limit: Int) async throws -> Res<Int>
@@ -114,7 +114,7 @@ struct VaporPapyrusTestingTests {
     @Test func completionNotImplemented() async throws {
         let app = try await Application.make(.testing)
         let provider = Provider.vaporTestingProvider(app: app)
-        var requestBuilder = RequestBuilder(baseURL: "", method: "", path: "")
+        let requestBuilder = RequestBuilder(baseURL: "", method: "", path: "")
         provider.request(requestBuilder) { res in
             #expect(res.error as? TestingRequestError == .functionNotImplemented)
         }

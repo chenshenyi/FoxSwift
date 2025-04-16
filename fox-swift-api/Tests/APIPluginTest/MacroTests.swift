@@ -107,7 +107,8 @@ struct MacroTests {
                 public func boot(routes: any Vapor.RoutesBuilder) throws {
                     routes.on(.init(rawValue: "GET"), "test") { request in
 
-                        return try await Service(request: request).test()
+                        return try await Service(request: request)
+                            .test()
                     }
                 }
             }
@@ -172,7 +173,8 @@ struct MacroTests {
                 public func boot(routes: any Vapor.RoutesBuilder) throws {
                     routes.on(.init(rawValue: "GET"), "test", ":id", "name") { request in
 
-                        return try await Service(request: request).test()
+                        return try await Service(request: request)
+                            .test()
                     }
                 }
             }
@@ -206,7 +208,8 @@ struct MacroTests {
                     routes.on(.init(rawValue: "GET"), "test", ":id", "name") { request in
                         let name: String = try request.getQuery(at: "name")
 
-                        return try await Service(request: request).test(name: name)
+                        return try await Service(request: request)
+                            .test(name: name)
                     }
                 }
             }
@@ -240,7 +243,8 @@ struct MacroTests {
                     routes.on(.init(rawValue: "GET"), "test", ":id", "name") { request in
                         let id: Int = try request.getParameter(name: "id")
 
-                        return try await Service(request: request).test(id: id)
+                        return try await Service(request: request)
+                            .test(id: id)
                     }
                 }
             }
@@ -274,7 +278,8 @@ struct MacroTests {
                     routes.on(.init(rawValue: "POST"), "test", ":id", "name") { request in
                         let body: Body<MyCodable> = try request.getBody()
 
-                        return try await Service(request: request).test(body: body)
+                        return try await Service(request: request)
+                            .test(body: body)
                     }
                 }
             }
@@ -307,7 +312,8 @@ struct MacroTests {
                 public func boot(routes: any Vapor.RoutesBuilder) throws {
                     routes.on(.init(rawValue: "POST"), "test", ":id", "name") { request in
 
-                        return try await Service(request: request).test()
+                        return try await Service(request: request)
+                            .test()
                     }
                 }
             }
@@ -346,7 +352,8 @@ struct MacroTests {
                         let generic: MyGeneric<T> = try request.getQuery(at: "generic")
                         let nothing: Query<Bool> = try request.getQuery(at: "nothing")
 
-                        return try await Service(request: request).test(body: body, id: id, name: name, something: something, generic: generic, nothing: nothing)
+                        return try await Service(request: request)
+                            .test(body: body, id: id, name: name, something: something, generic: generic, nothing: nothing)
                     }
                 }
             }
