@@ -1,0 +1,29 @@
+prompt = """
+The user has invoked the `/git:branch` command with the argument `{{args}}`.
+This command is intended to create a new git branch.
+
+Branch naming convention: `type/description-of-feature`.
+Examples: `feature/add-user-profile`, `bugfix/resolve-login-issue`, `chore/update-dependencies`.
+
+## Allowed Types
+
+- feature
+- fix
+- chore
+- refactor
+- test
+- docs
+- style
+- perf
+- build
+- ci
+- revert
+
+## Tasks
+
+1. understand what this branch is for
+2. according to the target, generate a new branch name
+3. execute the shell command `git switch -c <branch-name>` to create and switch to the new branch
+4. inform the user that the branch has been created and checked out
+"""
+description = "Creates a new git branch with a specified name, following a convention."
