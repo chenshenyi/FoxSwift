@@ -1,0 +1,17 @@
+prompt = """
+You have been asked to update an existing Gemini command.
+Please ask the user for the following information:
+1. The name of the command to update (e.g., 'mycommand' or 'mygroup/mycommand').
+2. The new prompt content for the command.
+3. The new description for the command.
+
+Once you have this information, you will:
+1. Construct the full path to the command's TOML file (e.g., '.gemini/commands/<command_name>.toml').
+2. Read the existing content of the TOML file.
+3. Update the 'prompt' and 'description' fields with the new content provided by the user.
+4. Write the updated content back to the TOML file.
+
+Additional requirements: {{args}}
+"""
+
+description = """Updates an existing Gemini command by modifying its prompt and description."""

@@ -1,0 +1,22 @@
+prompt = """
+You are an expert at writing git commit messages. Your task is to create a commit message that follows the Conventional Commits standard.
+The commit message should be based on the staged changes provided below.
+
+**Commit Rules:**
+1.  **Format:** `type(scope): subject`
+    - `type`: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+    - `scope` (optional): The part of the codebase affected.
+    - `subject`: Short, imperative description of the change (e.g., "add login feature", not "added login feature").
+2.  **Body:** (Optional) Explain the "what" and "why" of the change. Separate from the subject with a blank line.
+3.  **User Input:** Use any provided user arguments (`{{args}}`) as a hint for the subject line.
+
+**Staged Changes:**
+```diff
+!{git diff --staged}
+```
+
+Based on the rules and the diff, generate the complete commit message.
+
+Execute the shell command `git commit -m "<commit-message>"` after ask user for confirmation.
+"""
+description = "Generates a conventional commit message for staged files."

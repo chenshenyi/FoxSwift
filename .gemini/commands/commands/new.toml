@@ -1,0 +1,62 @@
+prompt = """
+# How to Create a New Gemini Command
+
+This is a template and guide for creating your own custom commands in the Gemini CLI.
+
+## 1. Command File Location
+
+- **Project-specific:** Place your command file in `.gemini/commands/` within your project's root directory.
+- **Global:** Place it in `~/.gemini/commands/` to make it available everywhere.
+
+Project commands override global commands if they have the same name.
+
+## 2. Naming and Structure
+
+- **Filename:** The command name is the filename (e.g., `mycommand.toml`).
+- **Namespacing:** Use subdirectories to group commands (e.g., `git/commit.toml` becomes `/git:commit`).
+
+## 3. TOML File Content
+
+Your command file must be in TOML format.
+
+```toml
+# The prompt that will be sent to the Gemini model.
+prompt = \"\"\"
+Your prompt content goes here. You can use variables and shell commands.
+For example:
+- User input: \\{\\{args\\}\\}
+- Shell command output: !\\{ls -la\\}
+- File content: \\@\\{path/to/your/file.txt\\}
+\"\"\"
+
+# A brief, one-line description for the /help menu.
+description = "A short description of what this command does."
+
+# (Optional) Specify the model to use.
+# model = "gemini-1.5-pro-latest"
+
+# (Optional) Set the creativity/randomness (0.0 to 2.0).
+# temperature = 0.7
+```
+
+## 4. Dynamic Content in Prompts
+
+- `\\{\\{args\\}\\}`: Injects user-provided arguments. If omitted, arguments are appended to the prompt.
+    - Warning: Be careful to use `\\{\\{args\\}\\}` in the prompt. It will be replaced with the user's input.
+    - Note: You can use `<arg-name>` in the prompt to refer to result after ai thinking.
+- `!\\{shell_command\\}`: Executes a shell command and injects its standard output. Requires user confirmation.
+    - Warning: Never use `\\{\\{args\\}\\}` for shell command
+- `\\@\\{path/to/file\\}`: Injects the content of a specified file or a listing of a directory.
+
+**Example: A `/greet` command**
+
+Create `.gemini/commands/greet.toml`:
+```toml
+prompt = "Please act as a friendly greeter and say hello to \\{\\{args\\}\\}."
+description = "Greets the user with a personalized message."
+```
+**Usage:** `/greet World`
+
+After creating the file, your new command is immediately available.
+"""
+description = "Provides instructions and a template for creating new Gemini commands."
