@@ -1,0 +1,146 @@
+excluded:
+  - ${PWD}/DerivedData
+  - ${PWD}/.archived
+  - ${PWD}/.gemini
+  - ${PWD}/.specify
+  - ${PWD}/.github
+
+disabled_rules:
+  - discarded_notification_center_observer # Disabled because Combine is used for notification handling.
+  - notification_center_detachment # Disabled because Combine is used for notification handling.
+  - unused_capture_list # Deprecated rule, compiler provides equivalent warning.
+  - attribute_name_spacing # Disabled because compiler will check in the future.
+  - implicit_optional_initialization # Disabled to allow implicit nil initialization of optionals.
+  - inclusive_language # Disabled to allow more flexible terminology in identifiers.
+
+opt_in_rules:
+  - todo # Flags TODO and FIXME comments
+  - orphaned_doc_comment # Ensures documentation comments are associated with a declaration.
+  - blanket_disable_command # Encourages precise control over disabling SwiftLint rules.
+  - block_based_kvo # Promotes the use of modern block-based KVO API.
+  - class_delegate_protocol # Ensures delegate protocols are class-only.
+  - closing_brace # Ensures no whitespace between closing brace and closing parenthesis.
+  - closure_parameter_position # Enforces closure parameters to be on the same line as the opening brace.
+  - colon # Enforces proper spacing around colons.
+  - comma # Enforces proper spacing around commas.
+  - comment_spacing # Enforces at least one space after the slashes for comments.
+  - compiler_protocol_init # Flags direct calls to initializers declared in compiler protocols.
+  - computed_accessors_order # Enforces consistent order for getters and setters in computed properties.
+  - control_statement # Ensures control statements do not unnecessarily wrap conditionals in parentheses.
+  - cyclomatic_complexity # Limits the complexity of function bodies.
+  - deployment_target # Flags redundant availability checks based on deployment target.
+  - discouraged_direct_init # Prevents direct initialization of certain types (e.g., Bundle, NSError, UIDevice).
+  - duplicate_conditions # Prevents redundant conditional checks within the same branch instruction.
+  - duplicate_enum_cases # Prevents an enum from containing multiple cases with the same name.
+  - duplicate_imports # Ensures all import statements are unique.
+  - duplicated_key_in_dictionary_literal # Identifies dictionary literals that contain duplicate keys.
+  - dynamic_inline # Prevents combined use of dynamic and @inline(__always).
+  - empty_enum_arguments # Suggests omitting arguments when matching enums with associated values if those arguments are not used.
+  - empty_parameters # Enforces () over Void for empty parameters in closures/function types.
+  - empty_parentheses_with_trailing_closure # Discourages empty parentheses after a method call when a trailing closure is used.
+  - for_where # Encourages using where clauses directly within for loops for filtering.
+  - force_cast # Discourages the use of force casts (as!) due to potential runtime crashes.
+  - force_try # Discourages the use of try! due to potential runtime crashes.
+  - function_body_length # Limits the number of lines in a function's body.
+  - function_name_whitespace # Enforces consistent spacing around operators within a function name.
+  - function_parameter_count # Limits the number of parameters in a function.
+  - generic_type_name # Enforces naming conventions for generic type parameters.
+  - identifier_name # Enforces naming conventions for identifiers.
+  - implicit_getter # Discourages explicit get keyword for computed read-only properties.
+  - invalid_swiftlint_command # Flags malformed or typo-ridden SwiftLint commands.
+  - is_disjoint # Encourages using Set.isDisjoint(with:) over Set.intersection(_:).isEmpty.
+  - large_tuple # Prevents the use of tuples with an excessive number of members.
+  - leading_whitespace # Ensures files do not contain any whitespace at their very beginning.
+  - legacy_cggeometry_functions # Encourages modern Swift syntax for CGGeometry functions.
+  - legacy_constant # Encourages struct-scoped constants over legacy global constants.
+  - legacy_constructor # Encourages modern Swift constructors over older convenience functions.
+  - legacy_hashing # Encourages hash(into:) over overriding hashValue.
+  - legacy_nsgeometry_functions # Encourages modern Swift syntax for NSGeometry functions.
+  - line_length # Limits the length of lines of code.
+  - mark # Enforces correct format for // MARK: comments.
+  - nesting # Limits the depth of nested types and functions.
+  - no_fallthrough_only # Ensures fallthrough statements are not used as the sole statement within a case.
+  - no_space_in_method_call # Enforces no space between a method name and its opening parenthesis.
+  - non_optional_string_data_conversion # Enforces non-optional methods for String-Data conversion with UTF-8.
+  - ns_number_init_as_function_reference # Flags NSNumber.init(value:) used as a function reference.
+  - nsobject_prefer_isequal # Suggests NSObject subclasses implement isEqual over ==.
+  - opening_brace # Ensures opening braces are preceded by a single space and on the same line as the declaration.
+  - optional_data_string_conversion # Encourages failable String(data:encoding:) for Data to String conversion.
+  - private_over_fileprivate # Encourages private over fileprivate when fileprivate is not strictly required.
+  - private_unit_test # Prevents unit tests from being inadvertently skipped due to private access modifier.
+  - protocol_property_accessors_order # Enforces get before set for property accessors in protocols.
+  - reduce_boolean # Encourages .allSatisfy() or .contains() over reduce(true) or reduce(false) for boolean reductions.
+  - redundant_discardable_let # Removes unnecessary let keyword when discarding a value.
+  - redundant_objc_attribute # Identifies and flags unnecessary @objc attributes.
+  - redundant_sendable # Flags redundant Sendable conformance.
+  - redundant_set_access_control # Identifies and flags redundant access control specifications for property setters.
+  - redundant_string_enum_value # Flags String enum cases where the explicitly assigned raw value is identical to the case's name.
+  - redundant_void_return # Flags explicit Void returns in function declarations as redundant.
+  - return_arrow_whitespace # Ensures proper spacing between return arrow (->) and return type.
+  - self_in_property_initialization # Flags self used directly in a property's initialization closure, referring to the type instead of the instance.
+  - shorthand_operator # Encourages the use of shorthand assignment operators.
+  - static_over_final_class # Encourages static over final class for members that don't require dynamic dispatch.
+  - syntactic_sugar # Enforces the use of shorthand syntactic sugar (e.g., [Int] instead of Array<Int>).
+  - trailing_comma # Enforces or forbids trailing commas in arrays and dictionaries.
+  - trailing_newline # Ensures files end with a single trailing newline character.
+  - trailing_semicolon # Ensures lines of Swift code do not end with semicolons.
+  - trailing_whitespace # Detects and flags unnecessary whitespace at the end of lines.
+  - type_body_length # Enforces a maximum line count for the body of a type.
+  - type_name # Enforces naming conventions for types (classes, structs, enums, protocols, typealiases).
+  - unavailable_condition # Encourages #unavailable over #available when the latter would have an empty body.
+  - unneeded_break_in_switch # Flags break statements in switch cases where they are not necessary.
+  - unneeded_synthesized_initializer # Flags initializers that would otherwise be automatically synthesized by the Swift compiler.
+  - unused_closure_parameter # Flags unused parameters in closures.
+  - unused_control_flow_label # Flags unused control flow labels.
+  - unused_enumerated # Encourages using .enumerated() when both index and value are needed.
+  - unused_optional_binding # Unused Optional Binding
+  - unused_setter_value # Unused Setter Value
+  - valid_ibinspectable # Valid IBInspectable
+  - vertical_parameter_alignment # Vertical Parameter Alignment
+  - vertical_whitespace # Vertical Whitespace
+  - void_function_in_ternary # Void Function in Ternary
+  - void_return # Void Return
+  - xctfail_message # XCTFail Message
+
+line_length:
+  warning: 80
+  error: 100
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_multiline_strings: true
+
+identifier_name:
+  min_length:
+    warning: 3
+  validates_start_with_lowercase: true
+  allowed_symbols: ["_"]
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z
+    - vc
+    - nav
+    - db
+
+function_body_length:
+    warning: 100
+    error: 150
+
+function_parameter_count:
+  warning: 3
+  error: 5
+
+nesting:
+  type_level: 2
+  function_level: 2
+
+file_length:
+  warning: 300
+  error: 500
+
+trailing_comma:
+  mandatory_comma: true
