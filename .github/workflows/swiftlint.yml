@@ -1,0 +1,15 @@
+name: SwiftLint
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  swiftlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SwiftLint
+        uses: norio-nomura/action-swiftlint
+        with:
+          args: --config .config/.swiftlint.yml

@@ -8,5 +8,9 @@ If the user does not provide a title or body, you should run 'gh pr create' inte
 After creating the pull request, please provide the URL to the user.
 
 Execute the shell command `gh pr create` after ask user for confirmation.
+
+If not specified, the pull request will be created on the current branch, and the target branch will be `origin/refactor/refactor-whole-project`.
+
+!{git log origin/refactor/refactor-whole-project...HEAD}
 """
 description = "Create a pull request for the current branch using 'gh'."
